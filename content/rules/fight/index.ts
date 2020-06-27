@@ -1,0 +1,1 @@
+export { FightRules } from './FightRules'

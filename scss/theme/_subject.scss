@@ -1,0 +1,9 @@
+.subject {
+  &:target {
+    & > .subject-title {
+      a, .title {
+        color: #ff7e00;
+      }
+    }
+  }
+}

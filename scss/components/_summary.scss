@@ -1,0 +1,68 @@
+.summary {
+  margin-bottom: $xs-content-spacing;
+
+  .summary-element {
+    display: block;
+    overflow: hidden;
+
+    white-space: nowrap;
+
+    &:after {
+      content: '..................................................................................................................................';
+      display: inline-block;
+
+      width: auto;
+      margin-left: 5px;
+
+      color: #999999;
+    }
+  }
+
+  .summary-depth-0 {
+    margin-left: 0px;
+  }
+
+  .summary-depth-1 {
+    margin-left: 20px;
+  }
+
+  .summary-depth-2 {
+    margin-left: 40px;
+  }
+
+  .summary-depth-3 {
+    margin-left: 60px;
+  }
+
+  .summary-depth-4 {
+    margin-left: 80px;
+  }
+
+  .summary-depth-5 {
+    margin-left: 100px;
+  }
+
+  .summary-depth-6 {
+    margin-left: 120px;
+  }
+}
+
+
+
+@include media-breakpoint-up(xs) {
+  .summary {
+    margin-bottom: $sm-content-spacing;
+  }
+}
+
+@include media-breakpoint-up(sm) {
+  .summary {
+    margin-bottom: $md-content-spacing;
+  }
+}
+
+@include media-breakpoint-up(md) {
+  .summary {
+    margin-bottom: $lg-content-spacing;
+  }
+}

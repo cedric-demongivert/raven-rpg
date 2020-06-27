@@ -1,0 +1,6 @@
+export { Subject } from './Subject'
+export { SubjectContent } from './SubjectContent'
+export { SubjectIdentifier } from './SubjectIdentifier'
+export { SubjectKeyword } from './SubjectKeyword'
+export { SubjectSummary } from './SubjectSummary'
+export { SubjectTitle } from './SubjectTitle'

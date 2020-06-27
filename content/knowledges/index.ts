@@ -1,0 +1,1 @@
+export { Knowledges } from './Knowledges'
