@@ -14,6 +14,10 @@ function * range (count : number) : Iterable<number> {
   }
 }
 
+function cost (intoxication : number) : number {
+  return intoxication * (intoxication + 1) / 2
+}
+
 export function EtherPoisoning () : ReactElement {
   return (
     <Subject>
@@ -54,7 +58,7 @@ export function EtherPoisoning () : ReactElement {
                 [...range(20)].map(function renderCell (index : number) : ReactElement {
                   return (
                     <td style={{width: '40px'}} key={index + 1}>
-                      {(((index + 1) * (index + 2))/(2 * 24)).toFixed(1)}j
+                      {(cost(index + 1) / 24).toFixed(1)}j
                     </td>
                   )
                 })
@@ -65,7 +69,7 @@ export function EtherPoisoning () : ReactElement {
                 [...range(20)].map(function renderCell (index : number) : ReactElement {
                   return (
                     <td style={{width: '40px'}} key={index + 1}>
-                      {((index + 1) * (index + 2))/2}h
+                      {cost(index + 1)}h
                     </td>
                   )
                 })

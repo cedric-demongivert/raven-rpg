@@ -11,7 +11,9 @@ import { LocalSummary } from '../../components/LocalSummary'
 
 import { Introduction } from './Introduction'
 import { EtherPoisoning } from './EtherPoisoning'
-import { Processing } from './Processing'
+import { Definitions } from './Definitions'
+import { Transformations } from './transformations'
+import { PrimitiveMaterials } from './primitiveMaterials'
 
 export function Alchemy () : ReactElement {
   return (
@@ -27,7 +29,9 @@ export function Alchemy () : ReactElement {
 
         <Introduction />
         <EtherPoisoning />
-        <Processing />
+        <Definitions />
+        <Transformations />
+        <PrimitiveMaterials />
       </SubjectContent>
     </Subject>
   )
