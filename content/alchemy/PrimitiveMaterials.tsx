@@ -9,31 +9,32 @@ import { SubjectIdentifier } from '../../components/subject/SubjectIdentifier'
 import { Subject } from '../../components/subject/Subject'
 import { LocalSummary } from '../../components/LocalSummary'
 
-import { Introduction } from './Introduction'
-import { EtherPoisoning } from './EtherPoisoning'
-import { Definitions } from './Definitions'
-import { Transformations } from './transformations'
-import { PrimitiveMaterials } from './PrimitiveMaterials'
-import { ProcessedMaterials } from './ProcessedMaterials'
+import { AlchemicMaterialSubjects } from '../../components/alchemy/AlchemicMaterialSubjects'
+import { AlchemicMaterial } from '../../typescript/alchemy/AlchemicMaterial'
 
-export function Alchemy () : ReactElement {
+import { ALL } from '../../typescript/data/alchemy/primitive'
+
+export function PrimitiveMaterials () : ReactElement {
+  const all : AlchemicMaterial[] = [].concat(ALL)
+
+  all.sort(function (a : AlchemicMaterial, b : AlchemicMaterial) : number {
+    return a.name.localeCompare(b.name)
+  })
+
   return (
     <Subject>
-      <SubjectIdentifier>alchemy</SubjectIdentifier>
+      <SubjectIdentifier>alchemy-primitive-materials</SubjectIdentifier>
       <SubjectKeyword>Alchimie</SubjectKeyword>
-      <SubjectTitle>Alchimie</SubjectTitle>
+      <SubjectKeyword>Matière</SubjectKeyword>
+      <SubjectKeyword>Élément primitif</SubjectKeyword>
+      <SubjectTitle>Éléments primitifs</SubjectTitle>
       <SubjectSummary>
 
       </SubjectSummary>
       <SubjectContent>
         <LocalSummary />
 
-        <Introduction />
-        <EtherPoisoning />
-        <Definitions />
-        <Transformations />
-        <PrimitiveMaterials />
-        <ProcessedMaterials />
+        <AlchemicMaterialSubjects>{ all }</AlchemicMaterialSubjects>
       </SubjectContent>
     </Subject>
   )

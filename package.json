@@ -12,6 +12,7 @@
     "@cedric-demongivert/gl-tool-collection": "^0.23.0",
     "classnames": "^2.2.6",
     "immutable": "^4.0.0-rc.12",
+    "lodash": "^4.17.15",
     "next": "9.3.5",
     "react": "16.13.1",
     "react-dom": "16.13.1",

@@ -17,6 +17,7 @@ import { Distillation } from './Distillation'
 import { Infusion } from './Infusion'
 import { Maceration } from './Maceration'
 import { Percolation } from './Percolation'
+import { Reduction } from './Reduction'
 
 export function Transformations () : ReactElement {
   return (
@@ -32,35 +33,40 @@ export function Transformations () : ReactElement {
         <LocalSummary />
 
         <div className='row'>
-          <div className='col-xs-12 col-md-6'>
+          <div className='col-xs-12 col-lg-6'>
             <Concentration />
           </div>
-          <div className='col-xs-12 col-md-6'>
+          <div className='col-xs-12 col-lg-6'>
             <Decoction />
           </div>
         </div>
         <div className='row'>
-          <div className='col-xs-12 col-md-6'>
+          <div className='col-xs-12 col-lg-6'>
             <Dilution />
           </div>
-          <div className='col-xs-12 col-md-6'>
+          <div className='col-xs-12 col-lg-6'>
             <Dissolution />
           </div>
         </div>
         <div className='row'>
-          <div className='col-xs-12 col-md-6'>
+          <div className='col-xs-12 col-lg-6'>
             <Distillation />
           </div>
-          <div className='col-xs-12 col-md-6'>
+          <div className='col-xs-12 col-lg-6'>
             <Infusion />
           </div>
         </div>
         <div className='row'>
-          <div className='col-xs-12 col-md-6'>
+          <div className='col-xs-12 col-lg-6'>
             <Maceration />
           </div>
-          <div className='col-xs-12 col-md-6'>
+          <div className='col-xs-12 col-lg-6'>
             <Percolation />
+          </div>
+        </div>
+        <div className='row justify-content-center'>
+          <div className='col-xs-12 col-lg-6'>
+            <Reduction />
           </div>
         </div>
       </SubjectContent>

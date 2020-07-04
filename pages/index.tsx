@@ -8,7 +8,7 @@ import { Content } from '../content/Content'
 
 export default function index (props : any) : ReactElement {
   return (
-    <div className='application'>
+    <div className='application' id='application'>
       <Head>
         <title>Corvus</title>
         <meta name='viewport' content='initial-scale=1.0, width=device-width' />

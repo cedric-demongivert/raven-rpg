@@ -8,23 +8,22 @@ import { SubjectKeyword } from '../../../components/subject/SubjectKeyword'
 import { SubjectIdentifier } from '../../../components/subject/SubjectIdentifier'
 import { Subject } from '../../../components/subject/Subject'
 
-export function Helenite () : ReactElement {
+export function Reduction () : ReactElement {
   return (
     <Subject>
-      <SubjectIdentifier>alchemy-primitive-material-helenite</SubjectIdentifier>
+      <SubjectIdentifier>alchemy-transformation-reduction</SubjectIdentifier>
       <SubjectKeyword>Alchimie</SubjectKeyword>
-      <SubjectKeyword>Matière</SubjectKeyword>
-      <SubjectKeyword>Élément primitif</SubjectKeyword>
-      <SubjectKeyword>Hélénite</SubjectKeyword>
-      <SubjectTitle>Hélénite</SubjectTitle>
+      <SubjectKeyword>Transformation</SubjectKeyword>
+      <SubjectKeyword>Réduction</SubjectKeyword>
+      <SubjectTitle>Réduction</SubjectTitle>
       <SubjectSummary>
 
       </SubjectSummary>
       <SubjectContent>
         <p>
-          L'hélénite est un arbustre sauvage produisant des petites baies
-          rondes dorées légèrement translucide. C'est une plante rare, et la
-          coutume veut que consommer ces fruits porte chance.
+          La réduction est une forme dégénérée de distillation qui consiste à
+          éliminer les propriétés d'une matière qui bouilleront en premier. Soit
+          à dépiler des propriétés de la liste de propriétés d'une matière.
         </p>
       </SubjectContent>
     </Subject>

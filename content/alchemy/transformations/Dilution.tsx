@@ -21,11 +21,10 @@ export function Dilution () : ReactElement {
       </SubjectSummary>
       <SubjectContent>
         <p>
-          La dilution est une transformation lente qui permet de réduire
-          les effets d'une matière liquide ayant les mêmes propriétés
-          alchimiques. La qualité d'une dilution est équivalente à la qualité
-          du produit dilué. Il n'est pas possible de diluer un produit à un
-          degré tel qu'on ne puisse diviser chacune de ses propriétés
+          La dilution est une transformation qui permet de réduire les effets
+          d'une matière liquide. La qualité d'une dilution est équivalente à la
+          qualité du produit dilué. Il n'est pas possible de diluer un produit à
+          un degré tel qu'on ne puisse diviser chacune de ses propriétés
           alchimiques par le degré de dilution choisi. Pour diluer il faut
           uniquement un contenant libre et du solvant. La dilution ne
           nécéssite aucune connaissance particulière.

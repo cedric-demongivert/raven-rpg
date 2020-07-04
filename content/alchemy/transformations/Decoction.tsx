@@ -21,7 +21,7 @@ export function Decoction () : ReactElement {
       </SubjectSummary>
       <SubjectContent>
         <p>
-          La décoction est une transformation lente qui permet d'extraire des
+          La décoction est une transformation qui permet d'extraire des
           propriétés alchimiques en disolvant de la matière dans l'eau. C'est
           une transformation un peut plus complexe que l'infusion qui nécéssite
           un kit d'alchimiste comprenant mortier et pilon afin de pré-traiter la
@@ -36,7 +36,9 @@ export function Decoction () : ReactElement {
 
         <p>
           Pour réaliser une décoction il faut réaliser un test d'auto-résolution
-          en utilisant son niveau de connaissance de la décoction.
+          en utilisant son niveau de connaissance de la décoction. La qualité
+          d'une décoction équivaut à la moyenne entre la qualité de la matière
+          première utilisée et la qualité de la décoction elle même.
         </p>
       </SubjectContent>
     </Subject>

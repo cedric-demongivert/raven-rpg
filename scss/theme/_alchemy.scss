@@ -1,0 +1,5 @@
+.data-alchemic-property {
+  & + & {
+    border-top: solid 1px lighten($text-color, 90%);
+  }
+}

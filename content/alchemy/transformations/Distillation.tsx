@@ -34,9 +34,9 @@ export function Distillation () : ReactElement {
         </p>
 
         <p>
-          Pour réaliser une distillation il faut réaliser un test
-          d'auto-résolution en utilisant son niveau de connaissance de la
-          distillation.
+          Pour réaliser une distillation il faut réaliser un test d'opposition
+          entre la connaissance de la distillation de l'alchimiste et le nombre
+          et la qualité des produits à séparés.
         </p>
       </SubjectContent>
     </Subject>
