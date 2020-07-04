@@ -49,25 +49,25 @@ export function MartialStyleMasteries () : ReactElement {
         </div>
 
         <div className='row'>
-          <div className='col-xs-12 col-md-6'>
+          <div className='col-xs-12 col-lg-6'>
             <TwoHandedWeaponFightingMastery />
           </div>
-          <div className='col-xs-12 col-md-6'>
+          <div className='col-xs-12 col-lg-6'>
             <OneHandedWeaponFightingMastery />
           </div>
         </div>
 
         <div className='row'>
-          <div className='col-xs-12 col-md-6'>
+          <div className='col-xs-12 col-lg-6'>
             <WeaponAndShieldFightingMastery />
           </div>
-          <div className='col-xs-12 col-md-6'>
+          <div className='col-xs-12 col-lg-6'>
             <TwoWeaponFightingMastery />
           </div>
         </div>
 
         <div className='row justify-content-center'>
-          <div className='col-xs-12 col-md-6'>
+          <div className='col-xs-12 col-lg-6'>
             <UnarmedFightingMastery />
           </div>
         </div>

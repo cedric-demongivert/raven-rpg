@@ -42,46 +42,46 @@ export function SupportMasteries () : ReactElement {
         </div>
 
         <div className="row">
-          <div className="col-xs-12 col-md-6">
+          <div className="col-xs-12 col-lg-6">
             <AcrobaticsMastery />
           </div>
-          <div className="col-xs-12 col-md-6">
+          <div className="col-xs-12 col-lg-6">
             <LockPickingMastery />
           </div>
         </div>
 
         <div className="row justify-content-center">
-          <div className="col-xs-12 col-md-6">
+          <div className="col-xs-12 col-lg-6">
             <DiscretionMastery />
           </div>
-          <div className="col-xs-12 col-md-6">
+          <div className="col-xs-12 col-lg-6">
             <HorseRidingMastery />
           </div>
         </div>
 
         <div className="row justify-content-center">
-          <div className="col-xs-12 col-md-6">
+          <div className="col-xs-12 col-lg-6">
             <ClimbingMastery />
           </div>
-          <div className="col-xs-12 col-md-6">
+          <div className="col-xs-12 col-lg-6">
             <DodgeMastery />
           </div>
         </div>
 
         <div className="row justify-content-center">
-          <div className="col-xs-12 col-md-6">
+          <div className="col-xs-12 col-lg-6">
             <SearchMastery />
           </div>
-          <div className="col-xs-12 col-md-6">
+          <div className="col-xs-12 col-lg-6">
             <SwimingMastery />
           </div>
         </div>
 
         <div className="row justify-content-center">
-          <div className="col-xs-12 col-md-6">
+          <div className="col-xs-12 col-lg-6">
             <PerceptionMastery />
           </div>
-          <div className="col-xs-12 col-md-6">
+          <div className="col-xs-12 col-lg-6">
             <SleightOfHandMastery />
           </div>
         </div>

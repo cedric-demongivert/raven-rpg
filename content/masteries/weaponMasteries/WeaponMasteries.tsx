@@ -50,70 +50,70 @@ export function WeaponMasteries () : ReactElement {
         </div>
 
         <div className='row'>
-          <div className='col-xs-12 col-md-6'>
+          <div className='col-xs-12 col-lg-6'>
             <LightCrossbowMastery />
           </div>
-          <div className='col-xs-12 col-md-6'>
+          <div className='col-xs-12 col-lg-6'>
             <HeavyCrossbowMastery />
           </div>
         </div>
 
         <div className='row'>
-          <div className='col-xs-12 col-md-6'>
+          <div className='col-xs-12 col-lg-6'>
             <ShortBowMastery />
           </div>
-          <div className='col-xs-12 col-md-6'>
+          <div className='col-xs-12 col-lg-6'>
             <LongBowMastery />
           </div>
         </div>
 
         <div className='row'>
-          <div className='col-xs-12 col-md-6'>
+          <div className='col-xs-12 col-lg-6'>
             <RodMastery />
           </div>
-          <div className='col-xs-12 col-md-6'>
+          <div className='col-xs-12 col-lg-6'>
             <ShieldMastery />
           </div>
         </div>
 
         <div className='row'>
-          <div className='col-xs-12 col-md-6'>
+          <div className='col-xs-12 col-lg-6'>
             <DaggerMastery />
           </div>
-          <div className='col-xs-12 col-md-6'>
+          <div className='col-xs-12 col-lg-6'>
             <BastardSwordMastery />
           </div>
         </div>
 
         <div className='row'>
-          <div className='col-xs-12 col-md-6'>
+          <div className='col-xs-12 col-lg-6'>
             <ShortSwordMastery />
           </div>
-          <div className='col-xs-12 col-md-6'>
+          <div className='col-xs-12 col-lg-6'>
             <LongSwordMastery />
           </div>
         </div>
 
         <div className='row'>
-          <div className='col-xs-12 col-md-6'>
+          <div className='col-xs-12 col-lg-6'>
             <AxeMastery />
           </div>
-          <div className='col-xs-12 col-md-6'>
+          <div className='col-xs-12 col-lg-6'>
             <WarAxeMastery />
           </div>
         </div>
 
         <div className='row'>
-          <div className='col-xs-12 col-md-6'>
+          <div className='col-xs-12 col-lg-6'>
             <SpearMastery />
           </div>
-          <div className='col-xs-12 col-md-6'>
+          <div className='col-xs-12 col-lg-6'>
             <HammerMastery />
           </div>
         </div>
 
         <div className='row justify-content-center'>
-          <div className='col-xs-12 col-md-6'>
+          <div className='col-xs-12 col-lg-6'>
             <WarHammerMastery />
           </div>
         </div>

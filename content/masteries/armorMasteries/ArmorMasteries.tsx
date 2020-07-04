@@ -42,16 +42,16 @@ export function ArmorMasteries () : ReactElement {
         </div>
 
         <div className='row'>
-          <div className='col-xs-12 col-md-6'>
+          <div className='col-xs-12 col-lg-6'>
             <MediumArmorMastery />
           </div>
-          <div className='col-xs-12 col-md-6'>
+          <div className='col-xs-12 col-lg-6'>
             <LightArmorMastery />
           </div>
         </div>
 
         <div className='row justify-content-center'>
-          <div className='col-xs-12 col-md-6'>
+          <div className='col-xs-12 col-lg-6'>
             <HeavyArmorMastery />
           </div>
         </div>
