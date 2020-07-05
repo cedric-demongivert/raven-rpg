@@ -24,7 +24,7 @@ export function AlchemicProperty (
           )
         })}
       </Data.Element>
-      <Data.Element static className='data-alchemic-property-duration text-center' width='90px'>
+      <Data.Element static className='data-alchemic-property-duration text-center' width='120px'>
         {properties.children.duration}
       </Data.Element>
       <Data.Element static className='data-alchemic-property-cost text-center' width='50px'>

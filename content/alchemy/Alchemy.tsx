@@ -15,6 +15,7 @@ import { Definitions } from './Definitions'
 import { Transformations } from './transformations'
 import { PrimitiveMaterials } from './PrimitiveMaterials'
 import { ProcessedMaterials } from './ProcessedMaterials'
+import { Solvents } from './solvents'
 
 export function Alchemy () : ReactElement {
   return (
@@ -34,6 +35,7 @@ export function Alchemy () : ReactElement {
         <Transformations />
         <PrimitiveMaterials />
         <ProcessedMaterials />
+        <Solvents />
       </SubjectContent>
     </Subject>
   )

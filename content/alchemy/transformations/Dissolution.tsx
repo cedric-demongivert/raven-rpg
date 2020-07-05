@@ -46,6 +46,12 @@ export function Dissolution () : ReactElement {
           que l'on tente de dissoudre.
         </p>
 
+        <p>
+          Pour le degré de difficulté des solvants prière de se reporter à la
+          <a href='#alchemy-solvents'>section de ce chapitre traitant des
+          solvants.</a>
+        </p>
+
         <table className='table-1d'>
           <tbody>
             <tr>

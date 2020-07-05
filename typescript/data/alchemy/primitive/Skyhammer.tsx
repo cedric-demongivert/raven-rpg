@@ -6,6 +6,10 @@ import { AlchemicMaterial } from '../../../alchemy/AlchemicMaterial'
 import { AlchemicProperty } from '../../../alchemy/AlchemicProperty'
 import { AlchemicTransformation } from '../../../alchemy/AlchemicTransformation'
 
+import { SkyhammerInfusion } from '../processed/SkyhammerInfusion'
+import { WarriorBlessing } from '../processed/WarriorBlessing'
+import { StormLiquor } from '../processed/StormLiquor'
+
 export const Skyhammer : AlchemicMaterial = (
   AlchemicMaterial
     .builder()
@@ -25,5 +29,17 @@ export const Skyhammer : AlchemicMaterial = (
         douloureux.
       </p>
     )
+    .addProperty(
+      AlchemicProperty
+        .builder()
+        .addEffect(<>Force +2</>)
+        .addEffect(<>Chance -2</>)
+        .setCost(2)
+        .setDuration(<>5<Unit>m</Unit> × Qa</>)
+        .build()
+    )
+    .addTransformation(AlchemicTransformation.INFUSION, SkyhammerInfusion)
+    .addTransformation(AlchemicTransformation.DECOCTION, WarriorBlessing)
+    .addTransformation(AlchemicTransformation.MACERATION, StormLiquor)
     .build()
 )
