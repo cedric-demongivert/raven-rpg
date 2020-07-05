@@ -14,7 +14,7 @@ export function HackerFeat () : ReactElement {
       <SubjectIdentifier>feats-hacker</SubjectIdentifier>
       <SubjectKeyword>Feat</SubjectKeyword>
       <SubjectKeyword>Hacker</SubjectKeyword>
-      <SubjectTitle>Hacker (α)</SubjectTitle>
+      <SubjectTitle>Hacker (!)</SubjectTitle>
       <SubjectSummary>
 
       </SubjectSummary>

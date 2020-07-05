@@ -6,6 +6,10 @@ import { AlchemicMaterial } from '../../../alchemy/AlchemicMaterial'
 import { AlchemicProperty } from '../../../alchemy/AlchemicProperty'
 import { AlchemicTransformation } from '../../../alchemy/AlchemicTransformation'
 
+import { GreenleavesCurse } from '../processed/GreenleavesCurse'
+import { GreenleavesPurifier } from '../processed/GreenleavesPurifier'
+import { GreenleavesInfusion } from '../processed/GreenleavesInfusion'
+
 export const Greenleaves : AlchemicMaterial = (
   AlchemicMaterial
     .builder()
@@ -24,5 +28,17 @@ export const Greenleaves : AlchemicMaterial = (
         d'un corps malade.
       </p>
     )
+    .addProperty(
+      AlchemicProperty
+        .builder()
+        .addEffect(<>Fièvre</>)
+        .addEffect(<>Pouvoir -2</>)
+        .setCost(0)
+        .setDuration(<>10<Unit>m</Unit> × Qa</>)
+        .build()
+    )
+    .addTransformation(AlchemicTransformation.INFUSION, GreenleavesInfusion)
+    .addTransformation(AlchemicTransformation.DECOCTION, GreenleavesCurse)
+    .addTransformation(AlchemicTransformation.MACERATION, GreenleavesPurifier)
     .build()
 )

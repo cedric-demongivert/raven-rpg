@@ -5,23 +5,22 @@ import { Unit } from '../../../../components/Unit'
 import { AlchemicMaterial } from '../../../alchemy/AlchemicMaterial'
 import { AlchemicProperty } from '../../../alchemy/AlchemicProperty'
 
-export const PandoraInfusion : AlchemicMaterial = (
+export const BloodyBellsInfusion : AlchemicMaterial = (
   AlchemicMaterial
     .builder()
-    .setName('Infusion de pandore')
-    .setIdentifier('pandora-infusion')
+    .setName('Infusion de sanguine')
+    .setIdentifier('bloody-bells-infusion')
     .setDescription(
       <p>
-        L'infusion de pandore est une solution d'écorce de pandore portée à
+        L'infusion de sanguine est une solution de cloches de sanguine portées à
         ébulition pendant une petite dizaine de minute. Cette infusion est
-        connue des anciens druides et des médecins de guerre pour être une
-        option viable permettant de faciliter le traitement des hémoragies.
+        connue pour provoquer une légère hyperactivité passagère.
       </p>
     )
     .addProperty(
       AlchemicProperty
         .builder()
-        .addEffect(<>Coagulant</>)
+        .addEffect(<>Antie-paralysie</>)
         .setCost(1)
         .setDuration(<>1<Unit>r</Unit> + 1<Unit>r</Unit> × ¼Qa</>)
         .build()
@@ -29,7 +28,7 @@ export const PandoraInfusion : AlchemicMaterial = (
     .addProperty(
       AlchemicProperty
         .builder()
-        .addEffect(<>Constitution +1</>)
+        .addEffect(<>Initiative +4</>)
         .setCost(1)
         .setDuration(<>10<Unit>m</Unit> × Qa</>)
         .build()

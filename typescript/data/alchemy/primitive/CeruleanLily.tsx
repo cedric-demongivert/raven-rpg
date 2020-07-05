@@ -6,6 +6,10 @@ import { AlchemicMaterial } from '../../../alchemy/AlchemicMaterial'
 import { AlchemicProperty } from '../../../alchemy/AlchemicProperty'
 import { AlchemicTransformation } from '../../../alchemy/AlchemicTransformation'
 
+import { CeruleanInfusion } from '../processed/CeruleanInfusion'
+import { ParagonBlessing } from '../processed/ParagonBlessing'
+import { NobleBlood } from '../processed/NobleBlood'
+
 export const CeruleanLily : AlchemicMaterial = (
   AlchemicMaterial
     .builder()
@@ -26,5 +30,16 @@ export const CeruleanLily : AlchemicMaterial = (
         liqueur de lys aussi appellée sang des rois.
       </p>
     )
+    .addProperty(
+      AlchemicProperty
+        .builder()
+        .addEffect(<>Intoxication à l'éther +2</>)
+        .setCost(0)
+        .setDuration(<>~</>)
+        .build()
+    )
+    .addTransformation(AlchemicTransformation.INFUSION, CeruleanInfusion)
+    .addTransformation(AlchemicTransformation.DECOCTION, ParagonBlessing)
+    .addTransformation(AlchemicTransformation.MACERATION, NobleBlood)
     .build()
 )

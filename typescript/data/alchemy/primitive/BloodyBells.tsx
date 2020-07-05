@@ -6,6 +6,10 @@ import { AlchemicMaterial } from '../../../alchemy/AlchemicMaterial'
 import { AlchemicProperty } from '../../../alchemy/AlchemicProperty'
 import { AlchemicTransformation } from '../../../alchemy/AlchemicTransformation'
 
+import { BloodyBellsInfusion } from '../processed/BloodyBellsInfusion'
+import { MercenaryBlessing } from '../processed/MercenaryBlessing'
+import { BloodDance } from '../processed/BloodDance'
+
 export const BloodyBells : AlchemicMaterial = (
   AlchemicMaterial
     .builder()
@@ -24,5 +28,17 @@ export const BloodyBells : AlchemicMaterial = (
         poisons hémoragiques.
       </p>
     )
+    .addProperty(
+      AlchemicProperty
+        .builder()
+        .addEffect(<>Initiative +2</>)
+        .addEffect(<>Contrôle -1</>)
+        .setCost(2)
+        .setDuration(<>5<Unit>m</Unit> × Qa</>)
+        .build()
+    )
+    .addTransformation(AlchemicTransformation.INFUSION, BloodyBellsInfusion)
+    .addTransformation(AlchemicTransformation.DECOCTION, MercenaryBlessing)
+    .addTransformation(AlchemicTransformation.MACERATION, BloodDance)
     .build()
 )

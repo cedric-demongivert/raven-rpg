@@ -14,7 +14,7 @@ export function BloodThirstFeat () : ReactElement {
       <SubjectIdentifier>feats-blood-thirst</SubjectIdentifier>
       <SubjectKeyword>Feat</SubjectKeyword>
       <SubjectKeyword>Soif de sang</SubjectKeyword>
-      <SubjectTitle>Soif de sang (α)</SubjectTitle>
+      <SubjectTitle>Soif de sang (!)</SubjectTitle>
       <SubjectSummary>
 
       </SubjectSummary>
