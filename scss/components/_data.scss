@@ -72,11 +72,16 @@
     &.data-list-row {
       flex-direction: row;
       align-items: center;
+
+      & > div, & > .data-element {
+        width: auto;
+      }
     }
 
     & > div, & > .data-element {
       flex-shrink: 1;
       flex-grow: 1;
+      width: 100%;
     }
 
     & > .data-static {

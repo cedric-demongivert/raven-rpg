@@ -7,6 +7,32 @@ import { SubjectTitle } from '../../components/subject/SubjectTitle'
 import { SubjectKeyword } from '../../components/subject/SubjectKeyword'
 import { SubjectIdentifier } from '../../components/subject/SubjectIdentifier'
 import { Subject } from '../../components/subject/Subject'
+import { Formula } from '../../components/Formula'
+
+function range (size : number) : number[] {
+  const result : number[] = []
+
+  for (let index = 0; index < size; ++index) {
+    result.push(index)
+  }
+
+  return result
+}
+
+function cost (index : number) : number {
+  const base : number = Math.ceil(index / 5)
+  return base * (base + 1) / 2
+}
+
+function experience (index : number) : number {
+  let result : number = 0
+
+  for (let costIndex = 0; costIndex <= index; ++costIndex) {
+    result += cost(costIndex)
+  }
+
+  return result
+}
 
 export function Introduction () : ReactElement {
   return (
@@ -23,12 +49,10 @@ export function Introduction () : ReactElement {
           modificateur acquis.
         </p>
 
-        {/*<Math
-          value={
-            '$$\\text{Niveau de maîtrise} = \\text{Modificateur inné} + ' +
-            ' \\text{Modificateur acquis}$$'
-          }
-        />*/}
+        <Formula>{
+          '\\text{Niveau de maîtrise} = \\text{Modificateur inné} + ' +
+          ' \\text{Modificateur acquis}'
+        }</Formula>
 
         <p>
           Le <strong>modificateur d'acquis</strong> d'une maîtrise dépend du total de
@@ -43,78 +67,56 @@ export function Introduction () : ReactElement {
           <tbody>
             <tr>
               <td style={{width: '120px'}}> Expérience </td>
-              <td style={{width: '35px'}}>   0 </td>
-              <td style={{width: '35px'}}>   1 </td>
-              <td style={{width: '35px'}}>   2 </td>
-              <td style={{width: '35px'}}>   3 </td>
-              <td style={{width: '35px'}}>   4 </td>
-              <td style={{width: '35px'}}>   5 </td>
-              <td style={{width: '35px'}}>   8 </td>
-              <td style={{width: '35px'}}>  11 </td>
-              <td style={{width: '35px'}}>  14 </td>
-              <td style={{width: '35px'}}>  17 </td>
-              <td style={{width: '35px'}}>  20 </td>
-              <td style={{width: '35px'}}>  26 </td>
-              <td style={{width: '35px'}}>  32 </td>
-              <td style={{width: '35px'}}>  38 </td>
-              <td style={{width: '35px'}}>  44 </td>
-              <td style={{width: '35px'}}>  50 </td>
-              <td style={{width: '35px'}}>  60 </td>
-              <td style={{width: '35px'}}>  70 </td>
-              <td style={{width: '35px'}}>  80 </td>
-              <td style={{width: '35px'}}>  90 </td>
-              <td style={{width: '35px'}}> 100 </td>
+              {
+                range(21).map((level : number) : ReactElement => (
+                  <td style={{width: '35px'}} key={level}>{
+                    experience(level)
+                  }</td>
+                ))
+              }
             </tr>
             <tr>
-              <th> Points d'acquis </th>
-              <th>  0 </th>
-              <th>  1 </th>
-              <th>  2 </th>
-              <th>  3 </th>
-              <th>  4 </th>
-              <th>  5 </th>
-              <th>  6 </th>
-              <th>  7 </th>
-              <th>  8 </th>
-              <th>  9 </th>
-              <th> 10 </th>
-              <th> 11 </th>
-              <th> 12 </th>
-              <th> 13 </th>
-              <th> 14 </th>
-              <th> 15 </th>
-              <th> 16 </th>
-              <th> 17 </th>
-              <th> 18 </th>
-              <th> 19 </th>
-              <th> 20 </th>
+              <th> Acquis </th>
+              {
+                range(21).map((level : number) : ReactElement => (
+                  <th key={level}>{ level }</th>
+                ))
+              }
             </tr>
           </tbody>
         </table>
 
         <p>
-          Au-delà de 20 points d'acquis le coût de chaque groupe de 5 points consécutif
-          continue de suivre une croissance triangulaire.
+          Au-delà de 20 points d'acquis le coût de chaque groupe de 5 points
+          consécutif continue de suivre une croissance triangulaire.
         </p>
 
-        { /* <Math
-          value={
-            '$$\\forall n \\in \\mathbb{N}, \\text{Coût}(n) = \\frac{' +
-              '\\left \\lceil{\\frac{n}{5}}\\right \\rceil \\times \\left ( ' +
-                '\\left \\lceil{\\frac{n}{5}}\\right \\rceil + 1 ' +
-              '\\right )' +
-            '}{2}$$'
-          }
-        /> */ }
+        <Formula>{
+          '\\forall n \\in \\mathbb{N}, \\text{Coût}(n) = \\frac{' +
+            '\\left \\lceil{\\frac{n}{5}}\\right \\rceil \\times \\left ( ' +
+              '\\left \\lceil{\\frac{n}{5}}\\right \\rceil + 1 ' +
+            '\\right )' +
+          '}{2}'
+        }</Formula>
 
         <p>
           Le <strong>modificateur d'inné</strong> dépend des caractéristiques et
-          varie de -5 points à 5 points. Un modificateur d'inné est égal à la valeur de
-          la caractéristique qui lui est  associé divisé par 2, arrondie à l'entier
-          inférieur. Si le modificateur est associé à deux caractéristiques la
-          caractéristique dite majeure peut impacter le personnage jusqu'à 3 points
-          maximum et la caractéristique secondaire peut impacter le personnage jusqu'à
-          2 points maximum.
+          varie de -5 points à 5 points. Un modificateur d'inné est égal à la
+          valeur de la caractéristique qui lui est associé, soustraite de 10
+          points, divisé par 2, le tout arrondie à l'entier inférieur.
+        </p>
+
+        <Formula>{
+          '\\forall n \\in \\mathbb{N}, \\text{Inné}(n) = \\left \\lfloor' +
+            '\\frac{n - 10}{2}' +
+          '\\right \\rfloor'
+        }</Formula>
+
+        <p>
+          Si le modificateur est associé à deux caractéristiques la
+          caractéristique dite majeure peut impacter le personnage jusqu'à 3
+          points maximum et la caractéristique secondaire peut impacter le
+          personnage jusqu'à 2 points maximum.
         </p>
 
         <table className="table-1d">
@@ -123,7 +125,7 @@ export function Introduction () : ReactElement {
               <td colSpan={2} style={{borderRightColor: 'transparent'}}></td>
               <td colSpan={7} style={{borderLeftColor: 'transparent'}}></td>
               <td colSpan={1} style={{borderLeftColor: 'transparent'}}>&larr;</td>
-              <td colSpan={4} style={{borderLeftColor: 'transparent'}}>Influence totale</td>
+              <td colSpan={4} style={{borderLeftColor: 'transparent'}}>Total</td>
               <td colSpan={1} style={{borderLeftColor: 'transparent'}}>&rarr;</td>
               <td colSpan={2} style={{borderLeftColor: 'transparent'}}></td>
               <td colSpan={2} style={{borderLeftColor: 'transparent'}}></td>
@@ -133,7 +135,7 @@ export function Introduction () : ReactElement {
               <td colSpan={5} style={{borderTopColor: 'transparent'}}></td>
               <td colSpan={4}></td>
               <td colSpan={1} style={{borderLeftColor: 'transparent'}}>&larr;</td>
-              <td colSpan={4} style={{borderLeftColor: 'transparent'}}>Influence majeure </td>
+              <td colSpan={4} style={{borderLeftColor: 'transparent'}}>Majeur</td>
               <td colSpan={1} style={{borderLeftColor: 'transparent'}}>&rarr;</td>
               <td colSpan={2} style={{borderLeftColor: 'transparent'}}></td>
               <td colSpan={2} style={{borderLeftColor: 'transparent'}}></td>
@@ -144,59 +146,27 @@ export function Introduction () : ReactElement {
               <td colSpan={2} style={{borderTopColor: 'transparent'}}></td>
               <td colSpan={2}></td>
               <td colSpan={1} style={{borderLeftColor: 'transparent'}}>&larr;</td>
-              <td colSpan={4} style={{borderLeftColor: 'transparent'}}>Influence mineure</td>
+              <td colSpan={4} style={{borderLeftColor: 'transparent'}}>Mineur</td>
               <td colSpan={1} style={{borderLeftColor: 'transparent'}}>&rarr;</td>
               <td colSpan={2} style={{borderLeftColor: 'transparent'}}></td>
               <td colSpan={2} style={{borderTopColor: 'transparent'}}></td>
               <td colSpan={3} style={{borderTopColor: 'transparent'}}></td>
             </tr>
             <tr>
-              <td style={{width: '120px'}}> Caractéristique </td>
-              <td style={{width: '35px'}}> -10 </td>
-              <td style={{width: '35px'}}>  -9 </td>
-              <td style={{width: '35px'}}>  -8 </td>
-              <td style={{width: '35px'}}>  -7 </td>
-              <td style={{width: '35px'}}>  -6 </td>
-              <td style={{width: '35px'}}>  -5 </td>
-              <td style={{width: '35px'}}>  -4 </td>
-              <td style={{width: '35px'}}>  -3 </td>
-              <td style={{width: '35px'}}>  -2 </td>
-              <td style={{width: '35px'}}>  -1 </td>
-              <td style={{width: '35px'}}>   0 </td>
-              <td style={{width: '35px'}}>   1 </td>
-              <td style={{width: '35px'}}>   2 </td>
-              <td style={{width: '35px'}}>   3 </td>
-              <td style={{width: '35px'}}>   4 </td>
-              <td style={{width: '35px'}}>   5 </td>
-              <td style={{width: '35px'}}>   6 </td>
-              <td style={{width: '35px'}}>   7 </td>
-              <td style={{width: '35px'}}>   8 </td>
-              <td style={{width: '35px'}}>   9 </td>
-              <td style={{width: '35px'}}>  10 </td>
+              <td style={{width: '120px'}}> Points d'inné </td>
+              {
+                range(21).map((level : number) : ReactElement => (
+                  <td key={level}> { Math.floor((level - 10) / 2) } </td>
+                ))
+              }
             </tr>
             <tr>
-              <th> Points d'inné </th>
-              <th> -5 </th>
-              <th> -5 </th>
-              <th> -4 </th>
-              <th> -4 </th>
-              <th> -3 </th>
-              <th> -3 </th>
-              <th> -2 </th>
-              <th> -2 </th>
-              <th> -1 </th>
-              <th> -1 </th>
-              <th> +0 </th>
-              <th> +0 </th>
-              <th> +1 </th>
-              <th> +1 </th>
-              <th> +2 </th>
-              <th> +2 </th>
-              <th> +3 </th>
-              <th> +3 </th>
-              <th> +4 </th>
-              <th> +4 </th>
-              <th> +5 </th>
+              <th> Caractéristique </th>
+              {
+                range(21).map((level : number) : ReactElement => (
+                  <th style={{width: '35px'}} key={level}> { level } </th>
+                ))
+              }
             </tr>
           </tbody>
         </table>

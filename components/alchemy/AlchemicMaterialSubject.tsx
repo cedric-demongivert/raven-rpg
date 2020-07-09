@@ -3,7 +3,6 @@ import { ReactElement } from 'react'
 import { ReactNode } from 'react'
 
 import { AlchemicMaterial } from '../../typescript/alchemy/AlchemicMaterial'
-import { AlchemicTransformation } from '../../typescript/alchemy/AlchemicTransformation'
 
 import { SubjectSummary } from '../subject/SubjectSummary'
 import { SubjectContent } from '../subject/SubjectContent'

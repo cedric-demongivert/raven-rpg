@@ -24,8 +24,8 @@ export function Characteristics () : ReactElement {
       <SubjectTitle>Charactéristiques</SubjectTitle>
       <SubjectSummary>
         <p>
-          Les caractéristiques dépeignent les capacités innées d'un personnage et
-          influencent de nombreuses ressources connexes. Chaque caractéristique
+          Les caractéristiques dépeignent les capacités innées d'un personnage
+          et influencent de nombreux aspects du jeu. Chaque caractéristique
           est appréciée par un entier relatif.
         </p>
       </SubjectSummary>
@@ -39,35 +39,37 @@ export function Characteristics () : ReactElement {
           <div className='col'>
             <p>
               Les caractéristiques dépeignent les capacités innées d'un
-              personnage et influencent de nombreuses ressources connexes.
-              Chaque caractéristique est appréciée par un entier relatif. Les
-              caractéristiques d'un personnage humain sont initialement évaluées
-              à -9 et il est possible d'y répartir un total de 62 points. Une
-              caractéristique humaine ne peut pas être supérieure à 10 points.
+              personnage et influencent de nombreux aspects du jeu. Chaque
+              caractéristique est appréciée par un entier relatif. Les
+              caractéristiques d'un personnage humain sont initialement
+              évaluées à 0 et il est possible d'y répartir un total de 68
+              points. Une caractéristique humaine ne peut pas être supérieure
+              à 20 points. Jouer un personnage avec une caractéristique
+              inférieure à 4 points requiert l'aval du maître du jeu.
             </p>
           </div>
         </div>
         <div className='row'>
-          <div className='col-xs-12 col-md-6'>
+          <div className='col-xs-12 col-lg-6'>
             <Luck />
           </div>
-          <div className='col-xs-12 col-md-6'>
+          <div className='col-xs-12 col-lg-6'>
             <Constitution />
           </div>
         </div>
         <div className='row'>
-          <div className='col-xs-12 col-md-6'>
+          <div className='col-xs-12 col-lg-6'>
             <Control />
           </div>
-          <div className='col-xs-12 col-md-6'>
+          <div className='col-xs-12 col-lg-6'>
             <Dexterity />
           </div>
         </div>
         <div className='row'>
-          <div className='col-xs-12 col-md-6'>
+          <div className='col-xs-12 col-lg-6'>
             <Strength />
           </div>
-          <div className='col-xs-12 col-md-6'>
+          <div className='col-xs-12 col-lg-6'>
             <Power />
           </div>
         </div>

@@ -1,1 +1,0 @@
-export { Feats } from './Feats'

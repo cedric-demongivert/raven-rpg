@@ -38,13 +38,13 @@ export function WeaponMasteries () : ReactElement {
           <div className='col'>
             <p>
               Les maîtrises d'arme apprécient l'aisance avec laquelle un
-              personnage manie une arme particulière ainsi que l'étendue de sa
-              connaissance de l'art martial qui lui est associé. Ce type de
-              maîtrise est utilisé par l'attaquant dans ses tests d'opposition
-              pour toucher et par le défenseur dans ses tests d'opposition pour
-              parer. Toutes les armes sont associées à un ou plusieurs styles de
-              combat, et une bonne spécialisation est essentielle pour débloquer
-              des effets uniques liés à l'arme que la maîtrise représente.
+              personnage manie une famille d'armes particulière ainsi que
+              l'étendue de sa connaissance de l'art martial associé.
+              Ce type de maîtrise est utile pour résoudre les attaques portées
+              par un assaillant et les parrades exécutées par un défenseur via
+              des <strong>résolutions par opposition</strong>. Toutes les armes
+              sont associées à un ou plusieurs styles de combat, et une bonne
+              spécialisation permet de débloquer de nouveaux atouts.
             </p>
           </div>
         </div>

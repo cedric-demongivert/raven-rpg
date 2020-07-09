@@ -11,11 +11,13 @@ import { Characteristics } from './characteristics'
 import { Masteries } from './masteries'
 import { Knowledges } from './knowledges'
 import { Summary } from './Summary'
-import { Feats } from './feats'
 import { CoreRules } from './rules/core'
 import { FightRules } from './rules/fight'
 import { Echoes } from './echoes'
 import { Alchemy } from './alchemy'
+import { Biomancy } from './biomancy'
+
+import { Feats } from './Feats'
 
 export function Content () : ReactElement {
   return (
@@ -35,6 +37,7 @@ export function Content () : ReactElement {
         <FightRules />
         <Echoes />
         <Alchemy />
+        <Biomancy />
       </SubjectContent>
     </Subject>
   )
