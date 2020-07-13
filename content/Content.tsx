@@ -16,6 +16,7 @@ import { FightRules } from './rules/fight'
 import { Echoes } from './echoes'
 import { Alchemy } from './alchemy'
 import { Biomancy } from './biomancy'
+import { Items } from './items'
 
 import { Feats } from './Feats'
 
@@ -38,6 +39,7 @@ export function Content () : ReactElement {
         <Echoes />
         <Alchemy />
         <Biomancy />
+        <Items />
       </SubjectContent>
     </Subject>
   )

@@ -3,3 +3,15 @@
     //border-bottom: solid 2px $text-color;
   }
 }
+
+.malus {
+  color: #db1a34;
+}
+
+.neutral {
+  color: lighten($text-color, 50%);
+}
+
+.bonus {
+  color: #44bd32;
+}

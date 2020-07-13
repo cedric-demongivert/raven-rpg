@@ -17,8 +17,8 @@ export const DoubleSkin : Feat = (
         .addRequirement(<>Armures légères 8+</>)
         .setDescription(
           <p>
-            Toutes les armures légères voient leur malus de charge réduit de 1
-            point.
+            Toutes les armures légères voient leur poids réduit de 1 point pour
+            un minimum de 0 points.
           </p>
         )
         .build()
@@ -30,8 +30,8 @@ export const DoubleSkin : Feat = (
         .addRequirement(<>Seconde peau I</>)
         .setDescription(
           <p>
-            Toutes les armures légères voient leur malus de charge réduit de 2
-            point.
+            Toutes les armures légères voient leur poids réduit de 2 point pour
+            un minimum de 0 points.
           </p>
         )
         .build()

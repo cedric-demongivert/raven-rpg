@@ -1,32 +1,42 @@
-table.table {
+table {
   width: 100%;
   height: auto;
 
   margin: 0px;
   padding: 0px;
 
+  thead, tbody {
+    width: 100%;
+    height: auto;
+
+    margin: 0px;
+    padding: 0px;
+  }
+
   tr, td, thead, tbody, tfoot, th {
     border: none;
   }
 
-  thead tr {
-    height: auto;
-    width: auto;
-
-    padding: 0px;
-    margin: 0px;
-
-    th {
-      height: 1em;
+  thead {
+    tr {
+      height: auto;
       width: auto;
 
       padding: 0px;
       margin: 0px;
 
-      padding-top: 0.125em;
-      padding-bottom: 0.125em;
+      th {
+        height: 1em;
+        width: auto;
 
-      vertical-align: middle;
+        padding: 0px;
+        margin: 0px;
+
+        padding-top: 0.125em;
+        padding-bottom: 0.125em;
+
+        vertical-align: middle;
+      }
     }
   }
 

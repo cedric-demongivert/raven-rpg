@@ -9,16 +9,18 @@ import { SubjectIdentifier } from '../../components/subject/SubjectIdentifier'
 import { Subject } from '../../components/subject/Subject'
 import { LocalSummary } from '../../components/LocalSummary'
 
-import { Survival } from './survival'
-
 import { Introduction } from './Introduction'
+import { Quality } from './Quality'
+import { Weapons } from './weapons'
+import { Armors } from './armors'
 
-export function Knowledges () : ReactElement {
+export function Items () : ReactElement {
   return (
     <Subject>
-      <SubjectIdentifier>knowledges</SubjectIdentifier>
-      <SubjectKeyword>Connaissance</SubjectKeyword>
-      <SubjectTitle>Connaissances</SubjectTitle>
+      <SubjectIdentifier>items</SubjectIdentifier>
+      <SubjectKeyword>objet</SubjectKeyword>
+      <SubjectKeyword>équipement</SubjectKeyword>
+      <SubjectTitle>Objets & Équipement</SubjectTitle>
       <SubjectSummary>
 
       </SubjectSummary>
@@ -26,7 +28,9 @@ export function Knowledges () : ReactElement {
         <LocalSummary />
 
         <Introduction />
-        <Survival />
+        <Quality />
+        <Weapons />
+        <Armors />
       </SubjectContent>
     </Subject>
   )

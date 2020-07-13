@@ -8,29 +8,23 @@ import { SubjectKeyword } from '../../../components/subject/SubjectKeyword'
 import { SubjectIdentifier } from '../../../components/subject/SubjectIdentifier'
 import { Subject } from '../../../components/subject/Subject'
 
-export function ShortBowMastery () : ReactElement {
+export function Nature () : ReactElement {
   return (
     <Subject>
-      <SubjectIdentifier>masteries-weapons-short-bow</SubjectIdentifier>
-      <SubjectKeyword>Maîtrise</SubjectKeyword>
-      <SubjectKeyword>Arc court</SubjectKeyword>
-      <SubjectKeyword>Arc</SubjectKeyword>
-      <SubjectTitle>Arcs courts</SubjectTitle>
+      <SubjectIdentifier>knowledges-survival-nature</SubjectIdentifier>
+      <SubjectKeyword>Connaissance</SubjectKeyword>
+      <SubjectKeyword>Nature</SubjectKeyword>
+      <SubjectTitle>Nature</SubjectTitle>
       <SubjectSummary>
       </SubjectSummary>
       <SubjectContent>
-        <table className='instinct-modifier'>
-          <thead>
-            <tr>
-              <th>Majeure</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><img src='./images/characteristics/dexterity.svg'/></td>
-            </tr>
-          </tbody>
-        </table>
+        <p>
+          La connaissance de la nature évalue la capacité d'un individu à
+          reconnaître les espèces endémiques de certains milieux et à s'en
+          prémunir. La connaissance de la nature est une compétence importante
+          pour distinguer l'origine d'un cri ou identifier certaines espèces de
+          plantes.
+        </p>
       </SubjectContent>
     </Subject>
   )

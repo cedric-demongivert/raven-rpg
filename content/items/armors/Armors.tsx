@@ -8,29 +8,22 @@ import { SubjectKeyword } from '../../../components/subject/SubjectKeyword'
 import { SubjectIdentifier } from '../../../components/subject/SubjectIdentifier'
 import { Subject } from '../../../components/subject/Subject'
 
-export function ShortBowMastery () : ReactElement {
+import { Light } from './Light'
+import { Medium } from './Medium'
+import { Heavy } from './Heavy'
+
+export function Armors () : ReactElement {
   return (
     <Subject>
-      <SubjectIdentifier>masteries-weapons-short-bow</SubjectIdentifier>
-      <SubjectKeyword>Maîtrise</SubjectKeyword>
-      <SubjectKeyword>Arc court</SubjectKeyword>
-      <SubjectKeyword>Arc</SubjectKeyword>
-      <SubjectTitle>Arcs courts</SubjectTitle>
+      <SubjectIdentifier>items-armors</SubjectIdentifier>
+      <SubjectKeyword>armure</SubjectKeyword>
+      <SubjectTitle>Armures</SubjectTitle>
       <SubjectSummary>
       </SubjectSummary>
       <SubjectContent>
-        <table className='instinct-modifier'>
-          <thead>
-            <tr>
-              <th>Majeure</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><img src='./images/characteristics/dexterity.svg'/></td>
-            </tr>
-          </tbody>
-        </table>
+        <Light />
+        <Medium />
+        <Heavy />
       </SubjectContent>
     </Subject>
   )
