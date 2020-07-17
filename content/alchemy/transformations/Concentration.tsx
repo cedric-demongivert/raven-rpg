@@ -54,7 +54,7 @@ export function Concentration () : ReactElement {
                 range(10).map(function renderCell (index : number) : ReactElement {
                   return (
                     <td key={index}>
-                      {(index + 1) * 5}
+                      {(index + 1) * 4}
                     </td>
                   )
                 })

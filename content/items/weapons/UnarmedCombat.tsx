@@ -8,6 +8,9 @@ import { SubjectKeyword } from '../../../components/subject/SubjectKeyword'
 import { SubjectIdentifier } from '../../../components/subject/SubjectIdentifier'
 import { Subject } from '../../../components/subject/Subject'
 
+import { Bonus } from '../../../components/Bonus'
+import { Malus } from '../../../components/Malus'
+
 export function UnarmedCombat () : ReactElement {
   return (
     <Subject>
@@ -20,28 +23,57 @@ export function UnarmedCombat () : ReactElement {
           <thead>
             <tr>
               <th style={{width: '150px'}}>Arme</th>
-              <th style={{width: '150px'}}>Dégâts</th>
               <th style={{width: '200px'}}>Type</th>
-              <th style={{width: '100px'}}>Poid(s)</th>
-              <th>Blessure</th>
+              <th style={{width: '75px'}}>Qualité</th>
+              <th style={{width: '175px'}}>Dégâts / Poids </th>
+              <th style={{width: '200px'}}>Blessure Légère</th>
+              <th style={{width: '200px'}}>Blessure Grave</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>Poing</td>
-              <td>3D/x2</td>
               <td>Contondant</td>
-              <td></td>
+              <td className='text-center'>*</td>
+              <td className='text-center'>3D(x2) / 0</td>
+              <td>4+ Contusion</td>
               <td></td>
             </tr>
             <tr>
-              <td>Gantelet clouté</td>
-              <td>5D/x2</td>
-              <td>Contondant</td>
-              <td></td>
-              <td></td>
+              <td rowSpan={5}>Gantelet clouté</td>
+              <td rowSpan={5}>Contondant</td>
+              <td className='text-center'> 0-4 </td>
+              <td className='text-center'><Malus>3D</Malus>(x2) / 1</td>
+              <td rowSpan={5}>4+ Contusion</td>
+              <td rowSpan={5}>8+ Fracture</td>
+            </tr>
+            <tr>
+              <td className='text-center'> 5-9 </td>
+              <td className='text-center'><Malus>4D</Malus>(x2) / 1</td>
+            </tr>
+            <tr>
+              <td className='text-center'> 10-14 </td>
+              <td className='text-center'>5D(x2) / 1</td>
+            </tr>
+            <tr>
+              <td className='text-center'> 15-19 </td>
+              <td className='text-center'><Bonus>6D</Bonus>(x2) / 1</td>
+            </tr>
+            <tr>
+              <td className='text-center'> 20+ </td>
+              <td className='text-center'><Bonus>6D</Bonus>(x2) / <Bonus>0</Bonus></td>
             </tr>
           </tbody>
+          <tfoot>
+            <tr>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+            </tr>
+          </tfoot>
         </table>
       </SubjectContent>
     </Subject>

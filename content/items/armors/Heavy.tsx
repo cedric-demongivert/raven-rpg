@@ -36,7 +36,7 @@ export function Heavy () : ReactElement {
               <td className='text-center'><Bonus>+9</Bonus> / <Bonus>12</Bonus></td>
               <td className='text-center'><Bonus>+9</Bonus> / <Bonus>10</Bonus></td>
               <td rowSpan={3}>
-                Dégâts des flèches convertis en dégâts contondant réduits de
+                Dégâts des flèches transformés en dégâts contondant réduits de
                 moitié. <br />
                 Les dégâts tranchant légers et dégâts à mains nues sont nullifiés.
               </td>
