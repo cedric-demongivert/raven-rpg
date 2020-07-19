@@ -9,27 +9,20 @@ import { SubjectIdentifier } from '../../components/subject/SubjectIdentifier'
 import { Subject } from '../../components/subject/Subject'
 import { LocalSummary } from '../../components/LocalSummary'
 
-import { Introduction } from './Introduction'
-import { Mutation } from './Mutation'
-import { Bestiality } from './Bestiality'
-import { Totems } from './Totems'
+import { Bear } from './bear'
 
-export function Biomancy () : ReactElement {
+export function Totems () : ReactElement {
   return (
     <Subject>
-      <SubjectIdentifier>biomancy</SubjectIdentifier>
-      <SubjectKeyword>Biomancie</SubjectKeyword>
-      <SubjectTitle>Biomancie</SubjectTitle>
+      <SubjectIdentifier>biomancy-totems</SubjectIdentifier>
+      <SubjectTitle>Totems</SubjectTitle>
       <SubjectSummary>
 
       </SubjectSummary>
       <SubjectContent>
         <LocalSummary />
 
-        <Introduction />
-        <Mutation />
-        <Bestiality />
-        <Totems />
+        <Bear />
       </SubjectContent>
     </Subject>
   )

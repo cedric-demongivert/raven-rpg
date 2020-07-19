@@ -85,10 +85,10 @@ export function Bestiality () : ReactElement {
         <p>
           Un personnage perds 2D6 / 2 points de bestialité par 15 min quand il
           est dans un cadre stable et calme. S'il le souhaite il peut aussi
-          tenter de déverser sa rage sur un personnage ou en corps pour perdre
-          immédiatement 2D6 /2 points de bestialité, mais un tel défferlement de
-          violence n'est jamais sans conséquence sur l'esprit des témoins de la
-          scène.
+          tenter de déverser sa rage sur un personnage ou un corps pour perdre
+          immédiatement 2D6 / 2 points de bestialité, mais un tel défferlement
+          de violence n'est jamais sans conséquence sur l'esprit des témoins de
+          la scène.
         </p>
       </SubjectContent>
     </Subject>
