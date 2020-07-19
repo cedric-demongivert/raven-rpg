@@ -40,31 +40,31 @@ export function Mutation () : ReactElement {
           prendre le dessus sur les autres, le tout provoquant une spirale
           infernale et chaotiques de transformations répétées. L'esprit du
           biomancien survit rarement à une telle pression et quand le corps de
-          la victime se stabilise vaguement il ne reste alors qu'une bête
+          la victime se stabilise vaguement il ne reste alors plus qu'une bête
           difforme et incontrôlable.
         </p>
 
         <p>
           Une <strong>mutation</strong> est un changement qui éloigne le
           biomancien un peut plus de l'homme et le rapproche progressivement de
-          son totem. Plus un biomancien mute, plus il est sujet à <strong>
-          l'appel</strong>, c'est à dire à la tentation d'abandonner
-          définitivement son corps et son esprit à son ou ses totem. Les
-          individus qui scèdent à l'appel deviennent des bêtes assoiffées de
-          sang et de violence qui ne suivent plus que leurs instincts les plus
-          primitifs. Les créatures résultant de ce processus sont alors
-          appellés des échoués.
+          son totem. Une fois une mutation acquise, elle restera définitivement
+          active en offrant au personnage un effet passif. En cumulant les
+          mutations, le corps d'un biomancien devient de plus en plus instable
+          et maléable et il risque alors de s'adapter à son état d'esprit. On
+          parle alors de bestialité ou de rage. Le corps est alors sujet à des
+          transformations passagère quand l'esprit du personnage est troublé.
         </p>
 
         <p>
-          Finalement le <strong>mutagène</strong> est le moteur de la biomancie,
-          c'est grâce à ce produit alchimique qu'il est possible de muter. Sans
-          mutagène, pas d'évolution contrôlée. Les mutagènes doivent être
-          calibrés avant d'être ingérés, c'est à dire associés à un totem. Un
-          mutagène non calibré est dit libre et est considéré comme appartenir
-          à un totem au hasard à l'ingestion. Les mutagènes peuvent être trouvés
-          durant une aventure, mais le plus simple reste de les fabriquer en
-          chassant des avatars.
+          Le <strong>mutagène</strong> est le moteur de la biomancie,
+          c'est grâce à ce produit alchimique qu'il est possible, à terme,
+          d'acquérir de nouvelles mutations. Les mutagènes, une fois ingérés
+          permettent d'augmenter l'affinité d'un personnage vis-à-vis d'un ou de
+          plusieurs totem. Les mutagènes doivent être calibrés avant d'être
+          ingérés, c'est à dire associés à un totem. Un mutagène non calibré est
+          dit libre et est considéré comme appartenir à un totem au hasard à 
+          l'ingestion. Les mutagènes peuvent être trouvés durant une aventure,
+          mais le plus simple reste de les fabriquer en chassant des avatars.
         </p>
       </SubjectContent>
     </Subject>

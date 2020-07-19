@@ -13,6 +13,8 @@ import { Introduction } from './Introduction'
 import { Mutation } from './Mutation'
 import { Bestiality } from './Bestiality'
 
+import { Bear } from './bear'
+
 export function Biomancy () : ReactElement {
   return (
     <Subject>
@@ -28,6 +30,7 @@ export function Biomancy () : ReactElement {
         <Introduction />
         <Mutation />
         <Bestiality />
+        <Bear />
       </SubjectContent>
     </Subject>
   )
