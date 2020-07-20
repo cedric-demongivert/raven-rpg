@@ -10,6 +10,7 @@ import { Subject } from '../../components/subject/Subject'
 import { LocalSummary } from '../../components/LocalSummary'
 
 import { Bear } from './bear'
+import { Owl } from './owl'
 
 export function Totems () : ReactElement {
   return (
@@ -23,6 +24,7 @@ export function Totems () : ReactElement {
         <LocalSummary />
 
         <Bear />
+        <Owl />
       </SubjectContent>
     </Subject>
   )
