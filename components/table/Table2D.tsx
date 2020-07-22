@@ -84,9 +84,17 @@ export class Table2D extends Component<Table2D.Properties, Table2D.State> {
   */
   public render () : ReactElement {
     const className : string = classNames('table-2d', this.props.className)
+    const properties : any = {
+      className,
+      onMouseOut: this.handleDeselection
+    }
+
+    if (this.props.width) {
+      properties.style = { width: this.props.width }
+    }
 
     return (
-      <table className={className} onMouseOut={this.handleDeselection}>
+      <table {...properties}>
         <tbody>
           { React.Children.map(this.props.children, this.renderRow) }
         </tbody>
@@ -125,7 +133,8 @@ export namespace Table2D {
 
   export type Properties = {
     className?: string,
-    children?: ReactNode
+    children?: ReactNode,
+    width?: string
   }
 
   export type State = {

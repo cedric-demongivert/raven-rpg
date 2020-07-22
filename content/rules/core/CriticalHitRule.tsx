@@ -22,12 +22,12 @@ export function CriticalHitRule () : ReactElement {
       </SubjectSummary>
       <SubjectContent>
         <p>
-          Lors d'un test, un score supérieur à 95% est un échec critique aux
-          répercussions désastreuses. À l'inverse, un score inférieur ou égal à
-          5% est un succès critique aux conséquences bénéfiques. Les critiques
-          priment sur les chances de succès réelles d'un personnage. Ainsi, un
-          personnage qui devrait réussir systématiquement une action à toujours
-          5% de chance de l'échouer, et un personnage qui devrait échouer
+          Lors d'un test, un score supérieur égal à 1 est un échec critique aux
+          répercussions désastreuses. À l'inverse, un score égal à 20 est un
+          succès critique aux conséquences bénéfiques. Les critiques priment sur
+          les chances de succès réelles d'un personnage. Ainsi, un personnage
+          qui devrait réussir systématiquement une action à toujours 5% de
+          chance de l'échouer, et un personnage qui devrait échouer
           systématiquement une action à toujours 5% de chance de la réussir.
         </p>
 

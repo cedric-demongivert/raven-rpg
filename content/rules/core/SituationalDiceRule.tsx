@@ -24,13 +24,13 @@ export function SituationalDiceRule () : ReactElement {
       <SubjectContent>
         <p>
           Quand une action intentée est bien argumentée, l'acteur peut se voir
-          attribuer un ou plusieurs dés de bonus situationnel. L'acteur lance alors
-          des dés de dizaines supplémentaires et garde la dizaine la plus basse
-          quand il calcule son score. De la même manière quand une action intentée
-          est douteuse ou mal argumentée, l'acteur peut se voir attribuer un ou
-          plusieurs dés de malus situationnel. L'acteur lance alors des dés de
-          dizaines supplémentaires et garde la dizaine la plus haute quand il
-          calcule son score.
+          attribuer un ou plusieurs dés de bonus situationnel. L'acteur lance
+          alors des dés 20 supplémentaires et garde le résultat le plus forte
+          quand il calcule son score. De la même manière quand une action
+          intentée est douteuse ou mal argumentée, l'acteur peut se voir
+          attribuer un ou plusieurs dés de malus situationnel. L'acteur lance
+          alors des dés 20 supplémentaires et garde la valeur la plus faible
+          quand il calcule son score.
         </p>
       </SubjectContent>
     </Subject>

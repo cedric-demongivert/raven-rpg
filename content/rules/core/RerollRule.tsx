@@ -23,10 +23,10 @@ export function RerollRule () : ReactElement {
       <SubjectContent>
         <p>
           Lors d'un échec qui n'est pas un échec critique et moyennant une
-          justification acceptée par le maître du jeu, un personnage peut tenter de
-          repasser un test qu'il vient juste d'échouer. Si celui-ci réussi la
-          seconde tentative alors le test est passé, s'il échoue une seconde fois
-          alors le joueur est sujet à un échec critique.
+          justification acceptée par le maître du jeu, un personnage peut
+          tenter de repasser un test qu'il vient juste d'échouer. Si celui-ci
+          réussi la seconde tentative alors le test est passé, s'il échoue une
+          seconde fois alors le joueur est sujet à un échec critique.
         </p>
       </SubjectContent>
     </Subject>
