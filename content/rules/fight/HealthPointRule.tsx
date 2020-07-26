@@ -21,10 +21,11 @@ export function HealthPointRule () : ReactElement {
       </SubjectSummary>
       <SubjectContent>
         <p>
-          Les points de vie bruts d'un personnage sont égaux à 10 plus son nombre de
-          points de constitution. Si un personnage accumule autant de dégât qu'il a
-          de points de vie il tombe dans le coma et ne peut plus agir. Si les dégâts
-          subis viennent à dépasser 150% de ses points de vie bruts il meurt.
+          Les points de vie bruts d'une entitée sont égaux à son nombre de
+          points de constitution. Une entitée tombe dans le coma si elle
+          accumule autant de dégât qu'elle a de points de vie. Une entitée meurt
+          si elle accumule une quantitée de dégâts supérieurs ou égaux à 150% de
+          sa constitution.
         </p>
       </SubjectContent>
     </Subject>

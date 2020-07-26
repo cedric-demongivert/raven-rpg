@@ -23,9 +23,9 @@ export function AttackRule () : ReactElement {
         <p>
           Une attaque est une action simple qui nécéssite d'être à porté de sa
           cible. Les attaques ne peuvent pas faire l'objet d'une quelconque
-          coopération mais leur succès peuvent être influencé par l'environnement.
-          Une attaque se déroule toujours en deux temps : la touche et la
-          résolution des dégâts.
+          coopération mais leur succès peuvent être influencé par
+          l'environnement. Une attaque se déroule toujours en deux temps : la
+          touche et la résolution des dégâts.
         </p>
 
         <p>

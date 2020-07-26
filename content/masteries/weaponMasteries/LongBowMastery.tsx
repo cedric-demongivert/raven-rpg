@@ -28,8 +28,8 @@ export function LongBowMastery () : ReactElement {
           </thead>
           <tbody>
             <tr>
-              <td><img src='./images/characteristics/strength.svg'/></td>
               <td><img src='./images/characteristics/dexterity.svg'/></td>
+              <td><img src='./images/characteristics/strength.svg'/></td>
             </tr>
           </tbody>
         </table>

@@ -19,6 +19,7 @@ import { InitiativeRule } from './InitiativeRule'
 import { Introduction } from './Introduction'
 import { WeigthPointRule } from './WeigthPointRule'
 import { WoundsRule } from './WoundsRule'
+import { Regeneration } from './Regeneration'
 
 export function FightRules () : ReactElement {
   return (
@@ -38,6 +39,7 @@ export function FightRules () : ReactElement {
         <HealthPointRule />
         <ComaRule />
         <WoundsRule />
+        <Regeneration />
         <WeigthPointRule />
         <AttackRule />
         <DamageRule />

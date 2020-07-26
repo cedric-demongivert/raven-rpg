@@ -21,20 +21,32 @@ export function Introduction () : ReactElement {
       </SubjectSummary>
       <SubjectContent>
         <p>
-          Les scènes à interaction forte nécessitant des prises de décision simultanées
-          sont résolues au tour par tour. Tout élément du récit pouvant
-          agir de son propre chef lors d'une telle situation est appelé <strong>
-          entité</strong>. Chaque <strong>tour</strong> ne concerne qu'une
-          unique entité qui peut entreprendre un nombre limité d'<strong>actions
-          </strong> avant de passer son tour à l'entité suivante.
+          Les scènes à interaction forte nécessitant des prises de décision
+          simultanées sont résolues au tour par tour.
         </p>
 
         <p>
-          L'ensemble des tours nécessaires pour que toutes des entités d'une scène
-          puissent agir est appelé une <strong>manche</strong>. Il peut arriver qu'une
-          entité ait le droit de jouer plusieurs tours lors d'une manche. La quantité
-          de tour joué pendant une manche et leur ordonnancement dépend des scores
-          d'initiative de chaque entité.
+          <em>Entitée.</em> Une entitée est un élément du récit pouvant agir de
+          son propre chef lors d'une scène à forte interaction.
+        </p>
+
+        <p>
+          <em>Action.</em> Une action est une prise de décision unilatérale
+          d'une entitée à un instant donné de la scène d'action. Une fois que la
+          ou les décisions d'une entitée sont résolue, une autre peut alors à
+          son tour réaliser une action et ainsi de suite.
+        </p>
+
+        <p>
+          <em>Round.</em> Un round est la durée nécéssaire pour que toutes les
+          entitées d'une scène puissent réaliser l'ensemble des actions
+          auxquelles elles ont droit. Il peut arriver qu'une entité ait le droit
+          de jouer plusieurs actions lors d'un round.
+        </p>
+
+        <p>
+          <em>Ordonnancement.</em> Un ordonnancement est un ensemble de règle
+          permettant de définir clairement l'ordre des actions dans un round.
         </p>
       </SubjectContent>
     </Subject>
