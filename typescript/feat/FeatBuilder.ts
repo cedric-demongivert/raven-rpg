@@ -1,20 +1,20 @@
-import { Arrays } from '../Arrays'
+import { ReactNode } from 'react'
+
 import { Sets } from '../Sets'
 
 import { Feat } from './Feat'
-import { FeatLevel } from './FeatLevel'
 
 export class FeatBuilder {
   public name : string
   public identifier : string
   public keywords : Set<string>
-  public readonly levels : FeatLevel[]
+  public description : ReactNode
 
   public constructor () {
     this.name = null
     this.identifier = null
     this.keywords = new Set()
-    this.levels = []
+    this.description = null
   }
 
   public build () : Feat {
@@ -22,7 +22,7 @@ export class FeatBuilder {
       identifier: this.identifier,
       name: this.name,
       keywords: new Set(this.keywords),
-      levels: [].concat(this.levels)
+      description: this.description
     }
   }
 
@@ -36,17 +36,8 @@ export class FeatBuilder {
     return this
   }
 
-  public addLevel (level : FeatLevel) : FeatBuilder {
-    this.levels.push(level)
-    return this
-  }
-
-  public setLevel (index : number, level : FeatLevel) : FeatBuilder {
-    while (this.levels.length <= index) {
-      this.levels.push(null)
-    }
-
-    this.levels[index] = level
+  public setDescription (description : ReactNode) : FeatBuilder {
+    this.description = description
     return this
   }
 
@@ -58,7 +49,7 @@ export class FeatBuilder {
   public copy (toCopy : Feat) : FeatBuilder {
     this.name = toCopy.name
     this.identifier = toCopy.identifier
-    Arrays.copy(toCopy.levels, this.levels)
+    this.description = toCopy.description
     Sets.copy(toCopy.keywords, this.keywords)
 
     return this
@@ -74,7 +65,7 @@ export class FeatBuilder {
   public clear () : void {
     this.name = null
     this.identifier = null
-    this.levels.length = 0
+    this.description = null
     this.keywords.clear()
   }
 

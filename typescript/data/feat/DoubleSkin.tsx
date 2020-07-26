@@ -1,7 +1,6 @@
 import React from 'react'
 
 import { Feat } from '../../feat/Feat'
-import { FeatLevel } from '../../feat/FeatLevel'
 
 export const DoubleSkin : Feat = (
   Feat
@@ -11,30 +10,18 @@ export const DoubleSkin : Feat = (
     .addKeyword('atout')
     .addKeyword('armure légère')
     .addKeyword('seconde peau')
-    .addLevel(
-      FeatLevel
-        .builder()
-        .addRequirement(<>Armures légères 8+</>)
-        .setDescription(
-          <p>
-            Toutes les armures légères voient leur poids réduit de 1 point pour
-            un minimum de 0 points.
-          </p>
-        )
-        .build()
-    )
-    .addLevel(
-      FeatLevel
-        .builder()
-        .addRequirement(<>Armures légères 16+</>)
-        .addRequirement(<>Seconde peau I</>)
-        .setDescription(
-          <p>
-            Toutes les armures légères voient leur poids réduit de 2 point pour
-            un minimum de 0 points.
-          </p>
-        )
-        .build()
+    .setDescription(
+      <>
+        <strong>Prérequis :</strong> <br/>
+        Armures légères 8+ <br/>
+
+        <p>
+          Toutes les armures légères voient leur poids réduit de 1 point pour
+          chaque groupe de 8 points de maîtrise des armures légères du
+          personnage. Le poids d'une armure ne peut jamais valoir moins de 0
+          points.
+        </p>
+      </>
     )
     .build()
 )

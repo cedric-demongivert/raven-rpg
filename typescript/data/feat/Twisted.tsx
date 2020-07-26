@@ -1,47 +1,33 @@
 import React from 'react'
 
 import { Feat } from '../../feat/Feat'
-import { FeatLevel } from '../../feat/FeatLevel'
 
 export const Twisted : Feat = (
   Feat
     .builder()
     .setIdentifier('twisted')
-    .setName('Coup retord')
+    .setName('Coup retord [Arme\xa0à\xa0une\xa0main]')
     .addKeyword('atout')
     .addKeyword('dague')
     .addKeyword('coup retord')
-    .addLevel(
-      FeatLevel
-        .builder()
-        .addRequirement(<>Maîtrise d'arme 15+</>)
-        .setDescription(
-          <p>
-            Une fois par round quand le personnage échoue une tentative
-            d'attaque il peut retenter sa chance moyennant un malus
-            supplémentaire de 40% sur le jet de touche. Si le second coup porte
-            les dégâts sont divisés par deux et arrondi à l'entier inférieur,
-            minimum un point de dégât de chaque type proposé par l'arme.
-          </p>
-        )
-        .build()
-    )
-    .addLevel(
-      FeatLevel
-        .builder()
-        .addRequirement(<>Maîtrise d'arme 20+</>)
-        .addRequirement(<>Dextérité 16+</>)
-        .addRequirement(<>Coup retord I</>)
-        .setDescription(
-          <p>
-            Deux fois par round quand le personnage échoue une tentative
-            d'attaque il peut retenter sa chance moyennant un malus
-            supplémentaire de 40% sur le jet de touche. Si le second coup porte
-            les dégâts sont divisés par deux et arrondi à l'entier inférieur,
-            minimum un point de dégât de chaque type proposé par l'arme.
-          </p>
-        )
-        .build()
+    .setDescription(
+      <>
+        <strong>Prérequis :</strong> <br/>
+        Maîtrise de l'arme choisie 10+ <br/>
+        Dextérité 16+ <br/>
+
+        <p>
+          Une fois par round et pour chaque groupe de 10 points de maîtrise de
+          l'arme choisie, quand le personnage échoue une tentative d'attaque
+          avec la-dite arme il peut retenter sa chance moyennant un malus
+          de 8 points sur son jet de touche.
+        </p>
+
+        <p>
+          Cet atout peut être choisi plusieurs fois pour pouvoir en bénéficier
+          avec différentes armes.
+        </p>
+      </>
     )
     .build()
 )

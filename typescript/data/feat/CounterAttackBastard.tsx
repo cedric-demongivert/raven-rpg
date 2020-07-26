@@ -2,20 +2,20 @@ import React from 'react'
 
 import { Feat } from '../../feat/Feat'
 
-export const CounterAttack : Feat = (
+export const CounterAttackBastard : Feat = (
   Feat
     .builder()
-    .setIdentifier('counter-attack')
-    .setName('Contre attaque [Arme\xa0à\xa0une\xa0main]')
+    .setIdentifier('counter-attack-bastard')
+    .setName('Contre attaque [Arme\xa0bâtarde]')
     .addKeyword('atout')
     .addKeyword('contre attaque')
     .setDescription(
       <>
         <strong>Prérequis :</strong> <br/>
-        Maîtrise de l'arme choisie 6+ <br/>
+        Maîtrise de l'arme choisie 10+ <br/>
 
         <p>
-          Par round, pour chaque groupe de 6 points dans la maîtrise de l'arme
+          Par round, pour chaque groupe de 10 points dans la maîtrise de l'arme
           choisie, un personnage venant de parrer un coup avec la-dite arme et
           possédant cet atout peut toujours choisir de contre-attaquer
           gratuitement. Les rôles du défenseur et de l'attaquant sont alors

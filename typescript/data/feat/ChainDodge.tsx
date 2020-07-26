@@ -1,7 +1,6 @@
 import React from 'react'
 
 import { Feat } from '../../feat/Feat'
-import { FeatLevel } from '../../feat/FeatLevel'
 
 export const ChainDodge : Feat = (
   Feat
@@ -11,47 +10,20 @@ export const ChainDodge : Feat = (
     .addKeyword('atout')
     .addKeyword('esquive')
     .addKeyword('esquive en chaîne')
-    .addLevel(
-      FeatLevel
-        .builder()
-        .addRequirement(<>Esquive 8+</>)
-        .setDescription(
-          <p>
-            Le personnage gagne une esquive supplémentaire par round, chaque
-            esquive supplémentaire jouée durant un round se voit attribuée un
-            malus de 10% cumulatif.
-          </p>
-        )
-        .build()
-    )
-    .addLevel(
-      FeatLevel
-        .builder()
-        .addRequirement(<>Esquive 12+</>)
-        .addRequirement(<>Esquive en chaîne I</>)
-        .setDescription(
-          <p>
-            Le personnage gagne deux esquives supplémentaire par round, chaque
-            esquive supplémentaire jouée durant un round se voit attribuée un
-            malus de 10% cumulatif.
-          </p>
-        )
-        .build()
-    )
-    .addLevel(
-      FeatLevel
-        .builder()
-        .addRequirement(<>Esquive 16+</>)
-        .addRequirement(<>Dextérité 16+</>)
-        .addRequirement(<>Esquive en chaîne II</>)
-        .setDescription(
-          <p>
-            Le personnage gagne trois esquives supplémentaire par round, chaque
-            esquive supplémentaire jouée durant un round se voit attribuée un
-            malus de 10% cumulatif.
-          </p>
-        )
-        .build()
+    .setDescription(
+      <>
+        <strong>Prérequis :</strong> <br/>
+        Esquive 5+ <br/>
+
+        <p>
+          Le personnage gagne une esquive supplémentaire par round pour chaque
+          groupe de 5 points de maîtrise de l'esquive qu'il possède. Un
+          personnage ne peut pas faire l'objet d'un nombre d'esquive bonus par
+          round qui soit supérieur à son modificateur de dextérité augmenté de
+          1 point. Chaque esquive supplémentaire jouée durant un round se voit
+          attribuée un malus de 2 points cumulatif.
+        </p>
+      </>
     )
     .build()
 )

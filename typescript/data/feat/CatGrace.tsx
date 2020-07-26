@@ -1,31 +1,28 @@
 import React from 'react'
 
 import { Feat } from '../../feat/Feat'
-import { FeatLevel } from '../../feat/FeatLevel'
 
 export const CatGrace : Feat = (
   Feat
     .builder()
     .setIdentifier('cat-grace')
-    .setName('Vol contrôlé (?)')
+    .setName('Grâce féline')
     .addKeyword('atout')
-    .addKeyword('vol contrôlé')
-    .addLevel(
-      FeatLevel
-        .builder()
-        .addRequirement(<>Dextérité 14+</>)
-        .addRequirement(<>Acrobatie 15+</>)
-        .setDescription(
-          <p>
-            Si une acrobatie visant un autre personnage échoue alors l'acteur de
-            l'acrobatie peut tenter de se rattraper in-extremis en passant un
-            test d'acrobatie de difficulté 18 afin d'annuler tous les effets de
-            la parade ou de l'esquive de sa victime. Si l'acteur réussi son jet,
-            la parade ou l'esquive de sa victime est annulée et décomptée de la
-            quantité de parade ou d'esquive de son tour.
-          </p>
-        )
-        .build()
+    .setDescription(
+      <>
+        <strong>Prérequis :</strong> <br/>
+        Dextérité 14+ <br/>
+        Acrobatie 10+ <br/>
+
+        <p>
+          Si des suites des actions d'un tiers ou de ses propres décisions, un
+          personnage vient à tomber à terre il peut alors effectuer un test
+          d'opposition entre son score d'acrobatie et un degré de difficulté de
+          15 points pour se rattraper in-extremis. Si le jet est réussi le
+          personnage ne tombe pas à terre et peut effectuer son round en cours
+          normalement. Si le test échoue le personnage tombe à terre.
+        </p>
+      </>
     )
     .build()
 )

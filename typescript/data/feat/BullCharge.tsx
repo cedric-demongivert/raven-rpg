@@ -1,7 +1,6 @@
 import React from 'react'
 
 import { Feat } from '../../feat/Feat'
-import { FeatLevel } from '../../feat/FeatLevel'
 
 export const BullCharge : Feat = (
   Feat
@@ -13,46 +12,29 @@ export const BullCharge : Feat = (
     .addKeyword('armure lourde')
     .addKeyword('charge')
     .addKeyword('charge du taureau')
-    .addLevel(
-      FeatLevel
-        .builder()
-        .addRequirement(<>Force 12+</>)
-        .addRequirement(<>Armures lourdes 5+</>)
-        .setDescription(
-          <p>
-            Lors d'une charge, ajouter un point de dégât physique supplémentaire
-            tous les 4 points de charge utilisés.
-          </p>
-        )
-        .build()
-    )
-    .addLevel(
-      FeatLevel
-        .builder()
-        .addRequirement(<>Force 14+</>)
-        .addRequirement(<>Armures lourdes 10+</>)
-        .addRequirement(<>Charge du taureau I</>)
-        .setDescription(
-          <p>
-            Lors d'une charge, ajouter un point de dégât physique supplémentaire
-            tous les 2 points de charge utilisés.
-          </p>
-        )
-        .build()
-    )
-    .addLevel(
-      FeatLevel
-        .builder()
-        .addRequirement(<>Force 18+</>)
-        .addRequirement(<>Armures lourdes 18+</>)
-        .addRequirement(<>Charge du taureau II</>)
-        .setDescription(
-          <p>
-            Lors d'une charge, ajouter un point de dégât physique supplémentaire
-            par point de charge utilisé.
-          </p>
-        )
-        .build()
+    .setDescription(
+      <>
+        <strong>Prérequis :</strong> <br/>
+        Force 12+ <br/>
+        Armures lourdes 5+ <br/>
+
+        <p>
+          Lors d'une charge, ajoutez 1 point de dégât physique supplémentaire
+          tous les 4 points de charge utilisés.
+        </p>
+
+        <p>
+          Si le personnage possède une force supérieure ou égale à 14 points et
+          une maîtrise du port des armures lourdes supérieure ou égale à 10
+          points le ratio passe alors de 1 pour 4 à 1 pour 2.
+        </p>
+
+        <p>
+          Si le personnage possède une force supérieure ou égale à 16 points et
+          une maîtrise du port des armures lourdes supérieure ou égale à 15
+          points le ratio passe alors de 1 pour 4 à 1 pour 1.
+        </p>
+      </>
     )
     .build()
 )

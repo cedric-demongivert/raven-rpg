@@ -1,7 +1,6 @@
 import React from 'react'
 
 import { Feat } from '../../feat/Feat'
-import { FeatLevel } from '../../feat/FeatLevel'
 
 export const FlashDodge : Feat = (
   Feat
@@ -12,18 +11,21 @@ export const FlashDodge : Feat = (
     .addKeyword('esquive')
     .addKeyword('contrôle')
     .addKeyword('esquive instinctive')
-    .addLevel(
-      FeatLevel
-        .builder()
-        .addRequirement(<>Esquive	14+</>)
-        .addRequirement(<>Contrôle 12-</>)
-        .setDescription(
-          <p>
-            Le personnage peut tenter d'esquiver les flèches moyennant un malus
-            de 30% sur son jet d'esquive.
-          </p>
-        )
-        .build()
+    .setDescription(
+      <>
+        <strong>Prérequis :</strong> <br/>
+        Esquive 14+ <br/>
+        Contrôle 12- <br/>
+        Dextérité 14+ <br/>
+
+        <p>
+          Le personnage peut tenter d'esquiver les flèches moyennant une
+          résolution par opposition entre sa maîtrise de l'esquive réduite de 6
+          points et le degré de maîtrise de l'arme du tireur. Cette esquive est
+          décomptée du nombre d'esquive du personnage et fait l'objet de tous
+          les malus d'esquive connexes si applicable.
+        </p>
+      </>
     )
     .build()
 )

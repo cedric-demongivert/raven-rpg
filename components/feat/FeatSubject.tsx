@@ -10,7 +10,6 @@ import { SubjectIdentifier } from '../../components/subject/SubjectIdentifier'
 import { Subject } from '../../components/subject/Subject'
 
 import { Feat } from '../../typescript/feat/Feat'
-import { FeatLevel } from '../../typescript/feat/FeatLevel'
 
 import { Data } from '../data/Data'
 
@@ -65,33 +64,7 @@ export function FeatSubject (properties : FeatSubject.Properties) : ReactElement
 
       </SubjectSummary>
       <SubjectContent>
-        <Data>
-          {
-            [...properties.children.levels].map(function (level : FeatLevel, index : number) : ReactElement {
-              return (
-                <Data.Element key={index}>
-                  <Data.Header>{roman(index + 1)}</Data.Header>
-                  <Data.List row header>
-                    <Data.Element>
-                      Prérequis
-                    </Data.Element>
-                  </Data.List>
-                  <Data.List className='data-list-requirements'>
-                    {
-                      [...level.requirements].map((requirement : ReactNode, index : number) => (
-                        <Data.Element key={index}>
-                          {requirement}
-                        </Data.Element>
-                      ))
-                    }
-                  </Data.List>
-                  <br/>
-                  <Data.Element>{level.description}</Data.Element>
-                </Data.Element>
-              )
-            })
-          }
-        </Data>
+        {properties.children.description}
       </SubjectContent>
     </Subject>
   )

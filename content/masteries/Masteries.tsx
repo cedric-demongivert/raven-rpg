@@ -22,11 +22,6 @@ export function Masteries () : ReactElement {
       <SubjectKeyword>Maîtrise</SubjectKeyword>
       <SubjectTitle>Maîtrises</SubjectTitle>
       <SubjectSummary>
-        <p>
-          Les caractéristiques dépeignent les capacités innées d'un personnage
-          et influencent de nombreuses ressources connexes. Chaque
-          caractéristique est appréciée par un entier relatif.
-        </p>
       </SubjectSummary>
       <SubjectContent>
         <LocalSummary />

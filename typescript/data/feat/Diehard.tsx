@@ -1,7 +1,6 @@
 import React from 'react'
 
 import { Feat } from '../../feat/Feat'
-import { FeatLevel } from '../../feat/FeatLevel'
 
 export const Diehard : Feat = (
   Feat
@@ -11,32 +10,17 @@ export const Diehard : Feat = (
     .addKeyword('atout')
     .addKeyword('constitution')
     .addKeyword('dur à cuir')
-    .addLevel(
-      FeatLevel
-        .builder()
-        .addRequirement(<>Constitution 14+</>)
-        .setDescription(
-          <p>
-            Gagnez 1 point de vie supplémentaire tous les 4 points de vie
-            effectif. Vous mourrez toujours si vous accumulez plus de 150% de
-            votre <strong>constitution</strong> en dégâts.
-          </p>
-        )
-        .build()
-    )
-    .addLevel(
-      FeatLevel
-        .builder()
-        .addRequirement(<>Constitution 18+</>)
-        .addRequirement(<>Dur à cuir I</>)
-        .setDescription(
-          <p>
-            Gagnez 1 point de vie supplémentaire tous les 2 points de vie
-            effectif. Vous mourrez toujours si vous accumulez plus de 150% de
-            votre <strong>constitution</strong> en dégât.
-          </p>
-        )
-        .build()
+    .setDescription(
+      <>
+        <strong>Prérequis :</strong> <br/>
+        Constitution 14+ <br/>
+
+        <p>
+          Gagnez 1 point de vie supplémentaire pour chaque groupe de 2 points
+          de constitution effectif. Vous mourrez toujours si vous accumulez plus
+          de 150% de votre <strong>constitution</strong> en dégâts.
+        </p>
+      </>
     )
     .build()
 )

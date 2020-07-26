@@ -4,11 +4,13 @@ import { Sets } from '../Sets'
 import { FeatLevel } from './FeatLevel'
 import { FeatBuilder } from './FeatBuilder'
 
+import { ReactNode } from 'react'
+
 export type Feat = {
   identifier: string,
   name: string,
   keywords: Set<string>,
-  levels: FeatLevel[]
+  description: ReactNode
 }
 
 export namespace Feat {
@@ -19,7 +21,7 @@ export namespace Feat {
 
     return left.name === right.name &&
            left.identifier === right.identifier &&
-           Arrays.equals(left.levels, right.levels, FeatLevel.equals) &&
+           left.description === right.description &&
            Sets.equals(left.keywords, right.keywords)
   }
 
