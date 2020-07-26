@@ -13,7 +13,7 @@ export const BloodBath : Feat = (
     .setDescription(
       <>
         <strong>Prérequis :</strong> <br/>
-        Contrôle 14- <br/>
+        Contrôle 14- <br/> <br/>
 
         <p>
           Infligez 1 point de dégât supplémentaire tous les 4 points de vie

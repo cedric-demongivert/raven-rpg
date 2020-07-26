@@ -13,7 +13,7 @@ export const ChainAttack : Feat = (
       <>
         <strong>Prérequis :</strong> <br/>
         Dextérité 12+ <br/>
-        Maîtrise de l'arme choisie 5+ <br/>
+        Maîtrise de l'arme choisie 5+ <br/> <br/>
 
         <p>
           Le personnage peut échanger une parade ou une esquive contre une

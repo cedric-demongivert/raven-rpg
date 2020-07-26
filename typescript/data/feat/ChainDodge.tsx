@@ -13,7 +13,7 @@ export const ChainDodge : Feat = (
     .setDescription(
       <>
         <strong>Prérequis :</strong> <br/>
-        Esquive 5+ <br/>
+        Esquive 5+ <br/> <br/>
 
         <p>
           Le personnage gagne une esquive supplémentaire par round pour chaque

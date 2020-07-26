@@ -14,7 +14,7 @@ export const Twisted : Feat = (
       <>
         <strong>Prérequis :</strong> <br/>
         Maîtrise de l'arme choisie 10+ <br/>
-        Dextérité 16+ <br/>
+        Dextérité 16+ <br/> <br/>
 
         <p>
           Une fois par round et pour chaque groupe de 10 points de maîtrise de

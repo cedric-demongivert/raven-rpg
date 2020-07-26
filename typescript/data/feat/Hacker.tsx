@@ -13,7 +13,7 @@ export const Hacker : Feat = (
     .setDescription(
       <>
         <strong>Prérequis :</strong> <br/>
-        Maîtrise de la dague 10+ <br/>
+        Maîtrise de la dague 10+ <br/> <br/>
 
         <p>
           Un fois par round, en guise d'attaque à outrance, un personnage armé

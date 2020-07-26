@@ -13,7 +13,7 @@ export const FullDodge : Feat = (
     .setDescription(
       <>
         <strong>Prérequis :</strong> <br/>
-        Esquive	5+ <br/>
+        Esquive	5+ <br/> <br/>
 
         <p>
           Le personnage peut toujours choisir de jouer en dernier et de gagner

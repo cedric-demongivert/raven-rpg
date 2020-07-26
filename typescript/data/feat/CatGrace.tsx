@@ -12,7 +12,7 @@ export const CatGrace : Feat = (
       <>
         <strong>Prérequis :</strong> <br/>
         Dextérité 14+ <br/>
-        Acrobatie 10+ <br/>
+        Acrobatie 10+ <br/> <br/>
 
         <p>
           Si des suites des actions d'un tiers ou de ses propres décisions, un

@@ -12,7 +12,7 @@ export const CounterAttackBastard : Feat = (
     .setDescription(
       <>
         <strong>Prérequis :</strong> <br/>
-        Maîtrise de l'arme choisie 10+ <br/>
+        Maîtrise de l'arme choisie 10+ <br/> <br/>
 
         <p>
           Par round, pour chaque groupe de 10 points dans la maîtrise de l'arme

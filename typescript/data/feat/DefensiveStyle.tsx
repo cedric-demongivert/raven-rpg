@@ -13,7 +13,7 @@ export const DefensiveStyle : Feat = (
     .setDescription(
       <>
         <strong>Prérequis :</strong> <br/>
-        Maîtrise de l'arme choisie 5+ <br/>
+        Maîtrise de l'arme choisie 5+ <br/> <br/>
 
         <p>
           Un personnage possédant cet atout gagne une parade supplémentaire par

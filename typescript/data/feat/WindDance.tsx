@@ -13,7 +13,7 @@ export const WindDance : Feat = (
     .setDescription(
       <>
         <strong>Prérequis :</strong> <br/>
-        Esquive 20+ <br/>
+        Esquive 20+ <br/> <br/>
 
         <p>
           Avec cet atout le malus attribué à un enchaînement d'esquive durant

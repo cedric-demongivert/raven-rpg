@@ -12,7 +12,7 @@ export const CounterAttack : Feat = (
     .setDescription(
       <>
         <strong>Prérequis :</strong> <br/>
-        Maîtrise de l'arme choisie 6+ <br/>
+        Maîtrise de l'arme choisie 6+ <br/> <br/>
 
         <p>
           Par round, pour chaque groupe de 6 points dans la maîtrise de l'arme

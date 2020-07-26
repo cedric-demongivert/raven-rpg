@@ -13,7 +13,7 @@ export const DoubleSkin : Feat = (
     .setDescription(
       <>
         <strong>Prérequis :</strong> <br/>
-        Armures légères 8+ <br/>
+        Armures légères 8+ <br/> <br/>
 
         <p>
           Toutes les armures légères voient leur poids réduit de 1 point pour

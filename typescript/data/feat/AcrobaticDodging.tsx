@@ -14,7 +14,7 @@ export const AcrobaticDodging : Feat = (
     .setDescription(
       <>
         <strong>Prérequis :</strong> <br/>
-        Acrobatie 10+ <br/>
+        Acrobatie 10+ <br/> <br/>
 
         <p>
           Le personnage gagne une esquive acrobatique supplémentaire par

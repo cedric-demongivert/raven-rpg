@@ -13,7 +13,7 @@ export const BloodThirst : Feat = (
     .setDescription(
       <>
         <strong>Prérequis :</strong> <br/>
-        Contrôle 14- <br/>
+        Contrôle 14- <br/> <br/>
 
         <p>
           Gagnez 1 point d'initiative supplémentaire tous les 4 points de vie

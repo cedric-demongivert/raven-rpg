@@ -13,7 +13,7 @@ export const EagleCharge : Feat = (
     .setDescription(
       <>
         <strong>Prérequis :</strong> <br/>
-        Maîtrise de l'arme choisie 10+ <br/>
+        Maîtrise de l'arme choisie 10+ <br/> <br/>
 
         <p>
           Lors d'une charge un personnage possédant cet atout et ce pour chaque

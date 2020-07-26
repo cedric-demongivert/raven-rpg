@@ -16,7 +16,7 @@ export const BullCharge : Feat = (
       <>
         <strong>Prérequis :</strong> <br/>
         Force 12+ <br/>
-        Armures lourdes 5+ <br/>
+        Armures lourdes 5+ <br/> <br/>
 
         <p>
           Lors d'une charge, ajoutez 1 point de dégât physique supplémentaire

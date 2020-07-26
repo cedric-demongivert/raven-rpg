@@ -13,7 +13,7 @@ export const VulcanStrike : Feat = (
       <>
         <strong>Prérequis :</strong> <br/>
         Maîtrise de l'arme choisie 10+ <br/>
-        Force 14+ <br/>
+        Force 14+ <br/> <br/>
 
         <p>
           Un personnage équipé de l'arme choisie peut toujours choisir, en guise

@@ -16,7 +16,7 @@ export const FlashDodge : Feat = (
         <strong>Prérequis :</strong> <br/>
         Esquive 14+ <br/>
         Contrôle 12- <br/>
-        Dextérité 14+ <br/>
+        Dextérité 14+ <br/> <br/>
 
         <p>
           Le personnage peut tenter d'esquiver les flèches moyennant une

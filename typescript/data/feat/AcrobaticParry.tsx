@@ -14,7 +14,7 @@ export const AcrobaticParry : Feat = (
     .setDescription(
       <>
         <strong>Prérequis :</strong> <br/>
-        Acrobatie 15+ <br/>
+        Acrobatie 15+ <br/> <br/>
 
         <p>
           Le personnage gagne une parade supplémentaire par round, cette
