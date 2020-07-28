@@ -13,6 +13,7 @@ import { Knowledges } from './knowledges'
 import { Summary } from './Summary'
 import { CoreRules } from './rules/core'
 import { FightRules } from './rules/fight'
+import { Sanity } from './rules/sanity'
 import { Echoes } from './echoes'
 import { Alchemy } from './alchemy'
 import { Biomancy } from './biomancy'
@@ -36,6 +37,7 @@ export function Content () : ReactElement {
         <Feats />
         <CoreRules />
         <FightRules />
+        <Sanity />
         <Echoes />
         <Alchemy />
         <Biomancy />
