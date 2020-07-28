@@ -15,6 +15,9 @@ import { Fatalities } from './Fatalities'
 import { Hopes } from './Hopes'
 import { Madness } from './Madness'
 import { Heroism } from './Heroism'
+import { Motivation } from './Motivation'
+import { Despair } from './Despair'
+import { Catharsis } from './Catharsis'
 
 export function Sanity () : ReactElement {
   return (
@@ -32,8 +35,11 @@ export function Sanity () : ReactElement {
         <Test />
         <Fatalities />
         <Hopes />
+        <Motivation />
+        <Despair />
         <Madness />
         <Heroism />
+        <Catharsis />
       </SubjectContent>
     </Subject>
   )

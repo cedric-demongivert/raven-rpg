@@ -57,6 +57,12 @@ export function Hopes () : ReactElement {
           de victoires déjà acquises, et tant de victoires encore à prendre.
           En cas de victoire, l'ensemble des alliés gagnent 2 points de volonté.
         </p>
+
+        <p>
+          <em>Repos.</em> La nuit porte conseil. Après une bonne nuit de
+          sommeil, l'ensemble des alliés regagnent un cinquième de leurs points
+          de volonté, arrondi à l'entier inférieur.
+        </p>
       </SubjectContent>
     </Subject>
   )
