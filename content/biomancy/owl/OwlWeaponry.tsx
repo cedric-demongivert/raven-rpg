@@ -60,7 +60,7 @@ export function OwlWeaponry () : ReactElement {
 
                 <p>
                   <strong>Griffure.</strong> Un personnage dans cet état peut
-                  griffer ses adversaires pour 4D (x2) points de dégâts. La
+                  griffer ses adversaires pour 1D4 (x2) points de dégâts. La
                   maîtrise instinctive de cette arme naturelle est de 4 points
                   plus modificateur de dextérité. Cette maîtrise peut être
                   remplacée par la maîtrise du combat à main nue. Une griffure
@@ -84,7 +84,7 @@ export function OwlWeaponry () : ReactElement {
 
                 <p>
                   <strong>Griffure.</strong> Un personnage dans cet état peut
-                  griffer ses adversaires pour 6D (x2) points de dégâts. La
+                  griffer ses adversaires pour 1D6 (x2) points de dégâts. La
                   maîtrise instinctive de cette arme naturelle est de 4 points
                   plus modificateur de dextérité. Cette maîtrise peut être
                   remplacée par la maîtrise du combat à main nue. Une griffure
@@ -102,18 +102,18 @@ export function OwlWeaponry () : ReactElement {
                   solide bec à la fois tranchant et perforant. Celui-ci peut lui
                   servir pour perforer certaines couches d'armures et venir
                   extraire directement des morceau de chair du corps de ses
-                  énemis. Cette nouvelle morphologie ne lui permet cependant plus
-                  de communiquer avec la parole.
+                  énemis. Cette nouvelle morphologie ne lui permet cependant
+                  plus de communiquer avec la parole.
                 </p>
 
                 <p>
                   <strong>Coup de bec.</strong> Un personnage dans cet état peut
                   tenter de perforer le corps de ses adversaires ses adversaires
-                  pour 10D + 2DA (x2) points de dégâts. La maîtrise instinctive de
-                  cette arme naturelle est de 8 points plus modificateur de
-                  dextérité. Cette maîtrise peut être remplacée par la maîtrise du
-                  combat à main nue. Un coup de bec est toujours réalisable dans
-                  le cas où le personnage est immobilisé par un aggresseur.
+                  pour 1D8 +1D4A (x2) points de dégâts. La maîtrise instinctive
+                  de cette arme naturelle est de 8 points plus modificateur de
+                  dextérité. Cette maîtrise peut être remplacée par la maîtrise
+                  du combat à main nue. Un coup de bec est toujours réalisable
+                  dans le cas où le personnage est immobilisé par un aggresseur.
                 </p>
               </td>
             </tr>

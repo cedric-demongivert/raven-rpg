@@ -54,7 +54,7 @@ export function Arms () : ReactElement {
                 <p>
                   <strong>Griffure.</strong> Un personnage dans cet état peut
                   griffer ses adversaires ayant une armure inférieure à 5 points
-                  pour 5D (x2) points de dégâts. La maîtrise instinctive de
+                  pour 1D6 (x2) points de dégâts. La maîtrise instinctive de
                   cette arme naturelle est de 4 points plus modificateur de
                   dextérité. Cette maîtrise peut être remplacée par la maîtrise
                   du combat à main nue. Une griffure est toujours réalisable
@@ -77,7 +77,7 @@ export function Arms () : ReactElement {
 
                 <p>
                   <strong>Griffure.</strong> Un personnage dans cet état peut
-                  griffer ses adversaires pour 9D (x2) points de dégâts. La
+                  griffer ses adversaires pour 1D8 +1 (x2) points de dégâts. La
                   maîtrise instinctive de cette arme naturelle est de 6 points
                   plus modificateur de dextérité. Cette maîtrise peut être
                   remplacée par la maîtrise du combat à main nue. Une griffure

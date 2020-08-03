@@ -35,7 +35,7 @@ export function UnarmedCombat () : ReactElement {
               <td>Poing</td>
               <td>Contondant</td>
               <td className='text-center'>*</td>
-              <td className='text-center'>3D(x2) / 0</td>
+              <td className='text-center'>1D4(x2) / 0</td>
               <td>4+ Contusion</td>
               <td></td>
             </tr>
@@ -43,25 +43,25 @@ export function UnarmedCombat () : ReactElement {
               <td rowSpan={5}>Gantelet clouté</td>
               <td rowSpan={5}>Contondant</td>
               <td className='text-center'> 0-4 </td>
-              <td className='text-center'><Malus>3D</Malus>(x2) / 1</td>
+              <td className='text-center'>1D6 <Malus>-2</Malus>(x2) / 1</td>
               <td rowSpan={5}>4+ Contusion</td>
               <td rowSpan={5}>8+ Fracture</td>
             </tr>
             <tr>
               <td className='text-center'> 5-9 </td>
-              <td className='text-center'><Malus>4D</Malus>(x2) / 1</td>
+              <td className='text-center'>1D6 <Malus>-1</Malus>(x2) / 1</td>
             </tr>
             <tr>
               <td className='text-center'> 10-14 </td>
-              <td className='text-center'>5D(x2) / 1</td>
+              <td className='text-center'>1D6(x2) / 1</td>
             </tr>
             <tr>
               <td className='text-center'> 15-19 </td>
-              <td className='text-center'><Bonus>6D</Bonus>(x2) / 1</td>
+              <td className='text-center'>1D6 <Bonus>+1</Bonus>(x2) / 1</td>
             </tr>
             <tr>
               <td className='text-center'> 20+ </td>
-              <td className='text-center'><Bonus>6D</Bonus>(x2) / <Bonus>0</Bonus></td>
+              <td className='text-center'>1D6 <Bonus>+2</Bonus>(x2) / 1</td>
             </tr>
           </tbody>
           <tfoot>

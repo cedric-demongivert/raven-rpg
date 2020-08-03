@@ -74,7 +74,7 @@ export function Muzzle () : ReactElement {
                 <p>
                   <strong>Morsure.</strong> Un personnage dans cet état peut
                   mordre ses adversaires ayant une armure inférieure à 5 points
-                  pour 5D (x2) points de dégâts. La maîtrise de la morsure est
+                  pour 1D6 (x2) points de dégâts. La maîtrise de la morsure est
                   de 5 points plus modificateur de dextérité. Une morsure est
                   toujours réalisable dans le cas où le personnage est
                   immobilisé par un aggresseur. Cette morsure ne peut pas être
@@ -95,8 +95,8 @@ export function Muzzle () : ReactElement {
                 <p>
                   <strong>Morsure.</strong> Un personnage dans cet état
                   peut mordre ses adversaires ayant une armure inférieure à 5
-                  points en infligeant 6D (x2) points de dégâts. La maîtrise de
-                  la morsure est de 8 points plus modificateur de dextérité.
+                  points en infligeant 1D6 +1 (x2) points de dégâts. La maîtrise
+                  de la morsure est de 8 points plus modificateur de dextérité.
                   Cette morsure ne peut pas être utilisée lors d'une attaque à
                   outrance.
                 </p>
@@ -116,8 +116,8 @@ export function Muzzle () : ReactElement {
                 <p>
                   <strong>Morsure.</strong> Un personnage dans cet état
                   peut mordre ses adversaires ayant une armure inférieure à 10
-                  points en infligeant par la même occasion un total de 7D + 1DA
-                  (x2) points de dégâts. La maîtrise de la morsure d'un
+                  points en infligeant par la même occasion un total de 1D6 +1
+                  +1A (x2) points de dégâts. La maîtrise de la morsure d'un
                   personnage dans cet état est de 12 points plus son
                   modificateur de dextérité. Le personnage peut tenter de placer
                   une morsure dans une attaque à outrance s'il le désire.
