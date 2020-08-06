@@ -167,25 +167,25 @@ export function Light () : ReactElement {
               <td rowSpan={5}>Lance</td>
               <td rowSpan={5}>Perforant</td>
               <td className='text-center'>0-4</td>
-              <td className='text-center'>1D6 <Malus>-1</Malus> (19-20<Malus>x2</Malus>) / <Malus>5</Malus></td>
+              <td className='text-center'>1D8 <Malus>-1</Malus> (19-20<Malus>x2</Malus>) / <Malus>5</Malus></td>
               <td rowSpan={5}>6+ Plaie</td>
               <td rowSpan={5}>8+ Empalement <br/> Ignore l'armure <br/> Saignement DD10 CNT</td>
             </tr>
             <tr>
               <td className='text-center'> 5-9 </td>
-              <td className='text-center'>1D6 (19-20<Malus>x2</Malus>) / <Malus>5</Malus></td>
+              <td className='text-center'>1D8 (19-20<Malus>x2</Malus>) / <Malus>5</Malus></td>
             </tr>
             <tr>
               <td className='text-center'> 10-14 </td>
-              <td className='text-center'>1D6 (19-20x3) / 4</td>
+              <td className='text-center'>1D8 (19-20x3) / 4</td>
             </tr>
             <tr>
               <td className='text-center'> 15-19 </td>
-              <td className='text-center'>1D6 <Bonus>+1</Bonus> (19-20x3) / <Bonus>4</Bonus></td>
+              <td className='text-center'>1D8 <Bonus>+1</Bonus> (19-20x3) / <Bonus>4</Bonus></td>
             </tr>
             <tr>
               <td className='text-center'> 20+ </td>
-              <td className='text-center'>1D6 <Bonus>+2</Bonus> (19-20x3) / <Bonus>3</Bonus></td>
+              <td className='text-center'>1D8 <Bonus>+2</Bonus> (19-20x3) / <Bonus>3</Bonus></td>
             </tr>
           </tbody>
           <tfoot>
