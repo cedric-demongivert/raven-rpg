@@ -50,6 +50,13 @@ export function ActionRule () : ReactElement {
           que ceux-ci soient à sa portée et qu'elle ne dépasse pas le nombre de
           coups auxquels elle à droit.
         </p>
+
+        <p>
+          <em>Charge.</em> La charge est une action spéciale consistant en une
+          prise suffisante de vitesse suivit d'un coup au corps à corps. Lors
+          d'une charge, l'attaquant se voit attribuer un bonus de 2 points sur
+          son jet d'attaque.
+        </p>
       </SubjectContent>
     </Subject>
   )
