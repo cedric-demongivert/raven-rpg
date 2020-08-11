@@ -55,21 +55,19 @@ export function DamageRule () : ReactElement {
         </p>
 
         <p>
-          Ces grands types de dégâts peuvent être raffinés en y ajoutant des trais
-          complémentaires comme pour les dégâts élémentaires de feu, de glace,
-          de terre ou d'électricité. Ces traits sont cependant complémentaires, et
-          les dégâts se comporteront comme ce comportent tous les dégâts de leur
-          catégorie.
+          <em>Traits.</em> Les grands types de dégâts peuvent être raffinés en y
+          ajoutant des trais complémentaires comme pour les dégâts élémentaires
+          de feu, de glace, de terre ou d'électricité. Ces traits sont cependant
+          complémentaires, et les dégâts se comporteront comme ce comportent
+          tous les dégâts de leur catégorie.
         </p>
 
         <p>
-          Toute attaque peut porter une certaine quantité de dégâts exprimé en dés.
-          Pour résoudre le nombre de dégâts affligés par une attaque il faut alors
-          lancer autant de dés six que de points de dégâts infligeable. Tous les dés
-          pairs sont alors considéré comme un point de dégât infligé. Le défenseur
-          peut alors déduire ceux-ci de ses points de vie ou de son armure en
-          fonction du type de dégât. Les dégâts visant l'armure sont toujours
-          appliqués après les dégâts visant les points de vie.
+          Toute attaque peut porter une certaine quantité de dégâts exprimé en
+          dés. Pour résoudre le nombre de dégâts affligés par une attaque il
+          faut alors lancer autant de dés que nécéssaire et sommer les
+          résultats. Les dégâts visant l'armure sont toujours appliqués après
+          les dégâts visant les points de vie.
         </p>
       </SubjectContent>
     </Subject>

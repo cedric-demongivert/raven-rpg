@@ -27,11 +27,13 @@ export function Strength () : ReactElement {
           <img src='./images/characteristics/strength.svg' width='200' />
         </p>
 
-        <p>
-          La force représente la capacité à altérer le réel par l'usage
-          de moyens physiques, elle mesure aussi la capacité de charge. Un bon
-          niveau de force permet d'équiper plus de matériel, de maîtriser les
-          armures et armes lourdes et de faire plus de dégât physique.
+        <p className='text-justify'>
+          La for&shy;ce re&shy;pré&shy;sen&shy;te la ca&shy;pa&shy;ci&shy;té à al&shy;té&shy;rer
+          le réel par l'us&shy;age de moyens phy&shy;si&shy;ques, elle me&shy;su&shy;re aus&shy;si la
+          ca&shy;pa&shy;ci&shy;té de cha&shy;rge. Un bon ni&shy;veau de for&shy;ce per&shy;met
+          d'équi&shy;per plus de ma&shy;té&shy;riel, de maî&shy;tri&shy;ser les
+          ar&shy;mu&shy;res et ar&shy;mes lou&shy;rdes et de fai&shy;re plus de dé&shy;gât
+          phy&shy;si&shy;que.
         </p>
       </SubjectContent>
     </Subject>

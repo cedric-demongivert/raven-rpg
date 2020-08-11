@@ -8,13 +8,10 @@ import { SubjectKeyword } from '../../../components/subject/SubjectKeyword'
 import { SubjectIdentifier } from '../../../components/subject/SubjectIdentifier'
 import { Subject } from '../../../components/subject/Subject'
 
-export function WoundsRule () : ReactElement {
+export function Wounds () : ReactElement {
   return (
     <Subject>
-      <SubjectIdentifier>rules-fight-wounds</SubjectIdentifier>
-      <SubjectKeyword>Règle</SubjectKeyword>
-      <SubjectKeyword>Règle de combat</SubjectKeyword>
-      <SubjectKeyword>Blessure</SubjectKeyword>
+      <SubjectIdentifier>rules-status-wounds</SubjectIdentifier>
       <SubjectTitle>Blessures</SubjectTitle>
       <SubjectSummary>
 

@@ -22,7 +22,7 @@ export function CriticalHitRule () : ReactElement {
       </SubjectSummary>
       <SubjectContent>
         <p>
-          Lors d'un test, un score supérieur égal à 1 est un échec critique aux
+          Lors d'un test, un score égal à 1 est un échec critique aux
           répercussions désastreuses. À l'inverse, un score égal à 20 est un
           succès critique aux conséquences bénéfiques. Les critiques priment sur
           les chances de succès réelles d'un personnage. Ainsi, un personnage

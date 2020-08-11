@@ -21,18 +21,19 @@ export function WeigthPointRule () : ReactElement {
       </SubjectSummary>
       <SubjectContent>
         <p>
-          Une entitée possède autant de points de charge qu'elle à de points de
-          force. Les points de charge représente la quantité d'objets que peut
-          équiper et transporter l'entité avant de se voir attribuer des malus.
+          <em>Points de charge.</em> Une entitée possède autant de points de
+          charge qu'elle ne possède de points de force. Les points de charge
+          représente la quantité d'objets que peut équiper et transporter
+          l'entité avant de se voir attribuer des malus.
         </p>
 
         <p>
-          <em>Sous-charge.</em> Tous les deux points de charge non utilisé,
-          l'entité peut rajouter un point de dégât supplémentaire à toute ses
-          attaques au corps à corps à hauteur de la valeur du modificateur de
-          force dont elle fait l'objet. Pour chaque groupe de deux points de
-          charge non utilisé, une entitée gagne un point d'initiative
-          supplémentaire.
+          <em>Sous-charge.</em> Une entitée est considéré en sous-charge quand
+          elle possède plus de points de charge qu'il n'en faut pour supporter
+          l'entièreté de son équipement. Dans cette situation, tous les deux
+          points de charge non utilisé sont convertis à la fois en points
+          d'initiative bonus et en points de dégâts supplémentaires ajoutable
+          aux attaques au corps à corps.
         </p>
 
         <p>

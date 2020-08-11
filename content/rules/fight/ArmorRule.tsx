@@ -21,31 +21,62 @@ export function ArmorRule () : ReactElement {
       </SubjectSummary>
       <SubjectContent>
         <p>
-          Toute entitée possède un score d'armure physique et un score d'armure
-          magique. L'armure physique diminue le nombre de dégâts physiques reçus
-          mais s'avère inefficace contre les dégâts magiques. L'armure magique
-          diminue le nombre de dégâts magiques reçus mais s'avère inefficace
-          contre les dégâts physique. Un score d'armure peut, comme les points
-          de vie d'une entitée, faire l'objet de dégâts. Quand un score d'armure
-          est supérieur aux dégâts pris, l'entité ne prends aucun dégâts.
+          <em>Armure physique.</em> Toute entitée possède un score d'armure
+          physique équivalent à la somme des modificateurs d'armure apportés par
+          son équipement et les éventuels effets secondaires dont elle peut
+          faire l'objet. L'armure physique diminue le nombre de dégâts physiques
+          reçus mais s'avère inefficace contre les dégâts magiques.
         </p>
 
         <p>
-          Une entitée peut s'équiper de trois types d'armure en même temps, une
-          armure légère, une armure intermédiaire et une armure lourde. Si elle
-          équipe plusieurs couche d'armure elle somme alors l'ensemble des
-          effets de celles-ci, y compris les effets négatifs. Certaines armures
-          peuvent interdire l'utilisation d'autres pièces d'armure, comme
-          l'utilisation d'une plaque seule, interdisant l'armure de plaque
-          complète.
+          <em>Armure magique.</em> Toute entitée possède un score d'armure
+          magique équivalent à la somme des modificateurs d'armure apportés par
+          son équipement et les éventuels effets secondaires dont elle peut
+          faire l'objet. L'armure magique diminue le nombre de dégâts magiques
+          reçus mais s'avère inefficace contre les dégâts physique.
         </p>
 
         <p>
-          Si une pièce d'armure accumule plus de dégâts d'armure qu'elle n'offre
-          de points elle est alors détruite. C'est toujours la couche d'armure
-          la plus à l'extérieure qui prends les dégâts en premier. Pour qu'une
-          pièce d'armure récupère les points d'armure perdus en combat elle doit
-          être réparée.
+          <em>Couches d'armure.</em> Une entitée peut équiper plusieurs armures
+          en même temps, on dit alors qu'elle utilise des couches d'armures.
+          Dans une telle situation, l'ensemble des effets des armures équipées
+          doivent être sommés, y compris les effets négatifs. Il n'est pas
+          possible d'équiper plus d'une armure par couche. Attention aussi, car
+          certaines armures peuvent interdire l'utilisation d'autres pièces
+          tierces, comme dans le cas de l'utilisation d'une cuirasse en tant
+          qu'armure intermédiaire interdisant par le fait même l'équipement de
+          toute armure lourde. Les couches standards sont : le corps, la ou les
+          enveloppes, la couche d'armure légère, la couche d'armure
+          intermédiaire, la couche d'armure lourde et les champs.
+        </p>
+
+        <p>
+          <em>Couches d'armure physique.</em> Les couches d'armure physique
+          sont : la couche d'armure légère, la couche d'armure intermédiaire et
+          la couche d'armure lourde toutes équipées dans cet ordre précis.
+        </p>
+
+        <p>
+          <em>Couches d'armure magique.</em> Les couches d'armure magique sont
+          le corps, sujet aux mutations modifiant la nature même de la chair du
+          sujet, la ou les enveloppes, pour les mutations modifiant la nature
+          de la peau du sujet et les champs accueillant tous les effets
+          assimilables à des champs de force.
+        </p>
+
+        <p>
+          <em>Dégâts d'armures.</em> Un score d'armure, qu'il soit magique ou
+          physique, peut, tout comme les points de vie d'une entitée, faire
+          l'objet de dégâts. Dans le cas où une entitée subit des dégâts
+          d'armure, c'est la ou les couches les plus périphériques qui
+          encaissent les dégâts. Quand un modificateur d'armure tombe à zéro
+          l'objet ou l'effet qui en est à l'origine est endomagé, détruit ou
+          dissipé.
+        </p>
+
+        <p>
+          <em>Protection totale.</em> Quand un score d'armure est supérieur aux
+          dégâts pris, l'entité ne prends aucun dégâts.
         </p>
       </SubjectContent>
     </Subject>

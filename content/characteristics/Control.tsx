@@ -27,11 +27,13 @@ export function Control () : ReactElement {
           <img src='./images/characteristics/control.svg' width='200' />
         </p>
 
-        <p>
-          Le contrôle représente la maîtrise consciente de soi et le recul vis-à-vis
-          de ses sentiments, elle mesure aussi la volonté d'un personnage. Un bon
-          niveau de contrôle permet de résister aux manipulations mentales et de
-          garder son sang froid dans les situations difficiles.
+        <p className='text-justify'>
+          Le con&shy;trô&shy;le re&shy;pré&shy;sen&shy;te la maî&shy;tri&shy;se
+          con&shy;scien&shy;te de soi et le re&shy;cul vis-&shy;à-vis
+          de ses sen&shy;ti&shy;ments, elle me&shy;su&shy;re aus&shy;si la
+          vo&shy;lon&shy;té d'un per&shy;son&shy;nage. Un bon ni&shy;veau de con&shy;trô&shy;le
+          per&shy;met de ré&shy;si&shy;ster aux ma&shy;ni&shy;pu&shy;la&shy;tions men&shy;ta&shy;les et de
+          gar&shy;der son sang froid dans les si&shy;tu&shy;a&shy;tions dif&shy;fi&shy;ci&shy;les.
         </p>
       </SubjectContent>
     </Subject>

@@ -13,7 +13,6 @@ export function Introduction () : ReactElement {
     <Subject>
       <SubjectIdentifier>rules-fight-introduction</SubjectIdentifier>
       <SubjectKeyword>Règle</SubjectKeyword>
-      <SubjectKeyword>Règle de combat</SubjectKeyword>
       <SubjectKeyword>Introduction</SubjectKeyword>
       <SubjectTitle>Introduction</SubjectTitle>
       <SubjectSummary>
@@ -21,32 +20,36 @@ export function Introduction () : ReactElement {
       </SubjectSummary>
       <SubjectContent>
         <p>
-          Les scènes à interaction forte nécessitant des prises de décision
-          simultanées sont résolues au tour par tour.
+          <em>Scène d'action.</em> Les scènes qui nécessitent que plusieurs
+          joueurs et éléments du récit prennent des décisions de manière
+          simultanée et potentiellement contradictoire sont appellées des scènes
+          d'actions. Les scènes d'action sont résolues au tour par tour.
         </p>
 
         <p>
           <em>Entitée.</em> Une entitée est un élément du récit pouvant agir de
-          son propre chef lors d'une scène à forte interaction.
+          son propre chef lors d'une scène d'action. Une entitée peut être
+          contrôlée par un joueur, par le maître du jeu ou par un ensemble de
+          règles strictes.
         </p>
 
         <p>
           <em>Action.</em> Une action est une prise de décision unilatérale
-          d'une entitée à un instant donné de la scène d'action. Une fois que la
-          ou les décisions d'une entitée sont résolue, une autre peut alors à
-          son tour réaliser une action et ainsi de suite.
+          effectuée par une entitée à un instant donné d'une scène d'action. Une
+          fois l'action résolue, une autre entitée peut alors à son tour
+          réaliser une action et ainsi de suite.
         </p>
 
         <p>
-          <em>Round.</em> Un round est la durée nécéssaire pour que toutes les
-          entitées d'une scène puissent réaliser l'ensemble des actions
-          auxquelles elles ont droit. Il peut arriver qu'une entité ait le droit
-          de jouer plusieurs actions lors d'un round.
+          <em>Tour.</em> Un tour représente la durée nécéssaire pour que toutes
+          les entitées d'une scène d'action puissent réaliser l'ensemble des
+          actions auxquelles elles ont droit. Il peut arriver qu'une entité ait
+          le droit de jouer plusieurs actions lors d'un tour.
         </p>
 
         <p>
           <em>Ordonnancement.</em> Un ordonnancement est un ensemble de règle
-          permettant de définir clairement l'ordre des actions dans un round.
+          permettant de définir clairement l'ordre des actions durant un tour.
         </p>
       </SubjectContent>
     </Subject>

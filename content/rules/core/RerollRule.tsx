@@ -15,18 +15,20 @@ export function RerollRule () : ReactElement {
       <SubjectIdentifier>rules-core-reroll</SubjectIdentifier>
       <SubjectKeyword>Règle</SubjectKeyword>
       <SubjectKeyword>Règle principale</SubjectKeyword>
-      <SubjectKeyword>Pousser le test</SubjectKeyword>
-      <SubjectTitle>Pousser le test</SubjectTitle>
+      <SubjectKeyword>Pousser un test</SubjectKeyword>
+      <SubjectTitle>Pousser un test</SubjectTitle>
       <SubjectSummary>
 
       </SubjectSummary>
       <SubjectContent>
         <p>
-          Lors d'un échec qui n'est pas un échec critique et moyennant une
-          justification acceptée par le maître du jeu, un personnage peut
-          tenter de repasser un test qu'il vient juste d'échouer. Si celui-ci
-          réussi la seconde tentative alors le test est passé, s'il échoue une
-          seconde fois alors le joueur est sujet à un échec critique.
+          Quand un joueur échoue à passer un test et que son échec n’est pas un
+          échec critique il peut alors réitérer sa tentative en présentant une 
+          justification scénaristique validée par le maître du jeu. Dans cette 
+          situation, l’on dit alors du joueur qu’il pousse le test, et, si sa 
+          seconde tentative est une réussite, alors le test origine est 
+          considéré comme passé. Si, au contraire, le joueur échoue sa seconde 
+          tentative, alors cet échec est considéré comme un échec critique.
         </p>
       </SubjectContent>
     </Subject>

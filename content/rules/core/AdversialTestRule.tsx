@@ -37,16 +37,16 @@ export function AdversialTestRule () : ReactElement {
           <em>Définition.</em> La résolution par opposition décide de l'issue
           d'une confrontation entre deux éléments du récit. C'est le test type
           pour résoudre le succès des attaques d'un épéiste ou la résistance
-          d'une serrure à une tentative de crochetage.
+          d'une serrure lors d'une tentative de crochetage.
         </p>
 
         <p>
           <em>Acteur / Opposant.</em> Le joueur qui lance les dés est dit
-          acteur de la résolution. Le joueur qui subit le test est dit opposant
-          à la résolution. Un joueur est toujours acteur de la résolution
-          lorsqu'il se confronte à un élément du récit. Dans le cas où deux
-          joueurs se confrontent, l'acteur est décidé d'un commun accord ou
-          à pile ou face. Finalement, si deux éléments du récit interagissent
+          acteur de la résolution et le joueur qui subit le test est dit
+          opposant à la résolution. Un joueur est toujours acteur de la
+          résolution lorsqu'il se confronte à un élément du récit. Dans le cas
+          où deux joueurs se confrontent, l'acteur est décidé d'un commun accord
+          ou à pile ou face. Finalement, si deux éléments du récit interagissent
           entre-eux, c'est au maître du jeu de répartir les rôles.
         </p>
 
@@ -54,10 +54,10 @@ export function AdversialTestRule () : ReactElement {
           <em>Test.</em> Une résolution par opposition compare une compétence
           de l'acteur appelée compétence offensive à une compétence de
           l'opposant dite compétence défensive. Pour que l'issue du test soit
-          favorable pour l'acteur celui-ci doit obtenir un score strictement
-          supérieur au niveau de la compétence défensive de son opposant
-          augmentée de dix points en lançant un dé à vingt faces et en y
-          ajoutant le niveau de sa propre compétence offensive.
+          favorable pour l'acteur celui-ci doit obtenir un score <strong>
+          strictement supérieur</strong> au niveau de la compétence défensive de
+          son opposant augmentée de dix points en lançant un dé à vingt faces et
+          en y ajoutant le niveau de sa propre compétence offensive.
         </p>
 
         <p>

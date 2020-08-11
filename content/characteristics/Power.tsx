@@ -27,11 +27,13 @@ export function Power () : ReactElement {
           <img src='./images/characteristics/power.svg' width='200' />
         </p>
 
-        <p>
-          Le pouvoir représente la capacité à plier la réalité à sa volonté en
-          usant de prouesses mentales, il mesure aussi l'affinité à la magie. Un
-          bon niveau de pouvoir permet de résister aux effets magiques et de
-          lancer des sorts plus puissant.
+        <p className='text-justify'>
+          Le pou&shy;voir re&shy;pré&shy;sen&shy;te la ca&shy;pa&shy;ci&shy;té à
+          plier la ré&shy;a&shy;li&shy;té à sa vo&shy;lon&shy;té en
+          usant de prou&shy;es&shy;ses men&shy;ta&shy;les, il me&shy;su&shy;re
+          aus&shy;si l'af&shy;fi&shy;ni&shy;té à la ma&shy;gie. Un
+          bon ni&shy;veau de pou&shy;voir per&shy;met de ré&shy;si&shy;ster aux
+          ef&shy;fets ma&shy;gi&shy;ques et de lan&shy;cer des sorts plus puis&shy;sant.
         </p>
       </SubjectContent>
     </Subject>

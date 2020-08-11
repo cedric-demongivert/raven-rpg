@@ -27,11 +27,12 @@ export function Dexterity () : ReactElement {
           <img src='./images/characteristics/dexterity.svg' width='200' />
         </p>
 
-        <p>
-          La dextérité représente la précision des sens, elle mesure aussi
-          l'initiative d'un personnage en combat. Un bon niveau de dextérité
-          permet d'agir le premier, de se mouvoir sans faire de bruit, d'esquiver
-          et de maîtriser les armes de jet et les armes légères.
+        <p className='text-justify'>
+          La dex&shy;té&shy;ri&shy;té re&shy;pré&shy;sen&shy;te la pré&shy;ci&shy;sion
+          des sens, elle me&shy;su&shy;re aus&shy;si l'ini&shy;tia&shy;ti&shy;ve
+          d'un per&shy;son&shy;nage en com&shy;bat. Un bon ni&shy;veau de dex&shy;té&shy;ri&shy;té
+          per&shy;met d'agir le pre&shy;mier, de se mou&shy;voir sans fai&shy;re de bruit, d'es&shy;qui&shy;ver
+          et de maî&shy;tri&shy;ser les ar&shy;mes de jet et les ar&shy;mes lé&shy;gè&shy;res.
         </p>
       </SubjectContent>
     </Subject>

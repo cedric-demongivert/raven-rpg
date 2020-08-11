@@ -9,21 +9,15 @@ import { SubjectIdentifier } from '../../../components/subject/SubjectIdentifier
 import { Subject } from '../../../components/subject/Subject'
 import { LocalSummary } from '../../../components/LocalSummary'
 
-import { ArmorRule } from './ArmorRule'
-import { AttackRule } from './AttackRule'
-import { DamageRule } from './DamageRule'
-import { HealthPointRule } from './HealthPointRule'
-import { InitiativeRule } from './InitiativeRule'
 import { Introduction } from './Introduction'
-import { WeigthPointRule } from './WeigthPointRule'
-import { ActionRule } from './ActionRule'
-import { ProjectileRule } from './ProjectileRule'
+import { Coma } from './Coma'
+import { Wounds } from './Wounds'
 
-export function FightRules () : ReactElement {
+export function Status () : ReactElement {
   return (
     <Subject>
-      <SubjectIdentifier>rules-fight</SubjectIdentifier>
-      <SubjectTitle>Scènes d'action</SubjectTitle>
+      <SubjectIdentifier>rules-status</SubjectIdentifier>
+      <SubjectTitle>Status</SubjectTitle>
       <SubjectSummary>
 
       </SubjectSummary>
@@ -31,14 +25,8 @@ export function FightRules () : ReactElement {
         <LocalSummary />
 
         <Introduction />
-        <InitiativeRule />
-        <HealthPointRule />
-        <ArmorRule />
-        <WeigthPointRule />
-        <ActionRule />
-        <AttackRule />
-        <ProjectileRule />
-        <DamageRule />
+        <Coma />
+        <Wounds />
       </SubjectContent>
     </Subject>
   )

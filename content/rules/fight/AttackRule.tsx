@@ -12,75 +12,70 @@ export function AttackRule () : ReactElement {
   return (
     <Subject>
       <SubjectIdentifier>rules-fight-attack</SubjectIdentifier>
-      <SubjectKeyword>Règle</SubjectKeyword>
-      <SubjectKeyword>Règle de combat</SubjectKeyword>
-      <SubjectKeyword>Attaque</SubjectKeyword>
-      <SubjectTitle>Attaque</SubjectTitle>
+      <SubjectTitle>Attaque au corps à corps</SubjectTitle>
       <SubjectSummary>
 
       </SubjectSummary>
       <SubjectContent>
         <p>
-          Une attaque est une action simple qui nécéssite d'être à porté de sa
-          cible. Les attaques ne peuvent pas faire l'objet d'une quelconque
-          coopération mais leur succès peuvent être influencé par
-          l'environnement. Une attaque se déroule toujours en deux temps : la
+          <em>Attaque au corps à corps.</em> Une attaque au corps à corps est
+          une action qui nécéssite d'être à porté de sa cible. Les attaques au
+          corps à corps ne peuvent pas faire l'objet d'une quelconque
+          coopération mais leur succès peut être influencé par l'environnement.
+          Une attaque au corps à corps se déroule toujours en deux temps : la
           touche et la résolution des dégâts.
         </p>
 
         <p>
-          Lors de la phase de touche, le défenseur peut s'il en a la capacité
-          choisir d'esquiver, de parer ou de ne rien faire. La touche est un test
-          d'opposition standard entre la maîtrise de l'arme de l'attaquant et la
-          maîtrise choisie par le défenseur. Si le défenseur ne fait rien ou ne peut
-          ni esquiver le coup ni le parer, l'attaquant touche automatiquement.
+          <em>Touche.</em> Lors de la phase de touche, le défenseur peut s'il en
+          a la capacité choisir d'esquiver, de parer ou de ne rien faire. La
+          touche est un test d'opposition standard entre la maîtrise de l'arme
+          de l'attaquant et la maîtrise choisie par le défenseur. Dans le cas où
+          le défenseur ne fait rien, ne peut pas esquiver ou ne peut pas parer,
+          l'attaquant touche automatiquement.
         </p>
 
         <p>
-          Une entitée à le droit à une esquive par tour. Lors d'une esquive, le
-          défenseur oppose sa maîtrise de l'esquive à la maîtrise de l'arme de
-          l'attaquant et choisi une direction dans laquelle esquiver. Si l'esquive
-          est réussie, le défenseur peut alors réaliser un pas de placement dans la
-          direction qu'il a choisie et l'attaquant échoue son action. Le nombre
-          d'esquive par tour peut varier en fonction des atouts et autres effets. Le
-          défenseur doit toujours equiver dans une direction qui est libre d'accès.
+          <em>Esquive.</em> Une entitée à le droit à une esquive par tour. Lors
+          d'une esquive, le défenseur oppose sa maîtrise de l'esquive à la
+          maîtrise de l'arme de l'attaquant et choisi une direction dans
+          laquelle esquiver. Si l'esquive est réussie, le défenseur peut alors
+          réaliser un pas de placement dans la direction qu'il a choisie et
+          l'attaquant échoue son action. Le nombre d'esquive par tour peut
+          varier en fonction des atouts et autres effets. Le défenseur doit
+          toujours equiver dans une direction qui est libre d'accès. Une esquive
+          ne peut pas faire l'objet d'une coopération de quelque nature que ce
+          soit.
         </p>
 
         <p>
-          Une entitée à le droit à une parade par tour. Lors d'une parade, le
-          défenseur oppose la maîtrise de sa propre arme, ou de son bouclier à la
-          maîtrise de l'attaquant. Si la parade réussie, l'attaquant échoue son
-          action. Le nombre de parade par tour peut varier en fonction des atouts et
-          des effets.
+          <em>Parade.</em> Une entitée à le droit à une parade par tour. Lors
+          d'une parade, le défenseur oppose la maîtrise de sa propre arme, ou de
+          son bouclier à la maîtrise de l'attaquant. Si la parade réussie,
+          l'attaquant échoue son action. Le nombre de parade par tour peut
+          varier en fonction des atouts et des effets. Une parade ne peut pas
+          faire l'objet d'une coopération de quelque nature que ce soit.
         </p>
 
         <p>
-          Certaines situations sont à l'avantage de l'attaquant. Si le défenseur
-          esquive pour sortir de la zone de contrôle de son adversaire il se voit
-          alors attribuer un malus de 2 points sur sa maîtrise de l'esquive. Pour
-          chaque entitée hostile autour de lui dont le défenseur est l'objet de
-          l'attention, le défenseur se voit en plus attribuer un malus de 2 points
-          supplémentaire sur la maîtrise qu'il utilise pour se défendre.
+          <em>Surnombre.</em> Si le défenseur est à portée de trois adversaire
+          ou plus, il subit alors un malus de deux points sur ses éventuels jets
+          d'esquive ou de parrade. Ce nombre est augmentée d'un point pour
+          chaque adversaire supplémentaire au delà de trois.
         </p>
 
         <p>
-          Certaines situations sont à l'avantage du défenseur. Pour chaque entitée
-          hostile autour de lui dont l'attaquant est l'objet de l'attention, le
-          défenseur se voit en plus attribuer un bonus de 2 points supplémtaire sur
-          la maîtrise qu'il utilise pour se défendre. Si l'attaquant doit réaliser
-          un pas de placement pour attaquer le défenseur, celui-ci gagne 2 points
-          supplémentaire sur la maîtrise qu'il utilise pour se défendre.
+          <em>Tenaille.</em> Si le défenseur est à portée de deux adversaires
+          opposés l'un de l'autre il est alors considéré comme pris en tenaille
+          et subit alors un malus de deux points sur ses éventuels jets
+          d'esquive ou de parrade.
         </p>
 
         <p>
-          Certaines règles supplémentaire peuvent encore modifier le niveau de
-          maîtrise de l'attaquant ou du défenseur en fonction du type d'action
-          entrepris ou des effets actifs.
-        </p>
-
-        <p>
-          Si l'attaquant réussi sa touche, il peut alors calculer les dégâts qu'il
-          va infliger au défenseur.
+          <em>Dégâts.</em> Si l'attaquant réussi sa touche, il peut alors
+          calculer les dégâts qu'il va infliger au défenseur en utilisant les
+          indications de son arme et le nombre de points d'armure possédés par
+          le défenseur.
         </p>
       </SubjectContent>
     </Subject>

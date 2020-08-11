@@ -8,12 +8,11 @@ import { SubjectKeyword } from '../../../components/subject/SubjectKeyword'
 import { SubjectIdentifier } from '../../../components/subject/SubjectIdentifier'
 import { Subject } from '../../../components/subject/Subject'
 
-export function ComaRule () : ReactElement {
+export function Coma () : ReactElement {
   return (
     <Subject>
-      <SubjectIdentifier>rules-fight-coma</SubjectIdentifier>
+      <SubjectIdentifier>rules-status-coma</SubjectIdentifier>
       <SubjectKeyword>Règle</SubjectKeyword>
-      <SubjectKeyword>Règle de combat</SubjectKeyword>
       <SubjectKeyword>Coma</SubjectKeyword>
       <SubjectTitle>Coma</SubjectTitle>
       <SubjectSummary>
