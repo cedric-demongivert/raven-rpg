@@ -65,7 +65,7 @@ export function Heroism () : ReactElement {
           doit réaliser un test d'opposition entre son score normal d'initiative
           et un degré de difficulté équivalent à 5 points plus 5 points par
           nombre d'action déjà jouées durant le tour en cours. Si le test
-          échoue, le personnade subit 1D4 points de dégâts bruts.
+          échoue, le personnage subit 1D4 points de dégâts bruts.
         </p>
       </SubjectContent>
     </Subject>
