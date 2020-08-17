@@ -19,6 +19,7 @@ import { Echoes } from './echoes'
 import { Alchemy } from './alchemy'
 import { Biomancy } from './biomancy'
 import { Items } from './items'
+import { Magic } from './magic'
 
 import { Feats } from './Feats'
 
@@ -41,6 +42,7 @@ export function Content () : ReactElement {
         <Status />
         <Sanity />
         <Echoes />
+        <Magic />
         <Alchemy />
         <Biomancy />
         <Items />
