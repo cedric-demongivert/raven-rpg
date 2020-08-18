@@ -19,10 +19,10 @@ export const MultipleShot : Feat = (
         <p>
           Lors d'une attaque à outrance à l'arc le personnage peut ajouter une
           flèche supplémentaire pour chaque groupe de 8 points de maîtrise qu'il
-          possède. Le personnage subit un malus de 3 points à la touche pour
+          possède. Le personnage subit un malus de 2 points à la touche pour
           chaque flèche supplémentaire tirée. La cible d'un tir multiple ayant
-          la capacité d'esquiver des flèches peut tenter d'esquiver l'ensemble
-          des flèches d'une traite.
+          la capacité d'esquiver des flèches se voit attribuer un malus de 2
+          points par flèche ajoutée.
         </p>
 
         <p>
