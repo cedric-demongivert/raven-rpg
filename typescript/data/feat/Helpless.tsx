@@ -6,7 +6,7 @@ export const Helpless : Feat = (
   Feat
     .builder()
     .setIdentifier('helpless')
-    .setName('Sans défence [Arme\xa0à\xa0une\xa0main][Épée\xa0bâtarde]')
+    .setName('Sans défense [Arme\xa0à\xa0une\xa0main][Épée\xa0bâtarde]')
     .addKeyword('atout')
     .setDescription(
       <>

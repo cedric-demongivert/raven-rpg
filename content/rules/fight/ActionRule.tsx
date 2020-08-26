@@ -34,14 +34,14 @@ export function ActionRule () : ReactElement {
 
         <p>
           <em>Attaque simple.</em> Une action d'attaque simple consiste en un
-          mouvement et une unique tentative d'aggression avec l'arme équipée. La
-          résolution de l'action suit alors les procédés usuels d'attaque avec
-          l'arme choisie.
+          déplacement et une unique tentative d'aggression avec l'arme équipée.
+          La résolution de l'action suit alors les procédés usuels d'attaque
+          avec l'arme choisie.
         </p>
 
         <p>
           <em>Attaque à outrance.</em> Une action d'attaque à outrance consiste
-          en un mouvement extrêmement réduit et plusieurs tentatives
+          en un déplacement extrêmement réduit et plusieurs tentatives
           d'aggression successives avec l'arme équipée. Un personnage ne peut
           frapper par défaut qu'une seule fois avec chaque arme qu'il équipe, la
           résolution des différentes attaques suit alors les procédés usuels

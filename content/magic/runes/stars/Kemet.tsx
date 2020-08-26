@@ -17,20 +17,50 @@ export function Kemet () : ReactElement {
       <SubjectSummary>
       </SubjectSummary>
       <SubjectContent>
-        <div className='row'>
-          <div className='col-xs-12 col-md-4'>
-            <p className='text-center'>
-              <img src='./images/runic-kemet.svg' width='200' />
-            </p>
+        <p className='text-center'>
+          <img src='./images/runic-kemet.svg' width='200' />
+        </p>
 
-            <p className='text-center ipa'>
-              [ke.mɛt]
-            </p>
-          </div>
-          <div className='col-xs-12 col-md-8'>
+        <p className='text-center ipa'>
+          [ke.mɛt]
+        </p>
 
-          </div>
-        </div>
+        <p className='text-center'>
+          Kémèt la cristaline, princesses des roches et de la terre est la rune
+          permettant de former des évocations liées à la terre, aux rochers et
+          aux métaux dans une moindre mesure.
+        </p>
+
+        <table className='table-1d table-vertical text-center'>
+          <thead>
+            <tr>
+              <th style={{width: '100px'}}> Nature </th>
+              <th style={{width: '300px'}}> Synonyme(s) </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td> Sujet </td>
+              <td> La terre, la pierre, ~le métal. </td>
+            </tr>
+            <tr>
+              <td> Objet </td>
+              <td> La terre, la pierre, ~le métal. </td>
+            </tr>
+            <tr>
+              <td> Adjectif </td>
+              <td> Dur, solide. </td>
+            </tr>
+            <tr>
+              <td> Verbe </td>
+              <td> Durcir, fossiliser. </td>
+            </tr>
+            <tr>
+              <td> Adverbe </td>
+              <td> De pierre, de terre. </td>
+            </tr>
+          </tbody>
+        </table>
       </SubjectContent>
     </Subject>
   )

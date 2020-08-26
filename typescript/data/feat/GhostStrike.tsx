@@ -17,7 +17,7 @@ export const GhostStrike : Feat = (
         <p>
           Un personnage possédant cet atout et équipé de l'arme choisie peut,
           avant d'attaquer, décider de porter un coup provoquant la moitiée des
-          dégâts usuels mais entraînant la perde d'une parrade ou d'une esquive.
+          dégâts usuels mais entraînant la perte d'une parrade ou d'une esquive.
         </p>
 
         <p>

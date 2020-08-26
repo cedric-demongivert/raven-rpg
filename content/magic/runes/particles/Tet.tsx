@@ -17,20 +17,20 @@ export function Tet () : ReactElement {
       <SubjectSummary>
       </SubjectSummary>
       <SubjectContent>
-        <div className='row'>
-          <div className='col-xs-12 col-md-4'>
-            <p className='text-center'>
-              <img src='./images/runic-tet.svg' width='200' />
-            </p>
+        <p className='text-center'>
+          <img src='./images/runic-tet.svg' width='200' />
+        </p>
 
-            <p className='text-center ipa'>
-              [tɛt]
-            </p>
-          </div>
-          <div className='col-xs-12 col-md-8'>
+        <p className='text-center ipa'>
+          [tɛt]
+        </p>
 
-          </div>
-        </div>
+        <p>
+          Tèt est le symbole qui précède le ou les <strong>adjectifs</strong> d'un
+          sujet ou d'un objet, c'est à dire toute rune ayant pour nature de
+          détailler un nom. Tèt est donc une particule que l'on peut donc
+          retrouver un peut partout dans une évocation complexe.
+        </p>
       </SubjectContent>
     </Subject>
   )

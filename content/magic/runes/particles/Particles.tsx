@@ -29,12 +29,33 @@ export function Particles () : ReactElement {
         <LocalSummary />
 
         <Introduction />
-        <Ket />
-        <Met />
-        <Set />
-        <Tet />
-        <Yet />
-        <Zet />
+
+        <div className='row'>
+          <div className='col-xs-12 col-md-6'>
+            <Ket />
+          </div>
+          <div className='col-xs-12 col-md-6'>
+            <Met />
+          </div>
+        </div>
+
+        <div className='row'>
+          <div className='col-xs-12 col-md-6'>
+            <Set />
+          </div>
+          <div className='col-xs-12 col-md-6'>
+            <Tet />
+          </div>
+        </div>
+
+        <div className='row'>
+          <div className='col-xs-12 col-md-6'>
+            <Yet />
+          </div>
+          <div className='col-xs-12 col-md-6'>
+            <Zet />
+          </div>
+        </div>
       </SubjectContent>
     </Subject>
   )

@@ -17,20 +17,13 @@ export function Yet () : ReactElement {
       <SubjectSummary>
       </SubjectSummary>
       <SubjectContent>
-        <div className='row'>
-          <div className='col-xs-12 col-md-4'>
-            <p className='text-center'>
-              <img src='./images/runic-yet.svg' width='200' />
-            </p>
+        <p className='text-center'>
+          <img src='./images/runic-yet.svg' width='200' />
+        </p>
 
-            <p className='text-center ipa'>
-              [jɛt]
-            </p>
-          </div>
-          <div className='col-xs-12 col-md-8'>
-
-          </div>
-        </div>
+        <p className='text-center ipa'>
+          [jɛt]
+        </p>
       </SubjectContent>
     </Subject>
   )

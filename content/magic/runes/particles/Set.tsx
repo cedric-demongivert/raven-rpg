@@ -17,20 +17,21 @@ export function Set () : ReactElement {
       <SubjectSummary>
       </SubjectSummary>
       <SubjectContent>
-        <div className='row'>
-          <div className='col-xs-12 col-md-4'>
-            <p className='text-center'>
-              <img src='./images/runic-set.svg' width='200' />
-            </p>
+        <p className='text-center'>
+          <img src='./images/runic-set.svg' width='200' />
+        </p>
 
-            <p className='text-center ipa'>
-              [sɛt]
-            </p>
-          </div>
-          <div className='col-xs-12 col-md-8'>
+        <p className='text-center ipa'>
+          [sɛt]
+        </p>
 
-          </div>
-        </div>
+        <p>
+          Sèt est le symbole qui précède le ou les <strong>sujets</strong> d'une
+          phrase, c'est à dire toute rune ayant pour nature de définir
+          la personne ou la chose motivant la phrase. Sèt est donc une
+          particule que l'on retrouve habituellement en début de
+          phrase. (<strong>S</strong>OV)
+        </p>
       </SubjectContent>
     </Subject>
   )

@@ -17,20 +17,49 @@ export function Temeter () : ReactElement {
       <SubjectSummary>
       </SubjectSummary>
       <SubjectContent>
-        <div className='row'>
-          <div className='col-xs-12 col-md-4'>
-            <p className='text-center'>
-              <img src='./images/runic-temeter.svg' width='200' />
-            </p>
+        <p className='text-center'>
+          <img src='./images/runic-temeter.svg' width='200' />
+        </p>
 
-            <p className='text-center ipa'>
-              [tɛ.me.tɛʀ]
-            </p>
-          </div>
-          <div className='col-xs-12 col-md-8'>
+        <p className='text-center ipa'>
+          [tɛ.me.tɛʀ]
+        </p>
 
-          </div>
-        </div>
+        <p className='text-center'>
+          Tèmétèr, le héros ou encore le glorifié, est une rune permettant de
+          parler d'héroïsme et de courage.
+        </p>
+
+        <table className='table-1d table-vertical text-center'>
+          <thead>
+            <tr>
+              <th style={{width: '100px'}}> Nature </th>
+              <th style={{width: '300px'}}> Synonyme(s) </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td> Sujet </td>
+              <td> Le héros, le courageux. </td>
+            </tr>
+            <tr>
+              <td> Objet </td>
+              <td> Le héros, le courageux. </td>
+            </tr>
+            <tr>
+              <td> Adjectif </td>
+              <td> Courageux, héroïque. </td>
+            </tr>
+            <tr>
+              <td> Verbe </td>
+              <td> Inspirer, encourager. </td>
+            </tr>
+            <tr>
+              <td> Adverbe </td>
+              <td> De manière héroïque, de manière courageuse. </td>
+            </tr>
+          </tbody>
+        </table>
       </SubjectContent>
     </Subject>
   )

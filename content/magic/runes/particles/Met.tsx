@@ -17,20 +17,21 @@ export function Met () : ReactElement {
       <SubjectSummary>
       </SubjectSummary>
       <SubjectContent>
-        <div className='row'>
-          <div className='col-xs-12 col-md-4'>
-            <p className='text-center'>
-              <img src='./images/runic-met.svg' width='200' />
-            </p>
+        <p className='text-center'>
+          <img src='./images/runic-met.svg' width='200' />
+        </p>
 
-            <p className='text-center ipa'>
-              [mɛt]
-            </p>
-          </div>
-          <div className='col-xs-12 col-md-8'>
+        <p className='text-center ipa'>
+          [mɛt]
+        </p>
 
-          </div>
-        </div>
+        <p>
+          Mèt est le symbole qui précède le ou les <strong>objets</strong> d'une
+          phrase, c'est à dire toute rune ayant pour nature de définir les
+          différents arguments d'un verbe, une action. Mèt est donc une
+          particule que l'on retrouve en milieu de phrase.
+          (S<strong>O</strong>V)
+        </p>
       </SubjectContent>
     </Subject>
   )

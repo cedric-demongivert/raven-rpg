@@ -32,15 +32,48 @@ export function Stars () : ReactElement {
         <LocalSummary />
 
         <Introduction />
-        <Kemet />
-        <Mege />
-        <Memet />
-        <Metzeter />
-        <Semet />
-        <Temeter />
-        <Yegeter />
-        <Yemet />
-        <Zemet />
+
+        <div className='row'>
+          <div className='col-xs-12 col-md-6'>
+            <Kemet />
+          </div>
+          <div className='col-xs-12 col-md-6'>
+            <Mege />
+          </div>
+        </div>
+
+        <div className='row'>
+          <div className='col-xs-12 col-md-6'>
+            <Memet />
+          </div>
+          <div className='col-xs-12 col-md-6'>
+            <Metzeter />
+          </div>
+        </div>
+
+        <div className='row'>
+          <div className='col-xs-12 col-md-6'>
+            <Semet />
+          </div>
+          <div className='col-xs-12 col-md-6'>
+            <Temeter />
+          </div>
+        </div>
+
+        <div className='row'>
+          <div className='col-xs-12 col-md-6'>
+            <Yegeter />
+          </div>
+          <div className='col-xs-12 col-md-6'>
+            <Yemet />
+          </div>
+        </div>
+
+        <div className='row'>
+          <div className='col-xs-12 col-md-6 offset-md-3'>
+            <Zemet />
+          </div>
+        </div>
       </SubjectContent>
     </Subject>
   )

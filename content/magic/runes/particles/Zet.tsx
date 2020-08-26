@@ -17,20 +17,20 @@ export function Zet () : ReactElement {
       <SubjectSummary>
       </SubjectSummary>
       <SubjectContent>
-        <div className='row'>
-          <div className='col-xs-12 col-md-4'>
-            <p className='text-center'>
-              <img src='./images/runic-zet.svg' width='200' />
-            </p>
+        <p className='text-center'>
+          <img src='./images/runic-zet.svg' width='200' />
+        </p>
 
-            <p className='text-center ipa'>
-              [zɛt]
-            </p>
-          </div>
-          <div className='col-xs-12 col-md-8'>
-
-          </div>
-        </div>
+        <p className='text-center ipa'>
+          [zɛt]
+        </p>
+        
+        <p>
+          Zèt est le symbole qui précède le <strong>verbe</strong> d'une
+          phrase, c'est à dire toute rune ayant pour nature de détailler la
+          nature de l'action décrite. Zèt est donc une particule que l'on
+          retrouve plutôt en fin de phrase. (SO<strong>V</strong>)
+        </p>
       </SubjectContent>
     </Subject>
   )
