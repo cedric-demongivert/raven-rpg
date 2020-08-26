@@ -16,6 +16,12 @@ export function Introduction () : ReactElement {
       <SubjectSummary>
       </SubjectSummary>
       <SubjectContent>
+        <p>
+          Les étoiles sont des runes particulières dont le sens varie en
+          fonction de la nature indiquée par la particule qui les précède. Au
+          sein d'une évocation, ce sont les étoiles qui permettent de formuler
+          des actions et des effets.
+        </p>
       </SubjectContent>
     </Subject>
   )
