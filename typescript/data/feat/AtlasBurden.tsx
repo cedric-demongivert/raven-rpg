@@ -13,12 +13,11 @@ export const AtlasBurden : Feat = (
     .setDescription(
       <>
         <strong>Prérequis :</strong> <br/>
-        Constitution 14+ <br/> <br/>
+        Constitution 12+ <br/> <br/>
 
         <p>
           Gagnez 1 point de charge supplémentaire par groupe de 4 points de
-          constitution au dessus de 10 pour chaque groupe de 4 points de force
-          effectif.
+          constitution.
         </p>
       </>
     )

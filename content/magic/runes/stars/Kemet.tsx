@@ -27,8 +27,7 @@ export function Kemet () : ReactElement {
 
         <p className='text-center'>
           Kémèt la cristaline, princesses des roches et de la terre est la rune
-          permettant de former des évocations liées à la terre, aux rochers et
-          aux métaux dans une moindre mesure.
+          permettant de former des évocations liées à la terre.
         </p>
 
         <table className='table-1d table-vertical text-center'>

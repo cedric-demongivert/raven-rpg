@@ -27,7 +27,6 @@ export function FireBreath () : ReactElement {
         <p className='text-center ipa'>
           [zɛt se.mɛt kɛt je.mɛt]
         </p>
-
       </SubjectContent>
     </Subject>
   )
