@@ -17,10 +17,9 @@ export const VulcanStrike : Feat = (
 
         <p>
           Un personnage équipé de l'arme choisie peut toujours choisir, en guise
-          d'attaque à outrance, de frapper violament son adversaire en
-          maximisant la puissance du coup porté. Une frappe vulcain ne peut pas
-          être parré et ajoute un bonus de dégât brut égal au poid de l'arme
-          utilisé.
+          d'attaque à outrance, de frapper violament son adversaire. Une frappe
+          vulcain ne peut pas être parré et ajoute un bonus de dégât égal au
+          poid de l'arme utilisé.
         </p>
       </>
     )

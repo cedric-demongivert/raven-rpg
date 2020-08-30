@@ -23,54 +23,40 @@ export function Light () : ReactElement {
           <thead>
             <tr>
               <th style={{width: '200px'}}>Armure</th>
-              <th colSpan={5}>Points / Poids par qualité</th>
+              <th style={{width: '100px'}}>Bonus</th>
+              <th style={{width: '100px'}}>Poids</th>
               <th>Effets</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>Armure matelassée</td>
-              <td className='text-center'><Malus>+0</Malus> / 3</td>
-              <td className='text-center'><Malus>+1</Malus> / 3</td>
-              <td className='text-center'>+2 / 3</td>
-              <td className='text-center'>+2 / <Bonus>2</Bonus></td>
-              <td className='text-center'><Bonus>+3</Bonus> / <Bonus>2</Bonus></td>
+              <td className='text-center'>+2</td>
+              <td className='text-center'>3</td>
               <td></td>
             </tr>
             <tr>
               <td>Armure de cuir (souple)</td>
-              <td className='text-center'><Malus>+0</Malus> / 2</td>
-              <td className='text-center'><Malus>+0</Malus> / 2</td>
-              <td className='text-center'>+1 / 2</td>
-              <td className='text-center'><Bonus>+2</Bonus> / 2</td>
-              <td className='text-center'><Bonus>+2</Bonus> / <Bonus>1</Bonus></td>
+              <td className='text-center'>+1</td>
+              <td className='text-center'>2</td>
               <td></td>
             </tr>
             <tr>
               <td>Armure de cuir (rigide)</td>
-              <td className='text-center'><Malus>+0</Malus> / 3</td>
-              <td className='text-center'><Malus>+1</Malus> / 3</td>
-              <td className='text-center'>+2 / 3</td>
-              <td className='text-center'><Bonus>+3</Bonus> / 3</td>
-              <td className='text-center'><Bonus>+3</Bonus> / <Bonus>2</Bonus></td>
+              <td className='text-center'>+2</td>
+              <td className='text-center'>3</td>
               <td></td>
             </tr>
             <tr>
               <td>Armure de cuir (cloutée)</td>
-              <td className='text-center'><Malus>+1</Malus> / <Malus>5</Malus></td>
-              <td className='text-center'><Malus>+2</Malus> / 4</td>
-              <td className='text-center'>+3 / 4</td>
-              <td className='text-center'><Bonus>+4</Bonus> / 4</td>
-              <td className='text-center'><Bonus>+4</Bonus> / <Bonus>3</Bonus></td>
+              <td className='text-center'>+3</td>
+              <td className='text-center'>4</td>
               <td></td>
             </tr>
             <tr>
               <td>Chemise de mailles</td>
-              <td className='text-center'><Malus>+1</Malus> / 4</td>
-              <td className='text-center'><Malus>+2</Malus> / 4</td>
-              <td className='text-center'>+3 / 4</td>
-              <td className='text-center'><Bonus>+4</Bonus> / 4</td>
-              <td className='text-center'><Bonus>+5</Bonus> / 4</td>
+              <td className='text-center'>+3</td>
+              <td className='text-center'>4</td>
               <td>
                 Remplace une armure intermédiaire. <br/>
                 Inefficace en cas de critique. <br/>
@@ -81,11 +67,8 @@ export function Light () : ReactElement {
           <tfoot>
             <tr>
               <th></th>
-              <th className='text-center' style={{width: '75px'}}>0 - 4</th>
-              <th className='text-center' style={{width: '75px'}}>5 - 9</th>
-              <th className='text-center' style={{width: '75px'}}>10 - 14</th>
-              <th className='text-center' style={{width: '75px'}}>15 - 19</th>
-              <th className='text-center' style={{width: '75px'}}>20+</th>
+              <th></th>
+              <th></th>
               <th></th>
             </tr>
           </tfoot>

@@ -23,18 +23,16 @@ export function Heavy () : ReactElement {
           <thead>
             <tr>
               <th style={{width: '200px'}}>Armure</th>
-              <th colSpan={5}>Points / Poids par qualité</th>
+              <th style={{width: '100px'}}>Bonus</th>
+              <th style={{width: '100px'}}>Poids</th>
               <th>Effets</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>Armure de plates</td>
-              <td className='text-center'><Malus>+7</Malus> / <Malus>14</Malus></td>
-              <td className='text-center'>+8 / <Malus>14</Malus></td>
-              <td className='text-center'>+8 / 13</td>
-              <td className='text-center'><Bonus>+9</Bonus> / <Bonus>12</Bonus></td>
-              <td className='text-center'><Bonus>+9</Bonus> / <Bonus>10</Bonus></td>
+              <td className='text-center'>+8</td>
+              <td className='text-center'>10</td>
               <td rowSpan={3}>
                 Dégâts des flèches transformés en dégâts contondant réduits de
                 moitié. <br />
@@ -43,29 +41,19 @@ export function Heavy () : ReactElement {
             </tr>
             <tr>
               <td>Armure de plaques</td>
-              <td className='text-center'><Malus>+8</Malus> / <Malus>14</Malus></td>
-              <td className='text-center'><Malus>+9</Malus> / 13</td>
-              <td className='text-center'>+10 / 13</td>
-              <td className='text-center'>+10 / <Bonus>12</Bonus></td>
-              <td className='text-center'>+10 / <Bonus>10</Bonus></td>
+              <td className='text-center'>+10</td>
+              <td className='text-center'>10</td>
             </tr>
             <tr>
               <td>Harnois</td>
-              <td className='text-center'><Malus>+9</Malus> / <Malus>14</Malus></td>
-              <td className='text-center'><Malus>+10</Malus> / <Malus>13</Malus></td>
-              <td className='text-center'>+12 / 12</td>
-              <td className='text-center'>+12 / <Bonus>10</Bonus></td>
-              <td className='text-center'>+12 / <Bonus>10</Bonus></td>
+              <td className='text-center'>+12</td>
+              <td className='text-center'>9</td>
             </tr>
           </tbody>
           <tfoot>
             <tr>
               <th></th>
-              <th className='text-center' style={{width: '75px'}}>0 - 4</th>
-              <th className='text-center' style={{width: '75px'}}>5 - 9</th>
-              <th className='text-center' style={{width: '75px'}}>10 - 14</th>
-              <th className='text-center' style={{width: '75px'}}>15 - 19</th>
-              <th className='text-center' style={{width: '75px'}}>20+</th>
+              <th></th>
               <th></th>
               <th></th>
             </tr>

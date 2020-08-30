@@ -24,49 +24,29 @@ export function UnarmedCombat () : ReactElement {
             <tr>
               <th style={{width: '150px'}}>Arme</th>
               <th style={{width: '200px'}}>Type</th>
-              <th style={{width: '75px'}}>Qualité</th>
-              <th style={{width: '175px'}}>Dégâts / Poids </th>
-              <th style={{width: '200px'}}>Blessure Légère</th>
-              <th style={{width: '200px'}}>Blessure Grave</th>
+              <th style={{width: '175px'}}>Dégâts / Poids</th>
+              <th style={{width: '100px'}}>Espérance</th>
+              <th style={{width: '200px'}}>Blessure Lg. / Gr.</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>Poing</td>
               <td>Contondant</td>
-              <td className='text-center'>*</td>
               <td className='text-center'>1D4(x2) / 0</td>
-              <td>4+ Contusion</td>
-              <td></td>
+              <td className='text-center'>2</td>
+              <td>4+ / 8+</td>
             </tr>
             <tr>
-              <td rowSpan={5}>Gantelet clouté</td>
-              <td rowSpan={5}>Contondant</td>
-              <td className='text-center'> 0-4 </td>
-              <td className='text-center'>1D6 <Malus>-2</Malus>(x2) / 1</td>
-              <td rowSpan={5}>4+ Contusion</td>
-              <td rowSpan={5}>8+ Fracture</td>
-            </tr>
-            <tr>
-              <td className='text-center'> 5-9 </td>
-              <td className='text-center'>1D6 <Malus>-1</Malus>(x2) / 1</td>
-            </tr>
-            <tr>
-              <td className='text-center'> 10-14 </td>
+              <td>Gantelet clouté</td>
+              <td>Contondant</td>
               <td className='text-center'>1D6(x2) / 1</td>
-            </tr>
-            <tr>
-              <td className='text-center'> 15-19 </td>
-              <td className='text-center'>1D6 <Bonus>+1</Bonus>(x2) / 1</td>
-            </tr>
-            <tr>
-              <td className='text-center'> 20+ </td>
-              <td className='text-center'>1D6 <Bonus>+2</Bonus>(x2) / 1</td>
+              <td className='text-center'>3</td>
+              <td>4+ / 8+</td>
             </tr>
           </tbody>
           <tfoot>
             <tr>
-              <th></th>
               <th></th>
               <th></th>
               <th></th>

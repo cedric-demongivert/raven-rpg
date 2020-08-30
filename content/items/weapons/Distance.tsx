@@ -23,138 +23,51 @@ export function Distance () : ReactElement {
           <thead>
             <tr>
               <th style={{width: '150px'}}>Arme</th>
-              <th style={{width: '200px'}}>Type et cadence</th>
-              <th style={{width: '75px'}}>Qualité</th>
+              <th style={{width: '200px'}}>Type / Cadence</th>
               <th style={{width: '175px'}}>Dégâts / Poids </th>
-              <th style={{width: '200px'}}>Blessure Légère</th>
-              <th style={{width: '200px'}}>Blessure Grave</th>
+              <th style={{width: '100px'}}>Espérance</th>
+              <th style={{width: '200px'}}>Blessure Lg. / Gr.</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td rowSpan={5}>Arbalète de poing</td>
-              <td rowSpan={5}>Perforant <br/> 0.5 Tir / Round</td>
-              <td className='text-center'>0-4</td>
-              <td className='text-center'>1D6 <Malus>-1</Malus> <Malus>+1!</Malus> (x2) / <Malus>5</Malus></td>
-              <td rowSpan={5}>7+ Plaie</td>
-              <td rowSpan={5}>9+ Plaie profonde <br/> Ignore l'armure (!) <br/> Saignement DD10 CNT</td>
+              <td>Arbalète de poing</td>
+              <td>Perforant / ½</td>
+              <td className='text-center'>1D6 + 2!(x2) / 3</td>
+              <td className='text-center'>5</td>
+              <td>6+ / 8+</td>
             </tr>
             <tr>
-              <td className='text-center'> 5-9 </td>
-              <td className='text-center'>1D6 <Malus>-1</Malus> +1! (x2) / <Malus>5</Malus></td>
+              <td>Arbalète légère</td>
+              <td>Perforant / ½</td>
+              <td className='text-center'>2D6 + 1D6!(x2) / 5</td>
+              <td className='text-center'>10.5</td>
+              <td>10+ / 14+</td>
             </tr>
             <tr>
-              <td className='text-center'> 10-14 </td>
-              <td className='text-center'>1D6 + 2!(x2) / 4</td>
+              <td>Arbalète lourde</td>
+              <td>Perforant / ½</td>
+              <td className='text-center'>3D6 + 2D6! (x2) / 9</td>
+              <td className='text-center'>17.5</td>
+              <td>14+ / 20+</td>
             </tr>
             <tr>
-              <td className='text-center'> 15-19 </td>
-              <td className='text-center'>1D6 <Bonus>+1</Bonus> +2!(x2) / <Bonus>3</Bonus></td>
+              <td>Arc court</td>
+              <td>Perforant / 1</td>
+              <td className='text-center'>1D8 (x2) / 4</td>
+              <td className='text-center'>4</td>
+              <td>5+ / 7+</td>
             </tr>
             <tr>
-              <td className='text-center'> 20+ </td>
-              <td className='text-center'>1D6 <Bonus>+1</Bonus> <Bonus>+2!</Bonus> (x2) / <Bonus>2</Bonus></td>
-            </tr>
-            <tr>
-              <td rowSpan={5}>Arbalète légère</td>
-              <td rowSpan={5}>Perforant <br/> 0.5 Tir / Round</td>
-              <td className='text-center'>0-4</td>
-              <td className='text-center'>1D6 <Malus>-2</Malus> +1D6! (x2) / <Malus>6</Malus></td>
-              <td rowSpan={5}>9+ Plaie</td>
-              <td rowSpan={5}>12+ Plaie profonde <br/> Ignore l'armure (!) <br/> Saignement DD10 CNT</td>
-            </tr>
-            <tr>
-              <td className='text-center'> 5-9 </td>
-              <td className='text-center'>1D6 <Malus>-1</Malus> +1D6! (x2) / <Malus>6</Malus></td>
-            </tr>
-            <tr>
-              <td className='text-center'> 10-14 </td>
-              <td className='text-center'>1D6 +1D6!(x2) / 5</td>
-            </tr>
-            <tr>
-              <td className='text-center'> 15-19 </td>
-              <td className='text-center'>1D6 <Bonus>+1</Bonus> +1D6! (x2) / <Bonus>4</Bonus></td>
-            </tr>
-            <tr>
-              <td className='text-center'> 20+ </td>
-              <td className='text-center'>1D6 <Bonus>+2</Bonus> +1D6! (x2) / <Bonus>4</Bonus></td>
-            </tr>
-            <tr>
-              <td rowSpan={5}>Arbalète lourde</td>
-              <td rowSpan={5}>Perforant <br/> 0.5 Tir / Round</td>
-              <td className='text-center'>0-4</td>
-              <td className='text-center'>2D6 <Malus>-4</Malus> +1D6! (x2) / <Malus>12</Malus></td>
-              <td rowSpan={5}>11+ Plaie</td>
-              <td rowSpan={5}>14+ Plaie profonde <br/> Ignore l'armure (!) <br/> Saignement DD10 CNT</td>
-            </tr>
-            <tr>
-              <td className='text-center'> 5-9 </td>
-              <td className='text-center'>2D6 <Malus>-2</Malus> +1D6! (x2) / <Malus>11</Malus></td>
-            </tr>
-            <tr>
-              <td className='text-center'> 10-14 </td>
-              <td className='text-center'>2D6 + 1D6! (x2) / 10</td>
-            </tr>
-            <tr>
-              <td className='text-center'> 15-19 </td>
-              <td className='text-center'>2D6 <Bonus>+1</Bonus> +1D6! (x2) / <Bonus>9</Bonus></td>
-            </tr>
-            <tr>
-              <td className='text-center'> 20+ </td>
-              <td className='text-center'>2D6 <Bonus>+2</Bonus> +1D6! (x2) / <Bonus>9</Bonus></td>
-            </tr>
-            <tr>
-              <td rowSpan={5}>Arc court</td>
-              <td rowSpan={5}>Perforant <br/> 1 Tir / Round</td>
-              <td className='text-center'>0-4</td>
-              <td className='text-center'>1D8 <Malus>-2</Malus> (x2) / <Malus>6</Malus></td>
-              <td rowSpan={5}>5+ Plaie</td>
-              <td rowSpan={5}>7+ Plaie profonde <br/> Ignore l'armure (!) <br/> Saignement DD10 CNT</td>
-            </tr>
-            <tr>
-              <td className='text-center'> 5-9 </td>
-              <td className='text-center'>1D8 <Malus>-1</Malus> (x2) / <Malus>6</Malus></td>
-            </tr>
-            <tr>
-              <td className='text-center'> 10-14 </td>
-              <td className='text-center'>1D8 (x2) / 5</td>
-            </tr>
-            <tr>
-              <td className='text-center'> 15-19 </td>
-              <td className='text-center'>1D8 <Bonus>+1</Bonus> (x2) / <Bonus>4</Bonus></td>
-            </tr>
-            <tr>
-              <td className='text-center'> 20+ </td>
-              <td className='text-center'>1D8 <Bonus>+1</Bonus> <Bonus>+1!</Bonus> (x2) / <Bonus>4</Bonus></td>
-            </tr>
-            <tr>
-              <td rowSpan={5}>Arc long</td>
-              <td rowSpan={5}>Perforant <br/> 1 Tir / Round</td>
-              <td className='text-center'>0-4</td>
-              <td className='text-center'>2D6 <Malus>-4</Malus> +1D6! (x3) / <Malus>11</Malus></td>
-              <td rowSpan={5}>9+ Plaie</td>
-              <td rowSpan={5}>13+ Plaie profonde <br/> Ignore l'armure (!) <br/> Saignement DD10 CNT</td>
-            </tr>
-            <tr>
-              <td className='text-center'> 5-9 </td>
-              <td className='text-center'>2D6 <Malus>-2</Malus> +1D6! (x3) / <Malus>11</Malus></td>
-            </tr>
-            <tr>
-              <td className='text-center'> 10-14 </td>
-              <td className='text-center'>2D6 +1D6!(x3) / 10</td>
-            </tr>
-            <tr>
-              <td className='text-center'> 15-19 </td>
-              <td className='text-center'>2D6 <Bonus>+1</Bonus> +1D6! (x3) / <Bonus>9</Bonus></td>
-            </tr>
-            <tr>
-              <td className='text-center'> 20+ </td>
-              <td className='text-center'>2D6 <Bonus>+2</Bonus> +1D6! (x3) / <Bonus>9</Bonus></td>
+              <td>Arc long</td>
+              <td>Perforant / 1</td>
+              <td className='text-center'>2D6 +1D6!(x3) / 8</td>
+              <td className='text-center'>10.5</td>
+              <td>9+ / 13+</td>
             </tr>
           </tbody>
           <tfoot>
             <tr>
-              <th></th>
               <th></th>
               <th></th>
               <th></th>

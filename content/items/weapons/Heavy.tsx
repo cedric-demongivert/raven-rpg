@@ -24,108 +24,39 @@ export function Heavy () : ReactElement {
             <tr>
               <th style={{width: '150px'}}>Arme</th>
               <th style={{width: '200px'}}>Type</th>
-              <th style={{width: '75px'}}>Qualité</th>
               <th style={{width: '175px'}}>Dégâts / Poids </th>
-              <th style={{width: '200px'}}>Blessure Légère</th>
-              <th style={{width: '200px'}}>Blessure Grave</th>
+              <th style={{width: '100px'}}>Espérance</th>
+              <th style={{width: '200px'}}>Blessure Lg./Gr.</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td rowSpan={5}>Epée longue</td>
-              <td rowSpan={5}>Tranchant</td>
-              <td className='text-center'>0-4</td>
-              <td className='text-center'>3D6 <Malus>-2</Malus>(x2) / <Malus>11</Malus></td>
-              <td rowSpan={5}>9+ Plaie superficielle</td>
-              <td rowSpan={5}>13+ Plaie profonde <br/> Saignement DD10 CNT</td>
+              <td>Epée bâtarde</td>
+              <td>Tranchant</td>
+              <td className='text-center'>3D6(x2) / 7</td>
+              <td className='text-center'>10.5</td>
+              <td>10+ / 14+</td>
             </tr>
             <tr>
-              <td className='text-center'> 5-9 </td>
-              <td className='text-center'>3D6 <Malus>-1</Malus>(x2) / <Malus>10</Malus></td>
+              <td>Espadon* (Zweihänder)</td>
+              <td>Tranchant</td>
+              <td className='text-center'>2D6 +1D8 (x3) / 9</td>
+              <td className='text-center'>11.5</td>
+              <td>10+ / 14+</td>
             </tr>
             <tr>
-              <td className='text-center'> 10-14 </td>
-              <td className='text-center'>3D6(x2) / 9</td>
+              <td>Marteau de guerre**</td>
+              <td>Contondant</td>
+              <td className='text-center'>2D6 + 1D6!(x3) / 9</td>
+              <td className='text-center'>10.5</td>
+              <td>9+ / 13+</td>
             </tr>
             <tr>
-              <td className='text-center'> 15-19 </td>
-              <td className='text-center'>3D6 <Bonus>+1</Bonus>(x2) / <Bonus>8</Bonus></td>
-            </tr>
-            <tr>
-              <td className='text-center'> 20+ </td>
-              <td className='text-center'>3D6 <Bonus>+2</Bonus>(x2) / <Bonus>7</Bonus></td>
-            </tr>
-            <tr>
-              <td rowSpan={5}>Espadon</td>
-              <td rowSpan={5}>Tranchant</td>
-              <td className='text-center'>0-4</td>
-              <td className='text-center'>2D6 +1D8 <Malus>-2</Malus> (x3) / <Malus>13</Malus></td>
-              <td rowSpan={5}>10+ Plaie superficielle</td>
-              <td rowSpan={5}>14+ Plaie profonde <br/> Saignement DD10 CNT</td>
-            </tr>
-            <tr>
-              <td className='text-center'> 5-9 </td>
-              <td className='text-center'>2D6 +1D8 <Malus>-1</Malus> (x3) / <Malus>12</Malus></td>
-            </tr>
-            <tr>
-              <td className='text-center'> 10-14 </td>
-              <td className='text-center'>2D6 +1D8 (x3) / 11</td>
-            </tr>
-            <tr>
-              <td className='text-center'> 15-19 </td>
-              <td className='text-center'>2D6 +1D8 <Bonus>+1</Bonus> (x3) / <Bonus>10</Bonus></td>
-            </tr>
-            <tr>
-              <td className='text-center'> 20+ </td>
-              <td className='text-center'>2D6 +1D8 <Bonus>+2</Bonus> (x3) / <Bonus>9</Bonus></td>
-            </tr>
-            <tr>
-              <td rowSpan={5}>Marteau de guerre</td>
-              <td rowSpan={5}>Contondant</td>
-              <td className='text-center'>0-4</td>
-              <td className='text-center'>2D6 <Malus>-4</Malus> +1D6!(x3) / <Malus>11</Malus></td>
-              <td rowSpan={5}>9+ Contusion</td>
-              <td rowSpan={5}>13+ Fracture <br/> Projection DD10 FRC</td>
-            </tr>
-            <tr>
-              <td className='text-center'> 5-9 </td>
-              <td className='text-center'>2D6 <Malus>-2</Malus> +1D6!(x3) / <Malus>11</Malus> </td>
-            </tr>
-            <tr>
-              <td className='text-center'> 10-14 </td>
-              <td className='text-center'>2D6 + 1D6!(x3) / 10</td>
-            </tr>
-            <tr>
-              <td className='text-center'> 15-19 </td>
-              <td className='text-center'>2D6 <Bonus>+1</Bonus> + 1D6!(x3) / 10</td>
-            </tr>
-            <tr>
-              <td className='text-center'> 20+ </td>
-              <td className='text-center'>2D6 <Bonus>+2</Bonus> + 1D6!(x3) / 10</td>
-            </tr>
-            <tr>
-              <td rowSpan={5}>Hache d'arme</td>
-              <td rowSpan={5}>Tranchant</td>
-              <td className='text-center'>0-4</td>
-              <td className='text-center'>2D6 <Malus>-4</Malus> +1D6A(x3) / <Malus>11</Malus></td>
-              <td rowSpan={5}>9+ Plaie superficielle</td>
-              <td rowSpan={5}>13+ Plaie profonde <br/> Saignement DD10 CNT <br/> Mise à terre DD10 FRC</td>
-            </tr>
-            <tr>
-              <td className='text-center'> 5-9 </td>
-              <td className='text-center'>2D6 <Malus>-2</Malus> +1D6A(x3) / <Malus>11</Malus> </td>
-            </tr>
-            <tr>
-              <td className='text-center'> 10-14 </td>
-              <td className='text-center'>2D6 + 1D6A(x3) / 10</td>
-            </tr>
-            <tr>
-              <td className='text-center'> 15-19 </td>
-              <td className='text-center'>2D6 <Bonus>+1</Bonus> + 1D6A(x3) / 10</td>
-            </tr>
-            <tr>
-              <td className='text-center'> 20+ </td>
-              <td className='text-center'>2D6 <Bonus>+2</Bonus> + 1D6A(x3) / 10</td>
+              <td>Hache d'arme</td>
+              <td>Tranchant</td>
+              <td className='text-center'>2D6 + 1D6A(x3) / 9</td>
+              <td className='text-center'>10.5</td>
+              <td>9+ / 13+</td>
             </tr>
           </tbody>
           <tfoot>
@@ -135,10 +66,19 @@ export function Heavy () : ReactElement {
               <th></th>
               <th></th>
               <th></th>
-              <th></th>
             </tr>
           </tfoot>
         </table>
+
+        <p>
+          <strong>*Espadon.</strong> L'espadon permet de frapper plusieurs
+          adversaires à la fois.
+        </p>
+
+        <p>
+          <strong>**Marteau de guerre.</strong> En cas de blessure grave le
+          marteau de guerre projette l'adversaire.
+        </p>
       </SubjectContent>
     </Subject>
   )
