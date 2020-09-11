@@ -13,11 +13,11 @@ export const EagleCharge : Feat = (
     .setDescription(
       <>
         <strong>Prérequis :</strong> <br/>
-        Maîtrise de l'arme choisie 10+ <br/> <br/>
+        Maîtrise de l'arme choisie 8+ <br/> <br/>
 
         <p>
           Lors d'une charge un personnage possédant cet atout et ce pour chaque
-          groupe de 10 points de maîtrise dans le maniement de l'arme à une main
+          groupe de 8 points de maîtrise dans le maniement de l'arme à une main
           choisie peut toujours choisir d'échanger une parade ou une esquive
           contre une attaque supplémentaire de la-dite arme. Les attaques
           supplémentaires se résolvent comme des attaques standard avec un malus

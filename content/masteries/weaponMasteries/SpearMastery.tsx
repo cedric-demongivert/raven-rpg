@@ -32,7 +32,7 @@ export function SpearMastery () : ReactElement {
         </table>
 
         <p>
-          La lance est une arme à une main mortelle avec une excelente allonge
+          La lance est une arme à deux mains avec une excelente allonge
           permettant un très bon contrôle du champ de bataille. Cette arme est
           associé à un style martial plutôt statique permettant d'imposer une
           présence constante sur un champ de bataille en réduisant grandement la

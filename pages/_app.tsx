@@ -3,6 +3,7 @@ import { JSXElementConstructor } from 'react'
 import { ReactElement } from 'react'
 import { PureComponent } from 'react'
 
+import '../node_modules/leaflet/dist/leaflet.css'
 import '../scss/app.scss'
 
 export default class Application extends PureComponent<Application.Properties> {

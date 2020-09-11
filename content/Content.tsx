@@ -20,6 +20,7 @@ import { Alchemy } from './alchemy'
 import { Biomancy } from './biomancy'
 import { Items } from './items'
 import { Magic } from './magic'
+import { MapSubject } from './MapSubject'
 
 import { Feats } from './Feats'
 
@@ -46,6 +47,7 @@ export function Content () : ReactElement {
         <Alchemy />
         <Biomancy />
         <Items />
+        <MapSubject />
       </SubjectContent>
     </Subject>
   )
