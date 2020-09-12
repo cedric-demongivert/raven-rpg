@@ -24,13 +24,21 @@ export class Map extends PureComponent {
       const leaflet : any = require('leaflet')
 
       const map : any = leaflet.map(this._root.current, {
-        crs: leaflet.CRS.Simple,
-        minZoom: -5
+        crs: leaflet.CRS.Simple
       })
 
-      const bounds = [[0,0], [4901,6929]]
-      const layer0 = leaflet.imageOverlay('/images/map/z1.png', bounds).addTo(map)
-      map.fitBounds(bounds)
+      const tiles = leaflet.tileLayer('./images/map/m-z{z}-x{x}-y{y}.png', {
+        minZoom: 0,
+        maxZoom: 2,
+        tileSize: leaflet.point(1654 / 2, Math.floor(1165 / 2)),
+        noWrap: true,
+        tms: true
+      }).addTo(map)
+
+      //map.fitWorld()
+      //map.setZoom(0)
+      map.setView([1165 / 4, 1654 / 4], 0)
+      //map.fitBounds(bounds)
     }
   }
 
