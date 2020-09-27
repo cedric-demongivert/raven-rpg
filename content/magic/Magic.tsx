@@ -11,7 +11,7 @@ import { LocalSummary } from '../../components/LocalSummary'
 
 import { Introduction } from './Introduction'
 import { Runes } from './runes'
-import { Spells } from './spells'
+import { Evocation } from './evocation'
 
 export function Magic () : ReactElement {
   return (
@@ -26,7 +26,7 @@ export function Magic () : ReactElement {
 
         <Introduction />
         <Runes />
-        <Spells />
+        <Evocation />
       </SubjectContent>
     </Subject>
   )

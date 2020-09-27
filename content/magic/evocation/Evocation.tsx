@@ -11,15 +11,16 @@ import { LocalSummary } from '../../../components/LocalSummary'
 
 import { Introduction } from './Introduction'
 
-import { FireBreath } from './FireBreath'
-import { Sandblast } from './Sandblast'
-import { Liquefaction } from './Liquefaction'
+import { Incantation } from './Incantation'
+import { Canalization } from './Canalization'
 
-export function Spells () : ReactElement {
+import { Spells } from './spells'
+
+export function Evocation () : ReactElement {
   return (
     <Subject>
       <SubjectIdentifier>magic-spells</SubjectIdentifier>
-      <SubjectTitle>Sorts</SubjectTitle>
+      <SubjectTitle>Évocation</SubjectTitle>
       <SubjectSummary>
       </SubjectSummary>
       <SubjectContent>
@@ -27,9 +28,10 @@ export function Spells () : ReactElement {
 
         <Introduction />
 
-        <Liquefaction />
-        <Sandblast />
-        <FireBreath />
+        <Incantation />
+        <Canalization />
+
+        <Spells/>
       </SubjectContent>
     </Subject>
   )
