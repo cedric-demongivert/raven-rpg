@@ -10,6 +10,14 @@
 @import "./vars";
 @import "./base";
 
+@import "./layout/layout";
+@import "./layout/layout-centered";
+@import "./layout/layout-loading";
+@import "./layout/layout-page";
+@import "./layout/layout-page-repository";
+@import "./layout/layout-page-book";
+
+@import "./components/dot-loader";
 @import "./components/framework";
 @import "./components/application";
 @import "./components/matter";
@@ -27,3 +35,4 @@
 @import "./theme/instinct-modifier";
 @import "./theme/data";
 @import "./theme/alchemy";
+@import "./theme/section";

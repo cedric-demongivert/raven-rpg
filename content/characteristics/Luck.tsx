@@ -28,14 +28,22 @@ export function Luck () : ReactElement {
           </p>
 
           <p className='text-justify'>
-            La chan&shy;ce re&shy;pré&shy;sen&shy;te la ca&shy;pa&shy;ci&shy;té à se
-            cré&shy;er des op&shy;por&shy;tu&shy;ni&shy;tés, elle me&shy;su&shy;re
-            aus&shy;si le nom&shy;bre de point de des&shy;tin du per&shy;son&shy;na&shy;ge.
-            Un bon ni&shy;veau de chan&shy;ce per&shy;met de trou&shy;ver plus fa&shy;ci&shy;le&shy;ment
-            des biens pré&shy;cieux et de cré&shy;er des si&shy;tu&shy;a&shy;tions
-            bé&shy;né&shy;fi&shy;ques aux al&shy;lu&shy;res de deus-&shy;ex-machina.
+            La chance représente la capacité à se créer des opportunités, elle
+            mesure aussi le nombre de point de destin du personnage. Un bon
+            niveau de chance permet de trouver plus facilement des biens
+            précieux et de créer des situations bénéfiques aux allures de
+            deus-ex-machina.
           </p>
       </SubjectContent>
     </Subject>
   )
 }
+
+/**
+La chan&shy;ce re&shy;pré&shy;sen&shy;te la ca&shy;pa&shy;ci&shy;té à se
+cré&shy;er des op&shy;por&shy;tu&shy;ni&shy;tés, elle me&shy;su&shy;re
+aus&shy;si le nom&shy;bre de point de des&shy;tin du per&shy;son&shy;na&shy;ge.
+Un bon ni&shy;veau de chan&shy;ce per&shy;met de trou&shy;ver plus fa&shy;ci&shy;le&shy;ment
+des biens pré&shy;cieux et de cré&shy;er des si&shy;tu&shy;a&shy;tions
+bé&shy;né&shy;fi&shy;ques aux al&shy;lu&shy;res de deus-&shy;ex-machina.
+**/
