@@ -2,7 +2,7 @@ import { List } from 'immutable'
 
 import { Empty } from '../Empty'
 
-import { DocumentElement } from './DocumentElement'
+import { DocumentNode } from './DocumentNode'
 import { DocumentElementType } from './DocumentElementType'
 import { Section } from './Section'
 import { DocumentSetLayout } from './DocumentSetLayout'
@@ -10,7 +10,7 @@ import { DocumentSetLayout } from './DocumentSetLayout'
 /**
 *
 */
-export class DocumentSet implements DocumentElement {
+export class DocumentSet implements DocumentNode {
   /**
   *
   */
@@ -24,7 +24,7 @@ export class DocumentSet implements DocumentElement {
   /**
   *
   */
-  public readonly content: List<Section>
+  public readonly children: List<Section>
 
   /**
   *
@@ -37,7 +37,7 @@ export class DocumentSet implements DocumentElement {
   public constructor(properties: DocumentSet.Properties = Empty.OBJECT) {
     this.type = DocumentElementType.SET
     this.identifier = properties.identifier || undefined
-    this.content = properties.content || List()
+    this.children = properties.content || List()
     this.layout = properties.layout || DocumentSetLayout.DEFAULT
   }
 
@@ -56,7 +56,7 @@ export class DocumentSet implements DocumentElement {
   *
   */
   public setContent(content: List<Section>): DocumentSet {
-    if (this.content === content) {
+    if (this.children === content) {
       return this
     } else {
       return new DocumentSet({ ...this, content })
@@ -85,7 +85,7 @@ export class DocumentSet implements DocumentElement {
       return (
         other.identifier === this.identifier &&
         other.layout === this.layout &&
-        other.content.equals(this.content)
+        other.children.equals(this.children)
       )
     }
 

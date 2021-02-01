@@ -83,17 +83,25 @@ export namespace Entry {
   /**
   *
   */
-  export function identifier<T>(entry: Entry<T>): number
+  export function identifier<T>(entryOrIdentifier: Entry<T> | number): number
   /**
   *
   */
-  export function identifier(identifier: number): number
+  export function identifier(undefinedValue: undefined): undefined
   /**
   *
   */
-  export function identifier<T>(parameter: Entry<T> | number): number
-  export function identifier<T>(parameter: Entry<T> | number): number {
-    return typeof parameter === 'number' ? parameter : parameter.identifier
+  export function identifier(nullValue: null): null
+  /**
+  *
+  */
+  export function identifier<T>(parameter: Entry<T> | number | null | undefined): number | undefined | null
+  export function identifier<T>(parameter: Entry<T> | number | null | undefined): number | undefined | null {
+    if (parameter == null) {
+      return parameter as (null | undefined)
+    } else {
+      return typeof parameter === 'number' ? parameter : parameter.identifier
+    }
   }
 
   /**

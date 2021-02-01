@@ -3,13 +3,13 @@ import { List } from 'immutable'
 import { Empty } from '../Empty'
 
 import { Document } from './Document'
-import { DocumentElement } from './DocumentElement'
+import { DocumentNode } from './DocumentNode'
 import { DocumentElementType } from './DocumentElementType'
 
 /**
 *
 */
-export class Section implements DocumentElement {
+export class Section implements DocumentNode {
   /**
   *
   */
@@ -33,7 +33,7 @@ export class Section implements DocumentElement {
   /**
   *
   */
-  public readonly content: Document
+  public readonly children: Document
 
   /**
   *
@@ -43,7 +43,7 @@ export class Section implements DocumentElement {
     this.identifier = properties.identifier || undefined
     this.title = properties.title || Empty.STRING
     this.keywords = properties.keywords || List()
-    this.content = properties.content || Document.EMPTY
+    this.children = properties.children || Document.EMPTY
   }
 
   /**
@@ -82,11 +82,11 @@ export class Section implements DocumentElement {
   /**
   *
   */
-  public setContent(content: Document): Section {
-    if (this.content === content) {
+  public setChildren(children: Document): Section {
+    if (this.children === children) {
       return this
     } else {
-      return new Section({ ...this, content })
+      return new Section({ ...this, children })
     }
   }
 
@@ -102,7 +102,7 @@ export class Section implements DocumentElement {
         other.identifier === this.identifier &&
         other.title === this.title &&
         other.keywords.equals(this.keywords) &&
-        other.content.equals(this.content)
+        other.children.equals(this.children)
       )
     }
 
@@ -136,7 +136,7 @@ export namespace Section {
     /**
     *
     */
-    content?: Document
+    children?: Document
   }
 
   /**

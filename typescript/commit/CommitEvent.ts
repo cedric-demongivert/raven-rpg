@@ -45,7 +45,10 @@ export namespace CommitEvent {
   /**
   *
   */
-  export type BooksExtractionFailure = ApplicationEvent<{ commit: number, reason: Error }>
+  export type BooksExtractionFailure = ApplicationEvent<{
+    commit: number,
+    reason: Error
+  }>
 
   /**
   *
@@ -55,15 +58,6 @@ export namespace CommitEvent {
   /**
   *
   */
-  export function extracted(repository: number, commit: CommitData): Extracted
-  /**
-  *
-  */
-  export function extracted(repository: Entry<Repository>, commit: CommitData): Extracted
-  /**
-  *
-  */
-  export function extracted(repository: number | Entry<Repository>, commit: CommitData): Extracted
   export function extracted(repository: number | Entry<Repository>, commit: CommitData): Extracted {
     return {
       type: CommitAction.EXTRACTED,
@@ -77,15 +71,6 @@ export namespace CommitEvent {
   /**
   *
   */
-  export function extractBooks(payload: Entry<Commit>): ExtractBooks
-  /**
-  *
-  */
-  export function extractBooks(identifier: number): ExtractBooks
-  /**
-  *
-  */
-  export function extractBooks(parameter: Entry<Commit> | number): ExtractBooks
   export function extractBooks(parameter: Entry<Commit> | number): ExtractBooks {
     return {
       type: CommitAction.EXTRACT_BOOKS,
@@ -96,15 +81,6 @@ export namespace CommitEvent {
   /**
   *
   */
-  export function extractingBooks(payload: Entry<Commit>): ExtractBooks
-  /**
-  *
-  */
-  export function extractingBooks(identifier: number): ExtractBooks
-  /**
-  *
-  */
-  export function extractingBooks(parameter: Entry<Commit> | number): ExtractBooks
   export function extractingBooks(parameter: Entry<Commit> | number): ExtractBooks {
     return {
       type: CommitAction.EXTRACTING_BOOKS,
@@ -115,15 +91,6 @@ export namespace CommitEvent {
   /**
   *
   */
-  export function booksExtracted(payload: Entry<Commit>): ExtractBooks
-  /**
-  *
-  */
-  export function booksExtracted(identifier: number): ExtractBooks
-  /**
-  *
-  */
-  export function booksExtracted(parameter: Entry<Commit> | number): ExtractBooks
   export function booksExtracted(parameter: Entry<Commit> | number): ExtractBooks {
     return {
       type: CommitAction.BOOKS_EXTRACTED,
@@ -134,15 +101,6 @@ export namespace CommitEvent {
   /**
   *
   */
-  export function booksExtractionFailure(payload: Entry<Commit>, reason: Error): BooksExtractionFailure
-  /**
-  *
-  */
-  export function booksExtractionFailure(identifier: number, reason: Error): BooksExtractionFailure
-  /**
-  *
-  */
-  export function booksExtractionFailure(parameter: Entry<Commit> | number, reason: Error): BooksExtractionFailure
   export function booksExtractionFailure(parameter: Entry<Commit> | number, reason: Error): BooksExtractionFailure {
     return {
       type: CommitAction.BOOKS_EXTRACTION_FAILURE,
@@ -156,15 +114,6 @@ export namespace CommitEvent {
   /**
   *
   */
-  export function ready(payload: Entry<Commit>): Ready
-  /**
-  *
-  */
-  export function ready(identifier: number): Ready
-  /**
-  *
-  */
-  export function ready(parameter: Entry<Commit> | number): Ready
   export function ready(parameter: Entry<Commit> | number): Ready {
     return {
       type: CommitAction.READY,

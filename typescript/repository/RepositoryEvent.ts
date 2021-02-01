@@ -29,7 +29,10 @@ export namespace RepositoryEvent {
   /**
   *
   */
-  export type CloningFailure = ApplicationEvent<{ identifier: number, reason: Error }>
+  export type CloningFailure = ApplicationEvent<{
+    identifier: number,
+    reason: Error
+  }>
 
   /**
   *
@@ -49,7 +52,10 @@ export namespace RepositoryEvent {
   /**
   *
   */
-  export type CommitsExtractionFailure = ApplicationEvent<{ identifier: number, reason: Error }>
+  export type CommitsExtractionFailure = ApplicationEvent<{
+    identifier: number,
+    reason: Error
+  }>
 
   /**
   *
@@ -69,7 +75,10 @@ export namespace RepositoryEvent {
   /**
   *
   */
-  export type LabelsExtractionFailure = ApplicationEvent<{ identifier: number, reason: Error }>
+  export type LabelsExtractionFailure = ApplicationEvent<{
+    identifier: number,
+    reason: Error
+  }>
 
   /**
   *
@@ -94,15 +103,6 @@ export namespace RepositoryEvent {
   /**
   *
   */
-  export function clone(entry: Entry<Repository>): Clone
-  /**
-  *
-  */
-  export function clone(identifier: number): Clone
-  /**
-  *
-  */
-  export function clone(identifiable: Entry<Repository> | number): Clone
   export function clone(identifiable: Entry<Repository> | number): Clone {
     return {
       type: RepositoryAction.CLONE,
@@ -113,15 +113,6 @@ export namespace RepositoryEvent {
   /**
   *
   */
-  export function cloning(entry: Entry<Repository>): Cloning
-  /**
-  *
-  */
-  export function cloning(identifier: number): Cloning
-  /**
-  *
-  */
-  export function cloning(identifiable: Entry<Repository> | number): Cloning
   export function cloning(identifiable: Entry<Repository> | number): Cloning {
     return {
       type: RepositoryAction.CLONING,
@@ -132,15 +123,6 @@ export namespace RepositoryEvent {
   /**
   *
   */
-  export function cloned(entry: Entry<Repository>): Cloned
-  /**
-  *
-  */
-  export function cloned(identifier: number): Cloned
-  /**
-  *
-  */
-  export function cloned(identifiable: Entry<Repository> | number): Cloned
   export function cloned(identifiable: Entry<Repository> | number): Cloned {
     return {
       type: RepositoryAction.CLONED,
@@ -151,15 +133,6 @@ export namespace RepositoryEvent {
   /**
   *
   */
-  export function cloningFailure(entry: Entry<Repository>, reason: Error): CloningFailure
-  /**
-  *
-  */
-  export function cloningFailure(identifier: number, reason: Error): CloningFailure
-  /**
-  *
-  */
-  export function cloningFailure(identifiable: Entry<Repository> | number, reason: Error): CloningFailure
   export function cloningFailure(identifiable: Entry<Repository> | number, reason: Error): CloningFailure {
     return {
       type: RepositoryAction.CLONING_FAILURE,
@@ -173,15 +146,6 @@ export namespace RepositoryEvent {
   /**
   *
   */
-  export function extractCommits(entry: Entry<Repository>): ExtractCommits
-  /**
-  *
-  */
-  export function extractCommits(identifier: number): ExtractCommits
-  /**
-  *
-  */
-  export function extractCommits(identifiable: Entry<Repository> | number): ExtractCommits
   export function extractCommits(identifiable: Entry<Repository> | number): ExtractCommits {
     return {
       type: RepositoryAction.EXTRACT_COMMITS,
@@ -192,15 +156,6 @@ export namespace RepositoryEvent {
   /**
   *
   */
-  export function extractingCommits(entry: Entry<Repository>): ExtractingCommits
-  /**
-  *
-  */
-  export function extractingCommits(identifier: number): ExtractingCommits
-  /**
-  *
-  */
-  export function extractingCommits(identifiable: Entry<Repository> | number): ExtractingCommits
   export function extractingCommits(identifiable: Entry<Repository> | number): ExtractingCommits {
     return {
       type: RepositoryAction.EXTRACTING_COMMITS,
@@ -211,15 +166,6 @@ export namespace RepositoryEvent {
   /**
   *
   */
-  export function commitsExtracted(entry: Entry<Repository>): CommitsExtracted
-  /**
-  *
-  */
-  export function commitsExtracted(identifier: number): CommitsExtracted
-  /**
-  *
-  */
-  export function commitsExtracted(identifiable: Entry<Repository> | number): CommitsExtracted
   export function commitsExtracted(identifiable: Entry<Repository> | number): CommitsExtracted {
     return {
       type: RepositoryAction.COMMITS_EXTRACTED,
@@ -230,15 +176,6 @@ export namespace RepositoryEvent {
   /**
   *
   */
-  export function commitsExtractionFailure(entry: Entry<Repository>, reason: Error): CommitsExtractionFailure
-  /**
-  *
-  */
-  export function commitsExtractionFailure(identifier: number, reason: Error): CommitsExtractionFailure
-  /**
-  *
-  */
-  export function commitsExtractionFailure(identifiable: Entry<Repository> | number, reason: Error): CommitsExtractionFailure
   export function commitsExtractionFailure(identifiable: Entry<Repository> | number, reason: Error): CommitsExtractionFailure {
     return {
       type: RepositoryAction.COMMITS_EXTRACTION_FAILURE,
@@ -252,15 +189,6 @@ export namespace RepositoryEvent {
   /**
   *
   */
-  export function extractLabels(entry: Entry<Repository>): ExtractLabels
-  /**
-  *
-  */
-  export function extractLabels(identifier: number): ExtractLabels
-  /**
-  *
-  */
-  export function extractLabels(identifiable: Entry<Repository> | number): ExtractLabels
   export function extractLabels(identifiable: Entry<Repository> | number): ExtractLabels {
     return {
       type: RepositoryAction.EXTRACT_LABELS,
@@ -271,15 +199,6 @@ export namespace RepositoryEvent {
   /**
   *
   */
-  export function extractingLabels(entry: Entry<Repository>): ExtractingLabels
-  /**
-  *
-  */
-  export function extractingLabels(identifier: number): ExtractingLabels
-  /**
-  *
-  */
-  export function extractingLabels(identifiable: Entry<Repository> | number): ExtractingLabels
   export function extractingLabels(identifiable: Entry<Repository> | number): ExtractingLabels {
     return {
       type: RepositoryAction.EXTRACTING_LABELS,
@@ -290,15 +209,6 @@ export namespace RepositoryEvent {
   /**
   *
   */
-  export function labelsExtracted(entry: Entry<Repository>): LabelsExtracted
-  /**
-  *
-  */
-  export function labelsExtracted(identifier: number): LabelsExtracted
-  /**
-  *
-  */
-  export function labelsExtracted(identifiable: Entry<Repository> | number): LabelsExtracted
   export function labelsExtracted(identifiable: Entry<Repository> | number): LabelsExtracted {
     return {
       type: RepositoryAction.LABELS_EXTRACTED,
@@ -309,15 +219,6 @@ export namespace RepositoryEvent {
   /**
   *
   */
-  export function labelsExtractionFailure(entry: Entry<Repository>, reason: Error): LabelsExtractionFailure
-  /**
-  *
-  */
-  export function labelsExtractionFailure(identifier: number, reason: Error): LabelsExtractionFailure
-  /**
-  *
-  */
-  export function labelsExtractionFailure(identifiable: Entry<Repository> | number, reason: Error): LabelsExtractionFailure
   export function labelsExtractionFailure(identifiable: Entry<Repository> | number, reason: Error): LabelsExtractionFailure {
     return {
       type: RepositoryAction.LABELS_EXTRACTION_FAILURE,
@@ -331,15 +232,6 @@ export namespace RepositoryEvent {
   /**
   *
   */
-  export function ready(entry: Entry<Repository>): Ready
-  /**
-  *
-  */
-  export function ready(identifier: number): Ready
-  /**
-  *
-  */
-  export function ready(identifiable: Entry<Repository> | number): Ready
   export function ready(identifiable: Entry<Repository> | number): Ready {
     return {
       type: RepositoryAction.READY,
@@ -350,15 +242,6 @@ export namespace RepositoryEvent {
   /**
   *
   */
-  export function remove(entry: Entry<Repository>): Remove
-  /**
-  *
-  */
-  export function remove(identifier: number): Remove
-  /**
-  *
-  */
-  export function remove(identifiable: Entry<Repository> | number): Remove
   export function remove(identifiable: Entry<Repository> | number): Remove {
     return {
       type: RepositoryAction.REMOVE,

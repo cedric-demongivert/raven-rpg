@@ -2,11 +2,7 @@ import { ApplicationEvent } from '../ApplicationEvent'
 
 import { Entry } from '../data/Entry'
 
-import { Commit } from '../commit/Commit'
-import { Internationalization } from '../Internationalization'
-
-import { Document } from '../hypertext/Document'
-import { Hypertext } from '../hypertext/Hypertext'
+import { Document } from '../document/Document'
 
 import { Book } from './Book'
 import { BookAction } from './BookAction'
@@ -30,12 +26,18 @@ export namespace BookEvent {
   /**
   *
   */
-  export type ContentExtracted = ApplicationEvent<{ book: number, document: Document }>
+  export type ContentExtracted = ApplicationEvent<{
+    book: number,
+    document: Document
+  }>
 
   /**
   *
   */
-  export type ContentExtractionFailure = ApplicationEvent<{ book: number, reason: Error }>
+  export type ContentExtractionFailure = ApplicationEvent<{
+    book: number,
+    reason: Error
+  }>
 
   /**
   *
@@ -52,20 +54,9 @@ export namespace BookEvent {
     }
   }
 
-
-
   /**
   *
   */
-  export function extractContent(payload: Entry<Book>): ExtractContent
-  /**
-  *
-  */
-  export function extractContent(identifier: number): ExtractContent
-  /**
-  *
-  */
-  export function extractContent(parameter: Entry<Book> | number): ExtractContent
   export function extractContent(parameter: Entry<Book> | number): ExtractContent {
     return {
       type: BookAction.EXTRACT_CONTENT,
@@ -76,15 +67,6 @@ export namespace BookEvent {
   /**
   *
   */
-  export function extractingContent(payload: Entry<Book>): ExtractingContent
-  /**
-  *
-  */
-  export function extractingContent(identifier: number): ExtractingContent
-  /**
-  *
-  */
-  export function extractingContent(parameter: Entry<Book> | number): ExtractingContent
   export function extractingContent(parameter: Entry<Book> | number): ExtractingContent {
     return {
       type: BookAction.EXTRACTING_CONTENT,
@@ -95,15 +77,6 @@ export namespace BookEvent {
   /**
   *
   */
-  export function contentExtracted(payload: Entry<Book>, document: Document): ContentExtracted
-  /**
-  *
-  */
-  export function contentExtracted(identifier: number, document: Document): ContentExtracted
-  /**
-  *
-  */
-  export function contentExtracted(parameter: Entry<Book> | number, document: Document): ContentExtracted
   export function contentExtracted(parameter: Entry<Book> | number, document: Document): ContentExtracted {
     return {
       type: BookAction.CONTENT_EXTRACTED,
@@ -117,15 +90,6 @@ export namespace BookEvent {
   /**
   *
   */
-  export function contentExtractionFailure(payload: Entry<Book>, reason: Error): ContentExtractionFailure
-  /**
-  *
-  */
-  export function contentExtractionFailure(identifier: number, reason: Error): ContentExtractionFailure
-  /**
-  *
-  */
-  export function contentExtractionFailure(parameter: Entry<Book> | number, reason: Error): ContentExtractionFailure
   export function contentExtractionFailure(parameter: Entry<Book> | number, reason: Error): ContentExtractionFailure {
     return {
       type: BookAction.CONTENT_EXTRACTION_FAILURE,
@@ -139,15 +103,6 @@ export namespace BookEvent {
   /**
   *
   */
-  export function ready(payload: Entry<Book>): Ready
-  /**
-  *
-  */
-  export function ready(identifier: number): Ready
-  /**
-  *
-  */
-  export function ready(parameter: Entry<Book> | number): Ready
   export function ready(parameter: Entry<Book> | number): Ready {
     return {
       type: BookAction.READY,

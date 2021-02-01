@@ -1,6 +1,7 @@
 import { Empty } from '../Empty'
 
-import { Hypertext } from './Hypertext'
+import { Hypertext } from '../hypertext/Hypertext'
+
 import { DocumentElement } from './DocumentElement'
 import { DocumentElementType } from './DocumentElementType'
 

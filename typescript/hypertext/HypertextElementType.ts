@@ -41,10 +41,21 @@ export namespace HypertextElementType {
   /**
   *
   */
+  export type EMPTY = 3
+
+  /**
+  *
+  */
+  export const EMPTY: EMPTY = 3
+
+  /**
+  *
+  */
   export const ALL: HypertextElementType[] = [
     EMPHASIZE,
     ACRONYM,
-    LINK
+    LINK,
+    EMPTY
   ]
 
   /**
@@ -55,6 +66,7 @@ export namespace HypertextElementType {
       case EMPHASIZE: return 'EMPHASIZE'
       case ACRONYM: return 'ACRONYM'
       case LINK: return 'LINK'
+      case EMPTY: return 'EMPTY'
       default: return undefined
     }
   }
