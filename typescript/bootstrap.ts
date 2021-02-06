@@ -7,7 +7,7 @@ import { initialize } from './initialize'
 
 import { RepositoryMiddleware } from './repository/RepositoryMiddleware'
 
-import { BookMiddleware } from './book/BookMiddleware'
+import { RPGBookMiddleware } from './rpg/book/RPGBookMiddleware'
 import { CommitMiddleware } from './commit/CommitMiddleware'
 
 export function bootstrap(): ApplicationStore<Application> {
@@ -15,7 +15,7 @@ export function bootstrap(): ApplicationStore<Application> {
 
   store.addMiddleware(new RepositoryMiddleware())
   store.addMiddleware(new CommitMiddleware())
-  store.addMiddleware(new BookMiddleware())
+  store.addMiddleware(new RPGBookMiddleware())
 
   initialize(store)
 

@@ -23,7 +23,7 @@ export class RepositoryResolver implements UnidocImportationResolver {
   *
   */
   public get repository(): GitRepository {
-    return GitRepositories.get(this.commit.repositoryIdentifier)
+    return GitRepositories.get(this.commit.repository)
   }
 
   /**
@@ -56,7 +56,7 @@ export class RepositoryResolver implements UnidocImportationResolver {
   */
   public async resolve(importation: UnidocImportation): Promise<UnidocResource> {
     const origin: string = this.origin(importation)
-    const objectIdentifier: string = this.commit.objectIdentifier
+    const objectIdentifier: string = this.commit.identifier
     const repository: GitRepository = this.repository
 
     let file: string = Path.resolve(origin, importation.resource)

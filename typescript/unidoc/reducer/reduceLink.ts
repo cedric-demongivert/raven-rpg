@@ -4,10 +4,12 @@ import { UnidocReductionInput } from '@cedric-demongivert/unidoc'
 
 import { Link } from '../../hypertext/Link'
 
+import { reduceTagWith } from './reduceTagWith'
+
 /**
 *
 */
-function* reduceTagAsLink(): UnidocReducer<Link> {
+export function* reduceLink(): UnidocReducer<Link> {
   let url: string | undefined = undefined
   let content: string | undefined = undefined
 
@@ -15,35 +17,21 @@ function* reduceTagAsLink(): UnidocReducer<Link> {
   yield UnidocReductionRequest.NEXT
   yield* UnidocReducer.skipWhitespaces()
 
-  while (url == null || content == null) {
-    let current: UnidocReductionInput = yield UnidocReductionRequest.CURRENT
+  while (true) {
+    const current: UnidocReductionInput = yield UnidocReductionRequest.CURRENT
 
-    if (current.isStartOfTag('url')) {
-      url = yield* UnidocReducer.reduceTag.content(UnidocReducer.reduceToken())
+    if (current.isStartOfAnyTag()) {
+      if (current.isStartOfTag('url')) {
+        url = yield* reduceTagWith(UnidocReducer.reduceToken())
+      } else {
+        yield* UnidocReducer.skipTag()
+      }
     } else if (current.isAnyWord()) {
       content = yield* UnidocReducer.reduceText()
     } else if (current.isEnd()) {
-      return undefined
+      return Link.create({ content, url })
     } else {
-      current = yield UnidocReductionRequest.NEXT
+      yield UnidocReductionRequest.NEXT
     }
-  }
-
-  return Link.create({ content, url })
-}
-
-/**
-*
-*/
-export function* reduceLink(): UnidocReducer<Link | undefined> {
-  yield* UnidocReducer.skipStart()
-  yield* UnidocReducer.skipWhitespaces()
-
-  let current: UnidocReductionInput = yield UnidocReductionRequest.CURRENT
-
-  if (current.isStartOfTag('link')) {
-    return yield* UnidocReducer.reduceTag(reduceTagAsLink())
-  } else {
-    return undefined
   }
 }

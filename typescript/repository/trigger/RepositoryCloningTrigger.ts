@@ -27,7 +27,7 @@ export class RepositoryCloningTrigger implements ApplicationTrigger<void, Applic
   * @see ApplicationTrigger.afterStart
   */
   public afterStart(listener: ApplicationTriggerListener<void>, state: Application): void {
-    const repository: Entry<Repository> | undefined = state.getRepositories().get(this.repository)
+    const repository: Entry<Repository> | undefined = state.repositories.getByIdentifier(this.repository)
 
     if (repository) {
       switch (repository.model.state) {

@@ -8,6 +8,7 @@ import { HypertextElement } from '../../hypertext/HypertextElement'
 import { reduceEmphasize } from './reduceEmphasize'
 import { reduceLink } from './reduceLink'
 import { reduceAcronym } from './reduceAcronym'
+import { reduceTagWith } from './reduceTagWith'
 
 import { shyfy } from '../../shyfy'
 
@@ -38,11 +39,11 @@ export function* reduceHypertext(): UnidocReducer<Hypertext | undefined> {
       current = yield UnidocReductionRequest.NEXT
     } else if (current.isStartOfAnyTag()) {
       if (current.isStartOfTag('emphasize')) {
-        next = yield* reduceEmphasize()
+        next = yield* reduceTagWith(reduceEmphasize())
       } else if (current.isStartOfTag('link')) {
-        next = yield* reduceLink()
+        next = yield* reduceTagWith(reduceLink())
       } else if (current.isStartOfTag('acronym')) {
-        next = yield* reduceAcronym()
+        next = yield* reduceTagWith(reduceAcronym())
       } else {
         return Hypertext.create(...content)
       }

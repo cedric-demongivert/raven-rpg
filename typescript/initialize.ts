@@ -4,9 +4,9 @@ import { Entry } from './data/Entry'
 
 import { Application } from './application/Application'
 
-import { Book } from './book/Book'
-import { BookEvent } from './book/BookEvent'
-import { BookTrigger } from './book/trigger/BookTrigger'
+import { RPGBook } from './rpg/book/RPGBook'
+import { RPGBookEvent } from './rpg/book/RPGBookEvent'
+import { RPGBookTrigger } from './rpg/book/trigger/RPGBookTrigger'
 
 import { CommitEvent } from './commit/CommitEvent'
 import { Commit } from './commit/Commit'
@@ -18,7 +18,7 @@ import { RepositoryTrigger } from './repository/trigger/RepositoryTrigger'
 export async function initialize(store: ApplicationStore<Application>): Promise<void> {
   store.dispatch(RepositoryEvent.add('http://gitea.cedric-demongivert.com/cdemongivert/corvus.git'))
 
-  const repository: number = store.getState().getRepositories().getFirstInserted().identifier
+  const repository: number = store.getState().repositories.getDefault().identifier
 
   store.dispatch(RepositoryEvent.clone(repository))
 
@@ -34,7 +34,7 @@ export async function initialize(store: ApplicationStore<Application>): Promise<
 
   store.dispatch(RepositoryEvent.ready(repository))
 
-  const latest: Entry<Commit> | undefined = store.getState().getLatestCommitOf(repository)
+  const latest: Entry<Commit> | undefined = store.getState().commits.getLatestOfRepository(repository)
 
   if (latest == null) {
     return
@@ -46,15 +46,11 @@ export async function initialize(store: ApplicationStore<Application>): Promise<
 
   store.dispatch(CommitEvent.ready(latest))
 
-  const book: Entry<Book> | undefined = store.getState().getBooks().entries.first()
+  for (const book of store.getState().elements.books.entries) {
+    store.dispatch(RPGBookEvent.extractContent(book))
 
-  if (book == null) {
-    return
+    await store.trigger(RPGBookTrigger.extractingContent(book))
+
+    store.dispatch(RPGBookEvent.ready(book))
   }
-
-  store.dispatch(BookEvent.extractContent(book))
-
-  await store.trigger(BookTrigger.extractingContent(book))
-
-  store.dispatch(BookEvent.ready(book))
 }

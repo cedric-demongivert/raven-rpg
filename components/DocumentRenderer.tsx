@@ -3,21 +3,21 @@ import { ReactElement } from 'react'
 
 import { List } from 'immutable'
 
-import { Document } from '../typescript/hypertext/Document'
-import { DocumentElement } from '../typescript/hypertext/DocumentElement'
-import { DocumentElementType } from '../typescript/hypertext/DocumentElementType'
+import { RPGDocument } from '../typescript/rpg/RPGDocument'
+import { RPGElement } from '../typescript/rpg/RPGElement'
+import { RPGElementType } from '../typescript/rpg/RPGElementType'
 
-import { Paragraph } from '../typescript/hypertext/Paragraph'
-import { Section } from '../typescript/hypertext/Section'
-import { DocumentSet } from '../typescript/hypertext/DocumentSet'
-import { DocumentSetLayout } from '../typescript/hypertext/DocumentSetLayout'
+import { RPGParagraph } from '../typescript/rpg/RPGParagraph'
+import { RPGSection } from '../typescript/rpg/RPGSection'
+import { RPGRuleset } from '../typescript/rpg/RPGRuleset'
+import { RPGRulesetLayout } from '../typescript/rpg/RPGRulesetLayout'
 
 import { HypertextRenderer } from './HypertextRenderer'
 
 /**
 *
 */
-function renderParagraph(element: Paragraph, index: number) : ReactElement {
+function renderParagraph(element: RPGParagraph, index: number) : ReactElement {
   return (
     <p key={index}>
       <HypertextRenderer>{element.content}</HypertextRenderer>
@@ -47,12 +47,12 @@ function renderSectionTitle(depth: number, content: string) : ReactElement {
 /**
 *
 */
-function renderSection(depth: number, element: Section, index: number) : ReactElement {
+function renderSection(depth: number, element: RPGSection, index: number) : ReactElement {
   return (
     <div className='section' key={index}>
       { renderSectionTitle(depth, element.title) }
 
-      <DocumentRenderer depth={depth + 1}>{element.content}</DocumentRenderer>
+      <DocumentRenderer depth={depth + 1}>{element.children}</DocumentRenderer>
     </div>
   )
 }
@@ -60,8 +60,8 @@ function renderSection(depth: number, element: Section, index: number) : ReactEl
 /**
 *
 */
-function renderTwoColumnSet(depth: number, element: DocumentSet, index: number) : ReactElement {
-  const content: List<Section> = element.content.sort(Section.compareByTitle)
+function renderTwoColumnSet(depth: number, element: RPGRuleset, index: number) : ReactElement {
+  const content: List<RPGSection> = element.children.sort(RPGSection.compareByTitle)
   const result: ReactElement[] = []
   const pairs: number = (content.size >> 1) << 1
 
@@ -91,11 +91,11 @@ function renderTwoColumnSet(depth: number, element: DocumentSet, index: number) 
 /**
 *
 */
-function renderOneColumnSet(depth: number, element: DocumentSet, index: number) : ReactElement {
+function renderOneColumnSet(depth: number, element: RPGRuleset, index: number) : ReactElement {
   return (
     <div className='set two-column' key={index}>
       {
-        element.content.sort(Section.compareByTitle).map(function (section: Section, index: number) {
+        element.children.sort(RPGSection.compareByTitle).map(function (section: RPGSection, index: number) {
           return renderSection(depth, section, index)
         })
       }
@@ -106,16 +106,16 @@ function renderOneColumnSet(depth: number, element: DocumentSet, index: number) 
 /**
 *
 */
-function renderSet(depth: number, element: DocumentSet, index: number) : ReactElement {
+function renderSet(depth: number, element: RPGRuleset, index: number) : ReactElement {
   switch (element.layout) {
-    case DocumentSetLayout.ONE_COLUMN:
+    case RPGRulesetLayout.ONE_COLUMN:
       return renderOneColumnSet(depth, element, index)
-    case DocumentSetLayout.TWO_COLUMN:
+    case RPGRulesetLayout.TWO_COLUMN:
       return renderTwoColumnSet(depth, element, index)
     default:
       throw new Error(
         'Unable to render document set of layout ' +
-        DocumentSetLayout.toDebugString(element.layout) +
+        RPGRulesetLayout.toDebugString(element.layout) +
         ' as no procedure was defined for that.'
       )
   }
@@ -124,20 +124,20 @@ function renderSet(depth: number, element: DocumentSet, index: number) : ReactEl
 /**
 *
 */
-function renderDocumentElement(depth: number, element: DocumentElement, index: number): ReactElement {
+function renderDocumentElement(depth: number, element: RPGElement, index: number): ReactElement {
   switch (element.type) {
-    case DocumentElementType.PARAGRAPH:
-      return renderParagraph(element as Paragraph, index)
-    case DocumentElementType.SECTION:
-      return renderSection(depth, element as Section, index)
-    case DocumentElementType.SET:
-      return renderSet(depth, element as DocumentSet, index)
-    case DocumentElementType.IMAGE:
+    case RPGElementType.PARAGRAPH:
+      return renderParagraph(element as RPGParagraph, index)
+    case RPGElementType.SECTION:
+      return renderSection(depth, element as RPGSection, index)
+    case RPGElementType.RULESET:
+      return renderSet(depth, element as RPGRuleset, index)
+    case RPGElementType.IMAGE:
       return null
     default:
       throw new Error(
         'Unable to render document element of type ' +
-        DocumentElementType.toDebugString(element.type) + ' because ' +
+        RPGElementType.toDebugString(element.type) + ' because ' +
         'no procedure was defined for that.'
       )
   }
@@ -173,6 +173,6 @@ export namespace DocumentRenderer {
   */
   export type Properties = {
     depth?: number,
-    children?: Document
+    children?: RPGDocument
   }
 }

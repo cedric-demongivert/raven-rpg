@@ -11,7 +11,7 @@ export namespace Commits {
     for (const commit of commits) {
       if (result == null) {
         result = commit
-      } else if (result.getTimestamp() < commit.getTimestamp()) {
+      } else if (result.timestamp < commit.timestamp) {
         result = commit
       }
     }

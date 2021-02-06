@@ -16,7 +16,7 @@ import { Loading } from '../Loading'
 *
 */
 export function RepositoryPageLoading (properties: RepositoryPageLoading.Properties): ReactElement {
-  const repository: Entry<Repository> | undefined = properties.application.getRepositories().get(properties.repository)
+  const repository: Entry<Repository> | undefined = properties.application.repositories.getByIdentifier(properties.repository)
 
   if (repository == undefined) {
     return (
@@ -63,7 +63,7 @@ export function RepositoryPageLoading (properties: RepositoryPageLoading.Propert
 }
 
 function renderLoadingOfBooks (properties: RepositoryPageLoading.Properties, repository: Entry<Repository>): ReactElement {
-  const commit: Entry<Commit> | undefined = properties.application.getLatestCommitOf(repository)
+  const commit: Entry<Commit> | undefined = properties.application.commits.getLatestOfRepository(repository)
 
   if (commit == undefined) {
     throw new Error('Unable to display the absence of the selected commit as no procedure was defined for that.')
@@ -71,13 +71,13 @@ function renderLoadingOfBooks (properties: RepositoryPageLoading.Properties, rep
 
   switch (commit.model.state) {
     case CommitState.HOLLOW:
-      return <Loading>Initialization of commit {commit.model.objectIdentifier}</Loading>
+      return <Loading>Initialization of commit {commit.model.identifier}</Loading>
     case CommitState.BOOKS_EXTRACTION_REQUESTED:
-      return <Loading>Extraction of the list of books available in commit {commit.model.objectIdentifier} requested</Loading>
+      return <Loading>Extraction of the list of books available in commit {commit.model.identifier} requested</Loading>
     case CommitState.EXTRACTING_BOOKS:
-      return <Loading>Extraction of the list of books available in commit {commit.model.objectIdentifier}</Loading>
+      return <Loading>Extraction of the list of books available in commit {commit.model.identifier}</Loading>
     case CommitState.BOOKS_EXTRACTED:
-      return <Loading>The list of books available in commit {commit.model.objectIdentifier} was successfully extracted</Loading>
+      return <Loading>The list of books available in commit {commit.model.identifier} was successfully extracted</Loading>
     case CommitState.BOOKS_EXTRACTION_FAILURE:
       throw new Error('Error rendering component not implemented yet.')
     case CommitState.READY:

@@ -1,4 +1,4 @@
-export * from './index'
+export * from './view'
 export * from './mutation'
 export * from './table'
 

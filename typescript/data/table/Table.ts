@@ -1,14 +1,10 @@
 import { List } from 'immutable'
 
-import { Entry } from '../Entry'
-
 import { Mutation } from '../mutation/Mutation'
 import { MutationType } from '../mutation/MutationType'
 
-/**
-*
-*/
-const EMPTY_LIST: List<any> = List()
+import { Filter } from '../Filter'
+import { Entry } from '../Entry'
 
 /**
 *
@@ -34,7 +30,7 @@ export class Table<Model> {
   /**
   *
   */
-  public constructor(entries: List<Entry<Model>>, mutations: List<Mutation<Model>>) {
+  public constructor(entries: List<Entry<Model>>, mutations: List<Mutation<Model>> = List()) {
     this.entries = entries
     this.mutations = mutations
   }
@@ -69,38 +65,36 @@ export class Table<Model> {
   /**
   *
   */
-  public filterModels(predicate: (model: Model) => boolean): Table<Model> {
-    const entries: List<Entry<Model>> = this.entries
-
-    const nextEntries: List<Entry<Model>> = EMPTY_LIST.asMutable()
-    const nextMutations: List<Mutation<Model>> = EMPTY_LIST.asMutable()
-
-    for (let index = 0; index < entries.size; ++index) {
-      const entry: Entry<Model> = entries.get(index)
-
-      if (predicate(entry.model)) {
-        nextMutations.push(Mutation.deletion(entry))
-      } else {
-        nextEntries.push(entry)
-      }
+  public mutate(mutation: Mutation<Model>): Table<Model> {
+    switch (mutation.type) {
+      case MutationType.ADDITION:
+        return this.update(mutation.next)
+      case MutationType.MUTATION:
+        return this.update(mutation.next)
+      case MutationType.DELETION:
+        return this.delete(mutation.previous)
+      default:
+        throw new Error(
+          'Unable to handle mutation of type ' +
+          MutationType.toDebugString(mutation.type) + ' as no procedure ' +
+          'was defined for that.'
+        )
     }
-
-    return new Table(nextEntries.asImmutable(), nextMutations.asImmutable())
   }
 
   /**
   *
   */
-  public filter(predicate: (model: Entry<Model>) => boolean): Table<Model> {
+  public filter(predicate: Filter<Model, any>): Table<Model> {
     const entries: List<Entry<Model>> = this.entries
 
-    const nextEntries: List<Entry<Model>> = EMPTY_LIST.asMutable()
-    const nextMutations: List<Mutation<Model>> = EMPTY_LIST.asMutable()
+    const nextEntries: List<Entry<Model>> = List().asMutable()
+    const nextMutations: List<Mutation<Model>> = List().asMutable()
 
     for (let index = 0; index < entries.size; ++index) {
       const entry: Entry<Model> = entries.get(index)
 
-      if (predicate(entry)) {
+      if (predicate(entry.model)) {
         nextMutations.push(Mutation.deletion(entry))
       } else {
         nextEntries.push(entry)
@@ -123,7 +117,7 @@ export class Table<Model> {
       const entry: Entry<Model> = new Entry(entries.size, model)
       return new Table(entries.push(entry), List.of(Mutation.addition(entry)))
     } else {
-      const nextEntries: List<Entry<Model>> = EMPTY_LIST.asMutable()
+      const nextEntries: List<Entry<Model>> = List().asMutable()
       let inserted: Entry<Model> | undefined = undefined
 
       for (let index = 0; inserted == null; ++index) {
@@ -147,6 +141,13 @@ export class Table<Model> {
         List.of(Mutation.addition(inserted))
       )
     }
+  }
+
+  /**
+  *
+  */
+  public addMany(models: Iterable<Model>): Table<Model> {
+    throw new Error('not implemented yet')
   }
 
   /**
@@ -178,8 +179,15 @@ export class Table<Model> {
   /**
   *
   */
+  public deleteMany(elements: Iterable<Entry<Model> | number>): Table<Model> {
+    throw new Error('not implemented yet')
+  }
+
+  /**
+  *
+  */
   public pristine(): Table<Model> {
-    return this.mutations.isEmpty() ? this : new Table(this.entries, EMPTY_LIST)
+    return this.mutations.isEmpty() ? this : new Table(this.entries, List())
   }
 
   /**
@@ -202,7 +210,7 @@ export class Table<Model> {
         List.of(Mutation.addition(toUpdate))
       )
     } else {
-      const nextEntries: List<Entry<Model>> = EMPTY_LIST.asMutable()
+      const nextEntries: List<Entry<Model>> = List().asMutable()
       let oldValue: Entry<Model> = undefined
       let index: number = 0
 
@@ -238,6 +246,31 @@ export class Table<Model> {
   /**
   *
   */
+  public updateMany(updates: Iterable<Entry<Model>>): Table<Model> {
+    const entries: List<Entry<Model>> = this.entries.asMutable()
+    const mutations: List<Mutation<Model>> = List().asMutable()
+
+    for (const update of updates) {
+      const index: number = Entry.bissect(entries, update.identifier)
+
+      if (index < 0) {
+        mutations.push(Mutation.addition(update))
+        entries.insert(-index - 1, update)
+      } else {
+        mutations.push(Mutation.mutation(entries.get(index), update))
+        entries.set(index, update)
+      }
+    }
+
+    return new Table(
+      entries.asImmutable(),
+      mutations.asImmutable()
+    )
+  }
+
+  /**
+  *
+  */
   public indexOf(identifier: number): number
   /**
   *
@@ -248,31 +281,7 @@ export class Table<Model> {
   */
   public indexOf(parameter: Entry<Model> | number): number
   public indexOf(parameter: Entry<Model> | number): number {
-    const entries: List<Entry<Model>> = this.entries
-    const identifier: number = Entry.identifier(parameter)
-
-    if (entries.size > 0) {
-      let left: number = 0
-      let right: number = 0 + entries.size
-
-      while (left !== right) {
-        const cursor: number = left + ((right - left) >>> 1)
-        const entry: Entry<Model> = entries.get(cursor)
-        const comparison: number = identifier - entry.identifier
-
-        if (comparison === 0) {
-          return cursor
-        } else if (comparison > 0) {
-          left = cursor + 1
-        } else {
-          right = cursor
-        }
-      }
-
-      return - (left + 1)
-    } else {
-      return -1
-    }
+    return Entry.bissect(this.entries, Entry.identifier(parameter))
   }
 
   /**

@@ -26,7 +26,7 @@ export class CommitExtractingBooksTrigger implements ApplicationTrigger<void, Ap
   * @see ApplicationTrigger.afterStart
   */
   public afterStart(listener: ApplicationTriggerListener<void>, state: Application): void {
-    const commit: Entry<Commit> | undefined = state.getCommits().get(this.commit)
+    const commit: Entry<Commit> | undefined = state.commits.getByIdentifier(this.commit)
 
     if (commit) {
       switch (commit.model.state) {

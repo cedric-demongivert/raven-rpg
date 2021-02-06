@@ -1,0 +1,1 @@
+export { RPGBookTrigger } from './RPGBookTrigger'

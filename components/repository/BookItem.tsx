@@ -3,7 +3,7 @@ import { ReactElement } from 'react'
 
 import { Entry } from '../../typescript/data/Entry'
 
-import { Book } from '../../typescript/book/Book'
+import { RPGBook } from '../../typescript/rpg/book/RPGBook'
 import { HypertextRenderer } from '../HypertextRenderer'
 
 export const renderSummary = (properties: BookItem.Properties): ReactElement => {
@@ -40,6 +40,6 @@ export namespace BookItem {
   *
   */
   export type Properties = {
-    value: Entry<Book>
+    value: Entry<RPGBook>
   }
 }

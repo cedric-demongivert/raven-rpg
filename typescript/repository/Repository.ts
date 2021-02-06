@@ -1,14 +1,6 @@
+import { Empty } from '../Empty'
+
 import { RepositoryState } from './RepositoryState'
-
-/**
-*
-*/
-const EMPTY_STRING: string = ''
-
-/**
-*
-*/
-const EMPTY_OBJECT: object = {}
 
 /**
 *
@@ -32,8 +24,8 @@ export class Repository {
   /**
   *
   */
-  public constructor(properties: Repository.Properties = EMPTY_OBJECT) {
-    this.origin = properties.origin || EMPTY_STRING
+  public constructor(properties: Repository.Properties = Empty.OBJECT) {
+    this.origin = properties.origin || Empty.STRING
     this.state = properties.state || RepositoryState.HOLLOW
     this.reason = properties.reason || undefined
   }

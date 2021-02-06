@@ -2,7 +2,7 @@ import React from 'react'
 import { ReactElement } from 'react'
 
 import { Entry } from '../../typescript/data/Entry'
-import { Book } from '../../typescript/book/Book'
+import { RPGBook } from '../../typescript/rpg/book/RPGBook'
 import { Application } from '../../typescript/application/Application'
 
 import { DocumentRenderer } from '../DocumentRenderer'
@@ -11,7 +11,7 @@ import { DocumentRenderer } from '../DocumentRenderer'
 *
 */
 export function BookPage (properties: BookPage.Properties): ReactElement {
-  const book: Entry<Book> | undefined = properties.application.books.get(properties.book)
+  const book: Entry<RPGBook> | undefined = properties.application.elements.getBookByIdentifier(properties.book)
 
   if (book) {
     return (
@@ -21,7 +21,7 @@ export function BookPage (properties: BookPage.Properties): ReactElement {
         <div className='container'>
           <div className='row'>
             <div className='col'>
-              <DocumentRenderer>{ book.model.document }</DocumentRenderer>
+              <DocumentRenderer>{ book.model.children }</DocumentRenderer>
             </div>
           </div>
         </div>

@@ -1,4 +1,9 @@
+import { List } from 'immutable'
+
 import { Comparator } from '@cedric-demongivert/gl-tool-collection'
+
+import { Filter } from './Filter'
+import { Mapping } from './Mapping'
 
 export class Entry<Model> {
   /**
@@ -33,7 +38,7 @@ export class Entry<Model> {
   /**
   *
   */
-  public setData(model: Model): Entry<Model> {
+  public setModel(model: Model): Entry<Model> {
     if (model !== this.model) {
       return new Entry(this.identifier, model)
     } else {
@@ -80,6 +85,48 @@ export class Entry<Model> {
 *
 */
 export namespace Entry {
+  /**
+  *
+  */
+  export function filter<Model, Filtered extends Model>(filter: Filter<Model, Filtered>, entry: Entry<Model> | undefined): entry is Entry<Filtered> {
+    return entry && filter(entry.model)
+  }
+
+  /**
+  *
+  */
+  export function map<Model, Value>(mapping: Mapping<Model, Value>, entry: Entry<Model>): Value {
+    return mapping(entry.model)
+  }
+
+  /**
+  *
+  */
+  export function bissect<Model>(entries: List<Entry<Model>>, identifier: number): number {
+    if (entries.size > 0) {
+      let left: number = 0
+      let right: number = 0 + entries.size
+
+      while (left !== right) {
+        const cursor: number = left + ((right - left) >>> 1)
+        const entry: Entry<Model> = entries.get(cursor)
+        const comparison: number = identifier - entry.identifier
+
+        if (comparison === 0) {
+          return cursor
+        } else if (comparison > 0) {
+          left = cursor + 1
+        } else {
+          right = cursor
+        }
+      }
+
+      return - (left + 1)
+    } else {
+      return -1
+    }
+  }
+
   /**
   *
   */

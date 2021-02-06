@@ -8,25 +8,25 @@ import { HypertextElement } from '../../hypertext/HypertextElement'
 
 import { reduceLink } from './reduceLink'
 import { reduceAcronym } from './reduceAcronym'
+import { reduceTagWith } from './reduceTagWith'
 
 /**
 *
 */
-function* reduceTagAsEmphasize(): UnidocReducer<Emphasize> {
-  let content: Array<string | HypertextElement> = []
+export function* reduceEmphasize(): UnidocReducer<Emphasize> {
+  const content: Array<string | HypertextElement> = []
 
   yield* UnidocReducer.skipStart()
-  yield UnidocReductionRequest.NEXT
   yield* UnidocReducer.skipWhitespaces()
 
   while (true) {
-    let current: UnidocReductionInput = yield UnidocReductionRequest.CURRENT
+    const current: UnidocReductionInput = yield UnidocReductionRequest.CURRENT
 
     if (current.isStartOfAnyTag()) {
       if (current.isStartOfTag('link')) {
-        content.push(yield* reduceLink())
+        content.push(yield* reduceTagWith(reduceLink()))
       } else if (current.isStartOfTag('acronym')) {
-        content.push(yield* reduceAcronym())
+        content.push(yield* reduceTagWith(reduceAcronym()))
       } else {
         yield* UnidocReducer.skipTag()
       }
@@ -35,23 +35,7 @@ function* reduceTagAsEmphasize(): UnidocReducer<Emphasize> {
     } else if (current.isEnd()) {
       return Emphasize.create(Hypertext.create(...content))
     } else {
-      current = yield UnidocReductionRequest.NEXT
+      yield UnidocReductionRequest.NEXT
     }
-  }
-}
-
-/**
-*
-*/
-export function* reduceEmphasize(): UnidocReducer<Emphasize | undefined> {
-  yield* UnidocReducer.skipStart()
-  yield* UnidocReducer.skipWhitespaces()
-
-  let current: UnidocReductionInput = yield UnidocReductionRequest.CURRENT
-
-  if (current.isStartOfTag('emphasize')) {
-    return yield* UnidocReducer.reduceTag(reduceTagAsEmphasize())
-  } else {
-    return undefined
   }
 }

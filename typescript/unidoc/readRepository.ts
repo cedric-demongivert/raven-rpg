@@ -4,7 +4,7 @@ import { UnidocReducer } from '@cedric-demongivert/unidoc'
 import { UnidocProducer } from '@cedric-demongivert/unidoc'
 
 import { Entry } from '../data/Entry'
-import { Book } from '../book/Book'
+import { RPGBook } from '../rpg/book/RPGBook'
 import { Commit } from '../commit/Commit'
 
 import * as validators from './validator'
@@ -12,7 +12,7 @@ import * as reducer from './reducer'
 
 import { Reader } from './Reader'
 
-export function readRepository(commit: Entry<Commit>): Promise<Book[]> {
+export function readRepository(commit: Entry<Commit>): Promise<RPGBook[]> {
   return new Promise(function(resolve, reject) {
     const reader: Reader = new Reader(commit.model)
     const validator: UnidocValidator = UnidocValidator.kiss(
@@ -27,7 +27,7 @@ export function readRepository(commit: Entry<Commit>): Promise<Book[]> {
     validator.subscribe(reader.output)
     //validator.addEventListener(UnidocProducerEvent.PRODUCTION, x => console.log(x.toString()))
 
-    const parser: UnidocProducer<Book[]> = UnidocReducer.reduce.validation(
+    const parser: UnidocProducer<RPGBook[]> = UnidocReducer.reduce.validation(
       validator,
       () => UnidocReducer.reduceTag.content(
         UnidocReducer.reduceTag.content(
@@ -37,8 +37,8 @@ export function readRepository(commit: Entry<Commit>): Promise<Book[]> {
     )
 
     parser.addEventListener(UnidocProducerEvent.FAILURE, reject)
-    parser.addEventListener(UnidocProducerEvent.PRODUCTION, function(result: Book[]) {
-      resolve(result.map(book => book.set(Book.Properties.COMMIT_IDENTIFIER, commit.identifier)))
+    parser.addEventListener(UnidocProducerEvent.PRODUCTION, function(result: RPGBook[]) {
+      resolve(result.map(book => book.setCommit(commit.identifier)))
     })
 
     reader.read('repository.unidoc')

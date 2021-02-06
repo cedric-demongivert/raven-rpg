@@ -2,8 +2,6 @@ import { ApplicationEvent } from '../ApplicationEvent'
 
 import { Entry } from '../data/Entry'
 
-import { Repository } from '../repository/Repository'
-
 import { Commit } from './Commit'
 import { CommitAction } from './CommitAction'
 
@@ -11,21 +9,7 @@ export namespace CommitEvent {
   /**
   *
   */
-  export type Extracted = ApplicationEvent<{
-    repositoryIdentifier: number,
-    objectIdentifier: string,
-    message: string,
-    timestamp: number
-  }>
-
-  /**
-  *
-  */
-  export type CommitData = {
-    objectIdentifier: string,
-    message: string,
-    timestamp: number
-  }
+  export type Extracted = ApplicationEvent<Commit>
 
   /**
   *
@@ -58,13 +42,10 @@ export namespace CommitEvent {
   /**
   *
   */
-  export function extracted(repository: number | Entry<Repository>, commit: CommitData): Extracted {
+  export function extracted(commit: Commit): Extracted {
     return {
       type: CommitAction.EXTRACTED,
-      payload: {
-        repositoryIdentifier: Entry.identifier(repository),
-        ...commit
-      }
+      payload: commit
     }
   }
 

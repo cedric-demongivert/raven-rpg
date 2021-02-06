@@ -1,109 +1,126 @@
-import { Record } from 'immutable'
+import { Empty } from '../Empty'
 
 import { CommitState } from './CommitState'
 
-type CommitProperties = {
-  /**
-  *
-  */
-  objectIdentifier: string,
-
-  /**
-  *
-  */
-  repositoryIdentifier: number
-
-  /**
-  *
-  */
-  message: string,
-
-  /**
-  *
-  */
-  timestamp: number,
-
-  /**
-  *
-  */
-  state: CommitState,
-
-  /**
-  *
-  */
-  reason: Error | undefined
-}
-
 /**
 *
 */
-const EMPTY_STRING: string = ''
-
-/**
-*
-*/
-const DEFAULT_PROPERTIES: CommitProperties = {
-  objectIdentifier: EMPTY_STRING,
-  repositoryIdentifier: 0,
-  message: EMPTY_STRING,
-  timestamp: 0,
-  state: CommitState.DEFAULT,
-  reason: undefined
-}
-
-/**
-*
-*/
-export class Commit extends Record(DEFAULT_PROPERTIES) {
+export class Commit {
   /**
   *
   */
-  public getObjectIdentifier(): string {
-    return this.get(Commit.Properties.OBJECT_IDENTIFIER)
+  public readonly identifier: string
+
+  /**
+  *
+  */
+  public readonly repository: number
+
+  /**
+  *
+  */
+  public readonly message: string
+
+  /**
+  *
+  */
+  public readonly timestamp: number
+
+  /**
+  *
+  */
+  public readonly state: CommitState
+
+  /**
+  *
+  */
+  public readonly reason: Error | undefined
+
+  /**
+  *
+  */
+  public constructor(properties: Commit.Properties = Empty.OBJECT) {
+    this.identifier = properties.identifier || Empty.STRING
+    this.repository = properties.repository || 0
+    this.message = properties.message || Empty.STRING
+    this.timestamp = properties.timestamp || 0
+    this.state = properties.state || CommitState.DEFAULT
+    this.reason = properties.reason || undefined
   }
 
   /**
   *
   */
-  public getRepositoryIdentifier(): number {
-    return this.get(Commit.Properties.REPOSITORY_IDENTIFIER)
+  public setIdentifier(identifier: string): Commit {
+    if (this.identifier === identifier) {
+      return this
+    } else {
+      return new Commit({ ...this, identifier })
+    }
   }
 
   /**
   *
   */
-  public getMessage(): string {
-    return this.get(Commit.Properties.MESSAGE)
+  public setRepository(repository: number): Commit {
+    if (this.repository === repository) {
+      return this
+    } else {
+      return new Commit({ ...this, repository })
+    }
   }
 
   /**
   *
   */
-  public getTimestamp(): number {
-    return this.get(Commit.Properties.TIMESTAMP)
+  public setMessage(message: string): Commit {
+    if (this.message === message) {
+      return this
+    } else {
+      return new Commit({ ...this, message })
+    }
   }
 
   /**
   *
   */
-  public getState(): CommitState {
-    return this.get(Commit.Properties.STATE)
+  public setTimestamp(timestamp: number): Commit {
+    if (this.timestamp === timestamp) {
+      return this
+    } else {
+      return new Commit({ ...this, timestamp })
+    }
   }
 
   /**
   *
   */
-  public getReason(): Error | undefined {
-    return this.get(Commit.Properties.REASON)
+  public setState(state: CommitState): Commit {
+    if (this.state === state) {
+      return this
+    } else {
+      return new Commit({ ...this, state })
+    }
   }
 
   /**
   *
   */
-  public extractBooks(): Commit {
-    switch (this.get(Commit.Properties.STATE)) {
+  public setReason(reason: Error | undefined): Commit {
+    if (this.reason === reason) {
+      return this
+    } else {
+      return new Commit({ ...this, reason })
+    }
+  }
+
+  /**
+  *
+  */
+  public markExtractBooks(): Commit {
+    switch (this.state) {
       case CommitState.HOLLOW:
-        return this.set(Commit.Properties.STATE, CommitState.BOOKS_EXTRACTION_REQUESTED)
+        return this.setState(CommitState.BOOKS_EXTRACTION_REQUESTED)
       default:
         throw new Error(
           'Trying to illegaly move state of ' + this.toDebugString() + ' to ' +
@@ -117,10 +134,10 @@ export class Commit extends Record(DEFAULT_PROPERTIES) {
   /**
   *
   */
-  public extractingBooks(): Commit {
-    switch (this.get(Commit.Properties.STATE)) {
+  public markExtractingBooks(): Commit {
+    switch (this.state) {
       case CommitState.BOOKS_EXTRACTION_REQUESTED:
-        return this.set(Commit.Properties.STATE, CommitState.EXTRACTING_BOOKS)
+        return this.setState(CommitState.EXTRACTING_BOOKS)
       default:
         throw new Error(
           'Trying to illegaly move state of ' + this.toDebugString() + ' to ' +
@@ -134,10 +151,10 @@ export class Commit extends Record(DEFAULT_PROPERTIES) {
   /**
   *
   */
-  public booksExtracted(): Commit {
-    switch (this.get(Commit.Properties.STATE)) {
+  public markBooksExtracted(): Commit {
+    switch (this.state) {
       case CommitState.EXTRACTING_BOOKS:
-        return this.set(Commit.Properties.STATE, CommitState.BOOKS_EXTRACTED)
+        return this.setState(CommitState.BOOKS_EXTRACTED)
       default:
         throw new Error(
           'Trying to illegaly move state of ' + this.toDebugString() + ' to ' +
@@ -151,14 +168,15 @@ export class Commit extends Record(DEFAULT_PROPERTIES) {
   /**
   *
   */
-  public booksExtractionFailure(reason: Error): Commit {
-    switch (this.get(Commit.Properties.STATE)) {
+  public markBooksExtractionFailure(reason: Error): Commit {
+    switch (this.state) {
       case CommitState.EXTRACTING_BOOKS:
         return (
-          this.asMutable()
-            .set(Commit.Properties.STATE, CommitState.BOOKS_EXTRACTION_FAILURE)
-            .set(Commit.Properties.REASON, reason)
-            .asImmutable()
+          new Commit({
+            ...this,
+            state: CommitState.BOOKS_EXTRACTION_FAILURE,
+            reason
+          })
         )
       default:
         throw new Error(
@@ -173,10 +191,10 @@ export class Commit extends Record(DEFAULT_PROPERTIES) {
   /**
   *
   */
-  public ready(): Commit {
-    switch (this.get(Commit.Properties.STATE)) {
+  public markReady(): Commit {
+    switch (this.state) {
       case CommitState.BOOKS_EXTRACTED:
-        return this.set(Commit.Properties.STATE, CommitState.READY)
+        return this.setState(CommitState.READY)
       default:
         throw new Error(
           'Trying to illegaly move state of ' + this.toDebugString() + ' to ' +
@@ -193,9 +211,9 @@ export class Commit extends Record(DEFAULT_PROPERTIES) {
   public toDebugString(): string {
     return (
       this.constructor.name + ' of repository #' +
-      this.get(Commit.Properties.REPOSITORY_IDENTIFIER) + ' ' +
-      this.get(Commit.Properties.OBJECT_IDENTIFIER) + ' ' +
-      CommitState.toDebugString(this.get(Commit.Properties.STATE))
+      this.repository + ' ' +
+      this.identifier + ' ' +
+      CommitState.toDebugString(this.state)
     )
   }
 }
@@ -207,66 +225,61 @@ export namespace Commit {
   /**
   *
   */
-  export type Properties = CommitProperties
+  export type Properties = {
+    /**
+    *
+    */
+    identifier?: string,
 
-  /**
-  *
-  */
-  export function getRepositoryIdentifier(commit: Commit): number {
-    return commit.getRepositoryIdentifier()
+    /**
+    *
+    */
+    repository?: number
+
+    /**
+    *
+    */
+    message?: string,
+
+    /**
+    *
+    */
+    timestamp?: number,
+
+    /**
+    *
+    */
+    state?: CommitState,
+
+    /**
+    *
+    */
+    reason?: Error | undefined
   }
 
   /**
   *
   */
-  export function getObjectIdentifier(commit: Commit): string {
-    return commit.getObjectIdentifier()
+  export const EMPTY: Commit = new Commit()
+
+  /**
+  *
+  */
+  export function create(properties: Commit.Properties = Empty.OBJECT): Commit {
+    return new Commit(properties)
   }
 
   /**
   *
   */
-  export namespace Properties {
-    /**
-    *
-    */
-    export const OBJECT_IDENTIFIER: 'objectIdentifier' = 'objectIdentifier'
+  export function getRepository(commit: Commit): number {
+    return commit.repository
+  }
 
-    /**
-    *
-    */
-    export const REPOSITORY_IDENTIFIER: 'repositoryIdentifier' = 'repositoryIdentifier'
-
-    /**
-    *
-    */
-    export const MESSAGE: 'message' = 'message'
-
-    /**
-    *
-    */
-    export const TIMESTAMP: 'timestamp' = 'timestamp'
-
-    /**
-    *
-    */
-    export const STATE: 'state' = 'state'
-
-    /**
-    *
-    */
-    export const REASON: 'reason' = 'reason'
-
-    /**
-    *
-    */
-    export const ALL: string[] = [
-      OBJECT_IDENTIFIER,
-      REPOSITORY_IDENTIFIER,
-      MESSAGE,
-      TIMESTAMP,
-      STATE,
-      REASON
-    ]
+  /**
+  *
+  */
+  export function getIdentifier(commit: Commit): string {
+    return commit.identifier
   }
 }

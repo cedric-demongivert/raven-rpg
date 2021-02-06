@@ -20,7 +20,7 @@ export namespace TagEvent {
     return {
       type: TagAction.EXTRACTED,
       payload: (
-        tag.set(Tag.Properties.REPOSITORY_IDENTIFIER, commit.model.repositoryIdentifier)
+        tag.set(Tag.Properties.REPOSITORY_IDENTIFIER, commit.model.repository)
           .set(Tag.Properties.COMMIT_IDENTIFIER, commit.identifier)
       )
     }

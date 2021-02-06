@@ -3,8 +3,7 @@ import { ReactElement } from 'react'
 import { List } from 'immutable'
 
 import { Application } from '../../typescript/application/Application'
-import { Book } from '../../typescript/book/Book'
-import { Table } from '../../typescript/data/table/Table'
+import { RPGBook } from '../../typescript/rpg/book/RPGBook'
 import { Entry } from '../../typescript/data/Entry'
 
 import { BookItem } from './BookItem'
@@ -12,11 +11,12 @@ import { BookItem } from './BookItem'
 *
 */
 export const BookList = (properties: BookList.Properties): ReactElement => {
-  const books: List<Entry<Book>> = properties.application.getBooksByCommitIdentifier().get(properties.commit).entries
+  const books: List<Entry<RPGBook>> = properties.application.elements.getBooksByCommit(properties.commit).entries
 
-  books.sort(Entry.comparator(Book.compareBookTitles))
+  console.log(properties.application.elements.books.entries)
 
-  //
+  books.sort(Entry.comparator(RPGBook.compareByTitle))
+
   return (
     <div className='layout-page-repository-book'>
       {books.map(renderBook)}
@@ -24,7 +24,7 @@ export const BookList = (properties: BookList.Properties): ReactElement => {
   )
 }
 
-function renderBook(book: Entry<Book>): ReactElement {
+function renderBook(book: Entry<RPGBook>): ReactElement {
   return <BookItem value={book} key={book.identifier} />
 }
 

@@ -1,12 +1,11 @@
 import { ApplicationMiddleware } from '../ApplicationMiddleware'
 import { ApplicationPublication } from '../ApplicationPublication'
 
-import { GitRepositories } from '../git/GitRepositories'
 import { Application } from '../application/Application'
 import { Entry } from '../data/Entry'
 
-import { Book } from '../book/Book'
-import { BookEvent } from '../book/BookEvent'
+import { RPGBook } from '../rpg/book/RPGBook'
+import { RPGElementEvent } from '../rpg/RPGElementEvent'
 
 import { Commit } from '../commit/Commit'
 import { CommitEvent } from '../commit/CommitEvent'
@@ -42,7 +41,7 @@ export class CommitMiddleware implements ApplicationMiddleware<Application>
   */
   private extractBooks(publication: ApplicationPublication<Application, CommitEvent.ExtractBooks>): void {
     const identifier: number = publication.event.payload
-    const commit: Entry<Commit> | undefined = publication.store.getState().getCommits().get(identifier)
+    const commit: Entry<Commit> | undefined = publication.store.getState().commits.getByIdentifier(identifier)
 
     if (commit == null) {
       throw new Error(
@@ -52,7 +51,7 @@ export class CommitMiddleware implements ApplicationMiddleware<Application>
     }
 
     if (commit.model.state === CommitState.BOOKS_EXTRACTION_REQUESTED) {
-      const operation: Promise<Book[]> = readRepository(commit)
+      const operation: Promise<RPGBook[]> = readRepository(commit)
 
       publication.store.dispatch(CommitEvent.extractingBooks(commit))
 
@@ -71,9 +70,9 @@ export class CommitMiddleware implements ApplicationMiddleware<Application>
   /**
   *
   */
-  private handleBooksExtractionSuccess(publication: ApplicationPublication<Application, CommitEvent.ExtractBooks>, books: Book[]): void {
+  private handleBooksExtractionSuccess(publication: ApplicationPublication<Application, CommitEvent.ExtractBooks>, books: RPGBook[]): void {
     const identifier: number = publication.event.payload
-    const commit: Entry<Commit> | undefined = publication.store.getState().getCommits().get(identifier)
+    const commit: Entry<Commit> | undefined = publication.store.getState().commits.getByIdentifier(identifier)
 
     if (commit == null) {
       throw new Error(
@@ -84,7 +83,7 @@ export class CommitMiddleware implements ApplicationMiddleware<Application>
 
     if (commit.model.state === CommitState.EXTRACTING_BOOKS) {
       for (const book of books) {
-        publication.store.dispatch(BookEvent.extracted(book))
+        publication.store.dispatch(RPGElementEvent.extracted(book))
       }
 
       publication.store.dispatch(CommitEvent.booksExtracted(commit))
@@ -104,7 +103,7 @@ export class CommitMiddleware implements ApplicationMiddleware<Application>
   */
   private handleBooksExtractionFailure(publication: ApplicationPublication<Application, CommitEvent.ExtractBooks>, reason: Error): void {
     const identifier: number = publication.event.payload
-    const commit: Entry<Commit> | undefined = publication.store.getState().getCommits().get(identifier)
+    const commit: Entry<Commit> | undefined = publication.store.getState().commits.getByIdentifier(identifier)
 
     if (commit == null) {
       throw new Error(

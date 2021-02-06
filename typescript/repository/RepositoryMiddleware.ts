@@ -50,7 +50,7 @@ export class RepositoryMiddleware implements ApplicationMiddleware<Application>
   *
   */
   private addRepository(publication: ApplicationPublication<Application, RepositoryEvent.Add>): void {
-    const identifier: number = publication.store.getState().getRepositories().getFirstInserted().identifier
+    const identifier: number = publication.store.getState().repositories.table.getFirstInserted().identifier
     GitRepositories.create(identifier, publication.event.payload)
   }
 
@@ -59,7 +59,7 @@ export class RepositoryMiddleware implements ApplicationMiddleware<Application>
   */
   private cloneRepository(publication: ApplicationPublication<Application, RepositoryEvent.Clone>): void {
     const identifier: number = publication.event.payload
-    const repository: Entry<Repository> | undefined = publication.store.getState().getRepositories().get(identifier)
+    const repository: Entry<Repository> | undefined = publication.store.getState().repositories.getByIdentifier(identifier)
 
     if (repository == null) {
       throw new Error(
@@ -69,12 +69,14 @@ export class RepositoryMiddleware implements ApplicationMiddleware<Application>
     }
 
     if (repository.model.state === RepositoryState.CLONING_REQUESTED) {
-      const operation: Promise<void> = GitRepositories.get(identifier).clone()
+      if (typeof window !== 'undefined') {
+        const operation: Promise<void> = GitRepositories.get(identifier).clone()
 
-      publication.store.dispatch(RepositoryEvent.cloning(repository))
+        publication.store.dispatch(RepositoryEvent.cloning(repository))
 
-      operation.then(this.handleCloningSuccess.bind(this, publication))
-      operation.catch(this.handleCloningFailure.bind(this, publication))
+        operation.then(this.handleCloningSuccess.bind(this, publication))
+        operation.catch(this.handleCloningFailure.bind(this, publication))
+      }
     } else {
       throw new Error(
         'Unable to clone repository ' + repository.toString() + ' ' +
@@ -90,7 +92,7 @@ export class RepositoryMiddleware implements ApplicationMiddleware<Application>
   */
   private handleCloningSuccess(publication: ApplicationPublication<Application, RepositoryEvent.Clone>): void {
     const identifier: number = publication.event.payload
-    const repository: Entry<Repository> | undefined = publication.store.getState().getRepositories().get(identifier)
+    const repository: Entry<Repository> | undefined = publication.store.getState().repositories.getByIdentifier(identifier)
 
     if (repository == null) {
       throw new Error(
@@ -116,7 +118,7 @@ export class RepositoryMiddleware implements ApplicationMiddleware<Application>
   */
   private handleCloningFailure(publication: ApplicationPublication<Application, RepositoryEvent.Clone>, reason: Error): void {
     const identifier: number = publication.event.payload
-    const repository: Entry<Repository> | undefined = publication.store.getState().getRepositories().get(identifier)
+    const repository: Entry<Repository> | undefined = publication.store.getState().repositories.getByIdentifier(identifier)
 
     if (repository == null) {
       throw new Error(
@@ -142,7 +144,7 @@ export class RepositoryMiddleware implements ApplicationMiddleware<Application>
   */
   private extractCommits(publication: ApplicationPublication<Application, RepositoryEvent.ExtractCommits>): void {
     const identifier: number = publication.event.payload
-    const repository: Entry<Repository> | undefined = publication.store.getState().getRepositories().get(identifier)
+    const repository: Entry<Repository> | undefined = publication.store.getState().repositories.getByIdentifier(identifier)
 
     if (repository == null) {
       throw new Error(
@@ -173,7 +175,7 @@ export class RepositoryMiddleware implements ApplicationMiddleware<Application>
   */
   private handleCommitsExtractionSuccess(publication: ApplicationPublication<Application, RepositoryEvent.ExtractCommits>, commits: any[]): void {
     const identifier: number = publication.event.payload
-    const repository: Entry<Repository> | undefined = publication.store.getState().getRepositories().get(identifier)
+    const repository: Entry<Repository> | undefined = publication.store.getState().repositories.getByIdentifier(identifier)
 
     if (repository == null) {
       throw new Error(
@@ -185,11 +187,14 @@ export class RepositoryMiddleware implements ApplicationMiddleware<Application>
 
     if (repository.model.state === RepositoryState.EXTRACTING_COMMITS) {
       for (const commit of commits) {
-        publication.store.dispatch(CommitEvent.extracted(repository, {
-          objectIdentifier: commit.oid,
-          message: commit.commit.message,
-          timestamp: commit.commit.author.timestamp
-        }))
+        publication.store.dispatch(
+          CommitEvent.extracted(Commit.create({
+            identifier: commit.oid,
+            repository: repository.identifier,
+            message: commit.commit.message,
+            timestamp: commit.commit.author.timestamp
+          }))
+        )
       }
 
       publication.store.dispatch(RepositoryEvent.commitsExtracted(repository))
@@ -208,7 +213,7 @@ export class RepositoryMiddleware implements ApplicationMiddleware<Application>
   */
   private handleCommitsExtractionFailure(publication: ApplicationPublication<Application, RepositoryEvent.ExtractCommits>, reason: Error): void {
     const identifier: number = publication.event.payload
-    const repository: Entry<Repository> | undefined = publication.store.getState().getRepositories().get(identifier)
+    const repository: Entry<Repository> | undefined = publication.store.getState().repositories.getByIdentifier(identifier)
 
     if (repository == null) {
       throw new Error(
@@ -234,7 +239,7 @@ export class RepositoryMiddleware implements ApplicationMiddleware<Application>
   */
   private extractLabels(publication: ApplicationPublication<Application, RepositoryEvent.ExtractLabels>): void {
     const identifier: number = publication.event.payload
-    const repository: Entry<Repository> | undefined = publication.store.getState().getRepositories().get(identifier)
+    const repository: Entry<Repository> | undefined = publication.store.getState().repositories.getByIdentifier(identifier)
 
     if (repository == null) {
       throw new Error(
@@ -265,7 +270,7 @@ export class RepositoryMiddleware implements ApplicationMiddleware<Application>
   */
   private handleLabelsExtractionSuccess(publication: ApplicationPublication<Application, RepositoryEvent.ExtractCommits>, labels: any[]): void {
     const identifier: number = publication.event.payload
-    const repository: Entry<Repository> | undefined = publication.store.getState().getRepositories().get(identifier)
+    const repository: Entry<Repository> | undefined = publication.store.getState().repositories.getByIdentifier(identifier)
 
     if (repository == null) {
       throw new Error(
@@ -277,7 +282,7 @@ export class RepositoryMiddleware implements ApplicationMiddleware<Application>
 
     if (repository.model.state === RepositoryState.EXTRACTING_LABELS) {
       for (const label of labels) {
-        const commit: Entry<Commit> = publication.store.getState().getCommitByObjectIdentifier().get(label[1].oid)
+        const commit: Entry<Commit> = publication.store.getState().commits.getByGitIdentifier(label[1].oid)
 
         publication.store.dispatch(TagEvent.extracted(commit, new Tag({
           objectIdentifier: label[1].oid,
@@ -302,7 +307,7 @@ export class RepositoryMiddleware implements ApplicationMiddleware<Application>
   */
   private handleLabelsExtractionFailure(publication: ApplicationPublication<Application, RepositoryEvent.ExtractCommits>, reason: Error): void {
     const identifier: number = publication.event.payload
-    const repository: Entry<Repository> | undefined = publication.store.getState().getRepositories().get(identifier)
+    const repository: Entry<Repository> | undefined = publication.store.getState().repositories.getByIdentifier(identifier)
 
     if (repository == null) {
       throw new Error(

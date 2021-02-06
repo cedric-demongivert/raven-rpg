@@ -6,13 +6,13 @@ import { validateCommandList } from './command/validateCommandList'
 
 import { validateParagraph } from './validateParagraph'
 import { validateSection } from './validateSection'
-import { validateSet } from './validateSet'
+import { validateRuleset } from './validateRuleset'
 import { validateImage } from './validateImage'
 
 const DOCUMENT_COMMAND: CommandList = CommandList.capture(
   CommandListElement.anywhere.manyCommand('paragraph', validateParagraph),
   CommandListElement.anywhere.manyCommand('section', validateSection),
-  CommandListElement.anywhere.manyCommand('set', validateSet),
+  CommandListElement.anywhere.manyCommand('ruleset', validateRuleset),
   CommandListElement.anywhere.manyCommand('image', validateImage)
 )
 

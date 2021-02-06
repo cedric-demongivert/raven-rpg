@@ -31,7 +31,7 @@ function renderPage(properties: RepositoryPage.Properties): ReactElement {
           <div className='col'>
             <BookList
               application={properties.application}
-              commit={properties.application.getLatestCommitOf(0).identifier}
+              commit={properties.application.commits.getLatestOfRepository(0).identifier}
             />
           </div>
         </div>
