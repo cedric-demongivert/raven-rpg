@@ -13,8 +13,6 @@ import { BookItem } from './BookItem'
 export const BookList = (properties: BookList.Properties): ReactElement => {
   const books: List<Entry<RPGBook>> = properties.application.elements.getBooksByCommit(properties.commit).entries
 
-  console.log(properties.application.elements.books.entries)
-
   books.sort(Entry.comparator(RPGBook.compareByTitle))
 
   return (

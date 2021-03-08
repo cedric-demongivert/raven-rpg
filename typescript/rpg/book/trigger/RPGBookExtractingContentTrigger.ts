@@ -4,6 +4,7 @@ import { ApplicationPublication } from '../../../ApplicationPublication'
 
 import { Application } from '../../../application/Application'
 import { Entry } from '../../../data/Entry'
+import { Reference } from '../../../data/Reference'
 
 import { RPGBook } from '../RPGBook'
 import { RPGBookAction } from '../RPGBookAction'
@@ -13,13 +14,13 @@ export class RPGBookExtractingContentTrigger implements ApplicationTrigger<void,
   /**
   *
   */
-  public readonly book: number
+  public readonly book: Reference<RPGBook>
 
   /**
   *
   */
   public constructor(book: Entry<RPGBook> | number) {
-    this.book = Entry.identifier(book)
+    this.book = Reference.get(book)
   }
 
   /**

@@ -1,5 +1,8 @@
 import { Empty } from '../Empty'
 
+import type { Reference } from '../data/Reference'
+import type { Repository } from '../repository/Repository'
+
 import { CommitState } from './CommitState'
 
 /**
@@ -14,7 +17,7 @@ export class Commit {
   /**
   *
   */
-  public readonly repository: number
+  public readonly repository: Reference<Repository>
 
   /**
   *
@@ -62,7 +65,7 @@ export class Commit {
   /**
   *
   */
-  public setRepository(repository: number): Commit {
+  public setRepository(repository: Reference<Repository>): Commit {
     if (this.repository === repository) {
       return this
     } else {
@@ -234,7 +237,7 @@ export namespace Commit {
     /**
     *
     */
-    repository?: number
+    repository?: Reference<Repository>
 
     /**
     *
@@ -272,7 +275,7 @@ export namespace Commit {
   /**
   *
   */
-  export function getRepository(commit: Commit): number {
+  export function getRepository(commit: Commit): Reference<Repository> {
     return commit.repository
   }
 

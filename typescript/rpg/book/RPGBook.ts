@@ -170,17 +170,6 @@ export class RPGBook implements RPGElement {
   /**
   *
   */
-  public setTree(tree: number | undefined): RPGBook {
-    if (this.tree === tree) {
-      return this
-    } else {
-      return new RPGBook({ ...this, tree })
-    }
-  }
-
-  /**
-  *
-  */
   public markExtractContent(): RPGBook {
     switch (this.state) {
       case RPGBookState.HOLLOW:

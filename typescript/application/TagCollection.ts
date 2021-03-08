@@ -1,6 +1,7 @@
 import { List } from 'immutable'
 
 import { Entry } from '../data/Entry'
+import { Reference } from '../data/Reference'
 import { Table } from '../data/table/Table'
 import { OneToOneIndex } from '../data/view/OneToOneIndex'
 import { OneToManyIndex } from '../data/view/OneToManyIndex'
@@ -47,21 +48,9 @@ export class TagCollection {
   */
   public constructor(properties: TagCollection.Properties = Empty.OBJECT) {
     this.table = properties.table || Table.EMPTY
-
-    this.byCommit = (
-      properties.byCommit ||
-      OneToOneIndex.make(this.table, Tag.getCommitIdentifier)
-    )
-
-    this.byIdentifier = (
-      properties.byIdentifier ||
-      OneToOneIndex.make(this.table, Tag.getObjectIdentifier)
-    )
-
-    this.byRepository = (
-      properties.byRepository ||
-      OneToManyIndex.make(this.table, Tag.getRepositoryIdentifier)
-    )
+    this.byCommit = properties.byCommit || OneToOneIndex.make(this.table, Tag.getCommit)
+    this.byIdentifier = properties.byIdentifier || OneToOneIndex.make(this.table, Tag.getIdentifier)
+    this.byRepository = properties.byRepository || OneToManyIndex.make(this.table, Tag.getRepository)
   }
 
   /**
@@ -75,14 +64,14 @@ export class TagCollection {
   *
   */
   public getByCommit(identifier: Entry<Commit> | number): Entry<Tag> | undefined {
-    return this.byCommit.get(Entry.identifier(identifier))
+    return this.byCommit.get(Reference.get(identifier))
   }
 
   /**
   *
   */
   public getByRepository(repository: Entry<Repository> | number): Table<Tag> {
-    return this.byRepository.get(Entry.identifier(repository))
+    return this.byRepository.get(Reference.get(repository))
   }
 
   /**

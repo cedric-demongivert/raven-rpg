@@ -130,32 +130,8 @@ export namespace Entry {
   /**
   *
   */
-  export function identifier<T>(entryOrIdentifier: Entry<T> | number): number
-  /**
-  *
-  */
-  export function identifier(undefinedValue: undefined): undefined
-  /**
-  *
-  */
-  export function identifier(nullValue: null): null
-  /**
-  *
-  */
-  export function identifier<T>(parameter: Entry<T> | number | null | undefined): number | undefined | null
-  export function identifier<T>(parameter: Entry<T> | number | null | undefined): number | undefined | null {
-    if (parameter == null) {
-      return parameter as (null | undefined)
-    } else {
-      return typeof parameter === 'number' ? parameter : parameter.identifier
-    }
-  }
-
-  /**
-  *
-  */
-  export function comparator<T>(comparator: Comparator<T, T>): Comparator<Entry<T>, Entry<T>> {
-    return function compare(left: Entry<T>, right: Entry<T>): number {
+  export function comparator<Model>(comparator: Comparator<Model, Model>): Comparator<Entry<Model>, Entry<Model>> {
+    return function compare(left: Entry<Model>, right: Entry<Model>): number {
       return comparator(left.model, right.model)
     }
   }

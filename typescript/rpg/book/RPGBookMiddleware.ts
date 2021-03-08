@@ -95,11 +95,9 @@ export class RPGBookMiddleware implements ApplicationMiddleware<Application>
 
     if (book.model.state === RPGBookState.EXTRACTING_CONTENT) {
       const bookTree: Entry<RPGElementTree> = this.createTree(publication.store, book)
-      const walker: RPGDocumentWalker = RPGDocumentWalker.walkElement(book.model)
-      walker.next()
-
-      const parentTrees: Entry<RPGElementTree>[] = [bookTree]
-      const parentElements: Entry<RPGElement>[] = [book]
+      const walker: RPGDocumentWalker = RPGDocumentWalker.walkDocument(content)
+      const parentTrees: Entry<RPGElementTree>[] = []
+      const parentElements: Entry<RPGElement>[] = []
 
       let previousTree: Entry<RPGElementTree> = bookTree
 
@@ -108,19 +106,23 @@ export class RPGBookMiddleware implements ApplicationMiddleware<Application>
         const entry: Entry<RPGElement> = this.createElement(publication.store, element)
         const tree: Entry<RPGElementTree> = this.createTree(publication.store, entry)
 
-        while (parentElements[parentElements.length - 1].model !== walker.parent()) {
+        while (parentElements.length > 0 && parentElements[parentElements.length - 1].model !== walker.parent()) {
           parentElements.pop()
           parentTrees.pop()
         }
 
         publication.store.dispatch(RPGElementTreeEvent.chain(previousTree, tree))
-        publication.store.dispatch(RPGElementTreeEvent.hierarchize(tree, parentTrees[parentTrees.length - 1]))
+        publication.store.dispatch(RPGElementTreeEvent.hierarchize(tree, parentElements.length > 0 ? parentTrees[parentTrees.length - 1] : bookTree))
 
         if (RPGNode.is(element)) {
           parentTrees.push(tree)
           parentElements.push(entry)
         }
+
+        previousTree = tree
       }
+
+      console.log([...publication.store.getState().elements.images.entries].map(x => x.model))
 
       publication.store.dispatch(RPGBookEvent.contentExtracted(book, content))
     } else {

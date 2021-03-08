@@ -126,6 +126,13 @@ export namespace RPGImage {
     path?: string
   }
 
+  /**
+  *
+  */
+  export function is(element: RPGElement | null | undefined): element is RPGImage {
+    return element && element instanceof RPGImage
+  }
+
 
   /**
   *

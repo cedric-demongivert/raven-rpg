@@ -4,6 +4,7 @@ import { ApplicationPublication } from '../../ApplicationPublication'
 
 import { Application } from '../../application/Application'
 import { Entry } from '../../data/Entry'
+import { Reference } from '../../data/Reference'
 
 import { Commit } from '../Commit'
 import { CommitAction } from '../CommitAction'
@@ -13,13 +14,13 @@ export class CommitExtractingBooksTrigger implements ApplicationTrigger<void, Ap
   /**
   *
   */
-  public readonly commit: number
+  public readonly commit: Reference<Commit>
 
   /**
   *
   */
   public constructor(commit: number | Entry<Commit>) {
-    this.commit = Entry.identifier(commit)
+    this.commit = Reference.get(commit)
   }
 
   /**

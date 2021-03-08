@@ -5,6 +5,7 @@ import { MutationType } from '../mutation/MutationType'
 
 import { Filter } from '../Filter'
 import { Entry } from '../Entry'
+import { Reference } from '../Reference'
 
 /**
 *
@@ -163,7 +164,7 @@ export class Table<Model> {
   */
   public delete(parameter: Entry<Model> | number): Table<Model>
   public delete(parameter: Entry<Model> | number): Table<Model> {
-    const identifier: number = Entry.identifier(parameter)
+    const identifier: number = Reference.get(parameter)
     const index: number = this.indexOf(identifier)
 
     if (index < 0) {
@@ -281,7 +282,7 @@ export class Table<Model> {
   */
   public indexOf(parameter: Entry<Model> | number): number
   public indexOf(parameter: Entry<Model> | number): number {
-    return Entry.bissect(this.entries, Entry.identifier(parameter))
+    return Entry.bissect(this.entries, Reference.get(parameter))
   }
 
   /**

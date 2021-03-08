@@ -41,7 +41,7 @@ export namespace RepositoryTableReducer {
   /**
   *
   */
-  export function reduceAdd(state: Table<Repository>, action: RepositoryEvent.Add): Table<Repository> {
+  export function reduceSubscription(state: Table<Repository>, action: RepositoryEvent.Subscribe): Table<Repository> {
     return state.add(new Repository({ origin: action.payload }))
   }
 
@@ -272,24 +272,12 @@ export namespace RepositoryTableReducer {
   /**
   *
   */
-  export function reduceRemove(state: Table<Repository>, action: RepositoryEvent.Remove): Table<Repository> {
-    const repository: Entry<Repository> | undefined = state.get(action.payload)
-
-    assertThatRepositoryExists(repository)
-    assertThatRepositoryStateIs(repository, RepositoryState.HOLLOW)
-
-    return state.delete(action.payload)
-  }
-
-  /**
-  *
-  */
   export function reduce(state: Table<Repository> | undefined, action: ApplicationEvent): Table<Repository> {
     const nonNullState: Table<Repository> = state || Table.empty()
 
     switch (action.type) {
-      case RepositoryAction.ADD:
-        return this.reduceAdd(nonNullState, action)
+      case RepositoryAction.SUBSCRIBE:
+        return this.reduceSubscription(nonNullState, action)
       case RepositoryAction.CLONE:
         return this.reduceClone(nonNullState, action)
       case RepositoryAction.CLONING:
@@ -316,8 +304,6 @@ export namespace RepositoryTableReducer {
         return this.reduceLabelsExtractionFailure(nonNullState, action)
       case RepositoryAction.READY:
         return this.reduceReady(nonNullState, action)
-      case RepositoryAction.REMOVE:
-        return this.reduceRemove(nonNullState, action)
       default:
         return nonNullState
     }

@@ -1,6 +1,7 @@
 import { ApplicationEvent } from '../ApplicationEvent'
 
 import { Entry } from '../data/Entry'
+import { Reference } from '../data/Reference'
 
 import { RepositoryAction } from './RepositoryAction'
 import { Repository } from './Repository'
@@ -9,68 +10,68 @@ export namespace RepositoryEvent {
   /**
   *
   */
-  export type Add = ApplicationEvent<string>
+  export type Subscribe = ApplicationEvent<string>
 
   /**
   *
   */
-  export type Clone = ApplicationEvent<number>
+  export type Clone = ApplicationEvent<Reference<Repository>>
 
   /**
   *
   */
-  export type Cloning = ApplicationEvent<number>
+  export type Cloning = ApplicationEvent<Reference<Repository>>
 
   /**
   *
   */
-  export type Cloned = ApplicationEvent<number>
+  export type Cloned = ApplicationEvent<Reference<Repository>>
 
   /**
   *
   */
   export type CloningFailure = ApplicationEvent<{
-    identifier: number,
+    identifier: Reference<Repository>,
     reason: Error
   }>
 
   /**
   *
   */
-  export type ExtractCommits = ApplicationEvent<number>
+  export type ExtractCommits = ApplicationEvent<Reference<Repository>>
 
   /**
   *
   */
-  export type ExtractingCommits = ApplicationEvent<number>
+  export type ExtractingCommits = ApplicationEvent<Reference<Repository>>
 
   /**
   *
   */
-  export type CommitsExtracted = ApplicationEvent<number>
+  export type CommitsExtracted = ApplicationEvent<Reference<Repository>>
 
   /**
   *
   */
   export type CommitsExtractionFailure = ApplicationEvent<{
-    identifier: number,
+    identifier: Reference<Repository>,
     reason: Error
   }>
 
   /**
   *
   */
-  export type ExtractLabels = ApplicationEvent<number>
+  export type ExtractLabels = ApplicationEvent<Reference<Repository>>
 
   /**
   *
   */
-  export type ExtractingLabels = ApplicationEvent<number>
+  export type ExtractingLabels = ApplicationEvent<Reference<Repository>>
 
   /**
   *
   */
-  export type LabelsExtracted = ApplicationEvent<number>
+  export type LabelsExtracted = ApplicationEvent<Reference<Repository>>
 
   /**
   *
@@ -83,19 +84,14 @@ export namespace RepositoryEvent {
   /**
   *
   */
-  export type Ready = ApplicationEvent<number>
+  export type Ready = ApplicationEvent<Reference<Repository>>
 
   /**
   *
   */
-  export type Remove = ApplicationEvent<number>
-
-  /**
-  *
-  */
-  export function add(payload: string): Add {
+  export function subscribe(payload: string): Subscribe {
     return {
-      type: RepositoryAction.ADD,
+      type: RepositoryAction.SUBSCRIBE,
       payload
     }
   }
@@ -106,7 +102,7 @@ export namespace RepositoryEvent {
   export function clone(identifiable: Entry<Repository> | number): Clone {
     return {
       type: RepositoryAction.CLONE,
-      payload: Entry.identifier(identifiable)
+      payload: Reference.get(identifiable)
     }
   }
 
@@ -116,7 +112,7 @@ export namespace RepositoryEvent {
   export function cloning(identifiable: Entry<Repository> | number): Cloning {
     return {
       type: RepositoryAction.CLONING,
-      payload: Entry.identifier(identifiable)
+      payload: Reference.get(identifiable)
     }
   }
 
@@ -126,7 +122,7 @@ export namespace RepositoryEvent {
   export function cloned(identifiable: Entry<Repository> | number): Cloned {
     return {
       type: RepositoryAction.CLONED,
-      payload: Entry.identifier(identifiable)
+      payload: Reference.get(identifiable)
     }
   }
 
@@ -137,7 +133,7 @@ export namespace RepositoryEvent {
     return {
       type: RepositoryAction.CLONING_FAILURE,
       payload: {
-        identifier: Entry.identifier(identifiable),
+        identifier: Reference.get(identifiable),
         reason
       }
     }
@@ -149,7 +145,7 @@ export namespace RepositoryEvent {
   export function extractCommits(identifiable: Entry<Repository> | number): ExtractCommits {
     return {
       type: RepositoryAction.EXTRACT_COMMITS,
-      payload: Entry.identifier(identifiable)
+      payload: Reference.get(identifiable)
     }
   }
 
@@ -159,7 +155,7 @@ export namespace RepositoryEvent {
   export function extractingCommits(identifiable: Entry<Repository> | number): ExtractingCommits {
     return {
       type: RepositoryAction.EXTRACTING_COMMITS,
-      payload: Entry.identifier(identifiable)
+      payload: Reference.get(identifiable)
     }
   }
 
@@ -169,7 +165,7 @@ export namespace RepositoryEvent {
   export function commitsExtracted(identifiable: Entry<Repository> | number): CommitsExtracted {
     return {
       type: RepositoryAction.COMMITS_EXTRACTED,
-      payload: Entry.identifier(identifiable)
+      payload: Reference.get(identifiable)
     }
   }
 
@@ -180,7 +176,7 @@ export namespace RepositoryEvent {
     return {
       type: RepositoryAction.COMMITS_EXTRACTION_FAILURE,
       payload: {
-        identifier: Entry.identifier(identifiable),
+        identifier: Reference.get(identifiable),
         reason
       }
     }
@@ -192,7 +188,7 @@ export namespace RepositoryEvent {
   export function extractLabels(identifiable: Entry<Repository> | number): ExtractLabels {
     return {
       type: RepositoryAction.EXTRACT_LABELS,
-      payload: Entry.identifier(identifiable)
+      payload: Reference.get(identifiable)
     }
   }
 
@@ -202,7 +198,7 @@ export namespace RepositoryEvent {
   export function extractingLabels(identifiable: Entry<Repository> | number): ExtractingLabels {
     return {
       type: RepositoryAction.EXTRACTING_LABELS,
-      payload: Entry.identifier(identifiable)
+      payload: Reference.get(identifiable)
     }
   }
 
@@ -212,7 +208,7 @@ export namespace RepositoryEvent {
   export function labelsExtracted(identifiable: Entry<Repository> | number): LabelsExtracted {
     return {
       type: RepositoryAction.LABELS_EXTRACTED,
-      payload: Entry.identifier(identifiable)
+      payload: Reference.get(identifiable)
     }
   }
 
@@ -223,7 +219,7 @@ export namespace RepositoryEvent {
     return {
       type: RepositoryAction.LABELS_EXTRACTION_FAILURE,
       payload: {
-        identifier: Entry.identifier(identifiable),
+        identifier: Reference.get(identifiable),
         reason
       }
     }
@@ -235,17 +231,7 @@ export namespace RepositoryEvent {
   export function ready(identifiable: Entry<Repository> | number): Ready {
     return {
       type: RepositoryAction.READY,
-      payload: Entry.identifier(identifiable)
-    }
-  }
-
-  /**
-  *
-  */
-  export function remove(identifiable: Entry<Repository> | number): Remove {
-    return {
-      type: RepositoryAction.REMOVE,
-      payload: Entry.identifier(identifiable)
+      payload: Reference.get(identifiable)
     }
   }
 }

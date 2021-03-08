@@ -1,6 +1,7 @@
 import { List } from 'immutable'
 
 import { Entry } from '../data/Entry'
+import { Reference } from '../data/Reference'
 import { Table } from '../data/table/Table'
 import { OneToOneIndex } from '../data/view/OneToOneIndex'
 import { OneToManyIndex } from '../data/view/OneToManyIndex'
@@ -72,7 +73,7 @@ export class CommitCollection {
   *
   */
   public getByRepository(repository: Entry<Repository> | number): Table<Commit> {
-    return this.byRepository.get(Entry.identifier(repository))
+    return this.byRepository.get(Reference.get(repository))
   }
 
   /**

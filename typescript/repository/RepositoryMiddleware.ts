@@ -33,7 +33,7 @@ export class RepositoryMiddleware implements ApplicationMiddleware<Application>
   */
   public afterReduction(publication: ApplicationPublication<Application>): void {
     switch (publication.event.type) {
-      case RepositoryAction.ADD:
+      case RepositoryAction.SUBSCRIBE:
         return this.addRepository(publication)
       case RepositoryAction.CLONE:
         return this.cloneRepository(publication)
@@ -49,7 +49,7 @@ export class RepositoryMiddleware implements ApplicationMiddleware<Application>
   /**
   *
   */
-  private addRepository(publication: ApplicationPublication<Application, RepositoryEvent.Add>): void {
+  private addRepository(publication: ApplicationPublication<Application, RepositoryEvent.Subscribe>): void {
     const identifier: number = publication.store.getState().repositories.table.getFirstInserted().identifier
     GitRepositories.create(identifier, publication.event.payload)
   }
@@ -284,11 +284,15 @@ export class RepositoryMiddleware implements ApplicationMiddleware<Application>
       for (const label of labels) {
         const commit: Entry<Commit> = publication.store.getState().commits.getByGitIdentifier(label[1].oid)
 
-        publication.store.dispatch(TagEvent.extracted(commit, new Tag({
-          objectIdentifier: label[1].oid,
-          tag: label[0],
-          timestamp: label[1].commit.author.timestamp
-        })))
+        publication.store.dispatch(TagEvent.extracted(
+          Tag.create({
+            commit: commit.identifier,
+            repository: repository.identifier,
+            identifier: label[1].oid,
+            tag: label[0],
+            timestamp: label[1].commit.author.timestamp
+          })
+        ))
       }
 
       publication.store.dispatch(RepositoryEvent.labelsExtracted(repository))

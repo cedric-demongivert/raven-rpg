@@ -7,17 +7,17 @@ import { RepositoryState } from './RepositoryState'
 */
 export class Repository {
   /**
-  *
+  * @see Repository.Properties.origin
   */
   public readonly origin: string
 
   /**
-  *
+  * @see Repository.Properties.state
   */
   public readonly state: RepositoryState
 
   /**
-  *
+  * @see Repository.Properties.reason
   */
   public readonly reason: Error | undefined
 
@@ -33,11 +33,62 @@ export class Repository {
   /**
   *
   */
+  public setOrigin(origin: string): Repository {
+    if (this.origin === origin) {
+      return this
+    } else {
+      return new Repository({ ...this, origin })
+    }
+  }
+
+  /**
+  *
+  */
+  public setState(state: RepositoryState): Repository {
+    if (this.state === state) {
+      return this
+    } else {
+      return new Repository({ ...this, state })
+    }
+  }
+
+  /**
+  *
+  */
+  public setReason(reason: Error | undefined): Repository {
+    if (this.reason === reason) {
+      return this
+    } else {
+      return new Repository({ ...this, reason })
+    }
+  }
+
+  /**
+  *
+  */
   public toString(): string {
     return (
       this.constructor.name + ' ' + this.origin + ' ' +
       RepositoryState.toDebugString(this.state)
     )
+  }
+
+  /**
+  *
+  */
+  public equals(other: any): boolean {
+    if (other == null) return false
+    if (other === this) return true
+
+    if (other instanceof Repository) {
+      return (
+        other.origin === this.origin &&
+        other.state === this.state &&
+        other.reason === this.reason
+      )
+    }
+
+    return false
   }
 }
 
@@ -60,9 +111,9 @@ export namespace Repository {
     state?: RepositoryState,
 
     /**
-    * Error associated to this repository.
+    * Error associated to the state of this repository.
     */
-    reason?: Error | null
+    reason?: Error | undefined
   }
 
   /**

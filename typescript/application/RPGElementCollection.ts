@@ -1,6 +1,7 @@
 import { List } from 'immutable'
 
 import { Entry } from '../data/Entry'
+import { Reference } from '../data/Reference'
 import { Table } from '../data/table/Table'
 import { OneToManyIndex } from '../data/view/OneToManyIndex'
 import { View } from '../data/view/View'
@@ -8,6 +9,7 @@ import { View } from '../data/view/View'
 import { Commit } from '../commit/Commit'
 
 import { RPGBook } from '../rpg/book/RPGBook'
+import { RPGImage } from '../rpg/RPGImage'
 import { RPGElement } from '../rpg/RPGElement'
 
 import { Empty } from '../Empty'
@@ -34,6 +36,11 @@ export class RPGElementCollection {
   /**
   *
   */
+  public readonly images: View<RPGImage>
+
+  /**
+  *
+  */
   public get entries(): List<Entry<RPGElement>> {
     return this.table.entries
   }
@@ -44,6 +51,7 @@ export class RPGElementCollection {
   public constructor(properties: RPGElementCollection.Properties = Empty.OBJECT) {
     this.table = properties.table || Table.EMPTY
     this.books = properties.books || View.filter(this.table, RPGBook.is)
+    this.images = properties.images || View.filter(this.table, RPGImage.is)
 
     this.booksByCommit = (
       properties.booksByCommit ||
@@ -69,7 +77,7 @@ export class RPGElementCollection {
   *
   */
   public getBooksByCommit(commit: Entry<Commit> | number): Table<RPGBook> {
-    return this.booksByCommit.get(Entry.identifier(commit))
+    return this.booksByCommit.get(Reference.get(commit))
   }
 }
 
@@ -89,12 +97,17 @@ export namespace RPGElementCollection {
     /**
     *
     */
-    books?: View<RPGBook>
+    books?: View<RPGBook>,
 
     /**
     *
     */
-    booksByCommit?: OneToManyIndex<number, RPGBook>
+    booksByCommit?: OneToManyIndex<number, RPGBook>,
+
+    /**
+    *
+    */
+    images?: View<RPGImage>
   }
 
   /**

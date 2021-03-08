@@ -7,7 +7,7 @@ export namespace RepositoryAction {
   /**
   *
   */
-  export const ADD: RepositoryAction = 'repository:add'
+  export const SUBSCRIBE: RepositoryAction = 'repository:subscribe'
 
   /**
   *
@@ -75,15 +75,10 @@ export namespace RepositoryAction {
   export const READY: RepositoryAction = 'repository:ready'
 
   /**
-  *
-  */
-  export const REMOVE: RepositoryAction = 'repository:remove'
-
-  /**
   * A list of all available actions.
   */
   export const ALL: RepositoryAction[] = [
-    ADD,
+    SUBSCRIBE,
     CLONE,
     CLONING,
     CLONED,
@@ -96,7 +91,6 @@ export namespace RepositoryAction {
     EXTRACTING_LABELS,
     LABELS_EXTRACTED,
     LABELS_EXTRACTION_FAILURE,
-    READY,
-    REMOVE
+    READY
   ]
 }

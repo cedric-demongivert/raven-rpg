@@ -1,8 +1,5 @@
 import { ApplicationEvent } from '../ApplicationEvent'
 
-import { Entry } from '../data/Entry'
-import { Commit } from '../commit/Commit'
-
 import { TagAction } from './TagAction'
 import { Tag } from './Tag'
 
@@ -16,13 +13,10 @@ export namespace TagEvent {
   /**
   *
   */
-  export function extracted(commit: Entry<Commit>, tag: Tag): Extracted {
+  export function extracted(tag: Tag): Extracted {
     return {
       type: TagAction.EXTRACTED,
-      payload: (
-        tag.set(Tag.Properties.REPOSITORY_IDENTIFIER, commit.model.repository)
-          .set(Tag.Properties.COMMIT_IDENTIFIER, commit.identifier)
-      )
+      payload: tag
     }
   }
 }

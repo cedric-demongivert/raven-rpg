@@ -4,7 +4,6 @@ import { Entry } from './data/Entry'
 
 import { Application } from './application/Application'
 
-import { RPGBook } from './rpg/book/RPGBook'
 import { RPGBookEvent } from './rpg/book/RPGBookEvent'
 import { RPGBookTrigger } from './rpg/book/trigger/RPGBookTrigger'
 
@@ -16,7 +15,7 @@ import { RepositoryEvent } from './repository/RepositoryEvent'
 import { RepositoryTrigger } from './repository/trigger/RepositoryTrigger'
 
 export async function initialize(store: ApplicationStore<Application>): Promise<void> {
-  store.dispatch(RepositoryEvent.add('http://gitea.cedric-demongivert.com/cdemongivert/corvus.git'))
+  store.dispatch(RepositoryEvent.subscribe('http://gitea.cedric-demongivert.com/cdemongivert/corvus.git'))
 
   const repository: number = store.getState().repositories.getDefault().identifier
 

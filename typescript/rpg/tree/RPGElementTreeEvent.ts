@@ -1,6 +1,7 @@
 import { ApplicationEvent } from '../../ApplicationEvent'
 
 import { Entry } from '../../data/Entry'
+import { Reference } from '../../data/Reference'
 
 import { RPGElement } from '../RPGElement'
 
@@ -41,7 +42,7 @@ export namespace RPGElementTreeEvent {
   export function add(element: Entry<RPGElement> | number): Add {
     return {
       type: RPGElementTreeAction.ADD,
-      payload: Entry.identifier(element)
+      payload: Reference.get(element)
     }
   }
 
@@ -55,8 +56,8 @@ export namespace RPGElementTreeEvent {
     return {
       type: RPGElementTreeAction.CHAIN,
       payload: {
-        previous: Entry.identifier(previous),
-        next: Entry.identifier(next)
+        previous: Reference.get(previous),
+        next: Reference.get(next)
       }
     }
   }
@@ -68,8 +69,8 @@ export namespace RPGElementTreeEvent {
     return {
       type: RPGElementTreeAction.HIERARCHIZE,
       payload: {
-        child: Entry.identifier(child),
-        parent: Entry.identifier(parent)
+        child: Reference.get(child),
+        parent: Reference.get(parent)
       }
     }
   }
@@ -80,7 +81,7 @@ export namespace RPGElementTreeEvent {
   export function remove(payload: number | Entry<RPGElementTree>): Remove {
     return {
       type: RPGElementTreeAction.REMOVE,
-      payload: Entry.identifier(payload)
+      payload: Reference.get(payload)
     }
   }
 }

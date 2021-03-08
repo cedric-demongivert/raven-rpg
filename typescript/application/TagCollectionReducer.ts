@@ -17,20 +17,20 @@ export namespace TagCollectionReducer {
   *
   */
   export const reduceIdentifierIndex: OneToOneIndex.Reducer<string, Tag> = (
-    OneToOneIndex.reducer(Tag.getObjectIdentifier)
+    OneToOneIndex.reducer(Tag.getIdentifier)
   )
 
   /**
   *
   */
   export const reduceRepositoryIndex: OneToManyIndex.Reducer<number, Tag> = (
-    OneToManyIndex.reducer(Tag.getRepositoryIdentifier)
+    OneToManyIndex.reducer(Tag.getRepository)
   )
   /**
   *
   */
   export const reduceCommitIndex: OneToOneIndex.Reducer<number, Tag> = (
-    OneToOneIndex.reducer(Tag.getCommitIdentifier)
+    OneToOneIndex.reducer(Tag.getCommit)
   )
 
   /**

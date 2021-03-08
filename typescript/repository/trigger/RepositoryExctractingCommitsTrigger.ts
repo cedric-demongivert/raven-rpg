@@ -4,6 +4,7 @@ import { ApplicationPublication } from '../../ApplicationPublication'
 
 import { Application } from '../../application/Application'
 import { Entry } from '../../data/Entry'
+import { Reference } from '../../data/Reference'
 
 import { Repository } from '../Repository'
 import { RepositoryAction } from '../RepositoryAction'
@@ -19,7 +20,7 @@ export class RepositoryExctractingCommitsTrigger implements ApplicationTrigger<v
   *
   */
   public constructor(repository: number | Entry<Repository>) {
-    this.repository = Entry.identifier(repository)
+    this.repository = Reference.get(repository)
   }
 
   /**

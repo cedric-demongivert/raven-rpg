@@ -17,8 +17,20 @@ export namespace Empty {
   /**
   *
   */
+  export const BUFFER: Buffer = Buffer.alloc(0)
+
+  /**
+  *
+  */
   export function callback(): void {
 
+  }
+
+  /**
+  *
+  */
+  export function buffer(): Readonly<Buffer> {
+    return BUFFER
   }
 
   /**

@@ -1,6 +1,7 @@
 import { ApplicationEvent } from '../../ApplicationEvent'
 
 import { Entry } from '../../data/Entry'
+import { Reference } from '../../data/Reference'
 
 import { RPGDocument } from '../RPGDocument'
 
@@ -11,18 +12,18 @@ export namespace RPGBookEvent {
   /**
   *
   */
-  export type ExtractContent = ApplicationEvent<number>
+  export type ExtractContent = ApplicationEvent<Reference<RPGBook>>
 
   /**
   *
   */
-  export type ExtractingContent = ApplicationEvent<number>
+  export type ExtractingContent = ApplicationEvent<Reference<RPGBook>>
 
   /**
   *
   */
   export type ContentExtracted = ApplicationEvent<{
-    book: number,
+    book: Reference<RPGBook>,
     document: RPGDocument
   }>
 
@@ -30,14 +31,14 @@ export namespace RPGBookEvent {
   *
   */
   export type ContentExtractionFailure = ApplicationEvent<{
-    book: number,
+    book: Reference<RPGBook>,
     reason: Error
   }>
 
   /**
   *
   */
-  export type Ready = ApplicationEvent<number>
+  export type Ready = ApplicationEvent<Reference<RPGBook>>
 
   /**
   *
@@ -45,7 +46,7 @@ export namespace RPGBookEvent {
   export function extractContent(parameter: Entry<RPGBook> | number): ExtractContent {
     return {
       type: RPGBookAction.EXTRACT_CONTENT,
-      payload: Entry.identifier(parameter)
+      payload: Reference.get(parameter)
     }
   }
 
@@ -55,7 +56,7 @@ export namespace RPGBookEvent {
   export function extractingContent(parameter: Entry<RPGBook> | number): ExtractingContent {
     return {
       type: RPGBookAction.EXTRACTING_CONTENT,
-      payload: Entry.identifier(parameter)
+      payload: Reference.get(parameter)
     }
   }
 
@@ -66,7 +67,7 @@ export namespace RPGBookEvent {
     return {
       type: RPGBookAction.CONTENT_EXTRACTED,
       payload: {
-        book: Entry.identifier(parameter),
+        book: Reference.get(parameter),
         document
       }
     }
@@ -79,7 +80,7 @@ export namespace RPGBookEvent {
     return {
       type: RPGBookAction.CONTENT_EXTRACTION_FAILURE,
       payload: {
-        book: Entry.identifier(parameter),
+        book: Reference.get(parameter),
         reason
       }
     }
@@ -91,7 +92,7 @@ export namespace RPGBookEvent {
   export function ready(parameter: Entry<RPGBook> | number): Ready {
     return {
       type: RPGBookAction.READY,
-      payload: Entry.identifier(parameter)
+      payload: Reference.get(parameter)
     }
   }
 }

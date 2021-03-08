@@ -3,9 +3,6 @@ import { ApplicationEvent } from '../ApplicationEvent'
 import { Table } from '../data/table/Table'
 import { Entry } from '../data/Entry'
 
-import { RepositoryAction } from '../repository/RepositoryAction'
-import { RepositoryEvent } from '../repository/RepositoryEvent'
-
 import { Commit } from './Commit'
 import { CommitAction } from './CommitAction'
 import { CommitEvent } from './CommitEvent'
@@ -14,9 +11,9 @@ export namespace CommitTableReducer {
   /**
   *
   */
-  export function reduceRepositoryRemove(state: Table<Commit>, action: RepositoryEvent.Remove): Table<Commit> {
-    return state.filter((commit: Commit): commit is Commit => commit.repository === action.payload)
-  }
+  // export function reduceRepositoryRemove(state: Table<Commit>, action: RepositoryEvent.Remove): Table<Commit> {
+  //   return state.filter((commit: Commit): commit is Commit => commit.repository === action.payload)
+  // }
 
   /**
   *
@@ -117,8 +114,8 @@ export namespace CommitTableReducer {
         return reduceBooksExtractionFailure(state, action)
       case CommitAction.READY:
         return reduceReady(state, action)
-      case RepositoryAction.REMOVE:
-        return reduceRepositoryRemove(nonNullState, action)
+      // case RepositoryAction.REMOVE:
+      //   return reduceRepositoryRemove(nonNullState, action)
       default:
         return nonNullState.pristine()
     }

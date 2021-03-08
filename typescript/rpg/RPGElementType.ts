@@ -24,12 +24,7 @@ export namespace RPGElementType {
   /**
   *
   */
-  export type EMPTY = 4
-
-  /**
-  *
-  */
-  export type BOOK = 5
+  export type BOOK = 4
 
   /**
   *
@@ -54,12 +49,7 @@ export namespace RPGElementType {
   /**
   *
   */
-  export const EMPTY: EMPTY = 4
-
-  /**
-  *
-  */
-  export const BOOK: BOOK = 5
+  export const BOOK: BOOK = 4
 
   /**
   *
@@ -69,7 +59,6 @@ export namespace RPGElementType {
     SECTION,
     IMAGE,
     RULESET,
-    EMPTY,
     BOOK
   ]
 
@@ -82,7 +71,6 @@ export namespace RPGElementType {
       case SECTION: return 'SECTION'
       case IMAGE: return 'IMAGE'
       case RULESET: return 'RULESET'
-      case EMPTY: return 'EMPTY'
       case BOOK: return 'BOOK'
       default: return undefined
     }

@@ -1,6 +1,7 @@
 import { ApplicationEvent } from '../ApplicationEvent'
 
 import { Entry } from '../data/Entry'
+import { Reference } from '../data/Reference'
 
 import { Commit } from './Commit'
 import { CommitAction } from './CommitAction'
@@ -14,30 +15,30 @@ export namespace CommitEvent {
   /**
   *
   */
-  export type ExtractBooks = ApplicationEvent<number>
+  export type ExtractBooks = ApplicationEvent<Reference<Commit>>
 
   /**
   *
   */
-  export type ExtractingBooks = ApplicationEvent<number>
+  export type ExtractingBooks = ApplicationEvent<Reference<Commit>>
 
   /**
   *
   */
-  export type BooksExtracted = ApplicationEvent<number>
+  export type BooksExtracted = ApplicationEvent<Reference<Commit>>
 
   /**
   *
   */
   export type BooksExtractionFailure = ApplicationEvent<{
-    commit: number,
+    commit: Reference<Commit>,
     reason: Error
   }>
 
   /**
   *
   */
-  export type Ready = ApplicationEvent<number>
+  export type Ready = ApplicationEvent<Reference<Commit>>
 
   /**
   *
@@ -55,7 +56,7 @@ export namespace CommitEvent {
   export function extractBooks(parameter: Entry<Commit> | number): ExtractBooks {
     return {
       type: CommitAction.EXTRACT_BOOKS,
-      payload: Entry.identifier(parameter)
+      payload: Reference.get(parameter)
     }
   }
 
@@ -65,7 +66,7 @@ export namespace CommitEvent {
   export function extractingBooks(parameter: Entry<Commit> | number): ExtractBooks {
     return {
       type: CommitAction.EXTRACTING_BOOKS,
-      payload: Entry.identifier(parameter)
+      payload: Reference.get(parameter)
     }
   }
 
@@ -75,7 +76,7 @@ export namespace CommitEvent {
   export function booksExtracted(parameter: Entry<Commit> | number): ExtractBooks {
     return {
       type: CommitAction.BOOKS_EXTRACTED,
-      payload: Entry.identifier(parameter)
+      payload: Reference.get(parameter)
     }
   }
 
@@ -86,7 +87,7 @@ export namespace CommitEvent {
     return {
       type: CommitAction.BOOKS_EXTRACTION_FAILURE,
       payload: {
-        commit: Entry.identifier(parameter),
+        commit: Reference.get(parameter),
         reason
       }
     }
@@ -98,7 +99,7 @@ export namespace CommitEvent {
   export function ready(parameter: Entry<Commit> | number): Ready {
     return {
       type: CommitAction.READY,
-      payload: Entry.identifier(parameter)
+      payload: Reference.get(parameter)
     }
   }
 }
