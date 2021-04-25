@@ -1,14 +1,19 @@
 import { ApplicationMiddleware } from '../ApplicationMiddleware'
 import { ApplicationPublication } from '../ApplicationPublication'
+import { Utils } from '../Utils'
 
 import { GitRepositories } from '../git/GitRepositories'
 
 import { Application } from '../application/Application'
+import { RepositoryCollection } from '../application/RepositoryCollection'
 
 import { TagEvent } from '../tag/TagEvent'
 import { Tag } from '../tag/Tag'
 
+import { Task } from '../task/Task'
+
 import { Entry } from '../data/Entry'
+import { Reference } from '../data/Reference'
 
 import { Commit } from '../commit/Commit'
 import { CommitEvent } from '../commit/CommitEvent'
@@ -16,7 +21,7 @@ import { CommitEvent } from '../commit/CommitEvent'
 import { Repository } from './Repository'
 import { RepositoryAction } from './RepositoryAction'
 import { RepositoryEvent } from './RepositoryEvent'
-import { RepositoryState } from './RepositoryState'
+import { RepositoryTask } from './RepositoryTask'
 
 
 export class RepositoryMiddleware implements ApplicationMiddleware<Application>
@@ -36,11 +41,11 @@ export class RepositoryMiddleware implements ApplicationMiddleware<Application>
       case RepositoryAction.SUBSCRIBE:
         return this.addRepository(publication)
       case RepositoryAction.CLONE:
-        return this.cloneRepository(publication)
+        return this.tryToCloneRepository(publication)
       case RepositoryAction.EXTRACT_COMMITS:
-        return this.extractCommits(publication)
+        return this.tryToExtractCommits(publication)
       case RepositoryAction.EXTRACT_LABELS:
-        return this.extractLabels(publication)
+        return this.tryToExtractLabels(publication)
       default:
         return
     }
@@ -57,33 +62,44 @@ export class RepositoryMiddleware implements ApplicationMiddleware<Application>
   /**
   *
   */
-  private cloneRepository(publication: ApplicationPublication<Application, RepositoryEvent.Clone>): void {
-    const identifier: number = publication.event.payload
-    const repository: Entry<Repository> | undefined = publication.store.getState().repositories.getByIdentifier(identifier)
-
-    if (repository == null) {
-      throw new Error(
-        'Unable to clone repository #' + identifier + ' because the ' +
-        'requested repository does not exists.'
-      )
+  private tryToCloneRepository(publication: ApplicationPublication<Application, RepositoryEvent.Clone>): void {
+    try {
+      this.cloneRepository(publication)
+    } catch (error) {
+      throw new Error('Unable to clone the repository #' + publication.event.payload.identifier + '.')
     }
+  }
 
-    if (repository.model.state === RepositoryState.CLONING_REQUESTED) {
-      if (typeof window !== 'undefined') {
-        const operation: Promise<void> = GitRepositories.get(identifier).clone()
+  /**
+  *
+  */
+  private cloneRepository(publication: ApplicationPublication<Application, RepositoryEvent.Clone>): void {
+    const repositories: RepositoryCollection = publication.store.getState().repositories
+    const repository: Entry<Repository> | undefined = repositories.getByReference(publication.event.payload)
 
-        publication.store.dispatch(RepositoryEvent.cloning(repository))
+    Utils.assertDefined(repository, 'The requested repository does not exists.')
 
-        operation.then(this.handleCloningSuccess.bind(this, publication))
-        operation.catch(this.handleCloningFailure.bind(this, publication))
-      }
-    } else {
-      throw new Error(
-        'Unable to clone repository ' + repository.toString() + ' ' +
-        'because the requested repository is not in state ' +
-        RepositoryState.toDebugString(RepositoryState.CLONING_REQUESTED) + '.' +
-        ' You may have a problem somewhere into your workflow.'
-      )
+    const state = repository.model.state
+
+    Task.assert(state, 'The repository does not declare any occuring operation.')
+    Task.assertOfType(state, RepositoryTask.CLONING, 'The repository does not request a cloning operation.')
+    Task.assertRunnable(state, 'The cloning operation was already started.')
+
+    publication.store.dispatch(RepositoryEvent.update(repository, Task.run(state)))
+
+    GitRepositories.get(repository.identifier).clone()
+      .then(this.tryToHandleCloningSuccess.bind(this, publication))
+      .catch(this.tryToHandleCloningFailure.bind(this, publication))
+  }
+
+  /**
+  *
+  */
+  private tryToHandleCloningSuccess(publication: ApplicationPublication<Application, RepositoryEvent.Clone>): void {
+    try {
+      this.handleCloningSuccess(publication)
+    } catch (error) {
+      throw new Error('Unable to resolve the cloning operation of the repository #' + publication.event.payload.identifier + '.')
     }
   }
 
@@ -91,25 +107,28 @@ export class RepositoryMiddleware implements ApplicationMiddleware<Application>
   *
   */
   private handleCloningSuccess(publication: ApplicationPublication<Application, RepositoryEvent.Clone>): void {
-    const identifier: number = publication.event.payload
-    const repository: Entry<Repository> | undefined = publication.store.getState().repositories.getByIdentifier(identifier)
+    const repositories: RepositoryCollection = publication.store.getState().repositories
+    const repository: Entry<Repository> | undefined = repositories.getByReference(publication.event.payload)
 
-    if (repository == null) {
-      throw new Error(
-        'Unable to handle success of the cloning operation of repository #' +
-        identifier + ' because the requested repository does not exists.'
-      )
-    }
+    Utils.assertDefined(repository, 'The requested repository does not exists.')
 
-    if (repository.model.state === RepositoryState.CLONING) {
-      publication.store.dispatch(RepositoryEvent.cloned(repository))
-    } else {
-      throw new Error(
-        'Unable to handle success of the cloning operation of repository ' +
-        repository.toString() + ' because the requested repository is ' +
-        'not in state ' + RepositoryState.toDebugString(RepositoryState.CLONING) +
-        '. You may have a problem somewhere into your workflow.'
-      )
+    const state = repository.model.state
+
+    Task.assert(state, 'The repository does not declare any occuring operation.')
+    Task.assertOfType(state, RepositoryTask.CLONING, 'The repository does not declare a cloning operation.')
+    Task.assertResolvable(state, 'The cloning operation is not resolvable.')
+
+    publication.store.dispatch(RepositoryEvent.update(repository, Task.resolve(state, undefined)))
+  }
+
+  /**
+  *
+  */
+  private tryToHandleCloningFailure(publication: ApplicationPublication<Application, RepositoryEvent.Clone>, reason: Error): void {
+    try {
+      this.handleCloningFailure(publication, reason)
+    } catch (error) {
+      throw new Error('Unable to reject the cloning operation of the repository #' + publication.event.payload.identifier + '.')
     }
   }
 
@@ -117,25 +136,28 @@ export class RepositoryMiddleware implements ApplicationMiddleware<Application>
   *
   */
   private handleCloningFailure(publication: ApplicationPublication<Application, RepositoryEvent.Clone>, reason: Error): void {
-    const identifier: number = publication.event.payload
-    const repository: Entry<Repository> | undefined = publication.store.getState().repositories.getByIdentifier(identifier)
+    const repositories: RepositoryCollection = publication.store.getState().repositories
+    const repository: Entry<Repository> | undefined = repositories.getByReference(publication.event.payload)
 
-    if (repository == null) {
-      throw new Error(
-        'Unable to handle failure of the cloning operation of repository #' +
-        identifier + ' because the requested repository does not exists.'
-      )
-    }
+    Utils.assertDefined(repository, 'The requested repository does not exists.')
 
-    if (repository.model.state === RepositoryState.CLONING) {
-      publication.store.dispatch(RepositoryEvent.cloningFailure(repository, reason))
-    } else {
-      throw new Error(
-        'Unable to handle failure of the cloning operation of repository ' +
-        repository.toString() + ' because the requested repository is ' +
-        'not in state ' + RepositoryState.toDebugString(RepositoryState.CLONING) +
-        '. You may have a problem somewhere into your workflow.'
-      )
+    const state = repository.model.state
+
+    Task.assert(state, 'The repository does not declare any occuring operation.')
+    Task.assertOfType(state, RepositoryTask.CLONING, 'The repository does not declare a cloning operation.')
+    Task.assertRejectable(state, 'The cloning operation is not rejectable.')
+
+    publication.store.dispatch(RepositoryEvent.update(repository, Task.reject(state, reason)))
+  }
+
+  /**
+  *
+  */
+  private tryToExtractCommits(publication: ApplicationPublication<Application, RepositoryEvent.ExtractCommits>): void {
+    try {
+      this.extractCommits(publication)
+    } catch (error) {
+      throw new Error('Unable to extract all commits of the repository #' + publication.event.payload.identifier + '.')
     }
   }
 
@@ -143,30 +165,32 @@ export class RepositoryMiddleware implements ApplicationMiddleware<Application>
   *
   */
   private extractCommits(publication: ApplicationPublication<Application, RepositoryEvent.ExtractCommits>): void {
-    const identifier: number = publication.event.payload
-    const repository: Entry<Repository> | undefined = publication.store.getState().repositories.getByIdentifier(identifier)
+    const repositories: RepositoryCollection = publication.store.getState().repositories
+    const repository: Entry<Repository> | undefined = repositories.getByReference(publication.event.payload)
 
-    if (repository == null) {
-      throw new Error(
-        'Unable to extract commits of repository #' + identifier + ' because ' +
-        'the requested repository does not exists.'
-      )
-    }
+    Utils.assertDefined(repository, 'The requested repository does not exists.')
 
-    if (repository.model.state === RepositoryState.COMMITS_EXTRACTION_REQUESTED) {
-      const operation: Promise<any[]> = GitRepositories.get(identifier).readCommits()
+    const state = repository.model.state
 
-      publication.store.dispatch(RepositoryEvent.extractingCommits(repository))
+    Task.assert(state, 'The repository does not declare any occuring operation.')
+    Task.assertOfType(state, RepositoryTask.EXTRACTING_COMMITS, 'The repository does not declare a commits extraction operation.')
+    Task.assertRunnable(state, 'The commits extraction operation was already started.')
 
-      operation.then(this.handleCommitsExtractionSuccess.bind(this, publication))
-      operation.catch(this.handleCommitsExtractionFailure.bind(this, publication))
-    } else {
-      throw new Error(
-        'Unable to extract commits of repository ' + repository.toString()
-        + ' because the requested repository is not in state ' +
-        RepositoryState.toDebugString(RepositoryState.COMMITS_EXTRACTION_REQUESTED) + '.' +
-        ' You may have a problem somewhere into your workflow.'
-      )
+    publication.store.dispatch(RepositoryEvent.update(repository, Task.run(state)))
+
+    GitRepositories.get(repository.identifier).readCommits()
+      .then(this.tryToHandleCommitsExtractionSuccess.bind(this, publication))
+      .catch(this.tryToHandleCommitsExtractionFailure.bind(this, publication))
+  }
+
+  /**
+  *
+  */
+  private tryToHandleCommitsExtractionSuccess(publication: ApplicationPublication<Application, RepositoryEvent.ExtractCommits>, commits: any[]): void {
+    try {
+      this.handleCommitsExtractionSuccess(publication, commits)
+    } catch (error) {
+      throw new Error('Unable to resolve the commits extraction operation of repository #' + publication.event.payload.identifier + '.')
     }
   }
 
@@ -174,37 +198,41 @@ export class RepositoryMiddleware implements ApplicationMiddleware<Application>
   *
   */
   private handleCommitsExtractionSuccess(publication: ApplicationPublication<Application, RepositoryEvent.ExtractCommits>, commits: any[]): void {
-    const identifier: number = publication.event.payload
-    const repository: Entry<Repository> | undefined = publication.store.getState().repositories.getByIdentifier(identifier)
+    const repositories: RepositoryCollection = publication.store.getState().repositories
+    const repository: Entry<Repository> | undefined = repositories.getByReference(publication.event.payload)
 
-    if (repository == null) {
-      throw new Error(
-        'Unable to handle success of the extraction of commits of ' +
-        'repository #' + identifier + ' because the requested repository ' +
-        'does not exists.'
-      )
-    }
+    Utils.assertDefined(repository, 'The requested repository does not exists.')
 
-    if (repository.model.state === RepositoryState.EXTRACTING_COMMITS) {
+    const state = repository.model.state
+
+    Task.assert(state, 'The repository does not declare any occuring operation.')
+    Task.assertOfType(state, RepositoryTask.EXTRACTING_COMMITS, 'The repository does not declare a commits extraction operation.')
+    Task.assertResolvable(state, 'The commits extraction operation is not resolvable.')
+
+    if (Task.isCancelable(state)) {
       for (const commit of commits) {
         publication.store.dispatch(
           CommitEvent.extracted(Commit.create({
             identifier: commit.oid,
-            repository: repository.identifier,
+            repository: publication.event.payload,
             message: commit.commit.message,
             timestamp: commit.commit.author.timestamp
           }))
         )
       }
+    }
 
-      publication.store.dispatch(RepositoryEvent.commitsExtracted(repository))
-    } else {
-      throw new Error(
-        'Unable to handle success of the extraction of commits of ' +
-        repository.toString() + ' because the requested repository is ' +
-        'not in state ' + RepositoryState.toDebugString(RepositoryState.EXTRACTING_COMMITS) +
-        '. You may have a problem somewhere into your workflow.'
-      )
+    publication.store.dispatch(RepositoryEvent.update(repository, Task.resolve(state, undefined)))
+  }
+
+  /**
+  *
+  */
+  private tryToHandleCommitsExtractionFailure(publication: ApplicationPublication<Application, RepositoryEvent.ExtractCommits>, reason: Error): void {
+    try {
+      this.handleCommitsExtractionFailure(publication, reason)
+    } catch (error) {
+      throw new Error('Unable to reject the commits extraction operation of repository #' + publication.event.payload.identifier + '.')
     }
   }
 
@@ -212,25 +240,28 @@ export class RepositoryMiddleware implements ApplicationMiddleware<Application>
   *
   */
   private handleCommitsExtractionFailure(publication: ApplicationPublication<Application, RepositoryEvent.ExtractCommits>, reason: Error): void {
-    const identifier: number = publication.event.payload
-    const repository: Entry<Repository> | undefined = publication.store.getState().repositories.getByIdentifier(identifier)
+    const repositories: RepositoryCollection = publication.store.getState().repositories
+    const repository: Entry<Repository> | undefined = repositories.getByReference(publication.event.payload)
 
-    if (repository == null) {
-      throw new Error(
-        'Unable to handle failure of extraction of commits of repository #' +
-        identifier + ' because the requested repository does not exists.'
-      )
-    }
+    Utils.assertDefined(repository, 'The requested repository does not exists.')
 
-    if (repository.model.state === RepositoryState.EXTRACTING_COMMITS) {
-      publication.store.dispatch(RepositoryEvent.commitsExtractionFailure(repository, reason))
-    } else {
-      throw new Error(
-        'Unable to handle failure of extraction of commits of repository ' +
-        repository.toString() + ' because the requested repository is ' +
-        'not in state ' + RepositoryState.toDebugString(RepositoryState.EXTRACTING_COMMITS) +
-        '. You may have a problem somewhere into your workflow.'
-      )
+    const state = repository.model.state
+
+    Task.assert(state, 'The repository does not declare any occuring operation.')
+    Task.assertOfType(state, RepositoryTask.EXTRACTING_COMMITS, 'The repository does not declare a commits extraction operation.')
+    Task.assertRejectable(state, 'The commits extraction operation is not rejectable.')
+
+    publication.store.dispatch(RepositoryEvent.update(repository, Task.reject(state, reason)))
+  }
+
+  /**
+  *
+  */
+  private tryToExtractLabels(publication: ApplicationPublication<Application, RepositoryEvent.ExtractLabels>): void {
+    try {
+      this.extractLabels(publication)
+    } catch (error) {
+      throw new Error('Unable to extract all labels of the repository #' + publication.event.payload.identifier + '.')
     }
   }
 
@@ -238,30 +269,32 @@ export class RepositoryMiddleware implements ApplicationMiddleware<Application>
   *
   */
   private extractLabels(publication: ApplicationPublication<Application, RepositoryEvent.ExtractLabels>): void {
-    const identifier: number = publication.event.payload
-    const repository: Entry<Repository> | undefined = publication.store.getState().repositories.getByIdentifier(identifier)
+    const repositories: RepositoryCollection = publication.store.getState().repositories
+    const repository: Entry<Repository> | undefined = repositories.getByReference(publication.event.payload)
 
-    if (repository == null) {
-      throw new Error(
-        'Unable to extract labels of repository #' + identifier + ' because ' +
-        'the requested repository does not exists.'
-      )
-    }
+    Utils.assertDefined(repository, 'The requested repository does not exists.')
 
-    if (repository.model.state === RepositoryState.LABELS_EXTRACTION_REQUESTED) {
-      const operation: Promise<any[]> = GitRepositories.get(identifier).readTags()
+    const state = repository.model.state
 
-      publication.store.dispatch(RepositoryEvent.extractingLabels(repository))
+    Task.assert(state, 'The repository does not declare any occuring operation.')
+    Task.assertOfType(state, RepositoryTask.EXTRACTING_LABELS, 'The repository does not declare a labels extraction operation.')
+    Task.assertRunnable(state, 'The labels extraction operation was already started.')
 
-      operation.then(this.handleLabelsExtractionSuccess.bind(this, publication))
-      operation.catch(this.handleLabelsExtractionFailure.bind(this, publication))
-    } else {
-      throw new Error(
-        'Unable to extract labels of repository ' + repository.toString()
-        + ' because the requested repository is not in state ' +
-        RepositoryState.toDebugString(RepositoryState.LABELS_EXTRACTION_REQUESTED) + '.' +
-        ' You may have a problem somewhere into your workflow.'
-      )
+    publication.store.dispatch(RepositoryEvent.update(repository, Task.run(state)))
+
+    GitRepositories.get(repository.identifier).readTags()
+      .then(this.tryToHandleLabelsExtractionSuccess.bind(this, publication))
+      .catch(this.tryToHandleLabelsExtractionFailure.bind(this, publication))
+  }
+
+  /**
+  *
+  */
+  private tryToHandleLabelsExtractionSuccess(publication: ApplicationPublication<Application, RepositoryEvent.ExtractCommits>, labels: any[]): void {
+    try {
+      this.handleLabelsExtractionSuccess(publication, labels)
+    } catch (error) {
+      throw new Error('Unable to resolve the labels extraction operation of repository #' + publication.event.payload.identifier + '.')
     }
   }
 
@@ -269,40 +302,44 @@ export class RepositoryMiddleware implements ApplicationMiddleware<Application>
   *
   */
   private handleLabelsExtractionSuccess(publication: ApplicationPublication<Application, RepositoryEvent.ExtractCommits>, labels: any[]): void {
-    const identifier: number = publication.event.payload
-    const repository: Entry<Repository> | undefined = publication.store.getState().repositories.getByIdentifier(identifier)
+    const repositories: RepositoryCollection = publication.store.getState().repositories
+    const repository: Entry<Repository> | undefined = repositories.getByReference(publication.event.payload)
 
-    if (repository == null) {
-      throw new Error(
-        'Unable to handle success of the extraction of labels of ' +
-        'repository #' + identifier + ' because the requested repository ' +
-        'does not exists.'
-      )
-    }
+    Utils.assertDefined(repository, 'The requested repository does not exists.')
 
-    if (repository.model.state === RepositoryState.EXTRACTING_LABELS) {
+    const state = repository.model.state
+
+    Task.assert(state, 'The repository does not declare any occuring operation.')
+    Task.assertOfType(state, RepositoryTask.EXTRACTING_LABELS, 'The repository does not declare a labels extraction operation.')
+    Task.assertResolvable(state, 'The labels extraction operation is not resolvable.')
+
+    if (Task.isCancelable(state)) {
       for (const label of labels) {
         const commit: Entry<Commit> = publication.store.getState().commits.getByGitIdentifier(label[1].oid)
 
         publication.store.dispatch(TagEvent.extracted(
           Tag.create({
-            commit: commit.identifier,
-            repository: repository.identifier,
+            commit: Reference.fromEntry(commit),
+            repository: publication.event.payload,
             identifier: label[1].oid,
             tag: label[0],
             timestamp: label[1].commit.author.timestamp
           })
         ))
       }
+    }
 
-      publication.store.dispatch(RepositoryEvent.labelsExtracted(repository))
-    } else {
-      throw new Error(
-        'Unable to handle success of the extraction of labels of ' +
-        repository.toString() + ' because the requested repository is ' +
-        'not in state ' + RepositoryState.toDebugString(RepositoryState.EXTRACTING_LABELS) +
-        '. You may have a problem somewhere into your workflow.'
-      )
+    publication.store.dispatch(RepositoryEvent.update(repository, Task.resolve(state, undefined)))
+  }
+
+  /**
+  *
+  */
+  private tryToHandleLabelsExtractionFailure(publication: ApplicationPublication<Application, RepositoryEvent.ExtractCommits>, reason: Error): void {
+    try {
+      this.handleLabelsExtractionFailure(publication, reason)
+    } catch (error) {
+      throw new Error('Unable to reject the labels extraction operation of repository #' + publication.event.payload.identifier + '.')
     }
   }
 
@@ -310,25 +347,17 @@ export class RepositoryMiddleware implements ApplicationMiddleware<Application>
   *
   */
   private handleLabelsExtractionFailure(publication: ApplicationPublication<Application, RepositoryEvent.ExtractCommits>, reason: Error): void {
-    const identifier: number = publication.event.payload
-    const repository: Entry<Repository> | undefined = publication.store.getState().repositories.getByIdentifier(identifier)
+    const repositories: RepositoryCollection = publication.store.getState().repositories
+    const repository: Entry<Repository> | undefined = repositories.getByReference(publication.event.payload)
 
-    if (repository == null) {
-      throw new Error(
-        'Unable to handle failure of extraction of labels of repository #' +
-        identifier + ' because the requested repository does not exists.'
-      )
-    }
+    Utils.assertDefined(repository, 'The requested repository does not exists.')
 
-    if (repository.model.state === RepositoryState.EXTRACTING_LABELS) {
-      publication.store.dispatch(RepositoryEvent.labelsExtractionFailure(repository, reason))
-    } else {
-      throw new Error(
-        'Unable to handle failure of extraction of labels of repository ' +
-        repository.toString() + ' because the requested repository is ' +
-        'not in state ' + RepositoryState.toDebugString(RepositoryState.EXTRACTING_LABELS) +
-        '. You may have a problem somewhere into your workflow.'
-      )
-    }
+    const state = repository.model.state
+
+    Task.assert(state, 'The repository does not declare any occuring operation.')
+    Task.assertOfType(state, RepositoryTask.EXTRACTING_LABELS, 'The repository does not declare a labels extraction operation.')
+    Task.assertRejectable(state, 'The labels extraction operation is not rejectable.')
+
+    publication.store.dispatch(RepositoryEvent.update(repository, Task.reject(state, reason)))
   }
 }

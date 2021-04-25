@@ -1,11 +1,20 @@
-import { List } from 'immutable'
+import { immutable, sealed } from '../decorators'
 
 import { Comparator } from '@cedric-demongivert/gl-tool-collection'
 
 import { Filter } from './Filter'
 import { Mapping } from './Mapping'
 
+@immutable
+@sealed
 export class Entry<Model> {
+  /**
+   * 
+   */
+  public static create<Model>(identifier: number, model: Model): Entry<Model> {
+    return new Entry(identifier, model)
+  }
+
   /**
   *
   */
@@ -19,7 +28,7 @@ export class Entry<Model> {
   /**
   *
   */
-  public constructor(identifier: number, model: Model) {
+  private constructor(identifier: number, model: Model) {
     this.identifier = identifier
     this.model = model
   }
@@ -60,7 +69,7 @@ export class Entry<Model> {
   *
   */
   public toString(): string {
-    return 'Entry #' + this.identifier + ' ' + this.model.toString()
+    return this.constructor.name + ' #' + this.identifier + ' ' + this.model.toString()
   }
 
   /**
@@ -86,6 +95,18 @@ export class Entry<Model> {
 */
 export namespace Entry {
   /**
+   * 
+   */
+  export const MINUS: Entry<any> = Entry.create(-1, undefined)
+
+  /**
+   * 
+   */
+  export function minus<Model>(): Entry<Model> {
+    return MINUS
+  }
+
+  /**
   *
   */
   export function filter<Model, Filtered extends Model>(filter: Filter<Model, Filtered>, entry: Entry<Model> | undefined): entry is Entry<Filtered> {
@@ -102,29 +123,32 @@ export namespace Entry {
   /**
   *
   */
-  export function bissect<Model>(entries: List<Entry<Model>>, identifier: number): number {
-    if (entries.size > 0) {
-      let left: number = 0
-      let right: number = 0 + entries.size
+  export function compareByIdentifier(left: Entry<any>, right: Entry<any>): number {
+    return left.identifier - right.identifier
+  }
 
-      while (left !== right) {
-        const cursor: number = left + ((right - left) >>> 1)
-        const entry: Entry<Model> = entries.get(cursor)
-        const comparison: number = identifier - entry.identifier
+  /**
+  *
+  */
+  export function compareWithIdentifier(left: Entry<any>, right: number): number {
+    return left.identifier - right
+  }
 
-        if (comparison === 0) {
-          return cursor
-        } else if (comparison > 0) {
-          left = cursor + 1
-        } else {
-          right = cursor
-        }
-      }
-
-      return - (left + 1)
-    } else {
-      return -1
+  /**
+   * 
+   */
+  export namespace compareWithIdentifier {
+    /**
+     * 
+     */
+    export function asLeftMember(left: number, right: Entry<any>): number {
+      return left - right.identifier
     }
+
+    /**
+     * 
+     */
+    export const asRightMember: typeof compareWithIdentifier = compareWithIdentifier
   }
 
   /**

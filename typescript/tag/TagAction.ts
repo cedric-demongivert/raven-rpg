@@ -1,10 +1,17 @@
-export type TagAction = string
+export type TagAction = (
+  TagAction.EXTRACTED
+)
 
 export namespace TagAction {
   /**
   *
   */
-  export const EXTRACTED: TagAction = 'tag:extracted'
+  export type EXTRACTED = 'tag:extracted'
+
+  /**
+  *
+  */
+  export const EXTRACTED: EXTRACTED = 'tag:extracted'
 
   /**
   *

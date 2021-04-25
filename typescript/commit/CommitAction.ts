@@ -1,35 +1,39 @@
-export type CommitAction = string
+export type CommitAction = (
+  CommitAction.EXTRACTED |
+  CommitAction.EXTRACT_BOOKS |
+  CommitAction.UPDATE
+)
 
 export namespace CommitAction {
   /**
   *
   */
-  export const EXTRACTED: CommitAction = 'commit:extracted'
+  export type EXTRACTED = 'commit:extracted'
 
   /**
   *
   */
-  export const EXTRACT_BOOKS: CommitAction = 'commit:extract-books'
+  export const EXTRACTED: EXTRACTED = 'commit:extracted'
 
   /**
   *
   */
-  export const EXTRACTING_BOOKS: CommitAction = 'commit:extracting-books'
+  export type EXTRACT_BOOKS = 'commit:extract-books'
 
   /**
   *
   */
-  export const BOOKS_EXTRACTED: CommitAction = 'commit:books-extracted'
+  export const EXTRACT_BOOKS: EXTRACT_BOOKS = 'commit:extract-books'
 
   /**
   *
   */
-  export const BOOKS_EXTRACTION_FAILURE: CommitAction = 'commit:books-extraction-failure'
+  export type UPDATE = 'commit:update'
 
   /**
   *
   */
-  export const READY: CommitAction = 'commit:ready'
+  export const UPDATE: UPDATE = 'commit:update'
 
 
   /**
@@ -38,9 +42,6 @@ export namespace CommitAction {
   export const ALL: CommitAction[] = [
     EXTRACTED,
     EXTRACT_BOOKS,
-    EXTRACTING_BOOKS,
-    BOOKS_EXTRACTED,
-    BOOKS_EXTRACTION_FAILURE,
-    READY
+    UPDATE
   ]
 }

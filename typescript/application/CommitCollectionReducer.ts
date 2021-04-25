@@ -24,7 +24,7 @@ export namespace CommitCollectionReducer {
   *
   */
   export const reduceRepositoryIndex: OneToManyIndex.Reducer<number, Commit> = (
-    OneToManyIndex.reducer(Commit.getRepository)
+    OneToManyIndex.reducer(Commit.getRepositoryIdentifier)
   )
 
   /**

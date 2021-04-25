@@ -20,15 +20,15 @@ export class Acronym implements HypertextElement {
   /**
   *
   */
-  public readonly expanded: string
+  public readonly expanded: string | undefined
 
   /**
   *
   */
-  public constructor(properties: Acronym.Properties = Empty.OBJECT) {
+  public constructor(properties: Acronym.Properties) {
     this.type = HypertextElementType.ACRONYM
-    this.acronym = properties.acronym || Empty.STRING
-    this.expanded = properties.expanded || Empty.STRING
+    this.acronym = properties.acronym
+    this.expanded = properties.expanded || undefined
   }
 
   /**
@@ -45,7 +45,7 @@ export class Acronym implements HypertextElement {
   /**
   *
   */
-  public setExpanded(expanded: string): Acronym {
+  public setExpanded(expanded: string | undefined): Acronym {
     if (this.expanded === expanded) {
       return this
     } else {
@@ -82,30 +82,18 @@ export namespace Acronym {
     /**
     *
     */
-    acronym?: string,
+    acronym: string,
 
     /**
     *
     */
-    expanded?: string
+    expanded?: string | undefined
   }
 
   /**
   *
   */
-  export const EMPTY: Acronym = new Acronym()
-
-  /**
-  *
-  */
-  export function empty(): Acronym {
-    return EMPTY
-  }
-
-  /**
-  *
-  */
-  export function create(properties: Properties = Empty.OBJECT): Acronym {
+  export function create(properties: Properties): Acronym {
     return new Acronym(properties)
   }
 }

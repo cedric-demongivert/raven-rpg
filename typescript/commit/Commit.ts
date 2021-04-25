@@ -1,9 +1,12 @@
 import { Empty } from '../Empty'
 
-import type { Reference } from '../data/Reference'
-import type { Repository } from '../repository/Repository'
+import { Task } from '../task/Task'
+
+import { Reference } from '../data/Reference'
+import { Repository } from '../repository/Repository'
 
 import { CommitState } from './CommitState'
+import { CommitTask } from './CommitTask'
 
 /**
 *
@@ -32,23 +35,17 @@ export class Commit {
   /**
   *
   */
-  public readonly state: CommitState
-
-  /**
-  *
-  */
-  public readonly reason: Error | undefined
+  public readonly state: CommitState | Task.Void<CommitTask>
 
   /**
   *
   */
   public constructor(properties: Commit.Properties = Empty.OBJECT) {
     this.identifier = properties.identifier || Empty.STRING
-    this.repository = properties.repository || 0
+    this.repository = properties.repository || Reference.create(Repository, 0)
     this.message = properties.message || Empty.STRING
     this.timestamp = properties.timestamp || 0
     this.state = properties.state || CommitState.DEFAULT
-    this.reason = properties.reason || undefined
   }
 
   /**
@@ -66,7 +63,7 @@ export class Commit {
   *
   */
   public setRepository(repository: Reference<Repository>): Commit {
-    if (this.repository === repository) {
+    if (this.repository.equals(repository)) {
       return this
     } else {
       return new Commit({ ...this, repository })
@@ -98,7 +95,7 @@ export class Commit {
   /**
   *
   */
-  public setState(state: CommitState): Commit {
+  public setState(state: CommitState | Task.Void<CommitTask>): Commit {
     if (this.state === state) {
       return this
     } else {
@@ -109,115 +106,18 @@ export class Commit {
   /**
   *
   */
-  public setReason(reason: Error | undefined): Commit {
-    if (this.reason === reason) {
-      return this
-    } else {
-      return new Commit({ ...this, reason })
-    }
-  }
-
-  /**
-  *
-  */
-  public markExtractBooks(): Commit {
-    switch (this.state) {
-      case CommitState.HOLLOW:
-        return this.setState(CommitState.BOOKS_EXTRACTION_REQUESTED)
-      default:
-        throw new Error(
-          'Trying to illegaly move state of ' + this.toDebugString() + ' to ' +
-          CommitState.toDebugString(CommitState.BOOKS_EXTRACTION_REQUESTED) +
-          ' you may have a problem somewhere into your commit ' +
-          'management workflow.'
-        )
-    }
-  }
-
-  /**
-  *
-  */
-  public markExtractingBooks(): Commit {
-    switch (this.state) {
-      case CommitState.BOOKS_EXTRACTION_REQUESTED:
-        return this.setState(CommitState.EXTRACTING_BOOKS)
-      default:
-        throw new Error(
-          'Trying to illegaly move state of ' + this.toDebugString() + ' to ' +
-          CommitState.toDebugString(CommitState.EXTRACTING_BOOKS) +
-          ' you may have a problem somewhere into your commit ' +
-          'management workflow.'
-        )
-    }
-  }
-
-  /**
-  *
-  */
-  public markBooksExtracted(): Commit {
-    switch (this.state) {
-      case CommitState.EXTRACTING_BOOKS:
-        return this.setState(CommitState.BOOKS_EXTRACTED)
-      default:
-        throw new Error(
-          'Trying to illegaly move state of ' + this.toDebugString() + ' to ' +
-          CommitState.toDebugString(CommitState.BOOKS_EXTRACTED) +
-          ' you may have a problem somewhere into your commit ' +
-          'management workflow.'
-        )
-    }
-  }
-
-  /**
-  *
-  */
-  public markBooksExtractionFailure(reason: Error): Commit {
-    switch (this.state) {
-      case CommitState.EXTRACTING_BOOKS:
-        return (
-          new Commit({
-            ...this,
-            state: CommitState.BOOKS_EXTRACTION_FAILURE,
-            reason
-          })
-        )
-      default:
-        throw new Error(
-          'Trying to illegaly move state of ' + this.toDebugString() + ' to ' +
-          CommitState.toDebugString(CommitState.BOOKS_EXTRACTION_FAILURE) +
-          ' you may have a problem somewhere into your commit ' +
-          'management workflow.'
-        )
-    }
-  }
-
-  /**
-  *
-  */
-  public markReady(): Commit {
-    switch (this.state) {
-      case CommitState.BOOKS_EXTRACTED:
-        return this.setState(CommitState.READY)
-      default:
-        throw new Error(
-          'Trying to illegaly move state of ' + this.toDebugString() + ' to ' +
-          CommitState.toDebugString(CommitState.READY) +
-          ' you may have a problem somewhere into your commit ' +
-          'management workflow.'
-        )
-    }
-  }
-
-  /**
-  *
-  */
-  public toDebugString(): string {
-    return (
+  public toString(): string {
+    const base: string = (
       this.constructor.name + ' of repository #' +
       this.repository + ' ' +
-      this.identifier + ' ' +
-      CommitState.toDebugString(this.state)
+      this.identifier + ' '
     )
+
+    if (typeof this.state === 'number') {
+      return base + CommitState.toDebugString(this.state)
+    } else {
+      return base + this.state.toString(CommitTask.toDebugString)
+    }
   }
 }
 
@@ -252,12 +152,39 @@ export namespace Commit {
     /**
     *
     */
-    state?: CommitState,
+    state?: CommitState | Task.Void<CommitTask>
+  }
 
-    /**
-    *
-    */
-    reason?: Error | undefined
+  /**
+   * 
+   */
+  export function isHollow(commit: Commit): boolean {
+    return commit.state === CommitState.HOLLOW
+  }
+
+  /**
+   * 
+   */
+  export function assertHollow(commit: Commit, message?: string | undefined): void {
+    if (commit.state !== CommitState.HOLLOW) {
+      throw new Error(message || 'The given commit is not an hollow commit.')
+    }
+  }
+
+  /**
+   * 
+   */
+  export function isReady(commit: Commit): boolean {
+    return commit.state === CommitState.READY
+  }
+
+  /**
+   * 
+   */
+  export function assertReady(commit: Commit, message?: string | undefined): void {
+    if (commit.state !== CommitState.READY) {
+      throw new Error(message || 'The given commit is not ready.')
+    }
   }
 
   /**
@@ -277,6 +204,13 @@ export namespace Commit {
   */
   export function getRepository(commit: Commit): Reference<Repository> {
     return commit.repository
+  }
+
+  /**
+  *
+  */
+  export function getRepositoryIdentifier(commit: Commit): number {
+    return commit.repository.identifier
   }
 
   /**

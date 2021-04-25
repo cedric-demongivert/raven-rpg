@@ -1,6 +1,8 @@
 import { ApplicationMiddleware } from '../ApplicationMiddleware'
 import { ApplicationPublication } from '../ApplicationPublication'
 
+import { Utils } from '../Utils'
+
 import { Application } from '../application/Application'
 import { Entry } from '../data/Entry'
 
@@ -11,9 +13,10 @@ import { Commit } from '../commit/Commit'
 import { CommitEvent } from '../commit/CommitEvent'
 
 import { CommitAction } from './CommitAction'
-import { CommitState } from './CommitState'
+import { CommitTask } from './CommitTask'
 
 import { readRepository } from '../unidoc/readRepository'
+import { Task } from '../task'
 
 export class CommitMiddleware implements ApplicationMiddleware<Application>
 {
@@ -30,9 +33,17 @@ export class CommitMiddleware implements ApplicationMiddleware<Application>
   public afterReduction(publication: ApplicationPublication<Application>): void {
     switch (publication.event.type) {
       case CommitAction.EXTRACT_BOOKS:
-        return this.extractBooks(publication)
+        return this.tryToExtractBooks(publication)
       default:
         return
+    }
+  }
+
+  private tryToExtractBooks(publication: ApplicationPublication<Application, CommitEvent.ExtractBooks>): void {
+    try {
+      this.extractBooks(publication)
+    } catch (error) {
+      throw new Error('Unable to extract the books of commit #' + publication.event.payload.identifier + '.')
     }
   }
 
@@ -40,30 +51,32 @@ export class CommitMiddleware implements ApplicationMiddleware<Application>
   *
   */
   private extractBooks(publication: ApplicationPublication<Application, CommitEvent.ExtractBooks>): void {
-    const identifier: number = publication.event.payload
+    const identifier: number = publication.event.payload.identifier
     const commit: Entry<Commit> | undefined = publication.store.getState().commits.getByIdentifier(identifier)
 
-    if (commit == null) {
-      throw new Error(
-        'Unable to extract books from commit #' + identifier + ' because the ' +
-        'requested commit does not exists.'
-      )
-    }
+    Utils.assertDefined(commit, 'The given commit does not exists.')
 
-    if (commit.model.state === CommitState.BOOKS_EXTRACTION_REQUESTED) {
-      const operation: Promise<RPGBook[]> = readRepository(commit)
+    const state = commit.model.state
 
-      publication.store.dispatch(CommitEvent.extractingBooks(commit))
+    Task.assert(state, 'The commit does not declare any occuring operation.')
+    Task.assertOfType(state, CommitTask.EXTRACTING_BOOKS, 'The repository does not request a books extraction operation.')
+    Task.assertRunnable(state, 'The books extraction operation was already started.')
 
-      operation.then(this.handleBooksExtractionSuccess.bind(this, publication))
-      operation.catch(this.handleBooksExtractionFailure.bind(this, publication))
-    } else {
-      throw new Error(
-        'Unable to extract books from ' + commit.toString() + ' ' +
-        'because the requested commit is not in state ' +
-        CommitState.toDebugString(CommitState.BOOKS_EXTRACTION_REQUESTED) + '.' +
-        ' You may have a problem somewhere into your workflow.'
-      )
+    publication.store.dispatch(CommitEvent.update(commit, Task.run(state)))
+
+    readRepository(commit)
+      .then(this.tryToHandleBooksExtractionSuccess.bind(this, publication))
+      .catch(this.tryToHandleBooksExtractionFailure.bind(this, publication))
+  }
+
+  /**
+   * 
+   */
+  private tryToHandleBooksExtractionSuccess(publication: ApplicationPublication<Application, CommitEvent.ExtractBooks>, books: RPGBook[]): void {
+    try {
+      this.handleBooksExtractionSuccess(publication, books)
+    } catch (error) {
+      throw new Error('Unable to resolve the books extraction operation of the commit #' + publication.event.payload.identifier + '.')
     }
   }
 
@@ -71,30 +84,34 @@ export class CommitMiddleware implements ApplicationMiddleware<Application>
   *
   */
   private handleBooksExtractionSuccess(publication: ApplicationPublication<Application, CommitEvent.ExtractBooks>, books: RPGBook[]): void {
-    const identifier: number = publication.event.payload
+    const identifier: number = publication.event.payload.identifier
     const commit: Entry<Commit> | undefined = publication.store.getState().commits.getByIdentifier(identifier)
 
-    if (commit == null) {
-      throw new Error(
-        'Unable to handle success of the extraction of books of commit #' +
-        identifier + ' because the requested commit does not exists.'
-      )
-    }
+    Utils.assertDefined(commit, 'The given commit does not exists.')
 
-    if (commit.model.state === CommitState.EXTRACTING_BOOKS) {
+    const state = commit.model.state
+
+    Task.assert(state, 'The commit does not declare any occuring operation.')
+    Task.assertOfType(state, CommitTask.EXTRACTING_BOOKS, 'The repository does not request a books extraction operation.')
+    Task.assertResolvable(state, 'The books extraction operation was not resolvable.')
+
+    if (Task.isCancelable(state)) {
       for (const book of books) {
         publication.store.dispatch(RPGElementEvent.extracted(book))
       }
+    }
 
-      publication.store.dispatch(CommitEvent.booksExtracted(commit))
-    } else {
-      throw new Error(
-        'Unable to handle success of the extraction of books of commit ' +
-        commit.toString() + ' because the requested commit is ' +
-        'not in state ' +
-        CommitState.toDebugString(CommitState.EXTRACTING_BOOKS) +
-        '. You may have a problem somewhere into your workflow.'
-      )
+    publication.store.dispatch(CommitEvent.update(commit, Task.resolve(state, undefined)))
+  }
+
+  /**
+   * 
+   */
+  private tryToHandleBooksExtractionFailure(publication: ApplicationPublication<Application, CommitEvent.ExtractBooks>, reason: Error): void {
+    try {
+      this.handleBooksExtractionFailure(publication, reason)
+    } catch (error) {
+      throw new Error('Unable to reject the books extraction operation of the commit #' + publication.event.payload.identifier + '.')
     }
   }
 
@@ -102,26 +119,17 @@ export class CommitMiddleware implements ApplicationMiddleware<Application>
   *
   */
   private handleBooksExtractionFailure(publication: ApplicationPublication<Application, CommitEvent.ExtractBooks>, reason: Error): void {
-    const identifier: number = publication.event.payload
+    const identifier: number = publication.event.payload.identifier
     const commit: Entry<Commit> | undefined = publication.store.getState().commits.getByIdentifier(identifier)
 
-    if (commit == null) {
-      throw new Error(
-        'Unable to handle failure of the extraction of books of commit #' +
-        identifier + ' because the requested commit does not exists.'
-      )
-    }
+    Utils.assertDefined(commit, 'The given commit does not exists.')
 
-    if (commit.model.state === CommitState.EXTRACTING_BOOKS) {
-      publication.store.dispatch(CommitEvent.booksExtractionFailure(commit, reason))
-    } else {
-      throw new Error(
-        'Unable to handle failure of the extraction of books of ' +
-        commit.toString() + ' because the requested commit is ' +
-        'not in state ' +
-        CommitState.toDebugString(CommitState.EXTRACTING_BOOKS) +
-        '. You may have a problem somewhere into your workflow.'
-      )
-    }
+    const state = commit.model.state
+
+    Task.assert(state, 'The commit does not declare any occuring operation.')
+    Task.assertOfType(state, CommitTask.EXTRACTING_BOOKS, 'The repository does not request a books extraction operation.')
+    Task.assertRejectable(state, 'The books extraction operation was not rejectable.')
+
+    publication.store.dispatch(CommitEvent.update(commit, Task.reject(state, reason)))
   }
 }

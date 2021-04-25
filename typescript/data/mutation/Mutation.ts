@@ -1,74 +1,84 @@
-import { List } from 'immutable'
+import { immutable, sealed } from '../../decorators'
+import { equals } from '../../utils'
 
 import { Entry } from '../Entry'
-import { Filter } from '../Filter'
 
 import { MutationType } from './MutationType'
+
+import { Addition } from './Addition'
+import { Deletion } from './Deletion'
+import { Update } from './Update'
+import { Identity } from './Identity'
 
 /**
 *
 */
-export class Mutation<Model> {
+@immutable
+@sealed
+export class Mutation<Model, Properties extends Mutation.Properties<Model> = Mutation.Properties<Model>> {
   /**
-  *
-  */
-  public readonly previous: Entry<Model> | undefined
-
+   * 
+   */
+  public static create<Model>(properties: Addition.Properties<Model>): Addition<Model>
   /**
-  *
-  */
-  public readonly next: Entry<Model> | undefined
-
+   * 
+   */
+  public static create<Model>(properties: Deletion.Properties<Model>): Deletion<Model>
   /**
-  *
-  */
-  public readonly type: MutationType
-
+   * 
+   */
+  public static create<Model>(properties: Update.Properties<Model>): Update<Model>
   /**
-  *
-  */
-  public constructor(type: MutationType, previous: Entry<Model> | undefined, next: Entry<Model> | undefined) {
-    this.type = type
-    this.previous = previous
-    this.next = next
+   * 
+   */
+  public static create<Model>(properties: Identity.Properties<Model>): Identity<Model>
+  /**
+   * 
+   */
+  public static create<Model, Properties extends Mutation.Properties<Model>>(properties: Properties): Mutation<Model, Properties>
+  public static create<Model, Properties extends Mutation.Properties<Model>>(properties: Properties): Mutation<Model, Properties> {
+    return new Mutation(properties)
   }
 
   /**
-  *
-  */
-  public applyToList(list: List<Entry<Model>>): List<Entry<Model>> {
-    switch (this.type) {
-      case MutationType.ADDITION:
-      case MutationType.MUTATION: {
-        const index: number = Entry.bissect(list, this.next.identifier)
+   *
+   */
+  public readonly type: Properties['type']
 
-        if (index < 0) {
-          return list.insert(-index - 1, this.next)
-        } else {
-          return list.set(index, this.next)
-        }
-      }
-      case MutationType.DELETION: {
-        const index: number = Entry.bissect(list, this.previous.identifier)
+  /**
+   *
+   */
+  public readonly previous: Properties['previous']
 
-        if (index >= 0) {
-          return list.delete(index)
-        } else {
-          return list
-        }
-      }
-      default:
-        throw new Error(
-          'Unable to handle mutation of type ' +
-          MutationType.toDebugString(this.type) + ' as no procedure ' +
-          'was defined for that.'
-        )
-    }
+  /**
+   *
+   */
+  public readonly next: Properties['next']
+
+  /**
+   *
+   */
+  private constructor(properties: Properties) {
+    this.type = properties.type
+    this.previous = properties.previous
+    this.next = properties.next
   }
 
   /**
-  *
-  */
+   * 
+   */
+  public toString(): string {
+    return (
+      this.constructor.name + ' ' +
+      MutationType.toDebugString(this.type) + ' ' +
+      new String(this.previous) + ' ' +
+      new String(this.next)
+    )
+  }
+
+  /**
+   *
+   */
   public equals(other: any): boolean {
     if (other == null) return false
     if (other === this) return true
@@ -76,8 +86,8 @@ export class Mutation<Model> {
     if (other instanceof Mutation) {
       return (
         this.type === other.type &&
-        (this.previous ? this.previous.equals(other.previous) : this.previous === other.previous) &&
-        (this.next ? this.next.equals(other.next) : this.next === other.next)
+        equals(this.previous, other.previous) &&
+        equals(this.next, other.next)
       )
     }
 
@@ -87,33 +97,120 @@ export class Mutation<Model> {
 
 export namespace Mutation {
   /**
-  *
-  */
-  export function filter<Model, Filtered extends Model>(filter: Filter<Model, Filtered>, mutation: Mutation<Model> | undefined): mutation is Mutation<Filtered> {
-    return mutation && (
-      Entry.filter(filter, mutation.previous) ||
-      Entry.filter(filter, mutation.next)
-    )
+   * 
+   */
+  export type Properties<Model> = (
+    Addition.Properties<Model> |
+    Update.Properties<Model> |
+    Deletion.Properties<Model> |
+    Identity.Properties<Model>
+  )
+
+  /**
+   * 
+   */
+  export function is(value: any): value is Mutation<any> {
+    return value instanceof Mutation
   }
 
   /**
-  *
-  */
-  export function addition<Model>(value: Entry<Model>): Mutation<Model> {
-    return new Mutation(MutationType.ADDITION, undefined, value)
+   * 
+   */
+  export function assert(value: any, message?: string | undefined): asserts value is Mutation<any> {
+    if (!is(value)) {
+      throw new Error(message || 'The given value is not a mutation instance.')
+    }
   }
 
   /**
-  *
-  */
-  export function deletion<Model>(value: Entry<Model>): Mutation<Model> {
-    return new Mutation(MutationType.DELETION, value, undefined)
+   * 
+   */
+  export const isAddition: typeof Addition.is = Addition.is
+
+  /**
+   * 
+   */
+  export const assertAddition: typeof Addition.assert = Addition.assert
+
+  /**
+   * 
+   */
+  export const isDeletion: typeof Deletion.is = Deletion.is
+
+  /**
+   * 
+   */
+  export const assertDeletion: typeof Deletion.assert = Deletion.assert
+
+  /**
+   * 
+   */
+  export const isUpdate: typeof Update.is = Update.is
+
+  /**
+   * 
+   */
+  export const assertUpdate: typeof Update.assert = Update.assert
+
+  /**
+   * 
+   */
+  export function isModel<Model>(value: Mutation<any>, validator: (value: any) => value is Model): value is Mutation<Model> {
+    return isDeletion(value) ? validator(value.previous) : validator(value.next)
   }
 
   /**
-  *
-  */
-  export function mutation<Model>(previous: Entry<Model>, next: Entry<Model>): Mutation<Model> {
-    return new Mutation(MutationType.MUTATION, previous, next)
+   * 
+   */
+  export function assertModel<Model>(value: Mutation<any>, asserter: (value: any) => asserts value is Model, message?: string | undefined): asserts value is Mutation<Model> {
+    try {
+      asserter(isDeletion(value) ? value.previous : value.next)
+    } catch (error) {
+      throw new Error(message || 'The given mutation is not a mutation of the expected model.')
+    }
+  }
+
+  /**
+   *
+   */
+  export function createIdentity<Model>(model: Model): Identity<Model> {
+    return Mutation.create({
+      type: MutationType.IDENTITY,
+      previous: model,
+      next: model
+    })
+  }
+
+  /**
+   *
+   */
+  export function createAddition<Model>(model: Model): Addition<Model> {
+    return Mutation.create({
+      type: MutationType.ADDITION,
+      previous: undefined,
+      next: model
+    })
+  }
+
+  /**
+   *
+   */
+  export function createDeletion<Model>(model: Model): Deletion<Model> {
+    return Mutation.create({
+      type: MutationType.DELETION,
+      previous: model,
+      next: undefined
+    })
+  }
+
+  /**
+   *
+   */
+  export function createUpdate<Model>(previous: Model, next: Model): Update<Model> {
+    return Mutation.create({
+      type: MutationType.UPDATE,
+      previous,
+      next
+    })
   }
 }

@@ -95,19 +95,19 @@ export namespace OneToManyIndex {
     for (const mutation of mutations) {
       switch (mutation.type) {
         case MutationType.ADDITION:
-          const addition: Entry<Model> = mutation.next!
-          const additionKey: Key = mapping(addition.model)
+          const addition: Model = mutation.next
+          const additionKey: Key = mapping(addition)
 
           if (nextRelationships.has(additionKey)) {
-            nextRelationships.set(additionKey, nextRelationships.get(additionKey).update(addition))
+            nextRelationships.set(additionKey, Table.reduce(nextRelationships.get(additionKey), mutation))
           } else {
-            nextRelationships.set(additionKey, Table.EMPTY.update(addition))
+            nextRelationships.set(additionKey, Table.reduce(Table.EMPTY, mutation))
           }
           break
         case MutationType.DELETION:
-          const deletion: Entry<Model> = mutation.previous!
-          const deletionKey: Key = mapping(deletion.model)
-          const nextValues: Table<Model> = nextRelationships.get(deletionKey, Table.EMPTY).delete(deletion)
+          const deletion: Model = mutation.previous
+          const deletionKey: Key = mapping(deletion)
+          const nextValues: Table<Model> = Table.reduce(nextRelationships.get(deletionKey, Table.EMPTY), mutation)
 
           if (nextValues.isEmpty()) {
             nextRelationships.delete(deletionKey)
@@ -115,16 +115,16 @@ export namespace OneToManyIndex {
             nextRelationships.set(deletionKey, nextValues)
           }
           break
-        case MutationType.MUTATION:
-          const oldValue: Entry<Model> = mutation.previous
-          const newValue: Entry<Model> = mutation.next
-          const oldKey: Key = mapping(oldValue.model)
-          const newKey: Key = mapping(newValue.model)
+        case MutationType.UPDATE:
+          const oldValue: Model = mutation.previous
+          const newValue: Model = mutation.next
+          const oldKey: Key = mapping(oldValue)
+          const newKey: Key = mapping(newValue)
 
           if (oldKey === newKey) {
-            nextRelationships.set(newKey, nextRelationships.get(newKey).update(newValue))
+            nextRelationships.set(newKey, Table.reduce(nextRelationships.get(newKey), mutation))
           } else {
-            const nextOldValues: Table<Model> = nextRelationships.get(oldKey, Table.empty<Model>()).delete(oldValue)
+            const nextOldValues: Table<Model> = Table.reduce(nextRelationships.get(oldKey, Table.empty<Model>()), Mutation.deletion(mutation.identifier, oldValue))
 
             if (nextOldValues.isEmpty()) {
               nextRelationships.delete(oldKey)
@@ -133,9 +133,9 @@ export namespace OneToManyIndex {
             }
 
             if (nextRelationships.has(newKey)) {
-              nextRelationships.set(newKey, nextRelationships.get(newKey).update(newValue))
+              nextRelationships.set(newKey, Table.reduce(nextRelationships.get(newKey), mutation))
             } else {
-              nextRelationships.set(newKey, Table.empty<Model>().update(newValue))
+              nextRelationships.set(newKey, Table.reduce(Table.EMPTY, mutation))
             }
           }
           break

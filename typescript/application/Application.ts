@@ -1,5 +1,9 @@
 import { Empty } from '../Empty'
 
+import { Repository } from '../repository/Repository'
+import { Reference } from '../data/Reference'
+import { Entry } from '../data/Entry'
+
 import { RepositoryCollection } from './RepositoryCollection'
 import { CommitCollection } from './CommitCollection'
 import { TagCollection } from './TagCollection'

@@ -1,11 +1,11 @@
 /**
 *
 */
-export type ApplicationEvent<Payload = any> = {
+export type ApplicationEvent<Type = any, Payload = any> = {
   /**
   *
   */
-  type: string,
+  type: Type,
 
   /**
   *

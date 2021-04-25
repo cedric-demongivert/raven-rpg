@@ -102,8 +102,8 @@ export namespace OneToOneIndex {
     for (const mutation of mutations) {
       switch (mutation.type) {
         case MutationType.ADDITION:
-          const addition: Entry<Model> = mutation.next!
-          const key: Key = mapping(addition.model)
+          const addition: Model = mutation.next
+          const key: Key = mapping(addition)
 
           if (nextRelationships.has(key)) {
             throw new Error(
@@ -112,20 +112,20 @@ export namespace OneToOneIndex {
               'was already indexed.'
             )
           } else {
-            nextRelationships.set(key, addition)
+            nextRelationships.set(key, new Entry(mutation.identifier, addition))
           }
           break
         case MutationType.DELETION:
-          nextRelationships.delete(mapping(mutation.previous!.model))
+          nextRelationships.delete(mapping(mutation.previous))
           break
-        case MutationType.MUTATION:
-          const oldValue: Entry<Model> = mutation.previous!
-          const newValue: Entry<Model> = mutation.next!
-          const oldKey: Key = mapping(oldValue.model)
-          const newKey: Key = mapping(newValue.model)
+        case MutationType.UPDATE:
+          const oldValue: Model = mutation.previous
+          const newValue: Model = mutation.next
+          const oldKey: Key = mapping(oldValue)
+          const newKey: Key = mapping(newValue)
 
           if (oldKey === newKey) {
-            nextRelationships.set(oldKey, newValue)
+            nextRelationships.set(oldKey, new Entry(mutation.identifier, newValue))
           } else {
             nextRelationships.delete(oldKey)
 
@@ -136,7 +136,7 @@ export namespace OneToOneIndex {
                 'given key was already indexed.'
               )
             } else {
-              nextRelationships.set(newKey, newValue)
+              nextRelationships.set(newKey, new Entry(mutation.identifier, newValue))
             }
           }
           break

@@ -1,4 +1,10 @@
-export type RPGElementType = number
+export type RPGElementType = (
+  RPGElementType.PARAGRAPH |
+  RPGElementType.SECTION |
+  RPGElementType.IMAGE |
+  RPGElementType.RULESET |
+  RPGElementType.BOOK
+)
 
 export namespace RPGElementType {
   /**
@@ -9,27 +15,12 @@ export namespace RPGElementType {
   /**
   *
   */
-  export type SECTION = 1
-
-  /**
-  *
-  */
-  export type IMAGE = 2
-
-  /**
-  *
-  */
-  export type RULESET = 3
-
-  /**
-  *
-  */
-  export type BOOK = 4
-
-  /**
-  *
-  */
   export const PARAGRAPH: PARAGRAPH = 0
+
+  /**
+  *
+  */
+  export type SECTION = 1
 
   /**
   *
@@ -39,12 +30,27 @@ export namespace RPGElementType {
   /**
   *
   */
+  export type IMAGE = 2
+
+  /**
+  *
+  */
   export const IMAGE: IMAGE = 2
 
   /**
   *
   */
+  export type RULESET = 3
+
+  /**
+  *
+  */
   export const RULESET: RULESET = 3
+
+  /**
+  *
+  */
+  export type BOOK = 4
 
   /**
   *

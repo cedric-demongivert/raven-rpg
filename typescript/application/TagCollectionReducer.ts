@@ -24,13 +24,13 @@ export namespace TagCollectionReducer {
   *
   */
   export const reduceRepositoryIndex: OneToManyIndex.Reducer<number, Tag> = (
-    OneToManyIndex.reducer(Tag.getRepository)
+    OneToManyIndex.reducer(Tag.getRepositoryIdentifier)
   )
   /**
   *
   */
   export const reduceCommitIndex: OneToOneIndex.Reducer<number, Tag> = (
-    OneToOneIndex.reducer(Tag.getCommit)
+    OneToOneIndex.reducer(Tag.getCommitIdentifier)
   )
 
   /**

@@ -30,13 +30,7 @@ export namespace View {
       }
     }
 
-    for (const mutation of table.mutations) {
-      if (Mutation.filter(filter, mutation)) {
-        mutations.push(mutation)
-      }
-    }
-
-    return new Table(entries.asImmutable(), mutations.asImmutable())
+    return new Table(entries.asImmutable())
   }
 
   /**
@@ -84,7 +78,7 @@ export namespace View {
       nextMutations.push(mutation)
     }
 
-    return new Table(nextEntries.asImmutable(), nextMutations.asImmutable())
+    return new Table(nextEntries.asImmutable())
   }
 
   /**

@@ -3,12 +3,16 @@ import { ReactElement } from 'react'
 
 import { Application } from '../../typescript/application/Application'
 import { Entry } from '../../typescript/data/Entry'
+import { Task } from '../../typescript/task/Task'
+import { TaskState } from '../../typescript/task/TaskState'
 
 import { Repository } from '../../typescript/repository/Repository'
 import { RepositoryState } from '../../typescript/repository/RepositoryState'
+import { RepositoryTask } from '../../typescript/repository/RepositoryTask'
 
 import { Commit } from '../../typescript/commit/Commit'
 import { CommitState } from '../../typescript/commit/CommitState'
+import { CommitTask } from '../../typescript/commit/CommitTask'
 
 import { Loading } from '../Loading'
 
@@ -24,41 +28,76 @@ export function RepositoryPageLoading (properties: RepositoryPageLoading.Propert
     )
   }
 
-  switch (repository.model.state) {
-    case RepositoryState.HOLLOW:
-      return <Loading>Initialization of the application repository</Loading>
-    case RepositoryState.CLONING_REQUESTED:
-      return <Loading>Cloning of {repository.model.origin} requested</Loading>
-    case RepositoryState.CLONING:
-      return <Loading>Cloning of {repository.model.origin} requested</Loading>
-    case RepositoryState.CLONING_FAILURE:
-      throw new Error('Error rendering component not implemented yet.')
-    case RepositoryState.CLONED:
-      return <Loading>{repository.model.origin} successfully cloned</Loading>
-    case RepositoryState.COMMITS_EXTRACTION_REQUESTED:
-      return <Loading>Extraction of the list of commits of {repository.model.origin} requested</Loading>
-    case RepositoryState.EXTRACTING_COMMITS:
-      return <Loading>Extraction of the list of commits of {repository.model.origin}</Loading>
-    case RepositoryState.COMMITS_EXTRACTION_FAILURE:
-      throw new Error('Error rendering component not implemented yet.')
-    case RepositoryState.COMMITS_EXTRACTED:
-      return <Loading>Commits of {repository.model.origin} successfully extracted</Loading>
-    case RepositoryState.LABELS_EXTRACTION_REQUESTED:
-      return <Loading>Extraction of the list of labels of {repository.model.origin} requested</Loading>
-    case RepositoryState.EXTRACTING_LABELS:
-      return <Loading>Extraction of the list of labels of {repository.model.origin}</Loading>
-    case RepositoryState.LABELS_EXTRACTION_FAILURE:
-      throw new Error('Error rendering component not implemented yet.')
-    case RepositoryState.LABELS_EXTRACTED:
-      return <Loading>Labels of {repository.model.origin} successfully extracted</Loading>
-    case RepositoryState.READY:
-      return renderLoadingOfBooks(properties, repository)
-    default:
-      throw new Error(
-        'Unable to render repository in state ' +
-        RepositoryState.toDebugString(repository.model.state) + ' because no ' +
-        'procedure was defined for that.'
-      )
+  const state = repository.model.state
+
+  if (Task.is(state)) {
+    switch (state.type) {
+      case RepositoryTask.CLONING:
+        switch (state.state) {
+          case TaskState.PENDING:
+            return <Loading>Cloning of {repository.model.origin} requested</Loading>
+          case TaskState.RUNNING:
+            return <Loading>Cloning of {repository.model.origin} requested</Loading>
+          case TaskState.RESOLVED:
+            throw new Error('Error rendering component not implemented yet.')
+          case TaskState.REJECTED:
+            return <Loading>{repository.model.origin} successfully cloned</Loading>
+          default:
+            throw new Error(
+              'Unable to render repository in state ' + TaskState.toDebugString(state.state) + ' because no ' +
+              'procedure was defined for that.'
+            )
+        }
+      case RepositoryTask.EXTRACTING_COMMITS:
+        switch (state.state) {
+          case TaskState.PENDING:
+            return <Loading>Extraction of the list of commits of {repository.model.origin} requested</Loading>
+          case TaskState.RUNNING:
+            return <Loading>Extraction of the list of commits of {repository.model.origin}</Loading>
+          case TaskState.RESOLVED:
+            throw new Error('Error rendering component not implemented yet.')
+          case TaskState.REJECTED:
+            return <Loading>Commits of {repository.model.origin} successfully extracted</Loading>
+          default:
+            throw new Error(
+              'Unable to render repository in state ' + TaskState.toDebugString(state.state) + ' because no ' +
+              'procedure was defined for that.'
+            )
+        }
+      case RepositoryTask.EXTRACTING_LABELS:
+        switch (state.state) {
+          case TaskState.PENDING:
+            return <Loading>Extraction of the list of labels of {repository.model.origin} requested</Loading>
+          case TaskState.RUNNING:
+            return <Loading>Extraction of the list of labels of {repository.model.origin}</Loading>
+          case TaskState.RESOLVED:
+            throw new Error('Error rendering component not implemented yet.')
+          case TaskState.REJECTED:
+            return <Loading>Labels of {repository.model.origin} successfully extracted</Loading>
+          default:
+            throw new Error(
+              'Unable to render repository in state ' + TaskState.toDebugString(state.state) + ' because no ' +
+              'procedure was defined for that.'
+            )
+        }
+      default:
+        throw new Error(
+          'Unable to render repository in state ' + RepositoryTask.toDebugString(state.type) + ' because no ' +
+          'procedure was defined for that.'
+        )
+    }
+  } else {
+    switch (state) {
+      case RepositoryState.HOLLOW:
+        return <Loading>Initialization of the application repository</Loading>
+      case RepositoryState.READY:
+        return renderLoadingOfBooks(properties, repository)
+      default:
+        throw new Error(
+          'Unable to render repository in state ' + RepositoryState.toDebugString(state) + ' because no ' +
+          'procedure was defined for that.'
+        )
+    }
   }
 }
 
@@ -69,25 +108,44 @@ function renderLoadingOfBooks (properties: RepositoryPageLoading.Properties, rep
     throw new Error('Unable to display the absence of the selected commit as no procedure was defined for that.')
   }
 
-  switch (commit.model.state) {
-    case CommitState.HOLLOW:
-      return <Loading>Initialization of commit {commit.model.identifier}</Loading>
-    case CommitState.BOOKS_EXTRACTION_REQUESTED:
-      return <Loading>Extraction of the list of books available in commit {commit.model.identifier} requested</Loading>
-    case CommitState.EXTRACTING_BOOKS:
-      return <Loading>Extraction of the list of books available in commit {commit.model.identifier}</Loading>
-    case CommitState.BOOKS_EXTRACTED:
-      return <Loading>The list of books available in commit {commit.model.identifier} was successfully extracted</Loading>
-    case CommitState.BOOKS_EXTRACTION_FAILURE:
-      throw new Error('Error rendering component not implemented yet.')
-    case CommitState.READY:
-      return properties.children()
-    default:
-      throw new Error(
-        'Unable to render commit in state ' +
-        CommitState.toDebugString(commit.model.state) + ' because no ' +
-        'procedure was defined for that.'
-      )
+  const state = commit.model.state
+
+  if (Task.is(state)) {
+    switch (state.type) {
+      case CommitTask.EXTRACTING_BOOKS:
+        switch (state.state) {
+          case TaskState.PENDING:
+            return <Loading>Extraction of the list of books available in commit {commit.model.identifier} requested</Loading>
+          case TaskState.RUNNING:
+            return <Loading>Extraction of the list of books available in commit {commit.model.identifier}</Loading>
+          case TaskState.RESOLVED:
+            throw new Error('Error rendering component not implemented yet.')
+          case TaskState.REJECTED:
+            return <Loading>The list of books available in commit {commit.model.identifier} was successfully extracted</Loading>
+          default:
+            throw new Error(
+              'Unable to render commit in state ' + TaskState.toDebugString(state.state) + ' because no ' +
+              'procedure was defined for that.'
+            )
+        }
+      default:
+        throw new Error(
+          'Unable to render commit in state ' + CommitTask.toDebugString(state.type) + ' because no ' +
+          'procedure was defined for that.'
+        )
+    }
+  } else {
+    switch (state) {
+      case RepositoryState.HOLLOW:
+        return <Loading>Initialization of commit {commit.model.identifier}</Loading>
+      case RepositoryState.READY:
+        return renderLoadingOfBooks(properties, repository)
+      default:
+        throw new Error(
+          'Unable to render commit in state ' + RepositoryState.toDebugString(state) + ' because no ' +
+          'procedure was defined for that.'
+        )
+    }
   }
 }
 

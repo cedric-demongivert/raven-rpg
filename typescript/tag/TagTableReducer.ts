@@ -2,21 +2,11 @@ import { ApplicationEvent } from '../ApplicationEvent'
 
 import { Table } from '../data/table/Table'
 
-// import { RepositoryAction } from '../repository/RepositoryAction'
-// import { RepositoryEvent } from '../repository/RepositoryEvent'
-
 import { TagAction } from './TagAction'
 import { Tag } from './Tag'
 
 
 export namespace TagTableReducer {
-  /**
-  *
-  */
-  // export function reduceRepositoryRemove(state: Table<Tag>, action: RepositoryEvent.Remove): Table<Tag> {
-  //   return state.filter((tag: Tag): tag is Tag => tag.getRepositoryIdentifier() === action.payload)
-  // }
-
 
   /**
   *
@@ -25,11 +15,10 @@ export namespace TagTableReducer {
     const nonNullState: Table<Tag> = state || Table.empty()
 
     // @todo add handler for commit deletion
+    // @todo add handler for repository deletion
     switch (action.type) {
       case TagAction.EXTRACTED:
         return nonNullState.add(action.payload)
-      // case RepositoryAction.REMOVE:
-      //   return reduceRepositoryRemove(nonNullState, action)
       default:
         return nonNullState.pristine()
     }

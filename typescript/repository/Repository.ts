@@ -1,6 +1,8 @@
 import { Empty } from '../Empty'
 
 import { RepositoryState } from './RepositoryState'
+import { RepositoryTask } from './RepositoryTask'
+import { Task } from '../task'
 
 /**
 *
@@ -14,12 +16,7 @@ export class Repository {
   /**
   * @see Repository.Properties.state
   */
-  public readonly state: RepositoryState
-
-  /**
-  * @see Repository.Properties.reason
-  */
-  public readonly reason: Error | undefined
+  public readonly state: RepositoryState | Task.Void<RepositoryTask>
 
   /**
   *
@@ -27,7 +24,6 @@ export class Repository {
   public constructor(properties: Repository.Properties = Empty.OBJECT) {
     this.origin = properties.origin || Empty.STRING
     this.state = properties.state || RepositoryState.HOLLOW
-    this.reason = properties.reason || undefined
   }
 
   /**
@@ -44,7 +40,7 @@ export class Repository {
   /**
   *
   */
-  public setState(state: RepositoryState): Repository {
+  public setState(state: RepositoryState | Task.Void<RepositoryTask>): Repository {
     if (this.state === state) {
       return this
     } else {
@@ -55,22 +51,14 @@ export class Repository {
   /**
   *
   */
-  public setReason(reason: Error | undefined): Repository {
-    if (this.reason === reason) {
-      return this
-    } else {
-      return new Repository({ ...this, reason })
-    }
-  }
-
-  /**
-  *
-  */
   public toString(): string {
-    return (
-      this.constructor.name + ' ' + this.origin + ' ' +
-      RepositoryState.toDebugString(this.state)
-    )
+    const base: string = this.constructor.name + ' ' + this.origin + ' '
+
+    if (typeof this.state === 'number') {
+      return base + RepositoryState.toDebugString(this.state)
+    } else {
+      return base + this.state.toString(RepositoryTask.toDebugString)
+    }
   }
 
   /**
@@ -83,8 +71,7 @@ export class Repository {
     if (other instanceof Repository) {
       return (
         other.origin === this.origin &&
-        other.state === this.state &&
-        other.reason === this.reason
+        other.state === this.state
       )
     }
 
@@ -103,17 +90,12 @@ export namespace Repository {
     /**
     * Origin of the repository.
     */
-    origin?: string,
+    origin?: string | undefined,
 
     /**
     * State of the repository.
     */
-    state?: RepositoryState,
-
-    /**
-    * Error associated to the state of this repository.
-    */
-    reason?: Error | undefined
+    state?: RepositoryState | Task.Void<RepositoryTask>
   }
 
   /**
@@ -121,11 +103,52 @@ export namespace Repository {
   */
   export const EMPTY: Repository = new Repository()
 
+
+
+  /**
+   * 
+   */
+  export function isHollow(repository: Repository): boolean {
+    return repository.state === RepositoryState.HOLLOW
+  }
+
+  /**
+   * 
+   */
+  export function assertHollow(repository: Repository, message?: string | undefined): void {
+    if (repository.state !== RepositoryState.HOLLOW) {
+      throw new Error(message || 'The given repository is not an hollow repository.')
+    }
+  }
+
+  /**
+   * 
+   */
+  export function isReady(repository: Repository): boolean {
+    return repository.state === RepositoryState.READY
+  }
+
+  /**
+   * 
+   */
+  export function assertReady(repository: Repository, message?: string | undefined): void {
+    if (repository.state !== RepositoryState.READY) {
+      throw new Error(message || 'The given repository is not ready.')
+    }
+  }
+
   /**
   *
   */
   export function empty(): Repository {
     return EMPTY
+  }
+
+  /**
+  *
+  */
+  export function create(properties: Repository.Properties = Empty.OBJECT): Repository {
+    return new Repository(properties)
   }
 
   /**
@@ -138,14 +161,7 @@ export namespace Repository {
   /**
   *
   */
-  export function getState(repository: Repository): RepositoryState {
+  export function getState(repository: Repository): RepositoryState | Task.Void<RepositoryTask> {
     return repository.state
-  }
-
-  /**
-  *
-  */
-  export function getReason(repository: Repository): Error | undefined {
-    return repository.reason
   }
 }

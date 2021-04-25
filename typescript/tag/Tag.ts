@@ -1,6 +1,6 @@
-import type { Reference } from '../data/Reference'
-import type { Commit } from '../commit/Commit'
-import type { Repository } from '../repository/Repository'
+import { Reference } from '../data/Reference'
+import { Commit } from '../commit/Commit'
+import { Repository } from '../repository/Repository'
 
 import { Empty } from '../Empty'
 
@@ -38,8 +38,8 @@ export class Tag {
   */
   public constructor(properties: Tag.Properties = Empty.OBJECT) {
     this.identifier = properties.identifier || Empty.STRING
-    this.commit = properties.commit || 0
-    this.repository = properties.commit || 0
+    this.commit = properties.commit || Reference.create(Commit, 0)
+    this.repository = properties.repository || Reference.create(Repository, 0)
     this.tag = properties.tag || Empty.STRING
     this.timestamp = properties.timestamp || 0
   }
@@ -59,7 +59,7 @@ export class Tag {
   *
   */
   public setCommit(commit: Reference<Commit>): Tag {
-    if (this.commit === commit) {
+    if (this.commit.equals(commit)) {
       return this
     } else {
       return new Tag({ ...this, commit })
@@ -70,7 +70,7 @@ export class Tag {
   *
   */
   public setRepository(repository: Reference<Repository>): Tag {
-    if (this.repository === repository) {
+    if (this.repository.equals(repository)) {
       return this
     } else {
       return new Tag({ ...this, repository })
@@ -157,15 +157,29 @@ export namespace Tag {
   /**
   *
   */
-  export function getCommit(tag: Tag): number {
+  export function getCommit(tag: Tag): Reference<Commit> {
     return tag.commit
   }
 
   /**
   *
   */
-  export function getRepository(tag: Tag): number {
+  export function getCommitIdentifier(tag: Tag): number {
+    return tag.commit.identifier
+  }
+
+  /**
+  *
+  */
+  export function getRepository(tag: Tag): Reference<Repository> {
     return tag.repository
+  }
+
+  /**
+  *
+  */
+  export function getRepositoryIdentifier(tag: Tag): number {
+    return tag.repository.identifier
   }
 
   /**

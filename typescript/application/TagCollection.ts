@@ -48,9 +48,9 @@ export class TagCollection {
   */
   public constructor(properties: TagCollection.Properties = Empty.OBJECT) {
     this.table = properties.table || Table.EMPTY
-    this.byCommit = properties.byCommit || OneToOneIndex.make(this.table, Tag.getCommit)
+    this.byCommit = properties.byCommit || OneToOneIndex.make(this.table, Tag.getCommitIdentifier)
     this.byIdentifier = properties.byIdentifier || OneToOneIndex.make(this.table, Tag.getIdentifier)
-    this.byRepository = properties.byRepository || OneToManyIndex.make(this.table, Tag.getRepository)
+    this.byRepository = properties.byRepository || OneToManyIndex.make(this.table, Tag.getRepositoryIdentifier)
   }
 
   /**
@@ -64,14 +64,14 @@ export class TagCollection {
   *
   */
   public getByCommit(identifier: Entry<Commit> | number): Entry<Tag> | undefined {
-    return this.byCommit.get(Reference.get(identifier))
+    return this.byCommit.get(Reference.identifier(identifier))
   }
 
   /**
   *
   */
   public getByRepository(repository: Entry<Repository> | number): Table<Tag> {
-    return this.byRepository.get(Reference.get(repository))
+    return this.byRepository.get(Reference.identifier(repository))
   }
 
   /**

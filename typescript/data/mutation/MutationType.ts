@@ -1,20 +1,53 @@
-export type MutationType = number
+/** 
+ * 
+ */
+export type MutationType = (
+  MutationType.ADDITION |
+  MutationType.DELETION |
+  MutationType.IDENTITY |
+  MutationType.UPDATE
+)
 
 export namespace MutationType {
   /**
   *
   */
-  export const ADDITION: MutationType = 0
+  export type ADDITION = 0
 
   /**
   *
   */
-  export const MUTATION: MutationType = 1
+  export const ADDITION: ADDITION = 0
 
   /**
   *
   */
-  export const DELETION: MutationType = 2
+  export type UPDATE = 1
+
+  /**
+  *
+  */
+  export const UPDATE: UPDATE = 1
+
+  /**
+  *
+  */
+  export type DELETION = 2
+
+  /**
+  *
+  */
+  export const DELETION: DELETION = 2
+
+  /**
+  *
+  */
+  export type IDENTITY = 3
+
+  /**
+  *
+  */
+  export const IDENTITY: IDENTITY = 3
 
   /**
   *
@@ -26,8 +59,9 @@ export namespace MutationType {
   */
   export const ALL: MutationType[] = [
     ADDITION,
-    MUTATION,
-    DELETION
+    DELETION,
+    IDENTITY,
+    UPDATE
   ]
 
   /**
@@ -36,8 +70,9 @@ export namespace MutationType {
   export function toString(type: MutationType): string | undefined {
     switch (type) {
       case ADDITION: return 'ADDITION'
-      case MUTATION: return 'MUTATION'
       case DELETION: return 'DELETION'
+      case IDENTITY: return 'IDENTITY'
+      case UPDATE: return 'UPDATE'
       default: return undefined
     }
   }

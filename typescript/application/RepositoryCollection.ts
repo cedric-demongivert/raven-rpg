@@ -1,6 +1,7 @@
 import { List } from 'immutable'
 
 import { Entry } from '../data/Entry'
+import { Reference } from '../data/Reference'
 import { Table } from '../data/table/Table'
 import { OneToOneIndex } from '../data/view/OneToOneIndex'
 
@@ -50,6 +51,13 @@ export class RepositoryCollection {
     } else {
       return undefined
     }
+  }
+
+  /**
+  *
+  */
+  public getByReference(reference: Reference<Repository>): Entry<Repository> | undefined {
+    return this.table.get(reference.identifier)
   }
 
   /**

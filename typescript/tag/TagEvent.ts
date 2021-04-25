@@ -8,7 +8,7 @@ export namespace TagEvent {
   /**
   *
   */
-  export type Extracted = ApplicationEvent<Tag>
+  export type Extracted = ApplicationEvent<TagAction.EXTRACTED, Tag>
 
   /**
   *

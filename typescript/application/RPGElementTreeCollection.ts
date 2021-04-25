@@ -54,7 +54,7 @@ export class RPGElementTreeCollection {
   *
   */
   public getByElement(element: Entry<RPGElement> | number): Entry<RPGElementTree> | undefined {
-    return this.byElement.get(Reference.get(element))
+    return this.byElement.get(Reference.identifier(element))
   }
 }
 

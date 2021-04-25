@@ -51,7 +51,7 @@ export class CommitCollection {
 
     this.byRepository = (
       properties.byRepository ||
-      OneToManyIndex.make(this.table, Commit.getRepository)
+      OneToManyIndex.make(this.table, Commit.getRepositoryIdentifier)
     )
   }
 
@@ -72,8 +72,8 @@ export class CommitCollection {
   /**
   *
   */
-  public getByRepository(repository: Entry<Repository> | number): Table<Commit> {
-    return this.byRepository.get(Reference.get(repository))
+  public getByRepository(repository: Entry<Repository> | number | Reference<Repository>): Table<Commit> {
+    return this.byRepository.get(Reference.identifier(repository))
   }
 
   /**

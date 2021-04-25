@@ -3,42 +3,28 @@ import { ApplicationEvent } from '../ApplicationEvent'
 import { Entry } from '../data/Entry'
 import { Reference } from '../data/Reference'
 
+import { Task } from '../task/Task'
+
 import { Commit } from './Commit'
+import { CommitState } from './CommitState'
+import { CommitTask } from './CommitTask'
 import { CommitAction } from './CommitAction'
 
 export namespace CommitEvent {
   /**
   *
   */
-  export type Extracted = ApplicationEvent<Commit>
+  export type Extracted = ApplicationEvent<CommitAction.EXTRACTED, Commit>
 
   /**
   *
   */
-  export type ExtractBooks = ApplicationEvent<Reference<Commit>>
+  export type ExtractBooks = ApplicationEvent<CommitAction.EXTRACT_BOOKS, Reference<Commit>>
 
   /**
   *
   */
-  export type ExtractingBooks = ApplicationEvent<Reference<Commit>>
-
-  /**
-  *
-  */
-  export type BooksExtracted = ApplicationEvent<Reference<Commit>>
-
-  /**
-  *
-  */
-  export type BooksExtractionFailure = ApplicationEvent<{
-    commit: Reference<Commit>,
-    reason: Error
-  }>
-
-  /**
-  *
-  */
-  export type Ready = ApplicationEvent<Reference<Commit>>
+  export type Update = ApplicationEvent<CommitAction.UPDATE, { commit: Reference<Commit>, state: CommitState | Task.Void<CommitTask> }>
 
   /**
   *
@@ -53,42 +39,22 @@ export namespace CommitEvent {
   /**
   *
   */
-  export function extractBooks(parameter: Entry<Commit> | number): ExtractBooks {
+  export function extractBooks(parameter: Entry<Commit> | number | Reference<Commit>): ExtractBooks {
     return {
       type: CommitAction.EXTRACT_BOOKS,
-      payload: Reference.get(parameter)
+      payload: Reference.create(Commit, Reference.identifier(parameter))
     }
   }
 
   /**
   *
   */
-  export function extractingBooks(parameter: Entry<Commit> | number): ExtractBooks {
+  export function update(parameter: Entry<Commit> | number | Reference<Commit>, state: CommitState | Task.Void<CommitTask>): Update {
     return {
-      type: CommitAction.EXTRACTING_BOOKS,
-      payload: Reference.get(parameter)
-    }
-  }
-
-  /**
-  *
-  */
-  export function booksExtracted(parameter: Entry<Commit> | number): ExtractBooks {
-    return {
-      type: CommitAction.BOOKS_EXTRACTED,
-      payload: Reference.get(parameter)
-    }
-  }
-
-  /**
-  *
-  */
-  export function booksExtractionFailure(parameter: Entry<Commit> | number, reason: Error): BooksExtractionFailure {
-    return {
-      type: CommitAction.BOOKS_EXTRACTION_FAILURE,
+      type: CommitAction.UPDATE,
       payload: {
-        commit: Reference.get(parameter),
-        reason
+        commit: Reference.create(Commit, Reference.identifier(parameter)),
+        state
       }
     }
   }
@@ -96,10 +62,7 @@ export namespace CommitEvent {
   /**
   *
   */
-  export function ready(parameter: Entry<Commit> | number): Ready {
-    return {
-      type: CommitAction.READY,
-      payload: Reference.get(parameter)
-    }
+  export function ready(parameter: Entry<Commit> | number | Reference<Commit>): Update {
+    return update(parameter, CommitState.READY)
   }
 }

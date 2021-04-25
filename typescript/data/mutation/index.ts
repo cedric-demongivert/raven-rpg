@@ -1,2 +1,7 @@
+export { Addition } from './Addition'
+export { Deletion } from './Deletion'
+export { Identity } from './Identity'
 export { Mutation } from './Mutation'
+export { Mutations } from './Mutations'
 export { MutationType } from './MutationType'
+export { Update } from './Update'

@@ -77,7 +77,7 @@ export class RPGElementCollection {
   *
   */
   public getBooksByCommit(commit: Entry<Commit> | number): Table<RPGBook> {
-    return this.booksByCommit.get(Reference.get(commit))
+    return this.booksByCommit.get(Reference.identifier(commit))
   }
 }
 
