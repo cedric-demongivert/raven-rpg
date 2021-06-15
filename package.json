@@ -29,7 +29,7 @@
     "redux": "^4.0.5",
     "sass": "^1.26.8",
     "synchronous-promise": "^2.0.15",
-    "three": "^0.121.1"
+    "three": "^0.125.0"
   },
   "devDependencies": {
     "@types/jest": "^26.0.23",
