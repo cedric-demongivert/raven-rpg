@@ -1,1 +1,0 @@
-export { CoreRules } from './CoreRules'

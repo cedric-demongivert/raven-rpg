@@ -1,4 +1,5 @@
 .application {
+  position: relative;
   display: block;
 
   width: 100%;
@@ -11,7 +12,6 @@
   box-sizing: border-box;
 
   overflow: hidden;
-  overflow-y: scroll;
 
   .application-content {
     display: block;

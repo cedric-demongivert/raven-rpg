@@ -1,7 +1,4 @@
-import { immutable, sealed } from '../../decorators'
 import { equals } from '../../utils'
-
-import { Entry } from '../Entry'
 
 import { MutationType } from './MutationType'
 
@@ -13,8 +10,6 @@ import { Identity } from './Identity'
 /**
 *
 */
-@immutable
-@sealed
 export class Mutation<Model, Properties extends Mutation.Properties<Model> = Mutation.Properties<Model>> {
   /**
    * 
@@ -212,5 +207,27 @@ export namespace Mutation {
       previous,
       next
     })
+  }
+
+  /**
+   *
+   */
+  export function createFromTuple<Model>(previous: Model | undefined, next: Model): Addition<Model>
+  /**
+   * 
+   */
+  export function createFromTuple<Model>(previous: Model, next: Model | undefined): Deletion<Model>
+  /**
+   * 
+   */
+  export function createFromTuple<Model>(previous: Model, next: Model): Update<Model>
+  export function createFromTuple<Model>(previous: Model | undefined, next: Model | undefined): Mutation<Model> {
+    if (previous == null) {
+      return createAddition(next)
+    } else if (next == null) {
+      return createDeletion(previous)
+    } else {
+      return createUpdate(previous, next)
+    }
   }
 }

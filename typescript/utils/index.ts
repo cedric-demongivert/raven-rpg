@@ -1,4 +1,5 @@
 export { assertDefined } from './assertDefined'
+export { AbstractError } from './AbstractError'
 export { Empty } from './Empty'
 export { equals } from './equals'
 export { isDefined } from './isDefined'

@@ -1,0 +1,7 @@
+.rpg-element.rpg-image {
+  text-align: center;
+}
+
+.rpg-element.rpg-image + * {
+  margin-top: 1em;
+}

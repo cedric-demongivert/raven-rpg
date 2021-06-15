@@ -1,2 +1,5 @@
 export { Table } from './Table'
-export { TableIndex } from './TableIndex'
+export { TableReducer } from './TableReducer'
+export { TableAddition } from './TableAddition'
+export { TableFiltration } from './TableFiltration'
+export { TableAssignation } from './TableAssignation'

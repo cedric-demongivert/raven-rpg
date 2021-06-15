@@ -1,1 +1,0 @@
-export { Magic } from './Magic'

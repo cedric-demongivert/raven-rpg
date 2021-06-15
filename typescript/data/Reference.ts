@@ -1,48 +1,6 @@
 import { Entry } from './Entry'
 
-export class Reference<Model> {
-  /**
-  *
-  */
-  public readonly type: Reference.Constructor<Model>
-
-  /**
-  *
-  */
-  public readonly identifier: number
-
-  /**
-  *
-  */
-  public constructor(type: Reference.Constructor<Model>, identifier: number) {
-    this.type = type
-    this.identifier = identifier
-  }
-
-  /**
-  *
-  */
-  public toString(): string {
-    return this.type.name + ' #' + this.identifier
-  }
-
-  /**
-  *
-  */
-  public equals(other: any): boolean {
-    if (other == null) return false
-    if (other === this) return true
-
-    if (other instanceof Reference) {
-      return (
-        other.type === this.type &&
-        other.identifier === this.identifier
-      )
-    }
-
-    return false
-  }
-}
+export type Reference<Model> = Entry<Model> | number
 
 /**
 *
@@ -52,7 +10,7 @@ export namespace Reference {
    * 
    */
   export function is(value: any): value is Reference<any> {
-    return value instanceof Reference
+    return typeof value === 'number' || Entry.is(value)
   }
 
   /**
@@ -67,47 +25,33 @@ export namespace Reference {
   /**
   *
   */
-  export type Constructor<Model> = new () => Model
-
-  /**
-  *
-  */
-  export function create<Model>(type: Reference.Constructor<Model>, identifier: number): Reference<Model> {
-    return new Reference(type, identifier)
-  }
-
-  /**
-  *
-  */
-  export function identifier(identifiable: number | Reference<any> | Entry<any>): number {
+  export function identifier(identifiable: Reference<any>): number {
     return typeof identifiable === 'number' ? identifiable : identifiable.identifier
   }
 
   /**
-  *
-  */
-  export function from<Model>(type: Reference.Constructor<Model>, identifiable: number | Entry<Model>): Reference<Model> {
-    if (typeof identifiable == 'number') {
-      return fromIdentifier(type, identifiable)
+   * 
+   */
+  export function compare(left: Reference<any>, right: Reference<any>): number {
+    return identifier(left) - identifier(right)
+  }
+
+  /**
+   * 
+   */
+  export function equals(left: Reference<any>, right: Reference<any>): boolean {
+    if (typeof left === 'number') {
+      if (typeof right === 'number') {
+        return left === right
+      } else {
+        return left === right.identifier
+      }
     } else {
-      return fromEntry(identifiable)
+      if (typeof right === 'number') {
+        return left.identifier === right
+      } else {
+        return left.equals(right)
+      }
     }
-  }
-
-  /**
-  *
-  */
-  export function fromIdentifier<Model>(type: Reference.Constructor<Model>, identifier: number): Reference<Model> {
-    return new Reference(type, identifier)
-  }
-
-  /**
-  *
-  */
-  export function fromEntry<Model>(entry: Entry<Model>): Reference<Model> {
-    return new Reference(
-      Object.getPrototypeOf(entry.model),
-      entry.identifier
-    )
   }
 }

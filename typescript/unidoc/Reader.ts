@@ -3,7 +3,7 @@ import { UnidocProducer } from '@cedric-demongivert/unidoc'
 import { UnidocEvent } from '@cedric-demongivert/unidoc'
 import { fullyParse } from '@cedric-demongivert/unidoc'
 
-import { Commit } from '../commit/Commit'
+import { Commit } from '../state/git/Commit'
 
 import { RepositoryResolver } from './RepositoryResolver'
 

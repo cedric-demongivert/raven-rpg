@@ -1,4 +1,4 @@
-import { TypeValidator } from '../TypeValidator'
+import { UnidocKissValidator } from "@cedric-demongivert/unidoc"
 
 /**
 *
@@ -7,7 +7,7 @@ export type CommandListElement = {
   name: string | undefined,
   minimum: number,
   maximum: number,
-  validator: TypeValidator,
+  validator: UnidocKissValidator.Factory,
   anywhere: boolean
 }
 
@@ -18,7 +18,7 @@ export namespace CommandListElement {
   /**
   *
   */
-  export function command(name: string, validator: TypeValidator, minimum: number = 0, maximum: number = Number.POSITIVE_INFINITY): CommandListElement {
+  export function command(name: string, validator: UnidocKissValidator.Factory, minimum: number = 0, maximum: number = Number.POSITIVE_INFINITY): CommandListElement {
     return {
       name,
       minimum,
@@ -31,7 +31,7 @@ export namespace CommandListElement {
   /**
   *
   */
-  export function manyCommand(name: string, validator: TypeValidator): CommandListElement {
+  export function manyCommand(name: string, validator: UnidocKissValidator.Factory): CommandListElement {
     return {
       name,
       minimum: 0,
@@ -44,7 +44,7 @@ export namespace CommandListElement {
   /**
   *
   */
-  export function optionalCommand(name: string, validator: TypeValidator): CommandListElement {
+  export function optionalCommand(name: string, validator: UnidocKissValidator.Factory): CommandListElement {
     return {
       name,
       minimum: 0,
@@ -57,7 +57,7 @@ export namespace CommandListElement {
   /**
   *
   */
-  export function requiredCommand(name: string, validator: TypeValidator): CommandListElement {
+  export function requiredCommand(name: string, validator: UnidocKissValidator.Factory): CommandListElement {
     return {
       name,
       minimum: 1,
@@ -70,7 +70,7 @@ export namespace CommandListElement {
   /**
   *
   */
-  export function content(validator: TypeValidator, minimum: number = 0, maximum: number = Number.POSITIVE_INFINITY): CommandListElement {
+  export function content(validator: UnidocKissValidator.Factory, minimum: number = 0, maximum: number = Number.POSITIVE_INFINITY): CommandListElement {
     return {
       name: undefined,
       minimum,
@@ -83,7 +83,7 @@ export namespace CommandListElement {
   /**
   *
   */
-  export function optionalContent(validator: TypeValidator): CommandListElement {
+  export function optionalContent(validator: UnidocKissValidator.Factory): CommandListElement {
     return {
       name: undefined,
       minimum: 0,
@@ -96,7 +96,7 @@ export namespace CommandListElement {
   /**
   *
   */
-  export function requiredContent(validator: TypeValidator): CommandListElement {
+  export function requiredContent(validator: UnidocKissValidator.Factory): CommandListElement {
     return {
       name: undefined,
       minimum: 1,
@@ -113,7 +113,7 @@ export namespace CommandListElement {
     /**
     *
     */
-    export function command(name: string, validator: TypeValidator, minimum: number = 0, maximum: number = Number.POSITIVE_INFINITY): CommandListElement {
+    export function command(name: string, validator: UnidocKissValidator.Factory, minimum: number = 0, maximum: number = Number.POSITIVE_INFINITY): CommandListElement {
       return {
         name,
         minimum,
@@ -126,7 +126,7 @@ export namespace CommandListElement {
     /**
     *
     */
-    export function manyCommand(name: string, validator: TypeValidator): CommandListElement {
+    export function manyCommand(name: string, validator: UnidocKissValidator.Factory): CommandListElement {
       return {
         name,
         minimum: 0,
@@ -139,7 +139,7 @@ export namespace CommandListElement {
     /**
     *
     */
-    export function optionalCommand(name: string, validator: TypeValidator): CommandListElement {
+    export function optionalCommand(name: string, validator: UnidocKissValidator.Factory): CommandListElement {
       return {
         name,
         minimum: 0,
@@ -152,7 +152,7 @@ export namespace CommandListElement {
     /**
     *
     */
-    export function requiredCommand(name: string, validator: TypeValidator): CommandListElement {
+    export function requiredCommand(name: string, validator: UnidocKissValidator.Factory): CommandListElement {
       return {
         name,
         minimum: 1,
@@ -165,7 +165,7 @@ export namespace CommandListElement {
     /**
     *
     */
-    export function content(validator: TypeValidator, minimum: number = 0, maximum: number = Number.POSITIVE_INFINITY): CommandListElement {
+    export function content(validator: UnidocKissValidator.Factory, minimum: number = 0, maximum: number = Number.POSITIVE_INFINITY): CommandListElement {
       return {
         name: undefined,
         minimum,
@@ -178,7 +178,7 @@ export namespace CommandListElement {
     /**
     *
     */
-    export function manyContent(validator: TypeValidator): CommandListElement {
+    export function manyContent(validator: UnidocKissValidator.Factory): CommandListElement {
       return {
         name: undefined,
         minimum: 0,
@@ -191,7 +191,7 @@ export namespace CommandListElement {
     /**
     *
     */
-    export function optionalContent(validator: TypeValidator): CommandListElement {
+    export function optionalContent(validator: UnidocKissValidator.Factory): CommandListElement {
       return {
         name: undefined,
         minimum: 0,
@@ -204,7 +204,7 @@ export namespace CommandListElement {
     /**
     *
     */
-    export function requiredContent(validator: TypeValidator): CommandListElement {
+    export function requiredContent(validator: UnidocKissValidator.Factory): CommandListElement {
       return {
         name: undefined,
         minimum: 1,

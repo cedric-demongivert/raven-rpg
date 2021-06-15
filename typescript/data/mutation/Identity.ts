@@ -47,12 +47,12 @@ export namespace Identity {
         /**
          * 
          */
-        previous?: Model,
+        previous: Model,
 
         /**
          * 
          */
-        next?: Model
+        next: Model
     }
 
     /**

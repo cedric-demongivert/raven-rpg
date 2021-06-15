@@ -8,7 +8,8 @@ import { UnidocOriginElementType } from '@cedric-demongivert/unidoc'
 import { Path } from '../git/Path'
 import { GitRepositories } from '../git/GitRepositories'
 import { GitRepository } from '../git/GitRepository'
-import { Commit } from '../commit/Commit'
+import { Commit } from '../state/git/Commit'
+import { Reference } from '../data/Reference'
 
 const UNIDOC_EXTENSION = '.unidoc'
 const ROOT = '/'
@@ -23,7 +24,7 @@ export class RepositoryResolver implements UnidocImportationResolver {
   *
   */
   public get repository(): GitRepository {
-    return GitRepositories.get(this.commit.repository)
+    return GitRepositories.get(Reference.identifier(this.commit.repository))
   }
 
   /**

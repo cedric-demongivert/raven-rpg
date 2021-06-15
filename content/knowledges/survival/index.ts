@@ -1,1 +1,0 @@
-export { Survival } from './Survival'

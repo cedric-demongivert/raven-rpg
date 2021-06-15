@@ -1,5 +1,10 @@
-.section {
-  p {
+.rpg-element.rpg-section {
+  & > p {
     text-align: justify;
+  }
+
+  &:target > .rpg-section-title,
+  &:target > a .rpg-section-title {
+    color: #ff7e00;
   }
 }

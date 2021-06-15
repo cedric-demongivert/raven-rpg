@@ -1,12 +1,7 @@
-import { immutable, sealed } from '../decorators'
-
 import { Comparator } from '@cedric-demongivert/gl-tool-collection'
 
-import { Filter } from './Filter'
-import { Mapping } from './Mapping'
+import { Predicate } from './Predicate'
 
-@immutable
-@sealed
 export class Entry<Model> {
   /**
    * 
@@ -47,7 +42,12 @@ export class Entry<Model> {
   /**
   *
   */
-  public setModel(model: Model): Entry<Model> {
+  public setModel(model: Model): Entry<Model>
+  /**
+   * 
+   */
+  public setModel<NextModel>(model: NextModel): Entry<NextModel>
+  public setModel(model: any): Entry<any> {
     if (model !== this.model) {
       return new Entry(this.identifier, model)
     } else {
@@ -91,33 +91,41 @@ export class Entry<Model> {
 }
 
 /**
-*
-*/
+ * 
+ */
 export namespace Entry {
-  /**
-   * 
-   */
-  export const MINUS: Entry<any> = Entry.create(-1, undefined)
+
 
   /**
    * 
    */
-  export function minus<Model>(): Entry<Model> {
-    return MINUS
+  export function is(value: any): value is Entry<any> {
+    return value instanceof Entry
   }
 
   /**
-  *
-  */
-  export function filter<Model, Filtered extends Model>(filter: Filter<Model, Filtered>, entry: Entry<Model> | undefined): entry is Entry<Filtered> {
-    return entry && filter(entry.model)
+   * 
+   */
+  export function assert(value: any, message?: string | undefined): asserts value is Entry<any> {
+    if (!is(value)) {
+      throw new Error(message || 'The given value is not an instance of Entry.')
+    }
   }
 
   /**
-  *
-  */
-  export function map<Model, Value>(mapping: Mapping<Model, Value>, entry: Entry<Model>): Value {
-    return mapping(entry.model)
+   * 
+   */
+  export function isModel<Model>(value: Entry<any>, predicate: Predicate<any, Model>): value is Entry<Model> {
+    return predicate(value.model)
+  }
+
+  /**
+   * 
+   */
+  export function assertModel<Model>(value: Entry<any>, predicate: Predicate<any, Model>, message?: string | undefined): asserts value is Entry<Model> {
+    if (!predicate(value.model)) {
+      throw new Error(message || 'The given entry does not hold an instance of the expected model.')
+    }
   }
 
   /**
@@ -158,5 +166,19 @@ export namespace Entry {
     return function compare(left: Entry<Model>, right: Entry<Model>): number {
       return comparator(left.model, right.model)
     }
+  }
+
+  /**
+   * 
+   */
+  export function getIdentifier(entry: Entry<any>): number {
+    return entry.identifier
+  }
+
+  /**
+   * 
+   */
+  export function getModel<Model>(entry: Entry<Model>): Model {
+    return entry.model
   }
 }

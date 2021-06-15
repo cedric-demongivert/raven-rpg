@@ -4,8 +4,8 @@
 @import "../../node_modules/@fortawesome/fontawesome-free/scss/regular";
 @import "../../node_modules/@fortawesome/fontawesome-free/scss/solid";
 
-@import url('https://fonts.googleapis.com/css?family=Vesper+Libre&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Alegreya+SC&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Vesper+Libre&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Alegreya+SC&display=swap");
 
 @import "./vars";
 @import "./base";
@@ -15,7 +15,7 @@
 @import "./layout/layout-loading";
 @import "./layout/layout-page";
 @import "./layout/layout-page-repository";
-@import "./layout/layout-page-book";
+@import "./layout/layout-page-content";
 
 @import "./components/dot-loader";
 @import "./components/framework";
@@ -23,9 +23,14 @@
 @import "./components/matter";
 @import "./components/table";
 @import "./components/summary";
-@import "./components/data";
+//@import "./components/data";
+@import "./components/data-list";
 @import "./components/spell";
 @import "./components/map";
+@import "./components/image";
+@import "./components/characteristic";
+@import "./components/book";
+@import "./components/mastery";
 
 @import "./theme/subject";
 @import "./theme/badge";

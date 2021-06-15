@@ -1,0 +1,78 @@
+.data.data-list {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-start;
+
+  box-sizing: border-box;
+
+  padding: 0px;
+  margin: 0px;
+  border: none;
+
+  width: auto;
+  height: auto;
+
+  margin-bottom: 1em;
+
+  & > *,
+  & > .data-element {
+    flex-shrink: 0;
+    flex-grow: 0;
+    width: 100%;
+  }
+
+  .data-header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
+
+    width: 100%;
+    height: auto;
+
+    padding: 0px;
+    padding-top: 0.1em;
+    padding-bottom: 0.1em;
+    margin: 0px;
+    border: none;
+
+    font-weight: bold;
+  }
+
+  .data-element {
+    width: 100%;
+
+    padding: 0px;
+    padding-top: 0.1em;
+    padding-bottom: 0.1em;
+    margin: 0px;
+    border: none;
+
+    /*&:nth-child(2n) {
+      background-color: rgba(0, 0, 0, 0.1);
+    }*/
+  }
+
+  @each $breakpoint in "sm", "md", "lg", "xl" {
+    @for $column from 1 to 6 {
+      @include media-breakpoint-up($breakpoint) {
+        &.#{$breakpoint}-column-#{$column} {
+          flex-direction: column;
+          flex-wrap: wrap;
+
+          .data-element {
+            flex-shrink: 0;
+            flex-grow: 1;
+
+            width: floor(100% / $column);
+          }
+        }
+      }
+    }
+  }
+}

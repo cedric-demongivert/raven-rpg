@@ -1,14 +1,13 @@
 import { UnidocKissValidator } from '@cedric-demongivert/unidoc'
 import { UnidocKissValidatorOutput } from '@cedric-demongivert/unidoc'
 
-import { TypeValidator } from '../TypeValidator'
 import { Outputs } from '../Outputs'
 import { throwWithFailure } from '../throwWithFailure'
 
 /**
 *
 */
-export function* validateCommand(name: string, validator: TypeValidator): UnidocKissValidator {
+export function* validateCommand(name: string, validator: UnidocKissValidator.Factory): UnidocKissValidator {
   yield* UnidocKissValidator.validateManyWhitespace()
   yield* UnidocKissValidator.validateStartOfTag(name)
   yield* UnidocKissValidator.validateManyWhitespace()
@@ -21,7 +20,7 @@ export function* validateCommand(name: string, validator: TypeValidator): Unidoc
       yield output
     }
 
-    yield Outputs.illFormedCommand(name, validator.type)
+    yield Outputs.illFormedCommand(name, validator.name)
     return UnidocKissValidator.output.end()
   }
 
@@ -37,7 +36,7 @@ export namespace validateCommand {
   /**
   *
   */
-  export function factory(name: string, validator: TypeValidator): UnidocKissValidator.Factory {
+  export function factory(name: string, validator: UnidocKissValidator.Factory): UnidocKissValidator.Factory {
     return validateCommand.bind(undefined, name, validator)
   }
 }
