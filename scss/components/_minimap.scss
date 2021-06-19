@@ -1,0 +1,102 @@
+@use "sass:map";
+
+.rpg-minimap {
+  position: relative;
+  display: block;
+
+  height: 100%;
+  width: 100%;
+
+  padding: 0px;
+  margin: 0px;
+  border: none;
+
+  overflow: hidden;
+
+  font-size: map.get($font-size, "sm");
+
+  .rpg-minimap-content {
+    border: none;
+    margin: 0px;
+    padding: 0px;
+    padding-left: 10px;
+    //transition: ease-in margin-top 200ms;
+  }
+
+  .rpg-minimap-header {
+    position: absolute;
+    display: block;
+
+    width: 100%;
+    height: auto;
+
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: auto;
+
+    &::after {
+      content: "";
+      display: block;
+
+      width: 100%;
+      height: 5em;
+
+      background: linear-gradient(
+        180deg,
+        rgba($page-color, 1) 25%,
+        rgba($page-color, 0) 100%
+      );
+    }
+  }
+
+  .rpg-minimap-footer {
+    position: absolute;
+    display: block;
+
+    width: 100%;
+    height: auto;
+
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    top: auto;
+
+    &::before {
+      content: "";
+      display: block;
+
+      width: 100%;
+      height: 5em;
+
+      background: linear-gradient(
+        0deg,
+        rgba($page-color, 1) 25%,
+        rgba($page-color, 0) 100%
+      );
+    }
+  }
+
+  .rpg-minimap-element {
+    display: block;
+    overflow: hidden;
+
+    white-space: nowrap;
+
+    color: $text-color;
+
+    &.is-disabled {
+      color: lighten($text-color, 40%);
+    }
+
+    &.is-active {
+      font-weight: bold;
+    }
+  }
+
+  @for $depth from 0 to 6 {
+    .rpg-minimap-depth-#{$depth} {
+      padding-left: $depth * 7px;
+    }
+  }
+}

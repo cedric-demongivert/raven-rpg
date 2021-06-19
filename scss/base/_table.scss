@@ -1,0 +1,5 @@
+@use "sass:map";
+
+table {
+  margin-bottom: map.get($content-spacing, "xs");
+}

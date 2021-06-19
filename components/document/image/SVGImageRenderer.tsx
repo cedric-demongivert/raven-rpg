@@ -3,7 +3,7 @@ import { ReactElement } from 'react'
 import { PureComponent } from 'react'
 import { RefObject } from 'react'
 import { CorvusDocument } from '../../../typescript/corvus/CorvusDocument'
-import { CorvusDocumentElement } from '../../../typescript/corvus/CorvusDocumentElement'
+import { CorvusElement } from '../../../typescript/corvus/CorvusElement'
 import { CorvusImage } from '../../../typescript/corvus/CorvusImage'
 
 import { Resource } from '../../../typescript/state/resource/Resource'
@@ -31,7 +31,9 @@ export class SVGImageRenderer extends PureComponent<SVGImageRenderer.Properties>
    */
   public componentDidMount(): void {
     const document: CorvusDocument = this.props.document
-    const element: CorvusDocumentElement<CorvusImage> = document.requireByIdentifier(this.props.element, CorvusImage.assert)
+    const element: CorvusElement = document.require(this.props.element)
+
+    CorvusImage.assert(element)
   
     const resource: Resource = this.props.resource
 
@@ -39,15 +41,15 @@ export class SVGImageRenderer extends PureComponent<SVGImageRenderer.Properties>
 
     const svg = this.root.current.children.item(0)
 
-    if (element.model.width != null || element.model.height != null) {
-      if (element.model.width != null) {
-        svg.setAttribute('width', element.model.width)
+    if (element.width != null || element.height != null) {
+      if (element.width != null) {
+        svg.setAttribute('width', element.width)
       } else {
         svg.removeAttribute('width')
       }
 
-      if (element.model.height != null) {
-        svg.setAttribute('height', element.model.height)
+      if (element.height != null) {
+        svg.setAttribute('height', element.height)
       } else {
         svg.removeAttribute('height')
       }

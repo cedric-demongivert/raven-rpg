@@ -10,11 +10,10 @@ import { CommandListElement } from './validator/command/CommandListElement'
 import { validateCommandList } from './validator/command/validateCommandList'
 
 import { CorvusSectionCommand } from './CorvusSectionCommand'
-import { CorvusRuleset } from '../corvus/CorvusRuleset'
-import { CorvusDocumentElementBuilder } from '../corvus/CorvusDocumentElementBuilder'
 import { CorvusRulesetLayout } from '../corvus/CorvusRulesetLayout'
 import { CorvusCharacteristicCommand } from './CorvusCharacteristicCommand'
 import { CorvusMasteryCommand } from './CorvusMasteryCommand'
+import { CorvusRulesetBuilder } from '../corvus/CorvusRulesetBuilder'
 
 function compareByTitle(left: any, right: any): number {
   const leftTitle: string | undefined = left.model.subdivision ? left.model.subdivision() : undefined
@@ -51,10 +50,10 @@ export namespace CorvusRulesetCommand {
   /**
   *
   */
-  export function* reduceContent(classes: Iterable<string> = Empty.ARRAY): UnidocReducer<CorvusRuleset.ElementBuilder> {
-    const result: CorvusRuleset.ElementBuilder = CorvusRuleset.createElementBuilder()
+  export function* reduceContent(classes: Iterable<string> = Empty.ARRAY): UnidocReducer<CorvusRulesetBuilder> {
+    const result: CorvusRulesetBuilder = CorvusRulesetBuilder.create()
 
-    result.model.addClasses(classes)
+    result.addClasses(classes)
 
     yield* UnidocReducer.skipStart()
     yield* UnidocReducer.skipWhitespaces()
@@ -64,23 +63,21 @@ export namespace CorvusRulesetCommand {
 
       if (current.isStartOfAnyTag()) {
         if (current.isStartOfTag('section')) {
-          result.children.push(yield* CorvusSectionCommand.reduceTag())
+          result.appendChild(yield* CorvusSectionCommand.reduceTag())
         } else if (current.isStartOfTag('characteristic')) {
-          result.children.push(yield* CorvusCharacteristicCommand.reduceTag())
+          result.appendChild(yield* CorvusCharacteristicCommand.reduceTag())
         } else if (current.isStartOfTag('mastery')) {
-          result.children.push(yield* CorvusMasteryCommand.reduceTag())
+          result.appendChild(yield* CorvusMasteryCommand.reduceTag())
         } else if (current.isStartOfTag('key')) {
           result.key = yield* UnidocReducer.reduceTag.content(UnidocReducer.reduceToken())
         } else {
           yield* UnidocReducer.skipTag()
         }
       } else if (current.isEnd()) {
-        if (result.model.classes.has('two-column')) {
-          result.model.classes.delete('two-column')
-          result.model.layout = CorvusRulesetLayout.TWO_COLUMN
+        if (result.classes.has('two-column')) {
+          result.classes.delete('two-column')
+          result.layout = CorvusRulesetLayout.TWO_COLUMN
         }
-
-        result.children.sort(compareByTitle)
 
         return result
       } else {
@@ -92,7 +89,7 @@ export namespace CorvusRulesetCommand {
   /**
   *
   */
-  export function* reduceTag(additionalClasses: Iterable<string> = Empty.ARRAY): UnidocReducer<CorvusRuleset.ElementBuilder> {
+  export function* reduceTag(additionalClasses: Iterable<string> = Empty.ARRAY): UnidocReducer<CorvusRulesetBuilder> {
     yield* UnidocReducer.skipStart()
     yield* UnidocReducer.skipWhitespaces()
 

@@ -11,7 +11,7 @@ import { validateCommandList } from './validator/command/validateCommandList'
 
 import { HypertextCommand } from './HypertextCommand'
 import { CorvusDocumentCommand } from './CorvusDocumentCommand'
-import { CorvusBook } from '../corvus/CorvusBook'
+import { CorvusBookBuilder } from '../corvus/CorvusBookBuilder'
 
 /**
  * 
@@ -38,10 +38,10 @@ export namespace CorvusBookCommand {
   /**
   *
   */
-  export function* reduceContent(classes: Iterable<string> = Empty.ARRAY): UnidocReducer<CorvusBook.ElementBuilder> {
-    const result: CorvusBook.ElementBuilder = CorvusBook.createElementBuilder()
+  export function* reduceContent(classes: Iterable<string> = Empty.ARRAY): UnidocReducer<CorvusBookBuilder> {
+    const result: CorvusBookBuilder = CorvusBookBuilder.create()
 
-    result.model.addClasses(classes)
+    result.addClasses(classes)
 
     yield* UnidocReducer.skipStart()
     yield* UnidocReducer.skipWhitespaces()
@@ -53,13 +53,13 @@ export namespace CorvusBookCommand {
         if (current.isStartOfTag('key')) {
           result.key = yield* UnidocReducer.reduceTag.content(UnidocReducer.reduceToken())
         } else if (current.isStartOfTag('lang')) {
-          result.model.lang = yield* UnidocReducer.reduceTag.content(UnidocReducer.reduceToken())
+          result.lang = yield* UnidocReducer.reduceTag.content(UnidocReducer.reduceToken())
         } else if (current.isStartOfTag('title')) {
-          result.model.title = yield* UnidocReducer.reduceTag.content(UnidocReducer.reduceText())
+          result.title = yield* UnidocReducer.reduceTag.content(UnidocReducer.reduceText())
         } else if (current.isStartOfTag('summary')) {
-          result.model.summary = yield* HypertextCommand.reduceTag()
+          result.summary = yield* HypertextCommand.reduceTag()
         } else if (current.isStartOfTag('content')) {
-          result.addChildren(yield* CorvusDocumentCommand.reduceTag())
+          result.appendChildren(yield* CorvusDocumentCommand.reduceTag())
         } else {
           yield* UnidocReducer.skipTag()
         }
@@ -74,7 +74,7 @@ export namespace CorvusBookCommand {
   /**
   *
   */
-  export function* reduceTag(additionalClasses: Iterable<string> = Empty.ARRAY): UnidocReducer<CorvusBook.ElementBuilder> {
+  export function* reduceTag(additionalClasses: Iterable<string> = Empty.ARRAY): UnidocReducer<CorvusBookBuilder> {
     yield* UnidocReducer.skipStart()
     yield* UnidocReducer.skipWhitespaces()
 

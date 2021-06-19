@@ -1,20 +1,61 @@
-$lg-font-size: 16px;
-$md-font-size: 16px;
-$sm-font-size: 14px;
-$xs-font-size: 12px;
+$font-size: (
+  "xs": 12px,
+  "sm": 14px,
+  "md": 16px,
+  "lg": 16px
+);
 
 $link-color: #3498db;
-$text-color: rgba(0.05, 0.05, 0.05, 1.0);
+$text-color: rgba(0.05, 0.05, 0.05, 1);
 $page-color: #ffffff;
 
-$h1-font-size: 1em + 6 * 0.35em;
-$h2-font-size: 1em + 5 * 0.35em;
-$h3-font-size: 1em + 4 * 0.35em;
-$h4-font-size: 1em + 3 * 0.35em;
-$h5-font-size: 1em + 2 * 0.35em;
-$h6-font-size: 1em + 0.35em;
+$header-size: (
+  "xs": (
+    1: 1.8em,
+    2: 1.6em,
+    3: 1.4em,
+    4: 1.3em,
+    5: 1.2em,
+    6: 1em
+  ),
+  "sm": (
+    1: 2.5em,
+    2: 2em,
+    3: 1.8em,
+    4: 1.4em,
+    5: 1.2em,
+    6: 1em
+  ),
+  "md": (
+    1: 2.5em,
+    2: 2em,
+    3: 1.8em,
+    4: 1.4em,
+    5: 1.2em,
+    6: 1em
+  ),
+  "lg": (
+    1: 3em,
+    2: 2.5em,
+    3: 2em,
+    4: 1.8em,
+    5: 1.4em,
+    6: 1em
+  ),
+  "xl": (
+    1: 3em,
+    2: 2.5em,
+    3: 2em,
+    4: 1.8em,
+    5: 1.4em,
+    6: 1em
+  )
+);
 
-$lg-content-spacing: $lg-font-size;
-$md-content-spacing: $md-font-size;
-$sm-content-spacing: $sm-font-size;
-$xs-content-spacing: $xs-font-size;
+$content-spacing: (
+  "xs": 1em,
+  "sm": 0.8em,
+  "md": 0.7em,
+  "lg": 0.5em,
+  "xl": 0.5em
+);

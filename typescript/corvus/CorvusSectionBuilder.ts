@@ -1,26 +1,17 @@
-import { Sets } from '../data/Sets'
+import { ClassAssignableBuilder } from './ClassAssignableBuilder'
+import { KeywordAssignableBuilder } from './KeywordAssignableBuilder'
 
 import { CorvusSection } from './CorvusSection'
-import { CorvusDocumentModelBuilder } from './CorvusDocumentModelBuilder'
+import { StaticCorvusNodeBuilder } from './StaticCorvusNodeBuilder'
 
 /**
 *
 */
-export class CorvusSectionBuilder implements CorvusDocumentModelBuilder<CorvusSection> {
+export class CorvusSectionBuilder extends ClassAssignableBuilder(KeywordAssignableBuilder(StaticCorvusNodeBuilder)) {
   /**
   *
   */
   public title: string
-
-  /**
-  *
-  */
-  public readonly classes: Set<string>
-
-  /**
-  *
-  */
-  public readonly keywords: Set<string>
 
   /**
   *
@@ -33,27 +24,8 @@ export class CorvusSectionBuilder implements CorvusDocumentModelBuilder<CorvusSe
   *
   */
   private constructor() {
+    super()
     this.title = 'Untitled section'
-    this.classes = new Set()
-    this.keywords = new Set()
-  }
-
-  /**
-   * 
-   */
-  public addClasses(classes: Iterable<string>): void {
-    for (const token of classes) {
-      this.classes.add(token)
-    }
-  }
-
-  /**
-   * 
-   */
-  public addKeywords(keywords: Iterable<string>): void {
-    for (const token of keywords) {
-      this.keywords.add(token)
-    }
   }
 
   /**
@@ -74,15 +46,8 @@ export class CorvusSectionBuilder implements CorvusDocumentModelBuilder<CorvusSe
   *
   */
   public equals(other: any): boolean {
-    if (other == null) return false
-    if (other === this) return true
-
-    if (other instanceof CorvusSectionBuilder) {
-      return (
-        other.title === this.title &&
-        Sets.deeplyEquals(other.keywords, this.keywords) &&
-        Sets.deeplyEquals(other.classes, this.classes)
-      )
+    if (super.equals(other) && other instanceof CorvusSectionBuilder) {
+      return other.title === this.title
     }
 
     return false

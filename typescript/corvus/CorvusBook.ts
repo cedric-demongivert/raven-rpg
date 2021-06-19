@@ -2,20 +2,14 @@ import { Set } from 'immutable'
 
 import { Hypertext } from '../state/hypertext/Hypertext'
 import { CorvusBookBuilder } from './CorvusBookBuilder'
-import { CorvusDocumentElementBuilder } from './CorvusDocumentElementBuilder'
+import { CorvusElement } from './CorvusElement'
 
-import { CorvusDocumentModel } from './CorvusDocumentModel'
-import { CorvusDocumentModelType } from './CorvusDocumentModelType'
+import { StaticCorvusDocument } from './StaticCorvusDocument'
 
 /**
 *
 */
-export class CorvusBook implements CorvusDocumentModel {
-  /**
-  *
-  */
-  public readonly type: CorvusDocumentModelType.BOOK
-
+export class CorvusBook extends StaticCorvusDocument {
   /**
   *
   */
@@ -39,15 +33,15 @@ export class CorvusBook implements CorvusDocumentModel {
   /**
   *
   */
-  public static create(properties: Readonly<CorvusBook.Properties>): CorvusBook {
+  public static create(properties: CorvusBookBuilder): CorvusBook {
     return new CorvusBook(properties)
   }
 
   /**
   *
   */
-  private constructor(properties: CorvusBook.Properties) {
-    this.type = CorvusDocumentModelType.BOOK
+  private constructor(properties: CorvusBookBuilder) {
+    super(properties)
     this.lang = properties.lang
     this.title = properties.title
     this.summary = properties.summary || undefined
@@ -58,10 +52,7 @@ export class CorvusBook implements CorvusDocumentModel {
   *
   */
   public equals(other: any): boolean {
-    if (other == null) return false
-    if (other === this) return true
-
-    if (other instanceof CorvusBook) {
+    if (super.equals(other) && other instanceof CorvusBook) {
       return (
         other.lang === this.lang &&
         other.title === this.title &&
@@ -81,63 +72,16 @@ export namespace CorvusBook {
   /**
   *
   */
-  export type Properties = {
-    /**
-    *
-    */
-    lang: string,
-
-    /**
-    *
-    */
-    title: string,
-
-    /**
-    *
-    */
-    summary?: Hypertext | undefined,
-
-    /**
-     * 
-     */
-    classes?: Iterable<string> | undefined
-  }
-
-  /**
-  *
-  */
-  export function is(element: CorvusDocumentModel | null | undefined): element is CorvusBook {
+  export function is(element: CorvusElement | null | undefined): element is CorvusBook {
     return element && element instanceof CorvusBook
   }
 
   /**
   *
   */
-  export function assert(element: CorvusDocumentModel | null | undefined, message?: string | undefined): asserts element is CorvusBook {
+  export function assert(element: CorvusElement | null | undefined, message?: string | undefined): asserts element is CorvusBook {
     if (element == undefined || !(element instanceof CorvusBook)) {
       throw new Error(message || 'The given element is not a corvus book.')
     }
-  }
-
-  /**
-   * 
-   */
-  export type Builder = CorvusBookBuilder
-
-  /**
-   * 
-   */
-  export type ElementBuilder = CorvusDocumentElementBuilder<CorvusBook, Builder>
-
-  /**
-   * 
-   */
-  export const createBuilder: typeof CorvusBookBuilder.create = CorvusBookBuilder.create
-
-  /**
-   * 
-   */
-  export function createElementBuilder(): ElementBuilder {
-    return CorvusDocumentElementBuilder.create(createBuilder())
   }
 }

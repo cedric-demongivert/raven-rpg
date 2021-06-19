@@ -10,8 +10,8 @@ import { CommandListElement } from './validator/command/CommandListElement'
 import { validateCommandList } from './validator/command/validateCommandList'
 
 import { HypertextCommand } from './HypertextCommand'
-import { CorvusSection } from '../corvus/CorvusSection'
 import { CorvusDocumentCommand } from './CorvusDocumentCommand'
+import { CorvusSectionBuilder } from '../corvus/CorvusSectionBuilder'
 
 /**
  * 
@@ -49,10 +49,10 @@ export namespace CorvusSectionCommand {
   /**
   *
   */
-  export function* reduceContent(classes: Iterable<string> = Empty.ARRAY): UnidocReducer<CorvusSection.ElementBuilder> {
-    const result: CorvusSection.ElementBuilder = CorvusSection.createElementBuilder()
+  export function* reduceContent(classes: Iterable<string> = Empty.ARRAY): UnidocReducer<CorvusSectionBuilder> {
+    const result: CorvusSectionBuilder = CorvusSectionBuilder.create()
 
-    result.model.addClasses(classes)
+    result.addClasses(classes)
 
     yield* UnidocReducer.skipStart()
     yield* UnidocReducer.skipWhitespaces()
@@ -62,15 +62,15 @@ export namespace CorvusSectionCommand {
 
       if (current.isStartOfAnyTag()) {
         if (current.isStartOfTag('title')) {
-          result.model.title = yield* UnidocReducer.reduceTag.content(UnidocReducer.reduceText())
+          result.title = yield* UnidocReducer.reduceTag.content(UnidocReducer.reduceText())
         } else if (current.isStartOfTag('keyword')) {
-          result.model.keywords.add(yield* UnidocReducer.reduceTag.content(UnidocReducer.reduceToken()))
+          result.addKeyword(yield* UnidocReducer.reduceTag.content(UnidocReducer.reduceToken()))
         } else if (current.isStartOfTag('key')) {
           result.key = yield* UnidocReducer.reduceTag.content(UnidocReducer.reduceToken())
         } else if (current.isStartOfTag('summary')) {
           yield* UnidocReducer.skipTag()
         } else {
-          result.addChildren(yield* CorvusDocumentCommand.reduceContent())
+          result.appendChildren(yield* CorvusDocumentCommand.reduceContent())
         }
       } else if (current.isEnd()) {
         return result
@@ -83,7 +83,7 @@ export namespace CorvusSectionCommand {
   /**
   *
   */
-  export function* reduceTag(additionalClasses: Iterable<string> = Empty.ARRAY): UnidocReducer<CorvusSection.ElementBuilder> {
+  export function* reduceTag(additionalClasses: Iterable<string> = Empty.ARRAY): UnidocReducer<CorvusSectionBuilder> {
     yield* UnidocReducer.skipStart()
     yield* UnidocReducer.skipWhitespaces()
 

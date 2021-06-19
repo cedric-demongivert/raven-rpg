@@ -1,15 +1,14 @@
-import { Sets } from '../data/Sets'
 import { Empty } from '../utils/Empty'
+import { ClassAssignableBuilder } from './ClassAssignableBuilder'
 
 import { CorvusImage } from './CorvusImage'
 import { CorvusImageFormat } from './CorvusImageFormat'
-import { CorvusDocumentModelBuilder } from './CorvusDocumentModelBuilder'
-import { CorvusDocumentElementBuilder } from './CorvusDocumentElementBuilder'
+import { StaticCorvusElementBuilder } from './StaticCorvusElementBuilder'
 
 /**
 *
 */
-export class CorvusImageBuilder implements CorvusDocumentModelBuilder<CorvusImage> {
+export class CorvusImageBuilder extends ClassAssignableBuilder(StaticCorvusElementBuilder) {
   /**
    *
    */
@@ -31,11 +30,6 @@ export class CorvusImageBuilder implements CorvusDocumentModelBuilder<CorvusImag
   public height: string | undefined
 
   /**
-   *
-   */
-  public classes: Set<string>
-
-  /**
   *
   */
   public static create(): CorvusImageBuilder {
@@ -46,20 +40,11 @@ export class CorvusImageBuilder implements CorvusDocumentModelBuilder<CorvusImag
   *
   */
   private constructor() {
+    super()
     this.path = Empty.STRING
     this.format = undefined
     this.width = undefined
     this.height = undefined
-    this.classes = new Set()
-  }
-
-  /**
-   * 
-   */
-  public addClasses(classes: Iterable<string>): void {
-    for (const token of classes) {
-      this.classes.add(token)
-    }
   }
 
   /**
@@ -73,36 +58,15 @@ export class CorvusImageBuilder implements CorvusDocumentModelBuilder<CorvusImag
   *
   */
   public equals(other: any): boolean {
-    if (other == null) return false
-    if (other === this) return true
-
-    if (other instanceof CorvusImageBuilder) {
+    if (super.equals(other) && other instanceof CorvusImageBuilder) {
       return (
         other.path === other.path &&
         other.format === other.format &&
         other.width === other.width &&
-        other.height === other.height &&
-        Sets.deeplyEquals(other.classes, this.classes)
+        other.height === other.height
       )
     }
 
     return false
-  }
-}
-
-/**
- * 
- */
-export namespace CorvusImageBuilder {
-  /**
-   * 
-   */
-  export type ElementBuilder = CorvusDocumentElementBuilder<CorvusImage, CorvusImageBuilder>
-
-  /**
-   * 
-   */
-  export function createElementBuilder(): ElementBuilder {
-    return CorvusDocumentElementBuilder.create(CorvusImageBuilder.create())
   }
 }

@@ -1,17 +1,17 @@
-import { Sets } from '../data/Sets'
 import { Hypertext } from '../state/hypertext/Hypertext'
 import { equals } from '../utils/equals'
 
+import { ClassAssignableBuilder } from './ClassAssignableBuilder'
 import { CorvusBook } from './CorvusBook'
-import { CorvusDocumentModelBuilder } from './CorvusDocumentModelBuilder'
+import { StaticCorvusDocumentBuilder } from './StaticCorvusDocumentBuilder'
 
 /**
 *
 */
-export class CorvusBookBuilder implements CorvusDocumentModelBuilder<CorvusBook> {
+export class CorvusBookBuilder extends ClassAssignableBuilder(StaticCorvusDocumentBuilder) {
   /**
-    *
-    */
+   *
+   */
   public lang: string | undefined
 
   /**
@@ -25,11 +25,6 @@ export class CorvusBookBuilder implements CorvusDocumentModelBuilder<CorvusBook>
   public summary: Hypertext | undefined
 
   /**
-   *
-   */
-  public readonly classes: Set<string>
-
-  /**
   *
   */
   public static create(): CorvusBookBuilder {
@@ -40,19 +35,10 @@ export class CorvusBookBuilder implements CorvusDocumentModelBuilder<CorvusBook>
   *
   */
   private constructor() {
+    super()
     this.lang = undefined
     this.title = undefined
     this.summary = undefined
-    this.classes = new Set()
-  }
-
-  /**
-   * 
-   */
-  public addClasses(classes: Iterable<string>): void {
-    for (const token of classes) {
-      this.classes.add(token)
-    }
   }
 
   /**
@@ -66,15 +52,11 @@ export class CorvusBookBuilder implements CorvusDocumentModelBuilder<CorvusBook>
   *
   */
   public equals(other: any): boolean {
-    if (other == null) return false
-    if (other === this) return true
-
-    if (other instanceof CorvusBookBuilder) {
+    if (super.equals(other) && other instanceof CorvusBookBuilder) {
       return (
         other.lang === this.lang &&
         other.title === this.title &&
-        equals(other.summary, this.summary) &&
-        Sets.deeplyEquals(other.classes, this.classes)
+        equals(other.summary, this.summary)
       )
     }
 

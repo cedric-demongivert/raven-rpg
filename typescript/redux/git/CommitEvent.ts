@@ -5,7 +5,7 @@ import { Commit } from '../../state/git/Commit'
 import { Resource } from '../../state/resource/Resource'
 
 import { CommitAction } from './CommitAction'
-import { CorvusCommit } from '../../corvus'
+import { CorvusCommit } from '../../corvus/CorvusCommit'
 
 export namespace CommitEvent {
   /**

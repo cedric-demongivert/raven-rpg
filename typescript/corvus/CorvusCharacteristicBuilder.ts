@@ -1,26 +1,16 @@
-import { Sets } from '../data/Sets'
-
 import { CorvusCharacteristic } from './CorvusCharacteristic'
-import { CorvusDocumentModelBuilder } from './CorvusDocumentModelBuilder'
+import { StaticCorvusNodeBuilder } from './StaticCorvusNodeBuilder'
+import { ClassAssignableBuilder } from './ClassAssignableBuilder'
+import { KeywordAssignableBuilder } from './KeywordAssignableBuilder'
 
 /**
 *
 */
-export class CorvusCharacteristicBuilder implements CorvusDocumentModelBuilder<CorvusCharacteristic> {
+export class CorvusCharacteristicBuilder extends ClassAssignableBuilder(KeywordAssignableBuilder(StaticCorvusNodeBuilder)) {
   /**
   *
   */
   public title: string
-
-  /**
-  *
-  */
-  public readonly classes: Set<string>
-
-  /**
-  *
-  */
-  public readonly keywords: Set<string>
 
   /**
   *
@@ -33,9 +23,8 @@ export class CorvusCharacteristicBuilder implements CorvusDocumentModelBuilder<C
   *
   */
   private constructor() {
+    super()
     this.title = 'Untitled characteristic'
-    this.classes = new Set()
-    this.keywords = new Set()
   }
 
   /**
@@ -43,24 +32,6 @@ export class CorvusCharacteristicBuilder implements CorvusDocumentModelBuilder<C
    */
   public subdivision(): string {
     return this.title
-  }
-
-  /**
-   * 
-   */
-  public addClasses(classes: Iterable<string>): void {
-    for (const token of classes) {
-      this.classes.add(token)
-    }
-  }
-
-  /**
-   * 
-   */
-  public addKeywords(keywords: Iterable<string>): void {
-    for (const token of keywords) {
-      this.keywords.add(token)
-    }
   }
 
   /**
@@ -74,15 +45,8 @@ export class CorvusCharacteristicBuilder implements CorvusDocumentModelBuilder<C
   *
   */
   public equals(other: any): boolean {
-    if (other == null) return false
-    if (other === this) return true
-
-    if (other instanceof CorvusCharacteristicBuilder) {
-      return (
-        other.title === this.title &&
-        Sets.deeplyEquals(other.keywords, this.keywords) &&
-        Sets.deeplyEquals(other.classes, this.classes)
-      )
+    if (super.equals(other) && other instanceof CorvusCharacteristicBuilder) {
+      return this.title === other.title
     }
 
     return false

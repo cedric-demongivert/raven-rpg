@@ -10,9 +10,9 @@ import * as validators from './validator'
 
 import { Reader } from './Reader'
 import { RepositoryCommand } from './RepositoryCommand'
-import { CorvusDocumentElementBuilder } from '../corvus'
+import { CorvusDocumentBuilder } from '../corvus/CorvusDocumentBuilder'
 
-export function readRepository(commit: Entry<Commit>): Promise<CorvusDocumentElementBuilder> {
+export function readRepository(commit: Entry<Commit>): Promise<CorvusDocumentBuilder> {
   return new Promise(function (resolve, reject) {
     const reader: Reader = new Reader(commit.model)
     const validator: UnidocValidator = UnidocValidator.kiss(
@@ -22,7 +22,7 @@ export function readRepository(commit: Entry<Commit>): Promise<CorvusDocumentEle
     validator.subscribe(reader.output)
     //validator.addEventListener(UnidocProducerEvent.PRODUCTION, x => console.log(x.toString()))
 
-    const parser: UnidocProducer<CorvusDocumentElementBuilder> = UnidocReducer.reduce.validation(
+    const parser: UnidocProducer<CorvusDocumentBuilder> = UnidocReducer.reduce.validation(
       validator, () => RepositoryCommand.reduceTag()
     )
 

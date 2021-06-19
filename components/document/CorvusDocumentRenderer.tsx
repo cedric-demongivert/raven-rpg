@@ -3,7 +3,7 @@ import { ReactElement } from 'react'
 import { CorvusDocument } from '../../typescript/corvus/CorvusDocument'
 import classnames from 'classnames'
 
-import { CorvusDocumentElementRenderer } from './CorvusDocumentElementRenderer'
+import { CorvusElementRenderer } from './CorvusElementRenderer'
 
 /**
 *
@@ -15,7 +15,7 @@ export function CorvusDocumentRenderer(properties: CorvusDocumentRenderer.Proper
 
   return (
     <div className={classnames('rpg-document', properties.className)}>
-      <CorvusDocumentElementRenderer depth={properties.depth || 0} document={properties.document} element={0} />
+      <CorvusElementRenderer depth={properties.depth || 0} document={properties.document} element={0} />
     </div>
   )
 }

@@ -1,0 +1,11 @@
+a,
+a:hover {
+  text-decoration: none;
+  color: $link-color;
+}
+
+a {
+  &:target {
+    color: #ff7e00;
+  }
+}

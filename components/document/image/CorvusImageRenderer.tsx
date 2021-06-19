@@ -6,7 +6,7 @@ import { CorvusDocument } from '../../../typescript/corvus/CorvusDocument'
 import { Resource } from '../../../typescript/state/resource/Resource'
 import { RPGImageFormat } from '../../../typescript/state/rpg'
 import { SVGImageRenderer } from './SVGImageRenderer'
-import { CorvusDocumentElement } from '../../../typescript/corvus/CorvusDocumentElement'
+import { CorvusElement } from '../../../typescript/corvus/CorvusElement'
 
 /**
  * 
@@ -17,14 +17,16 @@ export function CorvusImageRenderer(properties: CorvusImageRenderer.Properties):
   } 
 
   const document: CorvusDocument = properties.document
-  const element: CorvusDocumentElement<CorvusImage> = document.requireByIdentifier(properties.element, CorvusImage.assert)
+  const element: CorvusElement = document.require(properties.element)
+
+  CorvusImage.assert(element)
   
-  switch (element.model.format) {
+  switch (element.format) {
     case RPGImageFormat.SVG:
       return <SVGImageRenderer {...properties} />
     default:
       throw new Error(
-        'Unable to render image of type ' + RPGImageFormat.toDebugString(element.model.format) + 
+        'Unable to render image of type ' + RPGImageFormat.toDebugString(element.format) + 
         ' as no procedure was defined for that.'
       )
   }

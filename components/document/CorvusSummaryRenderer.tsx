@@ -2,9 +2,8 @@ import React from 'react'
 import { CorvusDocument } from '../../typescript/corvus/CorvusDocument'
 import classnames from 'classnames'
 
-import { CorvusDocumentElement } from '../../typescript/corvus/CorvusDocumentElement'
-import { CorvusDocumentSubdivision } from '../../typescript/corvus/CorvusDocumentSubdivision'
-import { CorvusDocumentModel } from '../../typescript/corvus'
+import { CorvusElement } from '../../typescript/corvus/CorvusElement'
+import { CorvusSubdivision, CorvusSubidivison } from '../../typescript/corvus/CorvusSubdivision'
 
 /**
  * 
@@ -13,7 +12,7 @@ type SummaryElement = {
   /**
    * 
    */
-  readonly element: CorvusDocumentElement,
+  readonly element: CorvusElement,
 
   /**
    * 
@@ -30,24 +29,14 @@ type SummaryElement = {
  * 
  */
 function extractSummaryElements(document: CorvusDocument, root: number): SummaryElement[] {
-  const stack: number[] = [ root ]
   const result: SummaryElement[] = []
 
-  while (stack.length > 0) {
-    const element: CorvusDocumentElement = document.requireByIdentifier(stack.pop())
-    const model: CorvusDocumentModel = element.model
-
-    if (element.children) {
-      for (let index = 0; index < element.children.size; ++index) {
-        stack.push(element.children.get(element.children.size - index - 1))
-      }
-    }
-
-    if (CorvusDocumentSubdivision.is(model)) {
+  for (const element of document.elements()) {
+    if (CorvusSubidivison.is(element)) {
       result.push({
         element,
         depth: document.depth(element.identifier),
-        title: model.subdivision()
+        title: CorvusSubidivison.get(element)
       })
     }
   }
@@ -98,10 +87,10 @@ export function CorvusSummaryRenderer(properties: CorvusSummaryRenderer.Properti
   return (
     <div className={classnames('rpg-document rpg-summary', properties.className)}>
       <div className='row'>
-        <div className='col-12 col-lg-6'>
+        <div className='col-12 col-md-6 col-lg-12 col-xl-6'>
           { left.map(renderSummaryElement) }
         </div>
-        <div className='col-12 col-lg-6'>
+        <div className='col-12 col-md-6 col-lg-12 col-xl-6'>
           { right.map(renderSummaryElement) }
         </div>
       </div>

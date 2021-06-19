@@ -1,27 +1,19 @@
 import { Sets } from '../data/Sets'
 
 import { CorvusMastery } from './CorvusMastery'
-import { CorvusDocumentModelBuilder } from './CorvusDocumentModelBuilder'
 import { CorvusReference } from './CorvusReference'
+import { ClassAssignableBuilder } from './ClassAssignableBuilder'
+import { KeywordAssignableBuilder } from './KeywordAssignableBuilder'
+import { StaticCorvusNodeBuilder } from './StaticCorvusNodeBuilder'
 
 /**
 *
 */
-export class CorvusMasteryBuilder implements CorvusDocumentModelBuilder<CorvusMastery> {
+export class CorvusMasteryBuilder extends ClassAssignableBuilder(KeywordAssignableBuilder(StaticCorvusNodeBuilder)) {
   /**
   *
   */
   public title: string
-
-  /**
-  *
-  */
-  public readonly classes: Set<string>
-
-  /**
-  *
-  */
-  public readonly keywords: Set<string>
 
   /**
   *
@@ -39,9 +31,8 @@ export class CorvusMasteryBuilder implements CorvusDocumentModelBuilder<CorvusMa
   *
   */
   private constructor() {
+    super()
     this.title = 'Untitled mastery'
-    this.classes = new Set()
-    this.keywords = new Set()
     this.innates = new Set()
   }
 
@@ -55,28 +46,12 @@ export class CorvusMasteryBuilder implements CorvusDocumentModelBuilder<CorvusMa
   /**
    * 
    */
-  public addClasses(classes: Iterable<string>): void {
-    for (const token of classes) {
-      this.classes.add(token)
-    }
-  }
-
-  /**
-   * 
-   */
-  public addKeywords(keywords: Iterable<string>): void {
-    for (const token of keywords) {
-      this.keywords.add(token)
-    }
-  }
-
-  /**
-   * 
-   */
-  public addInnates(innates: Iterable<CorvusReference>): void {
+  public addInnates(innates: Iterable<CorvusReference>): this {
     for (const token of innates) {
       this.innates.add(token)
     }
+
+    return this
   }
 
   /**
@@ -90,14 +65,9 @@ export class CorvusMasteryBuilder implements CorvusDocumentModelBuilder<CorvusMa
   *
   */
   public equals(other: any): boolean {
-    if (other == null) return false
-    if (other === this) return true
-
-    if (other instanceof CorvusMasteryBuilder) {
+    if (super.equals(other) && other instanceof CorvusMasteryBuilder) {
       return (
         other.title === this.title &&
-        Sets.deeplyEquals(other.keywords, this.keywords) &&
-        Sets.deeplyEquals(other.classes, this.classes) &&
         Sets.deeplyEquals(other.innates, this.innates)
       )
     }

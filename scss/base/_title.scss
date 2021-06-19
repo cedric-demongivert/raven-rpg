@@ -1,0 +1,48 @@
+@use "sass:map";
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Alegreya SC", serif;
+  padding: 0px;
+  margin: 0px;
+  border: none;
+  box-sizing: border-box;
+  margin-bottom: map.get($content-spacing, "xs");
+
+  color: $text-color;
+
+  &:target {
+    color: #ff7e00;
+  }
+}
+
+@for $level from 1 to 6 {
+  h#{$level} {
+    font-size: map.get(map.get($header-size, "xs"), $level);
+  }
+}
+
+@each $breakpoint in ("sm", "md", "lg", "xl") {
+  @include media-breakpoint-up($breakpoint) {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      margin-bottom: map.get($content-spacing, $breakpoint);
+    }
+  }
+
+  @for $level from 1 to 6 {
+    @include media-breakpoint-up($breakpoint) {
+      h#{$level} {
+        font-size: map.get(map.get($header-size, $breakpoint), $level);
+      }
+    }
+  }
+}

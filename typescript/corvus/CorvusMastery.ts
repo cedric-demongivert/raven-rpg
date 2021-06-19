@@ -1,20 +1,13 @@
 import { Set } from 'immutable'
-import { CorvusDocumentElement } from './CorvusDocumentElement'
-import { CorvusDocumentElementBuilder } from './CorvusDocumentElementBuilder'
-import { CorvusDocumentModel } from './CorvusDocumentModel'
-import { CorvusDocumentModelType } from './CorvusDocumentModelType'
+import { CorvusElement } from './CorvusElement'
 import { CorvusMasteryBuilder } from './CorvusMasteryBuilder'
 import { CorvusReference } from './CorvusReference'
+import { StaticCorvusNode } from './StaticCorvusNode'
 
 /**
 *
 */
-export class CorvusMastery implements CorvusDocumentModel {
-  /**
-  *
-  */
-  public readonly type: CorvusDocumentModelType.MASTERY
-
+export class CorvusMastery extends StaticCorvusNode {
   /**
   *
   */
@@ -38,15 +31,15 @@ export class CorvusMastery implements CorvusDocumentModel {
   /**
    * 
    */
-  public static create(properties: CorvusMastery.Properties): CorvusMastery {
+  public static create(properties: Readonly<CorvusMasteryBuilder>): CorvusMastery {
     return new CorvusMastery(properties)
   }
 
   /**
   *
   */
-  private constructor(properties: CorvusMastery.Properties) {
-    this.type = CorvusDocumentModelType.MASTERY
+  private constructor(properties: Readonly<CorvusMasteryBuilder>) {
+    super(properties)
     this.title = properties.title
     this.innates = Set(properties.innates)
     this.classes = Set(properties.classes)
@@ -77,14 +70,12 @@ export class CorvusMastery implements CorvusDocumentModel {
   *
   */
   public equals(other: any): boolean {
-    if (other == null) return false
-    if (other === this) return true
-
-    if (other instanceof CorvusMastery) {
+    if (super.equals(other) && other instanceof CorvusMastery) {
       return (
-        other.title === this.title &&
+        other.title == this.title &&
+        other.classes.equals(this.classes) &&
         other.keywords.equals(this.keywords) &&
-        other.classes.equals(this.classes)
+        other.innates.equals(this.innates)
       )
     }
 
@@ -99,77 +90,16 @@ export namespace CorvusMastery {
   /**
   *
   */
-  export type Properties = {
-    /**
-    *
-    */
-    classes?: Iterable<string> | undefined,
-
-    /**
-    *
-    */
-    title: string,
-
-    /**
-    *
-    */
-    keywords?: Iterable<string> | undefined,
-
-    /**
-    *
-    */
-    innates?: Iterable<CorvusReference> | undefined
-  }
-
-  /**
-  *
-  */
-  export function is(element: CorvusDocumentModel | null | undefined): element is CorvusMastery {
+  export function is(element: CorvusElement | null | undefined): element is CorvusMastery {
     return element && element instanceof CorvusMastery
   }
 
   /**
   *
   */
-  export function assert(element: CorvusDocumentModel | null | undefined, message?: string | undefined): asserts element is CorvusMastery {
+  export function assert(element: CorvusElement | null | undefined, message?: string | undefined): asserts element is CorvusMastery {
     if (element == undefined || !(element instanceof CorvusMastery)) {
       throw new Error(message || 'The given element is not a corvus characteristic.')
     }
-  }
-
-  /**
-  *
-  */
-  export function compareByTitle(left: CorvusMastery, right: CorvusMastery): number {
-    return left.title.localeCompare(right.title)
-  }
-
-  /**
-  *
-  */
-  export function compareElementByTitle(left: CorvusDocumentElement<CorvusMastery>, right: CorvusDocumentElement<CorvusMastery>): number {
-    return compareByTitle(left.model, right.model)
-  }
-
-  /**
-   * 
-   */
-  export type Builder = CorvusMasteryBuilder
-
-  /**
-   * 
-   */
-  export type ElementBuilder = CorvusDocumentElementBuilder<CorvusMastery, Builder>
-
-  /**
-   * 
-   */
-  export const createBuilder: typeof CorvusMasteryBuilder.create = CorvusMasteryBuilder.create
-
-  /**
-   * 
-   */
-  export function createElementBuilder(): ElementBuilder {
-    return CorvusDocumentElementBuilder.create(createBuilder())
   }
 }

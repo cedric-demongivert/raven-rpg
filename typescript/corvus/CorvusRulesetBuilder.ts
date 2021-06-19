@@ -1,21 +1,17 @@
-import { Sets } from '../data/Sets'
-
-import { CorvusDocumentModelBuilder } from './CorvusDocumentModelBuilder'
+import { StaticCorvusNodeBuilder } from './StaticCorvusNodeBuilder'
 import { CorvusRulesetLayout } from './CorvusRulesetLayout'
 import { CorvusRuleset } from './CorvusRuleset'
+import { ClassAssignableBuilder } from './ClassAssignableBuilder'
+import { CorvusSubidivison } from './CorvusSubdivision'
+
 /**
 *
 */
-export class CorvusRulesetBuilder implements CorvusDocumentModelBuilder<CorvusRuleset> {
+export class CorvusRulesetBuilder extends ClassAssignableBuilder(StaticCorvusNodeBuilder) {
   /**
   *
   */
   public layout: CorvusRulesetLayout
-
-  /**
-  *
-  */
-  public readonly classes: Set<string>
 
   /**
   *
@@ -28,17 +24,20 @@ export class CorvusRulesetBuilder implements CorvusDocumentModelBuilder<CorvusRu
   *
   */
   private constructor() {
+    super()
     this.layout = CorvusRulesetLayout.DEFAULT
-    this.classes = new Set()
   }
 
   /**
    * 
    */
-  public addClasses(classes: Iterable<string>): void {
-    for (const token of classes) {
-      this.classes.add(token)
-    }
+  // @WARNING -> add beforeBuild hook
+  public assign(identifierGenerator: Generator<number>): this {
+    this._children.sort(CorvusSubidivison.compareBySubdivision)
+
+    super.assign(identifierGenerator)
+
+    return this
   }
 
   /**
@@ -52,14 +51,8 @@ export class CorvusRulesetBuilder implements CorvusDocumentModelBuilder<CorvusRu
   *
   */
   public equals(other: any): boolean {
-    if (other == null) return false
-    if (other === this) return true
-
-    if (other instanceof CorvusRulesetBuilder) {
-      return (
-        other.layout === this.layout &&
-        Sets.deeplyEquals(other.classes, this.classes)
-      )
+    if (super.equals(this) && other instanceof CorvusRulesetBuilder) {
+      return other.layout === this.layout
     }
 
     return false

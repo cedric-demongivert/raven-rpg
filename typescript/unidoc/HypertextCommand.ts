@@ -59,7 +59,7 @@ export namespace HypertextCommand {
       }
 
       if (current.isAnyWord()) {
-        next = shyfy(current.event.text, shyfy.fr) // warning, not perfect
+        next = current.event.text //shyfy(current.event.text, shyfy.fr) // warning, not perfect
         current = yield UnidocReductionRequest.NEXT
       } else if (current.isStartOfAnyTag()) {
         if (current.isStartOfTag('emphasize')) {

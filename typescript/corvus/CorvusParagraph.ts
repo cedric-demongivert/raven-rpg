@@ -1,22 +1,15 @@
 import { Set } from 'immutable'
 
 import { Hypertext } from '../state/hypertext/Hypertext'
-import { CorvusDocumentElementBuilder } from './CorvusDocumentElementBuilder'
-
-import { CorvusDocumentModel } from './CorvusDocumentModel'
-import { CorvusDocumentModelType } from './CorvusDocumentModelType'
+import { StaticCorvusElement } from './StaticCorvusElement'
 
 import { CorvusParagraphBuilder } from './CorvusParagraphBuilder'
+import { CorvusElement } from './CorvusElement'
 
 /**
 *
 */
-export class CorvusParagraph implements CorvusDocumentModel {
-  /**
-  *
-  */
-  public readonly type: CorvusDocumentModelType.PARAGRAPH
-
+export class CorvusParagraph extends StaticCorvusElement {
   /**
   *
   */
@@ -35,16 +28,17 @@ export class CorvusParagraph implements CorvusDocumentModel {
   /**
   *
   */
-  public static create(properties: Readonly<CorvusParagraph.Properties>): CorvusParagraph {
+  public static create(properties: Readonly<CorvusParagraphBuilder>): CorvusParagraph {
     return new CorvusParagraph(properties)
   }
 
   /**
   *
   */
-  private constructor(properties: Readonly<CorvusParagraph.Properties>) {
-    this.type = CorvusDocumentModelType.PARAGRAPH
-    this.title = properties.title || undefined
+  private constructor(properties: Readonly<CorvusParagraphBuilder>) {
+    super(properties)
+
+    this.title = properties.title
     this.content = properties.content
     this.classes = Set(properties.classes)
   }
@@ -53,10 +47,7 @@ export class CorvusParagraph implements CorvusDocumentModel {
   *
   */
   public equals(other: any): boolean {
-    if (other == null) return false
-    if (other === this) return true
-
-    if (other instanceof CorvusParagraph) {
+    if (super.equals(other) && other instanceof CorvusParagraph) {
       return (
         other.title === this.title &&
         other.content.equals(this.content) &&
@@ -75,58 +66,15 @@ export namespace CorvusParagraph {
   /**
   *
   */
-  export type Properties = {
-    /**
-    *
-    */
-    title?: string | undefined,
-
-    /**
-    *
-    */
-    classes?: Iterable<string> | undefined,
-
-    /**
-    *
-    */
-    content?: Hypertext | undefined
-  }
-
-  /**
-  *
-  */
-  export function is(element: CorvusDocumentModel | null | undefined): element is CorvusParagraph {
+  export function is(element: CorvusElement | null | undefined): element is CorvusParagraph {
     return element && element instanceof CorvusParagraph
   }
 
   /**
   *
   */
-  export function assert(element: CorvusDocumentModel | null | undefined, message?: string | undefined): asserts element is CorvusParagraph {
-    if (element == undefined || !(element instanceof CorvusParagraph)) {
-      throw new Error(message || 'The given element is not a corvus document paragraph.')
-    }
-  }
-
-  /**
-   * 
-   */
-  export type Builder = CorvusParagraphBuilder
-
-  /**
-   * 
-   */
-  export type ElementBuilder = CorvusDocumentElementBuilder<CorvusParagraph, Builder>
-
-  /**
-   * 
-   */
-  export const createBuilder: typeof CorvusParagraphBuilder.create = CorvusParagraphBuilder.create
-
-  /**
-   * 
-   */
-  export function createElementBuilder(): ElementBuilder {
-    return CorvusDocumentElementBuilder.create(createBuilder())
+  export function assert(element: CorvusElement | null | undefined, message?: string | undefined): asserts element is CorvusParagraph {
+    if (is(element)) return
+    throw new Error(message || 'The given element is not a corvus document paragraph.')
   }
 }

@@ -1,13 +1,13 @@
 import { Hypertext } from '../state/hypertext/Hypertext'
-import { Sets } from '../data/Sets'
 
-import { CorvusDocumentModelBuilder } from './CorvusDocumentModelBuilder'
+import { StaticCorvusElementBuilder } from './StaticCorvusElementBuilder'
 import { CorvusParagraph } from './CorvusParagraph'
+import { ClassAssignableBuilder } from './ClassAssignableBuilder'
 
 /**
 *
 */
-export class CorvusParagraphBuilder implements CorvusDocumentModelBuilder<CorvusParagraph> {
+export class CorvusParagraphBuilder extends ClassAssignableBuilder(StaticCorvusElementBuilder) {
   /**
    *
    */
@@ -17,11 +17,6 @@ export class CorvusParagraphBuilder implements CorvusDocumentModelBuilder<Corvus
   *
   */
   public content: Hypertext
-
-  /**
-   *
-   */
-  public readonly classes: Set<string>
 
   /**
   *
@@ -34,18 +29,10 @@ export class CorvusParagraphBuilder implements CorvusDocumentModelBuilder<Corvus
   *
   */
   private constructor() {
+    super()
+
     this.title = undefined
     this.content = Hypertext.EMPTY
-    this.classes = new Set()
-  }
-
-  /**
-   * 
-   */
-  public addClasses(classes: Iterable<string>): void {
-    for (const token of classes) {
-      this.classes.add(token)
-    }
   }
 
   /**
@@ -59,14 +46,10 @@ export class CorvusParagraphBuilder implements CorvusDocumentModelBuilder<Corvus
   *
   */
   public equals(other: any): boolean {
-    if (other == null) return false
-    if (other === this) return true
-
-    if (other instanceof CorvusParagraphBuilder) {
+    if (super.equals(other) && other instanceof CorvusParagraphBuilder) {
       return (
         other.title === this.title &&
-        other.content.equals(this.content) &&
-        Sets.deeplyEquals(other.classes, this.classes)
+        other.content.equals(this.content)
       )
     }
 

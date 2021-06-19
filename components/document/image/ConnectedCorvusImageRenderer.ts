@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { CorvusDocument } from '../../../typescript/corvus/CorvusDocument'
-import { CorvusDocumentElement } from '../../../typescript/corvus/CorvusDocumentElement'
+import { CorvusElement } from '../../../typescript/corvus/CorvusElement'
 import { CorvusImage } from '../../../typescript/corvus/CorvusImage'
 import { Entry } from '../../../typescript/data/Entry'
 
@@ -14,9 +14,11 @@ import { CorvusImageRenderer } from './CorvusImageRenderer'
 */
 function mapStateToProps(state: Application, ownProps: Readonly<ConnectedCorvusImageRenderer.Properties>): CorvusImageRenderer.Properties {
   const document: CorvusDocument = ownProps.document
-  const element: CorvusDocumentElement<CorvusImage> = document.requireByIdentifier(ownProps.element, CorvusImage.assert)
+  const element: CorvusElement = document.require(ownProps.element)
 
-  const resource: Entry<Resource> | undefined = state.resources.get(state.commits.latest(state.repositories.all.first()), element.model.path)
+  CorvusImage.assert(element)
+
+  const resource: Entry<Resource> | undefined = state.resources.get(state.commits.latest(state.repositories.all.first()), element.path)
 
   return {
     resource: resource == null ? undefined : resource.model, // @todo get repository

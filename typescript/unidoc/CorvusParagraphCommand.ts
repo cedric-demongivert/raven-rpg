@@ -4,13 +4,13 @@ import { UnidocReductionRequest } from '@cedric-demongivert/unidoc'
 import { UnidocReducer } from '@cedric-demongivert/unidoc'
 
 import { Empty } from '../utils/Empty'
-import { CorvusParagraph } from '../corvus/CorvusParagraph'
 
 import { CommandList } from './validator/command/CommandList'
 import { CommandListElement } from './validator/command/CommandListElement'
 import { validateCommandList } from './validator/command/validateCommandList'
 
 import { HypertextCommand } from './HypertextCommand'
+import { CorvusParagraphBuilder } from '../corvus/CorvusParagraphBuilder'
 /**
  * 
  */
@@ -34,10 +34,10 @@ export namespace CorvusParagraphCommand {
   /**
   *
   */
-  export function* reduceContent(classes: Iterable<string> = Empty.ARRAY): UnidocReducer<CorvusParagraph.ElementBuilder> {
-    const result: CorvusParagraph.ElementBuilder = CorvusParagraph.createElementBuilder()
+  export function* reduceContent(classes: Iterable<string> = Empty.ARRAY): UnidocReducer<CorvusParagraphBuilder> {
+    const result: CorvusParagraphBuilder = CorvusParagraphBuilder.create()
 
-    result.model.addClasses(classes)
+    result.addClasses(classes)
 
     yield* UnidocReducer.skipStart()
     yield* UnidocReducer.skipWhitespaces()
@@ -47,14 +47,14 @@ export namespace CorvusParagraphCommand {
 
       if (current.isStartOfAnyTag()) {
         if (current.isStartOfTag('title')) {
-          result.model.title = yield* UnidocReducer.reduceTag.content(UnidocReducer.reduceText())
+          result.title = yield* UnidocReducer.reduceTag.content(UnidocReducer.reduceText())
         } else if (current.isStartOfTag('key')) {
           result.key = yield* UnidocReducer.reduceTag.content(UnidocReducer.reduceToken())
         } else {
-          result.model.content = result.model.content.concat(yield* HypertextCommand.reduceContent())
+          result.content = result.content.concat(yield* HypertextCommand.reduceContent())
         }
       } else if (current.isAnyWord()) {
-        result.model.content = result.model.content.concat(yield* HypertextCommand.reduceContent())
+        result.content = result.content.concat(yield* HypertextCommand.reduceContent())
       } else if (current.isEnd()) {
         return result
       } else {
@@ -66,7 +66,7 @@ export namespace CorvusParagraphCommand {
   /**
   *
   */
-  export function* reduceTag(additionalClasses: Iterable<string> = Empty.ARRAY): UnidocReducer<CorvusParagraph.ElementBuilder> {
+  export function* reduceTag(additionalClasses: Iterable<string> = Empty.ARRAY): UnidocReducer<CorvusParagraphBuilder> {
     yield* UnidocReducer.skipStart()
     yield* UnidocReducer.skipWhitespaces()
 

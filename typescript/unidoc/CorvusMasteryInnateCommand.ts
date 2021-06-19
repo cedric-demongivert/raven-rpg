@@ -8,7 +8,7 @@ import { CommandListElement } from './validator/command/CommandListElement'
 import { validateCommandList } from './validator/command/validateCommandList'
 
 import { CorvusReferenceCommand } from './CorvusReferenceCommand'
-import { CorvusReference } from '../corvus'
+import { CorvusReference } from '../corvus/CorvusReference'
 
 /**
  * 

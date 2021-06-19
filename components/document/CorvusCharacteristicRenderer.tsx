@@ -2,26 +2,27 @@ import React from 'react'
 import classnames from 'classnames'
 
 import { CorvusDocument } from '../../typescript/corvus/CorvusDocument'
-import { CorvusDocumentElement } from '../../typescript/corvus/CorvusDocumentElement'
+import { CorvusElement } from '../../typescript/corvus/CorvusElement'
 import { CorvusCharacteristic } from '../../typescript/corvus/CorvusCharacteristic'
+import { CorvusMastery } from '../../typescript/corvus/CorvusMastery'
 
-import { CorvusDocumentElementRenderer } from './CorvusDocumentElementRenderer'
+import { CorvusElementRenderer } from './CorvusElementRenderer'
 import { TitleRenderer } from './TitleRenderer'
-import { CorvusMastery } from '../../typescript/corvus'
+import { CorvusSubidivison } from '../../typescript/corvus/CorvusSubdivision'
 
 /**
  * 
  */
-function renderRelatedMasteries(document: CorvusDocument, characteristic: CorvusDocumentElement<CorvusCharacteristic>): React.ReactElement {
+function renderRelatedMasteries(document: CorvusDocument, characteristic: CorvusCharacteristic): React.ReactElement {
   if (characteristic.key == null) {
     return null
   }
 
-  const relatedMasteries: CorvusDocumentElement<CorvusMastery>[] = []
+  const relatedMasteries: CorvusMastery[] = []
 
-  for (const element of document.values()) {
-    if (CorvusMastery.is(element.model) && element.model.isReferingToCharacteristic(characteristic.key)) {
-      relatedMasteries.push(element as CorvusDocumentElement<CorvusMastery>)
+  for (const element of document.elements()) {
+    if (CorvusMastery.is(element) && element.isReferingToCharacteristic(characteristic.key)) {
+      relatedMasteries.push(element)
     }
   }
 
@@ -29,7 +30,7 @@ function renderRelatedMasteries(document: CorvusDocument, characteristic: Corvus
     return null
   }
 
-  relatedMasteries.sort(CorvusMastery.compareElementByTitle)
+  relatedMasteries.sort(CorvusSubidivison.compareBySubdivision)
 
   if (relatedMasteries.length === 1) {
     return (
@@ -38,7 +39,7 @@ function renderRelatedMasteries(document: CorvusDocument, characteristic: Corvus
           Influence la maîtrise :
         </div>
         <a href={'#' + relatedMasteries[0].key.replaceAll(':', '-')} className='rpg-data data-element'>  
-          { relatedMasteries[0].model.title }
+          { relatedMasteries[0].title }
         </a>
       </div>
     )
@@ -49,10 +50,10 @@ function renderRelatedMasteries(document: CorvusDocument, characteristic: Corvus
           Influence les maîtrises :
         </div>
         { 
-          relatedMasteries.map(function renderMastery(value: CorvusDocumentElement<CorvusMastery>, index: number): React.ReactElement {
+          relatedMasteries.map(function renderMastery(value: CorvusMastery, index: number): React.ReactElement {
             return (
               <a href={'#' + value.key.replaceAll(':', '-')} key={index} className='data data-element'>  
-                { value.model.title }
+                { value.title }
               </a>
             )
           }) 
@@ -67,18 +68,20 @@ function renderRelatedMasteries(document: CorvusDocument, characteristic: Corvus
  */
 export function CorvusCharacteristicRenderer(properties: CorvusCharacteristicRenderer.Properties): React.ReactElement {
   const document: CorvusDocument = properties.document
-  const element: CorvusDocumentElement<CorvusCharacteristic> = document.requireByIdentifier(properties.element, CorvusCharacteristic.assert)
+  const element: CorvusElement = document.require(properties.element)
+
+  CorvusCharacteristic.assert(element)
 
   return (
     <div 
-      className={classnames('rpg-element rpg-section rpg-characteristic', properties.className, ...element.model.classes)}
+      className={classnames('rpg-element rpg-section rpg-characteristic', properties.className, ...element.classes)}
       id={element.key == null ? undefined : element.key.replaceAll(':', '-')}
     >
-      { <TitleRenderer depth={properties.depth} href={element.key}>{ element.model.title }</TitleRenderer> }
+      { <TitleRenderer depth={properties.depth} href={element.key}>{ element.title }</TitleRenderer> }
       {
         element.children.map(function renderSectionChild(child: number): React.ReactElement {
           return (
-            <CorvusDocumentElementRenderer
+            <CorvusElementRenderer
               key={child} 
               depth={properties.depth + 1}
               document={properties.document}
@@ -87,7 +90,7 @@ export function CorvusCharacteristicRenderer(properties: CorvusCharacteristicRen
           )
         })
       }
-      { renderRelatedMasteries(document, element) }
+      { /* renderRelatedMasteries(document, element) */ }
     </div>
   )
 }

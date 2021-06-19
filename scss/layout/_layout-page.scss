@@ -1,19 +1,14 @@
 .layout.layout-page {
   display: block;
-  position: absolute;
+  position: relative;
 
   border: none;
   padding: 0px;
   margin: 0px;
 
-  left: 0px;
-  right: 0px;
-  top: 0px;
-  bottom: 0px;
+  width: 100%;
+  height: 100%;
 
   overflow: hidden;
-  overflow-y: visible;
-
-  width: auto;
-  height: auto;
+  overflow-y: scroll;
 }

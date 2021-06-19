@@ -1,0 +1,32 @@
+@use "sass:map";
+
+ul {
+  display: block;
+
+  padding: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: 0px;
+  margin-bottom: map.get($content-spacing, "xs");
+  border: none;
+
+  box-sizing: border-box;
+
+  width: auto;
+  height: auto;
+
+  li {
+    display: block;
+
+    padding-left: 20px;
+    margin: 0px;
+    border: none;
+
+    box-sizing: border-box;
+
+    width: auto;
+    height: auto;
+
+    list-style: none;
+  }
+}

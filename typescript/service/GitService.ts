@@ -35,10 +35,9 @@ import { Resource } from '../state/resource/Resource'
 import { MimeType } from '../state/resource/MimeType'
 import { ResourceAddress } from '../state/resource/ResourceAddress'
 import { CorvusDocument } from '../corvus/CorvusDocument'
-import { CorvusDocumentElementBuilder } from '../corvus/CorvusDocumentElementBuilder'
 import { CorvusCommit } from '../corvus/CorvusCommit'
-import { CorvusDocumentModel } from '../corvus/CorvusDocumentModel'
 import { CorvusImage } from '../corvus/CorvusImage'
+import { CorvusDocumentBuilder } from '../corvus/CorvusDocumentBuilder'
 
 export class GitService implements ApplicationService<Application>
 {
@@ -326,8 +325,8 @@ export class GitService implements ApplicationService<Application>
 
       publication.store.dispatch(CommitEvent.loading(publication.event.payload))
 
-      const content: CorvusDocumentElementBuilder = await this.extractCommitContent(publication)
-      const document: CorvusDocument = CorvusDocument.create(content)
+      const content: CorvusDocumentBuilder = await this.extractCommitContent(publication)
+      const document: CorvusDocument = content.build()
 
       publication.store.dispatch(CommitEvent.content(CorvusCommit.create({ commit: publication.event.payload, document })))
 
@@ -356,7 +355,7 @@ export class GitService implements ApplicationService<Application>
   /**
   *
   */
-  private async extractCommitContent(publication: ApplicationPublication<Application, CommitEvent.Load>): Promise<CorvusDocumentElementBuilder> {
+  private async extractCommitContent(publication: ApplicationPublication<Application, CommitEvent.Load>): Promise<CorvusDocumentBuilder> {
     const identifier: number = publication.event.payload
     const commit: Entry<Commit> | undefined = publication.store.getState().commits.all.get(identifier)
 
@@ -376,17 +375,15 @@ export class GitService implements ApplicationService<Application>
 
     const resources: Resource[] = []
 
-    for (const element of content.values()) {
-      const model: CorvusDocumentModel = element.model
-
-      if (CorvusImage.is(model)) {
+    for (const element of content.elements()) {
+      if (CorvusImage.is(element)) {
         const data: Buffer = await GitRepositories.get(
           Reference.identifier(commit.model.repository)
-        ).readFile(commit.model.identifier, model.path)
+        ).readFile(commit.model.identifier, element.path)
 
         resources.push(Resource.create({
-          address: ResourceAddress.create(commit.identifier, model.path),
-          type: MimeType.fromRPGImageFormat(model.format),
+          address: ResourceAddress.create(commit.identifier, element.path),
+          type: MimeType.fromRPGImageFormat(element.format),
           data
         }))
       }

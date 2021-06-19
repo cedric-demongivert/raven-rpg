@@ -3,6 +3,8 @@ import { UnidocReductionInput } from '@cedric-demongivert/unidoc'
 import { UnidocReductionRequest } from '@cedric-demongivert/unidoc'
 import { UnidocReducer } from '@cedric-demongivert/unidoc'
 
+import { CorvusElementBuilder } from '../corvus/CorvusElementBuilder'
+
 import { CommandList } from './validator/command/CommandList'
 import { CommandListElement } from './validator/command/CommandListElement'
 import { validateCommandList } from './validator/command/validateCommandList'
@@ -10,7 +12,6 @@ import { CorvusParagraphCommand } from './CorvusParagraphCommand'
 import { CorvusSectionCommand } from './CorvusSectionCommand'
 import { CorvusRulesetCommand } from './CorvusRulesetCommand'
 import { CorvusImageCommand } from './CorvusImageCommand'
-import { CorvusDocumentElementBuilder } from '../corvus'
 import { CorvusCharacteristicCommand } from './CorvusCharacteristicCommand'
 import { CorvusMasteryCommand } from './CorvusMasteryCommand'
 
@@ -40,8 +41,8 @@ export namespace CorvusDocumentCommand {
   /**
   *
   */
-  export function* reduceContent(): UnidocReducer<Array<CorvusDocumentElementBuilder>> {
-    const content: Array<CorvusDocumentElementBuilder> = []
+  export function* reduceContent(): UnidocReducer<Array<CorvusElementBuilder>> {
+    const content: Array<CorvusElementBuilder> = []
 
     yield* UnidocReducer.skipStart()
     yield* UnidocReducer.skipWhitespaces()
@@ -76,7 +77,7 @@ export namespace CorvusDocumentCommand {
   /**
   *
   */
-  export function* reduceTag(): UnidocReducer<Array<CorvusDocumentElementBuilder>> {
+  export function* reduceTag(): UnidocReducer<Array<CorvusElementBuilder>> {
     yield* UnidocReducer.skipStart()
     yield* UnidocReducer.skipWhitespaces()
 

@@ -10,9 +10,9 @@ import { CommandListElement } from './validator/command/CommandListElement'
 import { validateCommandList } from './validator/command/validateCommandList'
 
 import { HypertextCommand } from './HypertextCommand'
-import { CorvusMastery } from '../corvus/CorvusMastery'
 import { CorvusShallowDocumentCommand } from './CorvusShallowDocumentCommand'
 import { CorvusMasteryInnateCommand } from './CorvusMasteryInnateCommand'
+import { CorvusMasteryBuilder } from '../corvus/CorvusMasteryBuilder'
 
 /**
  * 
@@ -51,10 +51,10 @@ export namespace CorvusMasteryCommand {
   /**
   *
   */
-  export function* reduceContent(classes: Iterable<string> = Empty.ARRAY): UnidocReducer<CorvusMastery.ElementBuilder> {
-    const result: CorvusMastery.ElementBuilder = CorvusMastery.createElementBuilder()
+  export function* reduceContent(classes: Iterable<string> = Empty.ARRAY): UnidocReducer<CorvusMasteryBuilder> {
+    const result: CorvusMasteryBuilder = CorvusMasteryBuilder.create()
 
-    result.model.addClasses(classes)
+    result.addClasses(classes)
 
     yield* UnidocReducer.skipStart()
     yield* UnidocReducer.skipWhitespaces()
@@ -64,17 +64,17 @@ export namespace CorvusMasteryCommand {
 
       if (current.isStartOfAnyTag()) {
         if (current.isStartOfTag('title')) {
-          result.model.title = yield* UnidocReducer.reduceTag.content(UnidocReducer.reduceText())
+          result.title = yield* UnidocReducer.reduceTag.content(UnidocReducer.reduceText())
         } else if (current.isStartOfTag('keyword')) {
-          result.model.keywords.add(yield* UnidocReducer.reduceTag.content(UnidocReducer.reduceToken()))
+          result.addKeyword(yield* UnidocReducer.reduceTag.content(UnidocReducer.reduceToken()))
         } else if (current.isStartOfTag('key')) {
           result.key = yield* UnidocReducer.reduceTag.content(UnidocReducer.reduceToken())
         } else if (current.isStartOfTag('summary')) {
           yield* UnidocReducer.skipTag()
         } else if (current.isStartOfTag('innate')) {
-          result.model.addInnates(yield* CorvusMasteryInnateCommand.reduceTag())
+          result.addInnates(yield* CorvusMasteryInnateCommand.reduceTag())
         } else {
-          result.addChildren(yield* CorvusShallowDocumentCommand.reduceContent())
+          result.appendChildren(yield* CorvusShallowDocumentCommand.reduceContent())
         }
       } else if (current.isEnd()) {
         return result
@@ -87,7 +87,7 @@ export namespace CorvusMasteryCommand {
   /**
   *
   */
-  export function* reduceTag(additionalClasses: Iterable<string> = Empty.ARRAY): UnidocReducer<CorvusMastery.ElementBuilder> {
+  export function* reduceTag(additionalClasses: Iterable<string> = Empty.ARRAY): UnidocReducer<CorvusMasteryBuilder> {
     yield* UnidocReducer.skipStart()
     yield* UnidocReducer.skipWhitespaces()
 

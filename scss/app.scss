@@ -8,14 +8,21 @@
 @import url("https://fonts.googleapis.com/css?family=Alegreya+SC&display=swap");
 
 @import "./vars";
-@import "./base";
+
+@import "./base/body";
+@import "./base/links";
+@import "./base/lists";
+@import "./base/paragraph";
+@import "./base/table";
+@import "./base/title";
 
 @import "./layout/layout";
+@import "./layout/layout-vanilla";
 @import "./layout/layout-centered";
 @import "./layout/layout-loading";
 @import "./layout/layout-page";
-@import "./layout/layout-page-repository";
-@import "./layout/layout-page-content";
+@import "./layout/layout-sandwich";
+@import "./layout/layout-document";
 
 @import "./components/dot-loader";
 @import "./components/framework";
@@ -31,6 +38,8 @@
 @import "./components/characteristic";
 @import "./components/book";
 @import "./components/mastery";
+@import "./components/paragraph";
+@import "./components/minimap";
 
 @import "./theme/subject";
 @import "./theme/badge";

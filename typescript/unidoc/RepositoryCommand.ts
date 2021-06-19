@@ -10,7 +10,7 @@ import { CommandListElement } from './validator/command/CommandListElement'
 import { validateCommandList } from './validator/command/validateCommandList'
 
 import { CorvusBookCommand } from './CorvusBookCommand'
-import { CorvusDocumentElementBuilder } from '../corvus'
+import { CorvusDocumentBuilder } from '../corvus/CorvusDocumentBuilder'
 
 /**
  * 
@@ -33,7 +33,7 @@ export namespace RepositoryCommand {
   /**
   *
   */
-  export function* reduceContent(classes: Iterable<string> = Empty.ARRAY): UnidocReducer<CorvusDocumentElementBuilder> {
+  export function* reduceContent(classes: Iterable<string> = Empty.ARRAY): UnidocReducer<CorvusDocumentBuilder> {
     yield* UnidocReducer.skipStart()
     yield* UnidocReducer.skipWhitespaces()
 
@@ -57,7 +57,7 @@ export namespace RepositoryCommand {
   /**
   *
   */
-  export function* reduceTag(additionalClasses: Iterable<string> = Empty.ARRAY): UnidocReducer<CorvusDocumentElementBuilder> {
+  export function* reduceTag(additionalClasses: Iterable<string> = Empty.ARRAY): UnidocReducer<CorvusDocumentBuilder> {
     yield* UnidocReducer.skipStart()
     yield* UnidocReducer.skipWhitespaces()
 

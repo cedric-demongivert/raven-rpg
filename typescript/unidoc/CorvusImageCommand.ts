@@ -7,9 +7,9 @@ import { CommandList } from './validator/command/CommandList'
 import { CommandListElement } from './validator/command/CommandListElement'
 import { validateCommandList } from './validator/command/validateCommandList'
 
+import { CorvusImageBuilder } from '../corvus/CorvusImageBuilder'
 import { CorvusImageFormat } from '../corvus/CorvusImageFormat'
 import { Empty } from '../utils/Empty'
-import { CorvusImageBuilder } from '../corvus'
 
 /**
  * 
@@ -36,10 +36,10 @@ export namespace CorvusImageCommand {
   /**
   *
   */
-  export function* reduceContent(classes: Iterable<string> = Empty.ARRAY): UnidocReducer<CorvusImageBuilder.ElementBuilder> {
-    const result: CorvusImageBuilder.ElementBuilder = CorvusImageBuilder.createElementBuilder()
+  export function* reduceContent(classes: Iterable<string> = Empty.ARRAY): UnidocReducer<CorvusImageBuilder> {
+    const result: CorvusImageBuilder = CorvusImageBuilder.create()
 
-    result.model.addClasses(classes)
+    result.addClasses(classes)
 
     yield* UnidocReducer.skipStart()
     yield* UnidocReducer.skipWhitespaces()
@@ -49,13 +49,13 @@ export namespace CorvusImageCommand {
 
       if (current.isStartOfAnyTag()) {
         if (current.isStartOfTag('path')) {
-          result.model.path = yield* UnidocReducer.reduceTag.content(UnidocReducer.reduceToken())
+          result.path = yield* UnidocReducer.reduceTag.content(UnidocReducer.reduceToken())
         } else if (current.isStartOfTag('format')) {
-          result.model.format = CorvusImageFormat.fromString(yield* UnidocReducer.reduceTag.content(UnidocReducer.reduceToken()))
+          result.format = CorvusImageFormat.fromString(yield* UnidocReducer.reduceTag.content(UnidocReducer.reduceToken()))
         } else if (current.isStartOfTag('width')) {
-          result.model.width = yield* UnidocReducer.reduceTag.content(UnidocReducer.reduceText())
+          result.width = yield* UnidocReducer.reduceTag.content(UnidocReducer.reduceText())
         } else if (current.isStartOfTag('height')) {
-          result.model.height = yield* UnidocReducer.reduceTag.content(UnidocReducer.reduceText())
+          result.height = yield* UnidocReducer.reduceTag.content(UnidocReducer.reduceText())
         } else if (current.isStartOfTag('key')) {
           result.key = yield* UnidocReducer.reduceTag.content(UnidocReducer.reduceToken())
         } else {
@@ -72,7 +72,7 @@ export namespace CorvusImageCommand {
   /**
   *
   */
-  export function* reduceTag(additionalClasses: Iterable<string> = Empty.ARRAY): UnidocReducer<CorvusImageBuilder.ElementBuilder> {
+  export function* reduceTag(additionalClasses: Iterable<string> = Empty.ARRAY): UnidocReducer<CorvusImageBuilder> {
     yield* UnidocReducer.skipStart()
     yield* UnidocReducer.skipWhitespaces()
 
