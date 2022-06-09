@@ -15,67 +15,15 @@
 
   font-size: map.get($font-size, "sm");
 
-  .rpg-minimap-content {
-    border: none;
-    margin: 0px;
-    padding: 0px;
-    padding-left: 10px;
-    //transition: ease-in margin-top 200ms;
-  }
-
-  .rpg-minimap-header {
-    position: absolute;
-    display: block;
-
-    width: 100%;
-    height: auto;
-
-    left: 0px;
-    right: 0px;
-    top: 0px;
-    bottom: auto;
-
-    &::after {
-      content: "";
-      display: block;
-
-      width: 100%;
-      height: 5em;
-
-      background: linear-gradient(
-        180deg,
-        rgba($page-color, 1) 25%,
-        rgba($page-color, 0) 100%
-      );
-    }
-  }
-
-  .rpg-minimap-footer {
-    position: absolute;
-    display: block;
-
-    width: 100%;
-    height: auto;
-
-    left: 0px;
-    right: 0px;
-    bottom: 0px;
-    top: auto;
-
-    &::before {
-      content: "";
-      display: block;
-
-      width: 100%;
-      height: 5em;
-
-      background: linear-gradient(
-        0deg,
-        rgba($page-color, 1) 25%,
-        rgba($page-color, 0) 100%
-      );
-    }
-  }
+  mask-image: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0) 1%,
+    rgba(0, 0, 0, 1) 10%,
+    rgba(0, 0, 0, 1) 90%,
+    rgba(0, 0, 0, 0) 99%,
+    rgba(0, 0, 0, 0) 100%
+  );
 
   .rpg-minimap-element {
     display: block;

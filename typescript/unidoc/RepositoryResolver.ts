@@ -1,7 +1,7 @@
 import { UnidocImportationResolver } from '@cedric-demongivert/unidoc'
+import { UnidocSymbolGenerator } from '@cedric-demongivert/unidoc'
 import { UnidocImportation } from '@cedric-demongivert/unidoc'
 import { UnidocResource } from '@cedric-demongivert/unidoc'
-import { UnidocSymbolReader } from '@cedric-demongivert/unidoc'
 import { UnidocOrigin } from '@cedric-demongivert/unidoc'
 import { UnidocOriginElementType } from '@cedric-demongivert/unidoc'
 
@@ -11,9 +11,19 @@ import { GitRepository } from '../git/GitRepository'
 import { Commit } from '../state/git/Commit'
 import { Reference } from '../data/Reference'
 
+/**
+ * 
+ */
 const UNIDOC_EXTENSION = '.unidoc'
+
+/**
+ * 
+ */
 const ROOT = '/'
 
+/**
+ * 
+ */
 export class RepositoryResolver implements UnidocImportationResolver {
   /**
   *
@@ -74,7 +84,7 @@ export class RepositoryResolver implements UnidocImportationResolver {
 
     const resource: UnidocResource = new UnidocResource()
     resource.resource = file
-    resource.reader = UnidocSymbolReader.fromString(
+    resource.reader = UnidocSymbolGenerator.fromString(
       content,
       new UnidocOrigin().resource(file).resource(repository.origin)
     )

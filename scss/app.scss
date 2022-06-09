@@ -9,12 +9,7 @@
 
 @import "./vars";
 
-@import "./base/body";
-@import "./base/links";
-@import "./base/lists";
-@import "./base/paragraph";
-@import "./base/table";
-@import "./base/title";
+@import "./base";
 
 @import "./layout/layout";
 @import "./layout/layout-vanilla";
@@ -23,6 +18,7 @@
 @import "./layout/layout-page";
 @import "./layout/layout-sandwich";
 @import "./layout/layout-document";
+@import "./layout/layout-stack";
 
 @import "./components/dot-loader";
 @import "./components/framework";

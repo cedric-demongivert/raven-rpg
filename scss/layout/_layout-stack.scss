@@ -1,0 +1,45 @@
+.layout.layout-stack {
+  display: flex;
+
+  border: none;
+  padding: 0px;
+  margin: 0px;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+
+  flex-wrap: nowrap;
+
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-start;
+
+  &.is-horizontal {
+    flex-direction: row;
+  }
+
+  &,
+  &.is-vertical {
+    flex-direction: column;
+  }
+
+  .layout-stack-header {
+    order: 0;
+    flex-basis: 0 0;
+    overflow: hidden;
+  }
+
+  .layout-stack-body {
+    order: 1;
+    flex-basis: 1 1;
+    overflow: hidden;
+  }
+
+  .layout-stack-footer {
+    order: 2;
+    flex-basis: 0 0;
+    overflow: hidden;
+  }
+}

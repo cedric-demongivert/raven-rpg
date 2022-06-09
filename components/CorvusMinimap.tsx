@@ -1,5 +1,7 @@
-import React, { RefObject } from 'react'
+import React from 'react'
 import classnames from 'classnames'
+
+import { StackLayout } from './layout/StackLayout'
 
 import { CorvusDocument } from '../typescript/corvus/CorvusDocument'
 import { CorvusSubidivison } from '../typescript/corvus/CorvusSubdivision'
@@ -25,7 +27,7 @@ export class CorvusMinimap extends React.Component<CorvusMinimap.Properties> {
     const document: CorvusDocument = this.props.document
     const result: CorvusMinimapElement[] = []
 
-    for (const element of document.elements(this.props.root)) {
+    for (const element of document.elements(/*this.props.root*/)) {
       if (CorvusSubidivison.is(element)) {
         result.push(
           CorvusMinimapElement.create({
@@ -57,9 +59,13 @@ export class CorvusMinimap extends React.Component<CorvusMinimap.Properties> {
   
     return (
       <div className={classnames('rpg-minimap', this.props.className)}>
-        <CorvusMinimapElements elements={elements} />
-        <div className='rpg-minimap-header' />
-        <div className='rpg-minimap-footer' />
+        <StackLayout>
+          <StackLayout.Header />
+          <StackLayout.Body>
+            <CorvusMinimapElements elements={elements} />
+          </StackLayout.Body>
+          <StackLayout.Footer />
+        </StackLayout>
       </div>
     )
   }

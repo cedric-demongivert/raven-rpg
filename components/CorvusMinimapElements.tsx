@@ -1,9 +1,6 @@
 import React, { RefObject } from 'react'
-import { CorvusDocument } from '../../typescript/corvus/CorvusDocument'
 import classnames from 'classnames'
 
-import { CorvusElement } from '../../typescript/corvus/CorvusElement'
-import { CorvusSubidivison } from '../../typescript/corvus/CorvusSubdivision'
 import { CorvusMinimapElement } from './CorvusMinimapElement'
 
 /**
@@ -18,10 +15,11 @@ export class CorvusMinimapElements extends React.Component<CorvusMinimapElements
   /**
    * 
    */
-  public constructor (properties : CorvusMinimap.Properties) {
+  public constructor (properties : CorvusMinimapElements.Properties) {
     super(properties)
 
     this.handleScrollUpdate = this.handleScrollUpdate.bind(this)
+    this.handleWindowResize = this.handleWindowResize.bind(this)
     this.handleElementRendering = this.handleElementRendering.bind(this)
 
     this._root = React.createRef()
@@ -32,6 +30,7 @@ export class CorvusMinimapElements extends React.Component<CorvusMinimapElements
    */
   public componentDidMount(): void {
     window.addEventListener('scroll', this.handleScrollUpdate, true)
+    window.addEventListener('resize', this.handleWindowResize)
   }
 
   /**
@@ -39,12 +38,20 @@ export class CorvusMinimapElements extends React.Component<CorvusMinimapElements
    */
   public componentWillUnmount(): void {
     window.removeEventListener('scroll', this.handleScrollUpdate, true)
+    window.removeEventListener('resize', this.handleWindowResize)
   }
 
   /**
    * 
    */
   public handleScrollUpdate (): void {
+    this.forceUpdate()
+  }
+
+  /**
+   * 
+   */
+  public handleWindowResize (): void {
     this.forceUpdate()
   }
 
@@ -62,8 +69,6 @@ export class CorvusMinimapElements extends React.Component<CorvusMinimapElements
       const documentOffset: number = Math.min(Math.max(-documentBoundary.y, 0), scrollableLength)
 
       const delta: number = documentOffset / scrollableLength
-
-      console.log(delta)
 
       return { marginTop: ((-delta * 200 + 50).toFixed(2)) + '%' }
     } else {
@@ -132,7 +137,7 @@ export class CorvusMinimapElements extends React.Component<CorvusMinimapElements
 /**
  * 
  */
-export namespace CorvusMinimap {
+export namespace CorvusMinimapElements {
   /**
    *
    */

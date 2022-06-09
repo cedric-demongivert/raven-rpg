@@ -1,3 +1,5 @@
+import { Set } from 'immutable'
+
 import { CorvusIdentifier } from './CorvusIdentifier'
 import { CorvusNode } from './CorvusNode'
 
@@ -40,6 +42,11 @@ export interface CorvusElement {
    * 
    */
   readonly isNode: boolean
+
+  /**
+  *
+  */
+  readonly tags: Set<string>
 
   /**
    * @see Object.equals

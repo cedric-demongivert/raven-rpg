@@ -29,12 +29,13 @@ export namespace CorvusMasteryCommand {
   function commands(): CommandList {
     if (COMMANDS == null) {
       COMMANDS = CommandList.capture(
-        CommandListElement.optionalCommand('key', UnidocKissValidator.requireToken),
-        CommandListElement.requiredCommand('title', UnidocKissValidator.requireText),
-        CommandListElement.optionalCommand('innate', CorvusMasteryInnateCommand.validateContent),
-        CommandListElement.manyCommand('keyword', UnidocKissValidator.requireToken),
-        CommandListElement.optionalCommand('summary', HypertextCommand.validateContent),
-        CommandListElement.optionalContent(CorvusShallowDocumentCommand.validateContent)
+        CommandListElement.anywhere.optionalCommand('key', UnidocKissValidator.requireToken),
+        CommandListElement.anywhere.manyCommand('tag', UnidocKissValidator.requireToken),
+        CommandListElement.anywhere.requiredCommand('title', UnidocKissValidator.requireText),
+        CommandListElement.anywhere.optionalCommand('innate', CorvusMasteryInnateCommand.validateContent),
+        CommandListElement.anywhere.manyCommand('keyword', UnidocKissValidator.requireToken),
+        CommandListElement.anywhere.optionalCommand('summary', HypertextCommand.validateContent),
+        CommandListElement.anywhere.optionalContent(CorvusShallowDocumentCommand.validateContent)
       )
     }
 
@@ -69,6 +70,8 @@ export namespace CorvusMasteryCommand {
           result.addKeyword(yield* UnidocReducer.reduceTag.content(UnidocReducer.reduceToken()))
         } else if (current.isStartOfTag('key')) {
           result.key = yield* UnidocReducer.reduceTag.content(UnidocReducer.reduceToken())
+        } else if (current.isStartOfTag('tag')) {
+          result.addTag(yield* UnidocReducer.reduceTag.content(UnidocReducer.reduceToken()))
         } else if (current.isStartOfTag('summary')) {
           yield* UnidocReducer.skipTag()
         } else if (current.isStartOfTag('innate')) {

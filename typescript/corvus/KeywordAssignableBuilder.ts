@@ -114,7 +114,7 @@ export function KeywordAssignableBuilder<BaseConstructor extends Constructor>(Ba
      */
     public equals(other: any): boolean {
       if (super.equals(other) && other instanceof KeywordAssignableBuilderMixin) {
-        return Sets.deeplyEquals(other.classes, this.keywords)
+        return Sets.deeplyEquals(other.keywords, this.keywords)
       }
 
       return false

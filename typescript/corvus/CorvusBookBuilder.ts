@@ -3,6 +3,7 @@ import { equals } from '../utils/equals'
 
 import { ClassAssignableBuilder } from './ClassAssignableBuilder'
 import { CorvusBook } from './CorvusBook'
+import { CorvusTagBuilder } from './CorvusTagBuilder'
 import { StaticCorvusDocumentBuilder } from './StaticCorvusDocumentBuilder'
 
 /**
@@ -25,6 +26,11 @@ export class CorvusBookBuilder extends ClassAssignableBuilder(StaticCorvusDocume
   public summary: Hypertext | undefined
 
   /**
+   *
+   */
+  public tagDefinitions: CorvusTagBuilder[]
+
+  /**
   *
   */
   public static create(): CorvusBookBuilder {
@@ -39,6 +45,28 @@ export class CorvusBookBuilder extends ClassAssignableBuilder(StaticCorvusDocume
     this.lang = undefined
     this.title = undefined
     this.summary = undefined
+    this.tagDefinitions = []
+  }
+
+  /**
+   * 
+   */
+  public addTagDefinition(tag: CorvusTagBuilder): this {
+    this.tagDefinitions.push(tag)
+    return this
+  }
+
+  /**
+   * 
+   */
+  public addTagDefinitions(tags: Iterable<CorvusTagBuilder>): this {
+    const tagDefinitions: CorvusTagBuilder[] = this.tagDefinitions
+
+    for (const tag of tagDefinitions) {
+      this.tagDefinitions.push(tag)
+    }
+
+    return this
   }
 
   /**

@@ -21,6 +21,11 @@ export interface CorvusElementBuilder {
   key: string | undefined
 
   /**
+  *
+  */
+  readonly tags: Set<string>
+
+  /**
    * 
    */
   readonly isNode: boolean
@@ -44,6 +49,36 @@ export interface CorvusElementBuilder {
    * 
    */
   setKey(key: string | undefined): this
+
+  /**
+   * 
+   */
+  deleteTag(tag: string): this
+
+  /**
+   * 
+   */
+  deleteTags(parameter: Iterable<string> | Iterator<string>): this
+
+  /**
+   * 
+   */
+  addTag(tag: string): this
+
+  /**
+   * 
+   */
+  addTags(parameter: Iterable<string> | Iterator<string>): this
+
+  /**
+   * 
+   */
+  toggleTag(tag: string): this
+
+  /**
+   * 
+   */
+  toggleTags(parameter: Iterable<string> | Iterator<string>): this
 
   /**
    * 

@@ -1,3 +1,5 @@
+import { Set } from 'immutable'
+
 import { CorvusElement } from './CorvusElement'
 import { CorvusIdentifier } from './CorvusIdentifier'
 import { CorvusNode } from './CorvusNode'
@@ -25,6 +27,11 @@ export class StaticCorvusElement implements CorvusElement {
   /**
    * 
    */
+  public readonly tags: Set<string>
+
+  /**
+   * 
+   */
   public readonly isNode: boolean
 
   /**
@@ -34,6 +41,7 @@ export class StaticCorvusElement implements CorvusElement {
     this.identifier = properties.identifier
     this.parent = properties.parent ? properties.parent.identifier : undefined
     this.key = properties.key
+    this.tags = Set(properties.tags)
     this.isNode = false
   }
 

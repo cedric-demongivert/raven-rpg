@@ -17,6 +17,11 @@ export class StaticCorvusElementBuilder implements CorvusElementBuilder {
   public key: string | undefined
 
   /**
+   * 
+   */
+  public readonly tags: Set<string>
+
+  /**
    * @see CorvusElement.parent
    */
   private _parent: CorvusNodeBuilder | undefined
@@ -46,6 +51,7 @@ export class StaticCorvusElementBuilder implements CorvusElementBuilder {
   public constructor() {
     this.identifier = 0
     this.key = undefined
+    this.tags = new Set()
 
     this._parent = undefined
     this.isNode = false
@@ -65,6 +71,89 @@ export class StaticCorvusElementBuilder implements CorvusElementBuilder {
     }
 
     this.identifier = result.value
+
+    return this
+  }
+
+
+
+  /**
+   * 
+   */
+  public deleteTag(tag: string): this {
+    this.tags.delete(tag)
+    return this
+  }
+
+  /**
+   * 
+   */
+  public deleteTags(parameter: Iterable<string> | Iterator<string>): this {
+    const iterator: Iterator<string> = typeof parameter[Symbol.iterator] === 'function' ? parameter[Symbol.iterator]() : parameter
+    let next: IteratorResult<string> = iterator.next()
+
+    while (!next.done) {
+      this.tags.delete(next.value)
+      next = iterator.next()
+    }
+
+    return this
+  }
+
+  /**
+   * 
+   */
+  public addTag(tag: string): this {
+    this.tags.add(tag)
+    return this
+  }
+
+  /**
+   * 
+   */
+  public addTags(parameter: Iterable<string> | Iterator<string>): this {
+    const iterator: Iterator<string> = typeof parameter[Symbol.iterator] === 'function' ? parameter[Symbol.iterator]() : parameter
+    let next: IteratorResult<string> = iterator.next()
+
+    while (!next.done) {
+      this.tags.add(next.value)
+      next = iterator.next()
+    }
+
+    return this
+  }
+
+  /**
+   * 
+   */
+  public toggleTag(tag: string): this {
+    if (this.tags.has(tag)) {
+      this.tags.delete(tag)
+    } else {
+      this.tags.add(tag)
+    }
+
+    return this
+  }
+
+  /**
+   * 
+   */
+  public toggleTags(parameter: Iterable<string> | Iterator<string>): this {
+    const iterator: Iterator<string> = typeof parameter[Symbol.iterator] === 'function' ? parameter[Symbol.iterator]() : parameter
+    let next: IteratorResult<string> = iterator.next()
+
+    while (!next.done) {
+      const tag: string = next.value
+
+      if (this.tags.has(tag)) {
+        this.tags.delete(tag)
+      } else {
+        this.tags.add(tag)
+      }
+
+      next = iterator.next()
+    }
 
     return this
   }

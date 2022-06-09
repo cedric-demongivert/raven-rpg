@@ -1,8 +1,10 @@
-import { Set } from 'immutable'
+import { List, Set } from 'immutable'
 
 import { Hypertext } from '../state/hypertext/Hypertext'
 import { CorvusBookBuilder } from './CorvusBookBuilder'
 import { CorvusElement } from './CorvusElement'
+import { CorvusTag } from './CorvusTag'
+import { CorvusTagBuilder } from './CorvusTagBuilder'
 
 import { StaticCorvusDocument } from './StaticCorvusDocument'
 
@@ -33,6 +35,11 @@ export class CorvusBook extends StaticCorvusDocument {
   /**
   *
   */
+  public readonly tagDefinitions: List<CorvusTag>
+
+  /**
+  *
+  */
   public static create(properties: CorvusBookBuilder): CorvusBook {
     return new CorvusBook(properties)
   }
@@ -46,6 +53,7 @@ export class CorvusBook extends StaticCorvusDocument {
     this.title = properties.title
     this.summary = properties.summary || undefined
     this.classes = Set(properties.classes)
+    this.tagDefinitions = List(properties.tagDefinitions.map(CorvusTagBuilder.instantiate).sort(CorvusTag.compareByIdentifier))
   }
 
   /**

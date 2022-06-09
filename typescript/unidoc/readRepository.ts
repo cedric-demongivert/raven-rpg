@@ -1,4 +1,4 @@
-import { UnidocValidator } from '@cedric-demongivert/unidoc'
+import { UnidocEvent, UnidocValidationEvent, UnidocValidator } from '@cedric-demongivert/unidoc'
 import { UnidocProducerEvent } from '@cedric-demongivert/unidoc'
 import { UnidocReducer } from '@cedric-demongivert/unidoc'
 import { UnidocProducer } from '@cedric-demongivert/unidoc'
@@ -15,19 +15,21 @@ import { CorvusDocumentBuilder } from '../corvus/CorvusDocumentBuilder'
 export function readRepository(commit: Entry<Commit>): Promise<CorvusDocumentBuilder> {
   return new Promise(function (resolve, reject) {
     const reader: Reader = new Reader(commit.model)
-    const validator: UnidocValidator = UnidocValidator.kiss(
+
+    const events: UnidocProducer<UnidocEvent> = reader.output
+    const validation: UnidocProducer<UnidocValidationEvent> = UnidocValidator.kiss(
+      events,
       validators.validateCommand.factory('document', RepositoryCommand.validateContent)
     )
 
-    validator.subscribe(reader.output)
-    //validator.addEventListener(UnidocProducerEvent.PRODUCTION, x => console.log(x.toString()))
+    //validation.on('next', x => console.log(x.toString()))
 
-    const parser: UnidocProducer<CorvusDocumentBuilder> = UnidocReducer.reduce.validation(
-      validator, () => RepositoryCommand.reduceTag()
+    const result: UnidocProducer<CorvusDocumentBuilder> = UnidocReducer.reduce.validation(
+      validation, () => RepositoryCommand.reduceTag()
     )
 
-    parser.addEventListener(UnidocProducerEvent.FAILURE, reject)
-    parser.addEventListener(UnidocProducerEvent.PRODUCTION, resolve)
+    result.on('failure', reject)
+    result.on('next', resolve)
 
     reader.read('index.unidoc')
   })

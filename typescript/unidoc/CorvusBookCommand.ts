@@ -5,13 +5,15 @@ import { UnidocReducer } from '@cedric-demongivert/unidoc'
 
 import { Empty } from '../utils/Empty'
 
+import { CorvusBookBuilder } from '../corvus/CorvusBookBuilder'
+
 import { CommandList } from './validator/command/CommandList'
 import { CommandListElement } from './validator/command/CommandListElement'
 import { validateCommandList } from './validator/command/validateCommandList'
 
 import { HypertextCommand } from './HypertextCommand'
 import { CorvusDocumentCommand } from './CorvusDocumentCommand'
-import { CorvusBookBuilder } from '../corvus/CorvusBookBuilder'
+import { CorvusTagCommand } from './CorvusTagCommand'
 
 /**
  * 
@@ -25,6 +27,7 @@ export namespace CorvusBookCommand {
     CommandListElement.anywhere.requiredCommand('title', UnidocKissValidator.requireText),
     CommandListElement.anywhere.requiredCommand('lang', UnidocKissValidator.requireToken),
     CommandListElement.anywhere.optionalCommand('summary', HypertextCommand.validateContent),
+    CommandListElement.anywhere.manyCommand('tag', CorvusTagCommand.validateContent),
     CommandListElement.anywhere.requiredCommand('content', CorvusDocumentCommand.validateContent)
   )
 
@@ -58,6 +61,8 @@ export namespace CorvusBookCommand {
           result.title = yield* UnidocReducer.reduceTag.content(UnidocReducer.reduceText())
         } else if (current.isStartOfTag('summary')) {
           result.summary = yield* HypertextCommand.reduceTag()
+        } else if (current.isStartOfTag('tag')) {
+          result.addTagDefinition(yield* CorvusTagCommand.reduceTag())
         } else if (current.isStartOfTag('content')) {
           result.appendChildren(yield* CorvusDocumentCommand.reduceTag())
         } else {

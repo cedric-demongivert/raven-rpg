@@ -13,7 +13,7 @@ import { CorvusSummaryRenderer } from './CorvusSummaryRenderer'
 export function CorvusBookRenderer(properties: RPGBookRenderer.Properties): ReactElement {
   const document: CorvusDocument = properties.document
   const element: CorvusElement = document.require(properties.element)
-
+  
   CorvusBook.assert(element)
 
   return (

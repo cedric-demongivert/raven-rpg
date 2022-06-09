@@ -1,4 +1,4 @@
-import { UnidocStream } from '@cedric-demongivert/unidoc'
+import { UnidocContext } from '@cedric-demongivert/unidoc'
 import { UnidocProducer } from '@cedric-demongivert/unidoc'
 import { UnidocEvent } from '@cedric-demongivert/unidoc'
 import { fullyParse } from '@cedric-demongivert/unidoc'
@@ -11,7 +11,7 @@ export class Reader {
   /**
   *
   */
-  private readonly _stream: UnidocStream
+  private readonly _stream: UnidocContext
 
   /**
   *
@@ -22,7 +22,7 @@ export class Reader {
   *
   */
   public constructor(commit: Commit) {
-    this._stream = new UnidocStream(new RepositoryResolver(commit))
+    this._stream = new UnidocContext(new RepositoryResolver(commit))
     this.output = fullyParse(this._stream)
   }
 
