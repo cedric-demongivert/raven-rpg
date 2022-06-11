@@ -1,11 +1,11 @@
 import { List, Set } from 'immutable'
 
-import { Hypertext } from '../state/hypertext/Hypertext'
+import { Hypertext } from '../hypertext/Hypertext'
+
 import { CorvusBookBuilder } from './CorvusBookBuilder'
 import { CorvusElement } from './CorvusElement'
 import { CorvusTag } from './CorvusTag'
 import { CorvusTagBuilder } from './CorvusTagBuilder'
-
 import { StaticCorvusDocument } from './StaticCorvusDocument'
 
 /**
@@ -25,7 +25,7 @@ export class CorvusBook extends StaticCorvusDocument {
   /**
   *
   */
-  public readonly summary: Hypertext | undefined
+  public readonly summary: Hypertext | null
 
   /**
   *

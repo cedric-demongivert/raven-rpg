@@ -11,7 +11,8 @@
   },
   "dependencies": {
     "@cedric-demongivert/gl-tool-collection": "^0.29.6",
-    "@cedric-demongivert/unidoc": "^0.5.4",
+    "@cedric-demongivert/gl-tool-utils": "^0.3.0",
+    "@cedric-demongivert/unidoc": "^0.5.6",
     "@isomorphic-git/lightning-fs": "^4.6.0",
     "@types/react-redux": "^7.1.24",
     "boostrap": "^2.0.0",
@@ -35,7 +36,7 @@
   },
   "devDependencies": {
     "@types/jest": "^28.1.1",
-    "@types/node": "^17.0.41",
+    "@types/node": "^17.0.42",
     "@types/react": "^18.0.12",
     "jest": "^28.1.1",
     "prettier": "^2.6.2",

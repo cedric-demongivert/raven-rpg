@@ -406,10 +406,10 @@
   resolved "https://registry.yarnpkg.com/@cedric-demongivert/gl-tool-utils/-/gl-tool-utils-0.3.0.tgz#2ade3509d2139eccdd96b15d705a08d3497d7ebc"
   integrity sha512-DMsiOygzekHUjp7nMi9bTnCkXe2Mju45mey5xBM5yonHsdJeOD27s9iIgSpKWb6NJjL2z5DhRKgio05JUGBeFg==
 
-"@cedric-demongivert/unidoc@^0.5.4":
-  version "0.5.4"
-  resolved "https://registry.yarnpkg.com/@cedric-demongivert/unidoc/-/unidoc-0.5.4.tgz#13dd54e6b45dae15b21f8cfd6a00a3152f319354"
-  integrity sha512-KkjxsS5WuwwOjVLsCGWzkpKwzmMPCw9FbexSIMhO+0D0PugJppxI69tc60BmWA6GNCA2kQSFLX9X5HbgXAMM7Q==
+"@cedric-demongivert/unidoc@^0.5.6":
+  version "0.5.6"
+  resolved "https://registry.yarnpkg.com/@cedric-demongivert/unidoc/-/unidoc-0.5.6.tgz#51ddfb570647c7972899c1e2eaba479072a8f8df"
+  integrity sha512-hMh7n26AbOtGCGvxchbXeMe2JFaodPFew5X7m7UNgpSTxvnO8ihUoQPET5tE6fBB3kne1lwiAEfjBRbFBEE0Bg==
   dependencies:
     "@babel/generator" "^7.18.2"
     "@babel/types" "^7.18.4"
@@ -861,10 +861,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-15.12.4.tgz#e1cf817d70a1e118e81922c4ff6683ce9d422e26"
   integrity sha512-zrNj1+yqYF4WskCMOHwN+w9iuD12+dGm0rQ35HLl9/Ouuq52cEtd0CH9qMgrdNmi5ejC1/V7vKEXYubB+65DkA==
 
-"@types/node@^17.0.41":
-  version "17.0.41"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.41.tgz#1607b2fd3da014ae5d4d1b31bc792a39348dfb9b"
-  integrity sha512-xA6drNNeqb5YyV5fO3OAEsnXLfO7uF0whiOfPTz5AeDo8KeZFmODKnvwPymMNO8qE/an8pVY/O50tig2SQCrGw==
+"@types/node@^17.0.42":
+  version "17.0.42"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.42.tgz#d7e8f22700efc94d125103075c074396b5f41f9b"
+  integrity sha512-Q5BPGyGKcvQgAMbsr7qEGN/kIPN6zZecYYABeTDBizOsau+2NMdSVTar9UQw21A2+JyA2KRNDYaYrPB0Rpk2oQ==
 
 "@types/prettier@^2.1.5":
   version "2.6.3"

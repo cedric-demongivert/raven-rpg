@@ -1,5 +1,0 @@
-export { Table } from './Table'
-export { TableReducer } from './TableReducer'
-export { TableAddition } from './TableAddition'
-export { TableFiltration } from './TableFiltration'
-export { TableAssignation } from './TableAssignation'
