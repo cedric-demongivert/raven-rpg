@@ -2,13 +2,13 @@ import * as BrowserFS from 'browserfs'
 import { FSModule } from 'browserfs/dist/node/core/FS'
 
 /**
-*
-*/
+ *
+ */
 export type InMemoryFileSystem = FSModule
 
 /**
-*
-*/
+ *
+ */
 export namespace InMemoryFileSystem {
   /**
   *
@@ -31,13 +31,13 @@ export namespace InMemoryFileSystem {
   )
 
   /**
-  *
-  */
+   *
+   */
   const INSTANCE: FSModule = BrowserFS.BFSRequire('fs')
 
   /**
-  *
-  */
+   *
+   */
   export function get(): FSModule {
     return INSTANCE
   }

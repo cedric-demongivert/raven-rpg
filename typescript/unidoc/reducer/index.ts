@@ -1,1 +1,0 @@
-export { reduceUnidoc } from './reduceUnidoc'

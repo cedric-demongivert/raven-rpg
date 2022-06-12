@@ -1,3 +1,7 @@
 module.exports = {
-  assetsPrefix: '/'
+  assetsPrefix: '/',
+  i18n: {
+    locales: ["fr"],
+    defaultLocale: "fr",
+  }
 }

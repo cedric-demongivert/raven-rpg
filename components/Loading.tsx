@@ -1,9 +1,9 @@
-import { ReactElement } from 'react'
+import React from 'react'
 
 /**
 *
 */
-export function Loading (properties: Loading.Properties) : ReactElement {
+export function Loading (properties: Readonly<Loading.Properties>) : React.ReactElement {
   return (
     <div className='layout layout-centered layout-loading'>
       <h1>Corvus</h1>
@@ -20,6 +20,9 @@ export namespace Loading {
   *
   */
   export type Properties = {
+    /**
+     * 
+     */
     children: string | string[]
   }
 }

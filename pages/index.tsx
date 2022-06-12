@@ -1,14 +1,13 @@
 import React from 'react'
-import { ReactElement } from 'react'
 
 import Head from 'next/head'
 
-import { ConnectedContentPage } from '../components/content/ConnectedContentPage'
+import { DocumentPage } from '../components/DocumentPage'
 
 /**
 *
 */
-export default function index (properties : index.Properties) : ReactElement {
+export default function index (properties : index.Properties) : React.ReactElement {
   return (
     <div className='application' id='application'>
       <Head>
@@ -17,7 +16,7 @@ export default function index (properties : index.Properties) : ReactElement {
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossOrigin="anonymous" />
       </Head>
 
-      <ConnectedContentPage />
+      <DocumentPage origin='http://gitea.cedric-demongivert.com/cdemongivert/corvus.git' name='core' />
     </div>
   )
 }

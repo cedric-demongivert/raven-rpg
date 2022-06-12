@@ -1,95 +1,85 @@
-import { UnidocImportationResolver } from '@cedric-demongivert/unidoc'
-import { UnidocSymbolGenerator } from '@cedric-demongivert/unidoc'
-import { UnidocImportation } from '@cedric-demongivert/unidoc'
-import { UnidocResource } from '@cedric-demongivert/unidoc'
-import { UnidocOrigin } from '@cedric-demongivert/unidoc'
-import { UnidocOriginElementType } from '@cedric-demongivert/unidoc'
+import { UnidocImportResolver, UnidocImport, UnidocSymbols, UnidocResource, UnidocURI } from '@cedric-demongivert/unidoc'
 
-import { Path } from '../git/Path'
-import { GitRepositories } from '../git/GitRepositories'
-import { GitRepository } from '../git/GitRepository'
-import { Commit } from '../state/git/Commit'
-import { Reference } from '../data/Reference'
+import { GitRepository, Path } from '../git'
 
 /**
  * 
  */
-const UNIDOC_EXTENSION = '.unidoc'
+const UNIDOC_EXTENSION: string = '.unidoc'
 
 /**
  * 
  */
-const ROOT = '/'
+const ROOT_DIRECTORY: string = '/'
 
 /**
  * 
  */
-export class RepositoryResolver implements UnidocImportationResolver {
+export class RepositoryResolver implements UnidocImportResolver {
   /**
-  *
-  */
-  public readonly commit: Commit
+   * 
+   */
+  public readonly repository: GitRepository
+
+  /**
+   *
+   */
+  public readonly commit: string
+
+  /**
+   *
+   */
+  private readonly _uri: UnidocURI
 
   /**
   *
   */
-  public get repository(): GitRepository {
-    return GitRepositories.get(Reference.identifier(this.commit.repository))
-  }
-
-  /**
-  *
-  */
-  public constructor(commit: Commit) {
+  public constructor(repository: GitRepository, commit: string) {
+    this.repository = repository
     this.commit = commit
+    this._uri = new UnidocURI()
   }
 
   /**
-  *
-  */
-  private origin(value: UnidocImportation): string {
-    const repository: any = value.origin.from.elements.last
-
-    if (repository.type === UnidocOriginElementType.RESOURCE) {
-      if (repository.unifiedResourceIdentifier === this.repository.origin) {
-        const file: any = value.origin.from.elements.get(value.origin.from.elements.size - 2)
-        return Path.dirname(file.unifiedResourceIdentifier)
-      } else {
-        return ROOT
-      }
-    } else {
-      return ROOT
+   * 
+   */
+  private origin(importation: UnidocImport): string {
+    if (importation.origin.origins.size === 0) {
+      return ROOT_DIRECTORY
     }
+
+    const source: UnidocURI = importation.origin.origins.last.source
+
+    if (source.scheme === 'file') {
+      return Path.dirname(source.identifier)
+    }
+
+    return ROOT_DIRECTORY
   }
 
   /**
   *
   */
-  public async resolve(importation: UnidocImportation): Promise<UnidocResource> {
-    const origin: string = this.origin(importation)
-    const objectIdentifier: string = this.commit.identifier
+  public async resolve(importation: UnidocImport): Promise<UnidocResource> {
+    const commit: string = this.commit
     const repository: GitRepository = this.repository
 
-    let file: string = Path.resolve(origin, importation.resource)
+    let file: string = Path.resolve(this.origin(importation), importation.identifier).substring(1)
 
     if (!file.endsWith(UNIDOC_EXTENSION)) {
-      if (await repository.isDirectory(objectIdentifier, file)) {
-        file = Path.resolve(file, 'index.unidoc')
+      if (await repository.isDirectory(commit, file)) {
+        file = Path.resolve(file, 'index.unidoc').substring(1)
       } else {
         file += '.unidoc'
       }
     }
 
-    const content: string = (await repository.readFile(objectIdentifier, file)).toString('utf8')
+    this._uri.clear()
+    this._uri.scheme = importation.scheme
+    this._uri.identifier = file
 
-    const resource: UnidocResource = new UnidocResource()
-    resource.resource = file
-    resource.reader = UnidocSymbolGenerator.fromString(
-      content,
-      new UnidocOrigin().resource(file).resource(repository.origin)
-    )
-    resource.origin.copy(importation)
+    const content: string = (await repository.readFile(commit, file)).toString('utf8')
 
-    return resource
+    return UnidocResource.fromIterator(this._uri, importation, UnidocSymbols.fromString(content, this._uri))
   }
 }

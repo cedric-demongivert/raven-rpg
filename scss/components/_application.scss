@@ -12,22 +12,4 @@
   box-sizing: border-box;
 
   overflow: hidden;
-
-  .application-content {
-    display: block;
-
-    width: 100%;
-    height: auto;
-    min-height: 100%;
-
-    margin: 0px;
-    padding: 0px;
-    padding-top: $h1-font-size;
-    padding-bottom: $h1-font-size;
-    border: none;
-
-    box-sizing: border-box;
-
-    overflow: hidden;
-  }
 }

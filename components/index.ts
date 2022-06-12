@@ -1,6 +1,5 @@
-
-export * from './content'
 export * from './document'
-export * from './hypertext'
+export * from './text'
 
+export { DocumentPage } from './DocumentPage'
 export { Loading } from './Loading'
