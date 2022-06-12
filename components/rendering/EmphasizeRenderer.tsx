@@ -1,15 +1,15 @@
 import React from 'react'
 
 import { Emphasize } from '../../typescript/model'
-import { TextRenderer } from './TextRenderer'
+import { TextNodeRenderer } from './TextNodeRenderer'
 
 /**
  * 
  */
 export function EmphasizeRenderer(properties: Readonly<EmphasizeRenderer.Properties>): React.ReactElement {
   return (
-    <strong className='text-element text-emphasize'>
-      <TextRenderer>{ properties.children.text }</TextRenderer>
+    <strong>
+      <TextNodeRenderer>{ properties.children.text }</TextNodeRenderer>
     </strong>
   )
 }

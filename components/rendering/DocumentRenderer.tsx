@@ -3,13 +3,13 @@ import classnames from 'classnames'
 
 import { Document, DocumentElement } from '../../typescript/model'
 
-import { DocumentElementRenderer } from './DocumentElementRenderer'
+import { ContentNodeRenderer } from './ContentNodeRenderer'
 
 /**
  * 
  */
 export function renderElement(depth: number, element: DocumentElement, index: number): React.ReactElement {
-  return <DocumentElementRenderer key={index} depth={depth}>{element}</DocumentElementRenderer>
+  return <ContentNodeRenderer key={index} depth={depth}>{element}</ContentNodeRenderer>
 }
 
 /**

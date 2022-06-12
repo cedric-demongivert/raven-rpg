@@ -1,12 +1,12 @@
 import React from 'react'
 
 import { TextNode } from '../../typescript/model'
-import { TextStructureRenderer } from './TextStructureRenderer'
+import { ContentNodeRenderer } from './ContentNodeRenderer'
 
 /**
 *
 */
-export function TextRenderer(properties: Readonly<TextRenderer.Properties>): React.ReactElement {
+export function TextNodeRenderer(properties: Readonly<TextNodeRenderer.Properties>): React.ReactElement {
   if (properties.children == null) return null
 
   const elements = properties.children
@@ -18,14 +18,14 @@ export function TextRenderer(properties: Readonly<TextRenderer.Properties>): Rea
     if (typeof child === 'string') {
       content.push(child)
     } else {
-      content.push(<TextStructureRenderer key={index}>{ child }</TextStructureRenderer>)
+      content.push(<ContentNodeRenderer key={index}>{ child }</ContentNodeRenderer>)
     }
   }
 
-  return <span className='text'>{ content }</span>
+  return <>{ content }</>
 }
 
-export namespace TextRenderer {
+export namespace TextNodeRenderer {
   /**
   *
   */

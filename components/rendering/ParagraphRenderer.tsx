@@ -1,7 +1,7 @@
 import React from 'react'
 import classnames from 'classnames'
 
-import { TextRenderer } from '../text'
+import { TextNodeRenderer } from './TextNodeRenderer'
 
 import { Paragraph } from '../../typescript/model'
 
@@ -10,12 +10,20 @@ import { Paragraph } from '../../typescript/model'
  */
 export function ParagraphRenderer(properties: Readonly<ParagraphRenderer.Properties>): React.ReactElement {
   const paragraph = properties.children
+  const paragraphProperties: React.HTMLAttributes<HTMLParagraphElement> = { }
+
+  if (paragraph.hasIdentifier()) {
+    paragraphProperties.id = paragraph.identifier
+  }
+
+  if (paragraph.hasClasses() || properties.className != null && properties.className.length > 0) {
+    paragraphProperties.className = classnames(properties.className, ...paragraph.classes)
+  }
 
   return (
-    <p 
-      className={classnames('document-element document-paragraph', properties.className)}
-      id={paragraph.hasIdentifier() ? paragraph.identifier : undefined}
-    ><TextRenderer>{paragraph.text}</TextRenderer></p>
+    <p {...paragraphProperties}>
+      <TextNodeRenderer>{paragraph.text}</TextNodeRenderer>
+    </p>
   )
 }
 

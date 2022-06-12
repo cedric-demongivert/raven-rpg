@@ -7,7 +7,7 @@ import { Acronym } from '../../typescript/model'
  */
 export function AcronymRenderer(properties: Readonly<AcronymRenderer.Properties>): React.ReactElement {
   return (
-    <span className='text-element text-acronym'>
+    <span className='acronym'>
       {properties.children.acronym}
     </span>
   )

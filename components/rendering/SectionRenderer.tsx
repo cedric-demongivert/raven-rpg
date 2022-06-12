@@ -3,15 +3,15 @@ import classnames from 'classnames'
 
 import { DocumentElement, Section } from '../../typescript/model'
 
-import { DocumentElementRenderer } from './DocumentElementRenderer'
+import { ContentNodeRenderer } from './ContentNodeRenderer'
 import { TitleRenderer } from './TitleRenderer'
 
 function renderSectionChild(depth: number, child: DocumentElement, index: number): React.ReactElement {
   return (
-    <DocumentElementRenderer
+    <ContentNodeRenderer
       key={index} 
       depth={depth}
-    >{child}</DocumentElementRenderer>
+    >{child}</ContentNodeRenderer>
   )
 }
 
@@ -20,15 +20,21 @@ function renderSectionChild(depth: number, child: DocumentElement, index: number
  */
 export function SectionRenderer(properties: Readonly<CorvusSectionRenderer.Properties>): React.ReactElement {
   const section: Section = properties.children
+  const sectionProperties: React.HTMLAttributes<HTMLDivElement> = { }
+
+  if (section.hasIdentifier()) {
+    sectionProperties.id = section.identifier
+  }
+
+  if (section.hasClasses() || properties.className != null && properties.className.length > 0) {
+    sectionProperties.className = classnames(properties.className, ...section.classes)
+  }
 
   return (
-    <div 
-      className={classnames('document-element document-section', properties.className, ...section.classes)}
-      id={section.hasIdentifier() ? section.identifier : undefined}
-    >
+    <section {...sectionProperties}>
       { <TitleRenderer depth={properties.depth} href={section.identifier}>{ section.title }</TitleRenderer> }
       { section.content.map(renderSectionChild.bind(undefined, (properties.depth || 0) + 1)) }
-    </div>
+    </section>
   )
 }
 

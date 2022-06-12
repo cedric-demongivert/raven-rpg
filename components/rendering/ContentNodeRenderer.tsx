@@ -1,6 +1,9 @@
 import React from 'react'
 import { ReactElement } from 'react'
-import { DocumentElement, ContentNodeType, Section, Paragraph } from '../../typescript/model'
+import { ContentNodeType, Section, Paragraph, ContentNode, Emphasize, Link, Acronym } from '../../typescript/model'
+import { AcronymRenderer } from './AcronymRenderer'
+import { EmphasizeRenderer } from './EmphasizeRenderer'
+import { LinkRenderer } from './LinkRenderer'
 
 import { ParagraphRenderer } from './ParagraphRenderer'
 import { SectionRenderer } from './SectionRenderer'
@@ -8,12 +11,18 @@ import { SectionRenderer } from './SectionRenderer'
 /**
  * 
  */
-export function DocumentElementRenderer(properties: Readonly<DocumentElementRenderer.Properties>): ReactElement {
+export function ContentNodeRenderer(properties: Readonly<ContentNodeRenderer.Properties>): ReactElement {
   switch(properties.children.type) {
     case ContentNodeType.SECTION:
       return <SectionRenderer depth={properties.depth}>{properties.children as Section}</SectionRenderer>
     case ContentNodeType.PARAGRAPH:
       return <ParagraphRenderer depth={properties.depth}>{properties.children as Paragraph}</ParagraphRenderer>
+    case ContentNodeType.EMPHASIZE:
+      return <EmphasizeRenderer>{properties.children as Emphasize}</EmphasizeRenderer>
+    case ContentNodeType.LINK:
+      return <LinkRenderer>{properties.children as Link}</LinkRenderer>
+    case ContentNodeType.ACRONYM:
+      return <AcronymRenderer>{properties.children as Acronym}</AcronymRenderer>
     default:
       throw new Error(
         `Unable to render document element of type ${ContentNodeType.toDebugString(properties.children.type)} ` +
@@ -26,7 +35,7 @@ export function DocumentElementRenderer(properties: Readonly<DocumentElementRend
 /**
  * 
  */
-export namespace DocumentElementRenderer {
+export namespace ContentNodeRenderer {
   /**
    * 
    */
@@ -39,6 +48,6 @@ export namespace DocumentElementRenderer {
     /**
      * 
      */
-    children: DocumentElement
+    children: ContentNode
   }
 }

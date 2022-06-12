@@ -4,7 +4,7 @@ import React from 'react'
 import { GitRepository } from '../typescript/git'
 import { Document, DocumentBuilder } from '../typescript/model'
 import { parse } from '../typescript/parse'
-import { DocumentRenderer } from './document/DocumentRenderer'
+import { DocumentRenderer } from './rendering/DocumentRenderer'
 import { DocumentPageState } from './DocumentPageState'
 
 import { Loading } from './Loading'
