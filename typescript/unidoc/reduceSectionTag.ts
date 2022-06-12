@@ -2,6 +2,7 @@ import { UnidocReducer, UnidocReduction, UTF32String } from "@cedric-demongivert
 
 import { SectionBuilder } from "../model"
 import { reduceDocument } from "./reduceDocument"
+import { reduceTagMetadata } from "./reduceTagMetadata"
 
 /**
  *
@@ -15,17 +16,9 @@ export function* reduceSectionTag(): UnidocReduction<SectionBuilder> {
   yield* UnidocReducer.assertStart()
   yield UnidocReduction.NEXT
 
-  const openingTag: UnidocReduction.Input = yield UnidocReduction.CURRENT
-  openingTag.assertNext()
-  openingTag.value.assertStartOfAnyTag()
-
   const builder: SectionBuilder = SectionBuilder.create()
 
-  for (const token of openingTag.value.classes) {
-    builder.classes.add(token.toString())
-  }
-
-  builder.setIdentifier(openingTag.value.identifier.toString())
+  yield* reduceTagMetadata(builder)
 
   yield UnidocReduction.NEXT
   yield* UnidocReducer.skipWhitespaces()

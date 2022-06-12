@@ -1,36 +1,37 @@
 import { Empty } from '@cedric-demongivert/gl-tool-utils'
 
-import { Builder } from "../../Builder"
+import { ContentNodeBuilder } from "./ContentNodeBuilder"
 
 import { Link } from "./Link"
 
 /**
  * 
  */
-export class LinkBuilder implements Builder<Link> {
+export class LinkBuilder extends ContentNodeBuilder<Link> {
   /**
    *
    */
-  public url: string
+  public url: string | null
 
   /**
    *
    */
-  public content: string
+  public content: string | null
 
   /**
    * 
    */
   public constructor() {
-    this.url = Empty.STRING
-    this.content = Empty.STRING
+    super()
+    this.url = null
+    this.content = null
   }
 
   /**
    * 
    */
   public setURL(url: string | null): this {
-    this.url = url == null ? Empty.STRING : url
+    this.url = url
     return this
   }
 
@@ -38,22 +39,7 @@ export class LinkBuilder implements Builder<Link> {
    * 
    */
   public setContent(content: string | null): this {
-    this.content = content == null ? Empty.STRING : content
-    return this
-  }
-
-  /**
-   * 
-   */
-  public appendContent(content: string | null): this {
-    if (content != null) {
-      if (this.content.length === 0) {
-        return this.setContent(content)
-      } else {
-        this.content += content
-      }
-    }
-
+    this.content = content
     return this
   }
 
@@ -61,13 +47,14 @@ export class LinkBuilder implements Builder<Link> {
    * 
    */
   public build(): Link {
-    return new Link(this.url, this.content)
+    return new Link(this)
   }
 
   /**
    * 
    */
   public copy(toCopy: Readonly<LinkBuilder>): this {
+    super.copy(toCopy)
     this.url = toCopy.url
     this.content = toCopy.content
     return this
@@ -84,8 +71,9 @@ export class LinkBuilder implements Builder<Link> {
    * 
    */
   public clear(): this {
-    this.url = Empty.STRING
-    this.content = Empty.STRING
+    super.clear()
+    this.url = null
+    this.content = null
     return this
   }
 
@@ -93,8 +81,7 @@ export class LinkBuilder implements Builder<Link> {
    * 
    */
   public equals(other: unknown): boolean {
-    if (other == null) return false
-    if (other === this) return true
+    if (!super.equals(other)) return false
 
     if (other instanceof LinkBuilder) {
       return (

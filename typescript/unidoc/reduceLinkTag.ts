@@ -2,6 +2,7 @@ import { Empty } from "@cedric-demongivert/gl-tool-utils"
 import { UnidocReducer, UnidocReduction, UTF32String } from "@cedric-demongivert/unidoc"
 
 import { LinkBuilder } from "../model"
+import { reduceTagMetadata } from "./reduceTagMetadata"
 
 /**
  * 
@@ -15,8 +16,9 @@ export function* reduceLinkTag(): UnidocReduction<LinkBuilder> {
   yield* UnidocReducer.assertStart()
   yield UnidocReduction.NEXT
 
-  yield* UnidocReducer.assertStartOfAnyTag()
-  yield UnidocReduction.NEXT
+  const builder: LinkBuilder = new LinkBuilder()
+
+  yield* reduceTagMetadata(builder)
 
   let content: string
   let url: string | null
@@ -36,8 +38,8 @@ export function* reduceLinkTag(): UnidocReduction<LinkBuilder> {
   yield* UnidocReducer.assertSuccess()
 
   if (url == null) {
-    return LinkBuilder.create().setURL(content)
+    return builder.setURL(content)
   } else {
-    return LinkBuilder.create().setContent(content).setURL(url)
+    return builder.setContent(content).setURL(url)
   }
 }

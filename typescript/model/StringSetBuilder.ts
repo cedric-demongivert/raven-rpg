@@ -5,7 +5,7 @@ import { Builder } from './Builder'
 /**
  *
  */
-export class StringSetBuilder implements Builder<ImmutableSet<string>> {
+export class StringSetBuilder implements Builder<ImmutableSet<string>>, Iterable<string> {
   /**
    *
    */
@@ -68,7 +68,6 @@ export class StringSetBuilder implements Builder<ImmutableSet<string>> {
     return ImmutableSet(this.classes)
   }
 
-
   /**
    * 
    */
@@ -99,6 +98,20 @@ export class StringSetBuilder implements Builder<ImmutableSet<string>> {
   public clear(): this {
     this.classes.clear()
     return this
+  }
+
+  /**
+   * 
+   */
+  public values(): IterableIterator<string> {
+    return this.classes.values()
+  }
+
+  /**
+   * 
+   */
+  public [Symbol.iterator](): IterableIterator<string> {
+    return this.classes.values()
   }
 
   /**

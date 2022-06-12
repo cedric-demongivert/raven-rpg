@@ -9,7 +9,7 @@ import { TextRenderer } from './TextRenderer'
 export function EmphasizeRenderer(properties: Readonly<EmphasizeRenderer.Properties>): React.ReactElement {
   return (
     <strong className='text-element text-emphasize'>
-      <TextRenderer>{ properties.children.content }</TextRenderer>
+      <TextRenderer>{ properties.children.text }</TextRenderer>
     </strong>
   )
 }

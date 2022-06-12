@@ -406,10 +406,10 @@
   resolved "https://registry.yarnpkg.com/@cedric-demongivert/gl-tool-utils/-/gl-tool-utils-0.3.0.tgz#2ade3509d2139eccdd96b15d705a08d3497d7ebc"
   integrity sha512-DMsiOygzekHUjp7nMi9bTnCkXe2Mju45mey5xBM5yonHsdJeOD27s9iIgSpKWb6NJjL2z5DhRKgio05JUGBeFg==
 
-"@cedric-demongivert/unidoc@^0.5.23":
-  version "0.5.23"
-  resolved "https://registry.yarnpkg.com/@cedric-demongivert/unidoc/-/unidoc-0.5.23.tgz#dacfcebea9053765af1b561b732e9e2e24cf16b1"
-  integrity sha512-GHjc9ySaFf4XcFKDt3LlI8vsfqnOvtrAo4u40/mc9MkheCdlkG72PVQT37HvmzSY+WFNZvo6rYKcu8BhLN2c7A==
+"@cedric-demongivert/unidoc@^0.5.24":
+  version "0.5.24"
+  resolved "https://registry.yarnpkg.com/@cedric-demongivert/unidoc/-/unidoc-0.5.24.tgz#06c947d8fe63942412b826e06205b1c68d23c4db"
+  integrity sha512-LkcLxH1t/OUUZyx2SM+LrXm1i47YhhCpkO/T40WwYTNXobqS09ceaJNrHuPlnRo2RraY/+o+zHcqHjcn4IBJBQ==
   dependencies:
     "@babel/generator" "^7.18.2"
     "@babel/types" "^7.18.4"

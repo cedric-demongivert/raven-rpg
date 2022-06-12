@@ -12,7 +12,7 @@
   "dependencies": {
     "@cedric-demongivert/gl-tool-collection": "^0.29.6",
     "@cedric-demongivert/gl-tool-utils": "^0.3.0",
-    "@cedric-demongivert/unidoc": "^0.5.23",
+    "@cedric-demongivert/unidoc": "^0.5.24",
     "@isomorphic-git/lightning-fs": "^4.6.0",
     "@types/react-redux": "^7.1.24",
     "boostrap": "^2.0.0",

@@ -1,17 +1,7 @@
 import React from 'react'
 
-import { Text } from '../../typescript/model'
+import { TextNode } from '../../typescript/model'
 import { TextStructureRenderer } from './TextStructureRenderer'
-
-/**
- * 
- */
-const SPACE: string = ' '
-
-/**
- * 
- */
-const NO_SPACE_BEFORE: RegExp = /^(,|;|\.)/i
 
 /**
 *
@@ -25,21 +15,14 @@ export function TextRenderer(properties: Readonly<TextRenderer.Properties>): Rea
   for (let index = 0; index < elements.size; ++index) {
     const child = elements.get(index)
 
-
     if (typeof child === 'string') {
-      if (index > 0 && !NO_SPACE_BEFORE.test(child)) {
-        content.push(SPACE)
-      }
       content.push(child)
     } else {
-      if (index > 0) {
-        content.push(SPACE)
-      }
       content.push(<TextStructureRenderer key={index}>{ child }</TextStructureRenderer>)
     }
   }
 
-  return <div className='text'>{ content }</div>
+  return <span className='text'>{ content }</span>
 }
 
 export namespace TextRenderer {
@@ -50,6 +33,6 @@ export namespace TextRenderer {
     /**
      * 
      */
-    readonly children?: Text
+    readonly children?: TextNode
   }
 }

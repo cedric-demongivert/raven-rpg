@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { TextElement } from '../../typescript/model'
+import { TextNodeElement } from '../../typescript/model'
 
 import { TextStructureRenderer } from './TextStructureRenderer'
 
@@ -27,6 +27,6 @@ export namespace TextElementRenderer {
     /**
      * 
      */
-    children: TextElement
+    children: TextNodeElement
   }
 }

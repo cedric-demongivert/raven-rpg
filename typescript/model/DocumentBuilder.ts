@@ -1,7 +1,6 @@
 import { equals } from '@cedric-demongivert/gl-tool-utils'
 
-import { Builder } from '../../Builder'
-
+import { Builder } from './Builder'
 import { Document } from './Document'
 import { DocumentElement } from './DocumentElement'
 import { ParagraphBuilder } from './ParagraphBuilder'
@@ -14,7 +13,7 @@ export class DocumentBuilder implements Builder<Document> {
   /**
    * 
    */
-  public readonly elements: Array<Builder<DocumentElement>>
+  public readonly elements: Array<Builder<DocumentElement> | DocumentElement>
 
   /**
    * 
@@ -26,7 +25,7 @@ export class DocumentBuilder implements Builder<Document> {
   /**
    * 
    */
-  public push(builder: Builder<DocumentElement> | null): this {
+  public push(builder: Builder<DocumentElement> | DocumentElement | null): this {
     if (builder !== null) {
       this.elements.push(builder)
     }
@@ -37,7 +36,7 @@ export class DocumentBuilder implements Builder<Document> {
   /**
    * 
    */
-  public pushParagraph(): ParagraphBuilder {
+  public buildParagraph(): ParagraphBuilder {
     const builder: ParagraphBuilder = ParagraphBuilder.create()
     this.elements.push(builder)
     return builder
@@ -46,7 +45,7 @@ export class DocumentBuilder implements Builder<Document> {
   /**
    * 
    */
-  public pushSection(): SectionBuilder {
+  public buildSection(): SectionBuilder {
     const builder: SectionBuilder = SectionBuilder.create()
     this.elements.push(builder)
     return builder
@@ -55,7 +54,7 @@ export class DocumentBuilder implements Builder<Document> {
   /**
    * 
    */
-  public setElements(values: Iterable<Builder<DocumentElement>> | null): this {
+  public setElements(values: Iterable<Builder<DocumentElement> | DocumentElement> | null): this {
     this.elements.length = 0
 
     if (values != null) {
@@ -69,7 +68,7 @@ export class DocumentBuilder implements Builder<Document> {
    * 
    */
   public build(): Document {
-    return Document.create(this)
+    return Document.create(this.elements)
   }
 
   /**

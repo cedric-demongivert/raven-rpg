@@ -1,28 +1,29 @@
 import { Empty } from "@cedric-demongivert/gl-tool-utils"
 
-import { Builder } from "../../Builder"
 import { Acronym } from "./Acronym"
+import { ContentNodeBuilder } from "./ContentNodeBuilder"
 
 /**
  * 
  */
-export class AcronymBuilder implements Builder<Acronym> {
+export class AcronymBuilder extends ContentNodeBuilder<Acronym> {
   /**
    *
    */
-  public acronym: string
+  public acronym: string | null
 
   /**
    *
    */
-  public expanded: string
+  public expanded: string | null
 
   /**
    * 
    */
   public constructor() {
-    this.acronym = Empty.STRING
-    this.expanded = Empty.STRING
+    super()
+    this.acronym = null
+    this.expanded = null
   }
 
   /**
@@ -45,13 +46,14 @@ export class AcronymBuilder implements Builder<Acronym> {
    * 
    */
   public build(): Acronym {
-    return new Acronym(this.acronym, this.expanded)
+    return new Acronym(this)
   }
 
   /**
    * 
    */
   public copy(toCopy: Readonly<AcronymBuilder>): this {
+    super.copy(toCopy)
     this.acronym = toCopy.acronym
     this.expanded = toCopy.expanded
     return this
@@ -68,8 +70,9 @@ export class AcronymBuilder implements Builder<Acronym> {
    * 
    */
   public clear(): this {
-    this.acronym = Empty.STRING
-    this.expanded = Empty.STRING
+    super.clear()
+    this.acronym = null
+    this.expanded = null
     return this
   }
 
@@ -77,8 +80,7 @@ export class AcronymBuilder implements Builder<Acronym> {
    * 
    */
   public equals(other: unknown): boolean {
-    if (other == null) return false
-    if (other === this) return true
+    if (!super.equals(other)) return false
 
     if (other instanceof AcronymBuilder) {
       return (

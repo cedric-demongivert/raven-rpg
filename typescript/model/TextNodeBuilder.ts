@@ -1,23 +1,22 @@
 import { equals } from '@cedric-demongivert/gl-tool-utils'
 
-import { Builder } from '../../Builder'
-import { StaticBuilder } from '../../StaticBuilder'
+import { Builder } from './Builder'
 import { AcronymBuilder } from './AcronymBuilder'
 import { EmphasizeBuilder } from './EmphasizeBuilder'
-import { EmptyBuilder } from './EmptyBuilder'
+import { EmptyNodeBuilder } from './EmptyNodeBuilder'
 import { LinkBuilder } from './LinkBuilder'
 
-import { Text } from './Text'
-import { TextElement } from './TextElement'
+import { TextNode } from './TextNode'
+import { TextNodeElement } from './TextNodeElement'
 
 /**
  * 
  */
-export class TextBuilder implements Builder<Text> {
+export class TextNodeBuilder implements Builder<TextNode>, Iterable<Builder<TextNodeElement> | TextNodeElement> {
   /**
    * 
    */
-  public readonly elements: Array<Builder<TextElement>>
+  public readonly elements: Array<Builder<TextNodeElement> | TextNodeElement>
 
   /**
    * 
@@ -29,9 +28,9 @@ export class TextBuilder implements Builder<Text> {
   /**
    * 
    */
-  public push(builder: Builder<TextElement> | null): this {
-    if (builder !== null) {
-      this.elements.push(builder)
+  public push(element: Builder<TextNodeElement> | TextNodeElement | null): this {
+    if (element !== null) {
+      this.elements.push(element)
     }
 
     return this
@@ -42,7 +41,7 @@ export class TextBuilder implements Builder<Text> {
    */
   public pushString(content: string | null): this {
     if (content !== null) {
-      this.elements.push(StaticBuilder.create(content))
+      this.elements.push(content)
     }
 
     return this
@@ -51,7 +50,7 @@ export class TextBuilder implements Builder<Text> {
   /**
    * 
    */
-  public pushAcronym(): AcronymBuilder {
+  public buildAcronym(): AcronymBuilder {
     const builder: AcronymBuilder = AcronymBuilder.create()
     this.elements.push(builder)
     return builder
@@ -60,7 +59,7 @@ export class TextBuilder implements Builder<Text> {
   /**
    * 
    */
-  public pushEmphasize(): EmphasizeBuilder {
+  public buildEmphasize(): EmphasizeBuilder {
     const builder: EmphasizeBuilder = EmphasizeBuilder.create()
     this.elements.push(builder)
     return builder
@@ -69,7 +68,7 @@ export class TextBuilder implements Builder<Text> {
   /**
    * 
    */
-  public pushLink(): LinkBuilder {
+  public buildLink(): LinkBuilder {
     const builder: LinkBuilder = LinkBuilder.create()
     this.elements.push(builder)
     return builder
@@ -79,13 +78,13 @@ export class TextBuilder implements Builder<Text> {
    * 
    */
   public pushEmpty(): this {
-    return this.push(EmptyBuilder.INSTANCE)
+    return this.push(EmptyNodeBuilder.INSTANCE)
   }
 
   /**
    * 
    */
-  public setElements(values: Iterable<Builder<TextElement>> | null): this {
+  public setElements(values: Iterable<Builder<TextNodeElement> | TextNodeElement> | null): this {
     this.elements.length = 0
 
     if (values != null) {
@@ -98,14 +97,28 @@ export class TextBuilder implements Builder<Text> {
   /**
    * 
    */
-  public build(): Text {
-    return Text.create(this)
+  public build(): TextNode {
+    return TextNode.create(this.elements)
   }
 
   /**
    * 
    */
-  public copy(toCopy: Readonly<TextBuilder> | null): this {
+  public values(): IterableIterator<Builder<TextNodeElement> | TextNodeElement> {
+    return this.elements.values()
+  }
+
+  /**
+   * 
+   */
+  public [Symbol.iterator](): IterableIterator<Builder<TextNodeElement> | TextNodeElement> {
+    return this.elements.values()
+  }
+
+  /**
+   * 
+   */
+  public copy(toCopy: Readonly<TextNodeBuilder> | null): this {
     this.elements.length = 0
 
     if (toCopy != null) {
@@ -118,8 +131,8 @@ export class TextBuilder implements Builder<Text> {
   /**
    * 
    */
-  public clone(): TextBuilder {
-    return new TextBuilder().copy(this)
+  public clone(): TextNodeBuilder {
+    return new TextNodeBuilder().copy(this)
   }
 
   /**
@@ -137,7 +150,7 @@ export class TextBuilder implements Builder<Text> {
     if (other == null) return false
     if (other === this) return true
 
-    if (other instanceof TextBuilder) {
+    if (other instanceof TextNodeBuilder) {
       return equals.arrays(this.elements, other.elements)
     }
 
@@ -148,11 +161,11 @@ export class TextBuilder implements Builder<Text> {
 /**
  * 
  */
-export namespace TextBuilder {
+export namespace TextNodeBuilder {
   /**
    * 
    */
-  export function create(): TextBuilder {
-    return new TextBuilder()
+  export function create(): TextNodeBuilder {
+    return new TextNodeBuilder()
   }
 }
