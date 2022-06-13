@@ -60,7 +60,7 @@
     }
   }
 
-  .corvus-reader-content {
+  .corvus-document {
     display: flex;
     position: relative;
 
@@ -89,10 +89,10 @@
 
     .corvus-document {
       width: 100%;
-      padding-left: map-get($reader-content-horizontal-padding, 'xs');
-      padding-right: map-get($reader-content-horizontal-padding, 'xs');
-      padding-top: map-get($reader-content-vertical-padding, 'xs');
-      padding-bottom: map-get($reader-content-vertical-padding, 'xs');
+      padding-left: map-get($document-horizontal-padding, 'xs');
+      padding-right: map-get($document-horizontal-padding, 'xs');
+      padding-top: map-get($document-vertical-padding, 'xs');
+      padding-bottom: map-get($document-vertical-padding, 'xs');
 
       transition: 300ms ease-in padding, 300ms ease-in width;
     }
@@ -104,16 +104,16 @@
 
     @include media-breakpoint-up($breakpoint) {
       .corvus-reader-aside .corvus-matter {
-        padding-top: map-get($reader-content-vertical-padding, $breakpoint);
-        padding-bottom: map-get($reader-content-vertical-padding, $breakpoint);
+        padding-top: map-get($document-vertical-padding, $breakpoint);
+        padding-bottom: map-get($document-vertical-padding, $breakpoint);
       }
 
-      .corvus-reader-content .corvus-document {
-        width: min($available-space, $reader-content-target-width);
-        padding-left: map-get($reader-content-horizontal-padding, $breakpoint);
-        padding-right: map-get($reader-content-horizontal-padding, $breakpoint);
-        padding-top: map-get($reader-content-vertical-padding, $breakpoint);
-        padding-bottom: map-get($reader-content-vertical-padding, $breakpoint);
+      .corvus-document .corvus-document {
+        width: min($available-space, $document-target-width);
+        padding-left: map-get($document-horizontal-padding, $breakpoint);
+        padding-right: map-get($document-horizontal-padding, $breakpoint);
+        padding-top: map-get($document-vertical-padding, $breakpoint);
+        padding-bottom: map-get($document-vertical-padding, $breakpoint);
       }
     }
   }
@@ -134,7 +134,7 @@
       }
     }
 
-    .corvus-reader-content {
+    .corvus-document {
       padding: 0px;
       justify-content: flex-start;
     }
@@ -146,19 +146,19 @@
 
     @include media-breakpoint-up($breakpoint) {
       .corvus-reader-aside .corvus-matter {
-        padding-top: map-get($reader-content-vertical-padding, $breakpoint);
-        padding-bottom: map-get($reader-content-vertical-padding, $breakpoint);
+        padding-top: map-get($document-vertical-padding, $breakpoint);
+        padding-bottom: map-get($document-vertical-padding, $breakpoint);
       }
 
-      .corvus-reader-content {
-        flex-basis: min($available-space, $reader-content-target-width);
+      .corvus-document {
+        flex-basis: min($available-space, $document-target-width);
 
         .corvus-document {
-          width: min($available-space, $reader-content-target-width);
+          width: min($available-space, $document-target-width);
           padding-left: 0px;
-          padding-right: map-get($reader-content-horizontal-padding, $breakpoint);
-          padding-top: map-get($reader-content-vertical-padding, $breakpoint);
-          padding-bottom: map-get($reader-content-vertical-padding, $breakpoint);
+          padding-right: map-get($document-horizontal-padding, $breakpoint);
+          padding-top: map-get($document-vertical-padding, $breakpoint);
+          padding-bottom: map-get($document-vertical-padding, $breakpoint);
         }
       }
     }

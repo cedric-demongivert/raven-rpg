@@ -1,4 +1,5 @@
 import React from 'react'
+import { CorvusLocationFormat } from '../../typescript/location'
 import { CorvusSection } from '../../typescript/model'
 import { CorvusTreeRenderingContext } from './CorvusTreeRenderingContext'
 import { renderCorvusNumbering } from './renderCorvusNumbering'
@@ -43,15 +44,53 @@ function renderCorvusTitleContent(context: CorvusTreeRenderingContext<CorvusSect
 /**
  * 
  */
+function renderCorvusTitleFooter(context: CorvusTreeRenderingContext<CorvusSection>): React.ReactElement {
+  const parentSection = context.tree.parentSection
+
+  if (parentSection == null) {
+    return (
+      <div className='corvus-title-footer'>
+        <div className='corvus-title-margin' />
+        <div className='corvus-title-content'>
+          <a href='#matter'>Sommaire</a>
+        </div>
+      </div>
+    )
+  }
+
+  let identifier: string
+
+  if (parentSection.node.hasIdentifier()) {
+    identifier = '#' + parentSection.node.identifier
+  } else {
+    identifier = '#section-' + parentSection.location.stringifySection(CorvusLocationFormat.DEFAULT_IDENTIFIER)
+  }
+
+  return (
+    <div className='corvus-title-footer'>
+      <div className='corvus-title-margin' />
+      <div className='corvus-title-content'>
+        <a href='#matter'>Sommaire</a>&nbsp;&#xB7;&nbsp;<a href={identifier}>Section parente</a>
+      </div>
+    </div>
+  )
+}
+
+/**
+ * 
+ */
 export function renderCorvusTitle(context: CorvusTreeRenderingContext<CorvusSection>): React.ReactElement {
   return (
     <div className={'corvus-title corvus-title-' + (context.tree.sectionDepth + 1)}>
-      <div className='corvus-title-margin'>
-        {renderCorvusNumbering(context.location)}
-      </div> 
-      <div className='corvus-title-content'>
-        {renderCorvusTitleContent(context)}
+      <div className='corvus-title-body'>
+        <div className='corvus-title-margin'>
+          {renderCorvusNumbering(context.tree.location)}
+        </div> 
+        <div className='corvus-title-content'>
+          {renderCorvusTitleContent(context)}
+        </div>
       </div>
+      {renderCorvusTitleFooter(context)}
     </div>
   )
 }

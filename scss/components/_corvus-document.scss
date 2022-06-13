@@ -17,6 +17,8 @@
   
   font-size: 1em;
 
+  transition: 300ms ease-in width, 300ms ease-in padding, 300ms ease-in margin;
+
   section {
     display: block;
     position: relative;

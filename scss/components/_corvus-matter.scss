@@ -1,33 +1,70 @@
 .corvus-matter {
-  display: block;
-  position: relative;
-
-  margin: 0px;
-  padding: 0px;
-  border: none;
-
-  width: 100%;
-  height: auto;
-
-  box-sizing: border-box;
-
-  .corvus-matter-element {
-    display: block;
+  .corvus-block-content {
+    display: flex;
     position: relative;
 
-    padding: 0px;
-    margin: 0px;
-    border: none;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
+
+    .corvus-matter-column {
+      flex-basis: 100%;
+      flex-grow: 0;
+      flex-shrink: 1;
+      min-width: 0;
+
+      .corvus-matter-element {
+        display: flex;
+        position: relative;
+
+        flex-flow: row nowrap;
+        justify-content: flex-start;
+        align-items: flex-start;
+        align-content: flex-start;
     
-    width: 100%;
-    height: auto;
+        padding: 0px;
+        margin: 0px;
+        border: none;
+        
+        width: 100%;
+        height: auto;
+    
+        font-size: 1em;
+        color: lighten($text-color, 50%);
 
-    font-size: 1em;
-    color: lighten($text-color, 50%);
+        white-space: nowrap;
+        overflow: hidden;
 
-    @each $level in (1, 2, 3, 4, 5, 6) {
-      &.corvus-matter-depth-#{$level} {
-        padding-left: $level * 10px;
+        &:after {
+          content: "..................................................................................................................................";
+          display: block;
+          position: relative;
+
+          flex-basis: auto;
+          flex-grow: 0;
+          flex-shrink: 1;
+    
+          margin-left: 5px;
+    
+          color: lighten($text-color, 50%);
+        }
+    
+        @each $level in (1, 2, 3, 4, 5, 6) {
+          &.corvus-matter-depth-#{$level} {
+            padding-left: $level * 10px;
+          }
+        }
+      }
+  
+      .corvus-matter-element[href=':target'] {
+        color: #ff7e00;
+      }
+    }
+
+    @include media-breakpoint-up('md') {
+      .corvus-matter-column {
+        flex-basis: 50%;
       }
     }
   }

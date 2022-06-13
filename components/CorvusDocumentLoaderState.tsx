@@ -1,18 +1,18 @@
 /**
  * 
  */
-export type DocumentPageState = (
-  DocumentPageState.CLONING |
-  DocumentPageState.LOADING_LATEST_COMMIT |
-  DocumentPageState.PARSING_COMMIT |
-  DocumentPageState.SUCCESS |
-  DocumentPageState.FAILURE
+export type CorvusDocumentLoaderState = (
+  CorvusDocumentLoaderState.CLONING |
+  CorvusDocumentLoaderState.LOADING_LATEST_COMMIT |
+  CorvusDocumentLoaderState.PARSING_COMMIT |
+  CorvusDocumentLoaderState.SUCCESS |
+  CorvusDocumentLoaderState.FAILURE
 )
 
 /**
  * 
  */
-export namespace DocumentPageState {
+export namespace CorvusDocumentLoaderState {
   /**
    * 
    */
@@ -66,12 +66,12 @@ export namespace DocumentPageState {
   /**
    * 
    */
-  export const DEFAULT: DocumentPageState = CLONING
+  export const DEFAULT: CorvusDocumentLoaderState = CLONING
 
   /**
    * 
    */
-  export const ALL: DocumentPageState[] = [
+  export const ALL: CorvusDocumentLoaderState[] = [
     CLONING,
     LOADING_LATEST_COMMIT,
     PARSING_COMMIT,
@@ -82,7 +82,7 @@ export namespace DocumentPageState {
   /**
    *
    */
-   export function toString(type: DocumentPageState): string | undefined {
+   export function toString(type: CorvusDocumentLoaderState): string | undefined {
     switch (type) {
       case CLONING: return 'CLONING'
       case LOADING_LATEST_COMMIT: return 'LOADING_LATEST_COMMIT'
@@ -96,7 +96,7 @@ export namespace DocumentPageState {
   /**
    *
    */
-  export function toDebugString(type: DocumentPageState): string {
-    return `DocumentPageState #${type} (${toString(type) || 'undefined'})`
+  export function toDebugString(type: CorvusDocumentLoaderState): string {
+    return `CorvusDocumentLoaderState #${type} (${toString(type) || 'undefined'})`
   }
 }

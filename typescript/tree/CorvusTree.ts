@@ -1,3 +1,4 @@
+import { CorvusLocation } from "../location"
 import { CorvusAcronym, CorvusNode, CorvusEmphasize, CorvusLink, CorvusParagraph, CorvusSection, CorvusDocument, CorvusEmptyNode } from "../model"
 import { CorvusSectionLike } from "../model/CorvusSectionLike"
 import { CorvusTreeBuilder } from "./CorvusTreeBuilder"
@@ -19,6 +20,11 @@ export class CorvusTree<Node> {
   /**
    * 
    */
+  public readonly location: CorvusLocation
+
+  /**
+   * 
+   */
   public node: Node
 
   /**
@@ -34,6 +40,20 @@ export class CorvusTree<Node> {
     }
 
     return result
+  }
+
+  /**
+   * 
+   */
+  public get parentSection(): CorvusTree<CorvusSectionLike> | null {
+    let current: CorvusTree<unknown> | null = this._parent
+
+    while (current != null) {
+      if (current.isSectionLike()) return current
+      current = current._parent
+    }
+
+    return null
   }
 
   /**
@@ -79,6 +99,7 @@ export class CorvusTree<Node> {
     this._parent = null
     this._children = []
     this.node = node
+    this.location = new CorvusLocation()
   }
 
   /**

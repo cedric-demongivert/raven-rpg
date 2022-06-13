@@ -9,11 +9,6 @@ h1, h2, h3, h4, h5, h6 {
   border: none;
   box-sizing: border-box;
 
-  color: $text-color;
   font-family: "Alegreya SC", serif;
   font-size: 1em;
-
-  &:target {
-    color: #ff7e00;
-  }
 }

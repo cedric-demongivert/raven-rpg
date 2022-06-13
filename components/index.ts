@@ -1,3 +1,3 @@
-
-export { DocumentPage } from './DocumentPage'
+export { CorvusDocumentLoader } from './CorvusDocumentLoader'
+export { CorvusOnePageView } from './CorvusOnePageView'
 export { Loading } from './Loading'

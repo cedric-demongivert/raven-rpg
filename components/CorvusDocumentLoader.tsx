@@ -5,19 +5,17 @@ import { GitRepository } from '../typescript/git'
 import { parse } from '../typescript/parse'
 import { CorvusDocument, CorvusDocumentBuilder } from '../typescript/model'
 
-import { CorvusReader } from './CorvusReader'
-import { DocumentPageState } from './DocumentPageState'
-
+import { CorvusDocumentLoaderState } from './CorvusDocumentLoaderState'
 import { Loading } from './Loading'
 
 /**
  * 
  */
-export class DocumentPage extends React.Component<DocumentPage.Properties, DocumentPage.State> {
+export class CorvusDocumentLoader extends React.Component<CorvusDocumentLoader.Properties, CorvusDocumentLoader.State> {
   /**
    * 
    */
-  static defaultProps: Partial<DocumentPage.Properties> = {
+  static defaultProps: Partial<CorvusDocumentLoader.Properties> = {
     /**
      * 
      */
@@ -27,11 +25,11 @@ export class DocumentPage extends React.Component<DocumentPage.Properties, Docum
   /**
    * 
    */
-  public constructor(properties: DocumentPage.Properties) {
+  public constructor(properties: CorvusDocumentLoader.Properties) {
     super(properties)
 
     this.state = {
-      state: DocumentPageState.DEFAULT,
+      state: CorvusDocumentLoaderState.DEFAULT,
       commit: null,
       document: null,
       repository: new GitRepository(properties.origin, properties.name)
@@ -50,7 +48,7 @@ export class DocumentPage extends React.Component<DocumentPage.Properties, Docum
    * 
    */
   public loadLatestCommit(): void {
-    this.setState({ state: DocumentPageState.LOADING_LATEST_COMMIT })
+    this.setState({ state: CorvusDocumentLoaderState.LOADING_LATEST_COMMIT })
     this.state.repository.readCommits().then(this.handleLoadingLatestCommitSuccess, this.handleFailure)
   }
 
@@ -77,14 +75,14 @@ export class DocumentPage extends React.Component<DocumentPage.Properties, Docum
    * 
    */
   public handleParseSuccess(result: CorvusDocumentBuilder): void {
-    this.setState({ state: DocumentPageState.SUCCESS, document: result.build() })
+    this.setState({ state: CorvusDocumentLoaderState.SUCCESS, document: result.build() })
   }
 
   /**
    * 
    */
   public parseCommit(): void {
-    this.setState({ state: DocumentPageState.PARSING_COMMIT })
+    this.setState({ state: CorvusDocumentLoaderState.PARSING_COMMIT })
     parse(this.state.repository, this.state.commit).then(this.handleParseSuccess, this.handleFailure)
   }
 
@@ -100,17 +98,17 @@ export class DocumentPage extends React.Component<DocumentPage.Properties, Docum
    */
   public render(): React.ReactElement {
     switch (this.state.state) {
-      case DocumentPageState.CLONING:
+      case CorvusDocumentLoaderState.CLONING:
         return this.renderCloningRepository()
-      case DocumentPageState.LOADING_LATEST_COMMIT:
+      case CorvusDocumentLoaderState.LOADING_LATEST_COMMIT:
         return this.renderLoadingLatestCommit()
-      case DocumentPageState.PARSING_COMMIT:
+      case CorvusDocumentLoaderState.PARSING_COMMIT:
         return this.renderParsingCommit()
-      case DocumentPageState.SUCCESS:
+      case CorvusDocumentLoaderState.SUCCESS:
         return this.renderDocument()
       default:
         throw new Error(
-          `Unable to render document page in state ${DocumentPageState.toDebugString(this.state.state)} ` +
+          `Unable to render document page in state ${CorvusDocumentLoaderState.toDebugString(this.state.state)} ` +
           'because no rendering function was defined for that.'
         )
     }
@@ -120,7 +118,7 @@ export class DocumentPage extends React.Component<DocumentPage.Properties, Docum
    * 
    */
   public renderDocument(): React.ReactElement {
-    return <CorvusReader value={this.state.document} />
+    return <this.props.renderer value={this.state.document} />
   }
 
   /**
@@ -160,7 +158,7 @@ export class DocumentPage extends React.Component<DocumentPage.Properties, Docum
 /**
  * 
  */
-export namespace DocumentPage {
+export namespace CorvusDocumentLoader {
   /**
    * 
    */
@@ -168,7 +166,7 @@ export namespace DocumentPage {
     /**
      * 
      */
-    state: DocumentPageState,
+    state: CorvusDocumentLoaderState,
 
     /**
      * 
@@ -204,6 +202,11 @@ export namespace DocumentPage {
     /**
      * 
      */
-    commit?: string
+    commit?: string,
+
+    /**
+     * 
+     */
+    renderer: React.JSXElementConstructor<{ value: CorvusDocument }>
   }
 }

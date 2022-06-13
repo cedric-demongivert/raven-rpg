@@ -1,0 +1,33 @@
+.corvus-document.corvus-document-onepage {
+  display: block;
+
+  width: 100%;
+  height: auto;
+
+  min-width: 350px;
+
+  margin: auto;
+  padding-left: map-get($document-horizontal-padding, 'xs');
+  padding-right: map-get($document-horizontal-padding, 'xs');
+  padding-top: map-get($document-vertical-padding, 'xs');
+  padding-bottom: map-get($document-vertical-padding, 'xs');
+}
+
+@each $breakpoint in ('sm', 'md', 'lg', 'xl') {
+  @include media-breakpoint-up($breakpoint) {
+    .corvus-document.corvus-document-onepage {
+      width: min(map-get($container-max-widths, $breakpoint), $document-target-width);
+      padding-left: map-get($document-horizontal-padding, $breakpoint);
+      padding-right: map-get($document-horizontal-padding, $breakpoint);
+      padding-top: map-get($document-vertical-padding, $breakpoint);
+      padding-bottom: map-get($document-vertical-padding, $breakpoint);
+    }
+  }
+}
+
+@include media-breakpoint-up('lg') {
+  .corvus-document.corvus-document-onepage {
+    width: min(map-get($container-max-widths, 'lg'), $document-target-width) + 100px;
+    padding-right: map-get($document-horizontal-padding, 'lg') + 100px;
+  }
+}

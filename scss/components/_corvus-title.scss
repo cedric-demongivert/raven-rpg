@@ -5,7 +5,7 @@
   position: relative;
 
   flex-wrap: nowrap;
-  flex-direction: row;
+  flex-direction: column;
 
   justify-content: flex-start;
   align-items: flex-start;
@@ -25,6 +25,12 @@
 
   overflow: hidden;
 
+  transition: 300ms ease-in width, 300ms ease-in padding, 300ms ease-in margin;
+
+  .corvus-title-body .corvus-title-content * {
+    color: $text-color;
+  }
+
   @for $level from 1 to 6 {
     &.corvus-title-#{$level} {
       font-size: map.get(map.get($header-size, 'xs'), $level);
@@ -39,6 +45,30 @@
         }
       }
     }
+
+    &.corvus-title-main {
+      font-size: map.get(map.get($header-size, $breakpoint), 1) * 2;
+      text-align: center;
+    }
+  }
+
+  .corvus-title-body, .corvus-title-footer {
+    display: flex;
+    position: relative;
+
+    flex-wrap: nowrap;
+    flex-direction: row;
+
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
+
+    width: 100%;
+    height: auto;
+  }
+
+  .corvus-title-footer {
+    font-size: 1rem;
   }
 
   .corvus-title-margin {
@@ -53,6 +83,8 @@
   
     border: none;
     box-sizing: border-box;
+
+    transition: 300ms ease-in flex-basis;
   }
 
   @include media-breakpoint-up('lg') {
@@ -73,9 +105,15 @@
   }
 }
 
+.corvus-title + .corvus-title,
 .corvus-block + .corvus-title,
 .corvus-block + section > .corvus-title,
+.corvus-title + section > .corvus-title,
 section + section > .corvus-title,
 .corvus-title + .corvus-block {
   margin-top: 2rem;
+}
+
+section:target > .corvus-title .corvus-title-body .corvus-title-content * {
+  color: #ff7e00;
 }

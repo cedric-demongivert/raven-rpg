@@ -36,17 +36,11 @@ export class CorvusTreeRenderer extends CorvusTreeIndexer {
   /**
    * 
    */
-  private readonly _tracker: CorvusLocationTracker
-
-  /**
-   * 
-   */
   public constructor() {
     super()
     this._stack = []
     this._indices = []
     this._context = new CorvusTreeRenderingContext<unknown>(EMPTY_TREE)
-    this._tracker = new CorvusLocationTracker()
   }
 
   /**
@@ -54,7 +48,6 @@ export class CorvusTreeRenderer extends CorvusTreeIndexer {
    */
   public result(): React.ReactNode {
     const result: React.ReactNode = this._stack.pop()
-    this._tracker.clear()
     return result
   }
 
@@ -64,12 +57,6 @@ export class CorvusTreeRenderer extends CorvusTreeIndexer {
   public enter(tree: CorvusTree<unknown>, index: CorvusTreeIndex): void {
     if (tree.isString()) {
       return
-    }
-    
-    if (tree.isSectionLike()) {
-      this._tracker.enterSection()
-    } else if (tree.isBlock()) {
-      this._tracker.enterBlock()
     }
 
     this._indices.push(this._stack.length)
@@ -86,13 +73,6 @@ export class CorvusTreeRenderer extends CorvusTreeIndexer {
 
     if (tree.isNode()) {
       this._stack.push(this.renderNode(tree, index))
-
-      if (tree.isSectionLike()) {
-        this._tracker.exitSection()
-      } else if (tree.isBlock()) {
-        this._tracker.exitBlock()
-      }
-
       return
     }
 
@@ -120,7 +100,6 @@ export class CorvusTreeRenderer extends CorvusTreeIndexer {
     context.setIndex(index)
     context.setKey(indices.length > 0 ? offset - indices[indices.length - 1] : null)
     context.setChildren(stack.slice(offset))
-    this._tracker.get(context.location)
 
     stack.length = offset
 

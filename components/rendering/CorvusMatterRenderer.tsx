@@ -12,35 +12,20 @@ export class CorvusMatterRenderer extends CorvusTreeIndexer {
    */
   private readonly _result: Array<React.ReactNode>
 
-
-  /**
-   * 
-   */
-  private readonly _tracker: CorvusLocationTracker
-
-
-  /**
-   * 
-   */
-  private readonly _location: CorvusLocation
-
   /**
    * 
    */
   public constructor() {
     super()
     this._result = []
-    this._tracker = new CorvusLocationTracker()
-    this._location = new CorvusLocation()
   }
 
   /**
    * 
    */
-  public result(): React.ReactNode {
-    const result: React.ReactNode = this._result.slice()
+  public result(): Array<React.ReactNode> {
+    const result: Array<React.ReactNode> = this._result.slice()
     this._result.length = 0
-    this._tracker.clear()
     return result
   }
 
@@ -53,7 +38,6 @@ export class CorvusMatterRenderer extends CorvusTreeIndexer {
     }
     
     if (tree.isSectionLike()) {
-      this._tracker.enterSection()
       this._result.push(this.renderSection(tree))
     }
   }
@@ -62,14 +46,6 @@ export class CorvusMatterRenderer extends CorvusTreeIndexer {
    * 
    */
   public exit(tree: CorvusTree<unknown>, index: CorvusTreeIndex): void {
-    if (tree.isString()) {
-      return
-    }
-
-    if (tree.isSectionLike()) {
-      this._tracker.exitSection()
-    }
-
     return
   }
 
@@ -77,13 +53,17 @@ export class CorvusMatterRenderer extends CorvusTreeIndexer {
    * 
    */
   public renderSection(tree: CorvusTree<CorvusSectionLike>): React.ReactNode {
-    this._tracker.get(this._location)
-
-    const identifier: string = this._location.stringifySection(CorvusLocationFormat.DEFAULT_IDENTIFIER)
-
+    let identifier: string
+    
+    if (tree.node.hasIdentifier()) {
+      identifier = tree.node.identifier
+    } else {
+      identifier = 'section-' + tree.location.stringifySection(CorvusLocationFormat.DEFAULT_IDENTIFIER)
+    }
+    
     return (
-      <a href={`#section-${identifier}`} key={this._result.length} className={"corvus-matter-element corvus-matter-depth-" + tree.sectionDepth}>
-        {this._location.stringifySection()}. {tree.node.title}
+      <a href={`#${identifier}`} key={this._result.length} className={"corvus-matter-element corvus-matter-depth-" + tree.sectionDepth}>
+        {tree.location.stringifySection()}. {tree.node.title}
       </a>
     )
   }

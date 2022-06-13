@@ -61,9 +61,9 @@ $content-spacing: (
   "xl": 0.5em
 );
 
-$reader-content-target-width: 800px;
+$document-target-width: 800px;
 
-$reader-content-vertical-padding: (
+$document-vertical-padding: (
   "xs": 3rem,
   "sm": 3rem,
   "md": 3rem,
@@ -71,7 +71,7 @@ $reader-content-vertical-padding: (
   "xl": 3rem
 );
 
-$reader-content-horizontal-padding: (
+$document-horizontal-padding: (
   "xs": 20px,
   "sm": 30px,
   "md": 40px,

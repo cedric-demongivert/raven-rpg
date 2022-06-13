@@ -20,10 +20,14 @@
 
   overflow: hidden;
 
+  transition: 300ms ease-in width, 300ms ease-in padding, 300ms ease-in margin;
+
   .corvus-block-margin {
     flex-basis: 0px;
     flex-grow: 0;
     flex-shrink: 0;
+
+    min-width: 0px;
 
     overflow: hidden;
 
@@ -32,6 +36,8 @@
   
     border: none;
     box-sizing: border-box;
+
+    transition: 300ms ease-in flex-basis;
   }
 
   @include media-breakpoint-up('lg') {
@@ -43,6 +49,8 @@
   .corvus-block-content {
     flex-grow: 1;
     flex-shrink: 1;
+
+    min-width: 0px;
 
     margin: 0px;
     padding: 0px;

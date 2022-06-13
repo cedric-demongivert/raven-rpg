@@ -30,11 +30,6 @@ export class CorvusTreeRenderingContext<Node> {
   /**
    * 
    */
-  public readonly location: CorvusLocation
-
-  /**
-   * 
-   */
   public children: Array<React.ReactNode>
 
   /**
@@ -48,7 +43,6 @@ export class CorvusTreeRenderingContext<Node> {
   public constructor (tree: CorvusTree<Node>) {
     this.tree = tree
     this.index = new CorvusTreeIndex()
-    this.location = new CorvusLocation()
     this.children = []
     this.key = null
   }
@@ -88,14 +82,6 @@ export class CorvusTreeRenderingContext<Node> {
   /**
    * 
    */
-  public setLocation(location: CorvusLocation | null): this {
-    this.location.copy(location)
-    return this
-  }
-
-  /**
-   * 
-   */
   public hasKey(): boolean {
     return this.key != null
   }
@@ -110,8 +96,7 @@ export class CorvusTreeRenderingContext<Node> {
     if (other instanceof CorvusTreeRenderingContext) {
       return (
         equals(other.tree.node, this.tree.node) &&
-        other.index.equals(this.index) &&
-        other.location.equals(this.location)
+        other.index.equals(this.index)
       )
     }
 
