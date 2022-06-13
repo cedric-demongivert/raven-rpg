@@ -1,0 +1,81 @@
+@use "sass:map";
+
+.corvus-title {
+  display: flex;
+  position: relative;
+
+  flex-wrap: nowrap;
+  flex-direction: row;
+
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-start;
+
+  width: 100%;
+  height: auto;
+
+  margin: 0px;
+  padding: 0px;
+
+  border: none;
+  box-sizing: border-box;
+
+  font-family: "Alegreya SC", serif;
+  font-size: 1em;
+
+  overflow: hidden;
+
+  @for $level from 1 to 6 {
+    &.corvus-title-#{$level} {
+      font-size: map.get(map.get($header-size, 'xs'), $level);
+    }
+  }
+
+  @each $breakpoint in ("sm", "md", "lg", "xl") {
+    @for $level from 1 to 6 {
+      @include media-breakpoint-up($breakpoint) {
+        &.corvus-title-#{$level} {
+          font-size: map.get(map.get($header-size, $breakpoint), $level);
+        }
+      }
+    }
+  }
+
+  .corvus-title-margin {
+    flex-basis: auto;
+    flex-grow: 0;
+    flex-shrink: 0;
+
+    overflow: hidden;
+
+    margin: 0px;
+    padding: 0px;
+  
+    border: none;
+    box-sizing: border-box;
+  }
+
+  @include media-breakpoint-up('lg') {
+    .corvus-title-margin {
+      flex-basis: 100px;
+    }
+  }
+
+  .corvus-title-content {
+    flex-grow: 1;
+    flex-shrink: 1;
+
+    margin: 0px;
+    padding: 0px;
+  
+    border: none;
+    box-sizing: border-box;
+  }
+}
+
+.corvus-block + .corvus-title,
+.corvus-block + section > .corvus-title,
+section + section > .corvus-title,
+.corvus-title + .corvus-block {
+  margin-top: 2rem;
+}

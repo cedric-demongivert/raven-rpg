@@ -1,0 +1,53 @@
+.corvus-block {
+  display: flex;
+  position: relative;
+
+  flex-wrap: nowrap;
+  flex-direction: row;
+
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-start;
+
+  width: 100%;
+  height: auto;
+
+  margin: 0px;
+  padding: 0px;
+
+  border: none;
+  box-sizing: border-box;
+
+  overflow: hidden;
+
+  .corvus-block-margin {
+    flex-basis: 0px;
+    flex-grow: 0;
+    flex-shrink: 0;
+
+    overflow: hidden;
+
+    margin: 0px;
+    padding: 0px;
+  
+    border: none;
+    box-sizing: border-box;
+  }
+
+  @include media-breakpoint-up('lg') {
+    .corvus-block-margin {
+      flex-basis: 100px;
+    }
+  }
+
+  .corvus-block-content {
+    flex-grow: 1;
+    flex-shrink: 1;
+
+    margin: 0px;
+    padding: 0px;
+  
+    border: none;
+    box-sizing: border-box;
+  }
+}

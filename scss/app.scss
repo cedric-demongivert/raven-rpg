@@ -8,42 +8,7 @@
 @import url("https://fonts.googleapis.com/css?family=Alegreya+SC&display=swap");
 
 @import "./vars";
-
 @import "./base";
-
-@import "./layout/layout";
-@import "./layout/layout-vanilla";
-@import "./layout/layout-centered";
-@import "./layout/layout-loading";
-@import "./layout/layout-page";
-@import "./layout/layout-sandwich";
-@import "./layout/layout-document";
-@import "./layout/layout-stack";
-
-@import "./components/dot-loader";
-@import "./components/framework";
-@import "./components/application";
-@import "./components/matter";
-@import "./components/table";
-@import "./components/summary";
-//@import "./components/data";
-@import "./components/document";
-@import "./components/data-list";
-@import "./components/spell";
-@import "./components/map";
-@import "./components/image";
-@import "./components/characteristic";
-@import "./components/book";
-@import "./components/mastery";
-@import "./components/paragraph";
-@import "./components/minimap";
-
-@import "./theme/subject";
-@import "./theme/badge";
-@import "./theme/headings";
-@import "./theme/table-1d";
-@import "./theme/table-2d";
-@import "./theme/instinct-modifier";
-@import "./theme/data";
-@import "./theme/alchemy";
-@import "./theme/section";
+@import "./layout";
+@import "./components";
+@import "./theme";

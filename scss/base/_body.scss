@@ -21,13 +21,11 @@ html {
   color: $text-color;
 }
 
-@each $key, $value in $font-size {
-  @if $key != "xs" {
-    @include media-breakpoint-up($key) {
-      body,
-      html {
-        font-size: $value;
-      }
+@each $key in ('sm', 'md', 'lg', 'xl') {
+  @include media-breakpoint-up($key) {
+    body,
+    html {
+      font-size: map.get($font-size, $key);
     }
   }
 }

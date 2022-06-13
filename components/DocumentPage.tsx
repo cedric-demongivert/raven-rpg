@@ -2,9 +2,10 @@ import { ReadCommitResult } from 'isomorphic-git'
 import React from 'react'
 
 import { GitRepository } from '../typescript/git'
-import { Document, DocumentBuilder } from '../typescript/model'
 import { parse } from '../typescript/parse'
-import { DocumentRenderer } from './rendering/DocumentRenderer'
+import { CorvusDocument, CorvusDocumentBuilder } from '../typescript/model'
+
+import { CorvusReader } from './CorvusReader'
 import { DocumentPageState } from './DocumentPageState'
 
 import { Loading } from './Loading'
@@ -75,7 +76,7 @@ export class DocumentPage extends React.Component<DocumentPage.Properties, Docum
   /**
    * 
    */
-  public handleParseSuccess(result: DocumentBuilder): void {
+  public handleParseSuccess(result: CorvusDocumentBuilder): void {
     this.setState({ state: DocumentPageState.SUCCESS, document: result.build() })
   }
 
@@ -119,13 +120,7 @@ export class DocumentPage extends React.Component<DocumentPage.Properties, Docum
    * 
    */
   public renderDocument(): React.ReactElement {
-    return (
-      <div className='layout layout-vanilla'>
-          <div className='layout layout-sandwich'>
-            <DocumentRenderer>{ this.state.document }</DocumentRenderer>
-          </div>
-      </div>
-    )
+    return <CorvusReader value={this.state.document} />
   }
 
   /**
@@ -183,7 +178,7 @@ export namespace DocumentPage {
     /**
      * 
      */
-    document: Document | null,
+    document: CorvusDocument | null,
 
     /**
      * 

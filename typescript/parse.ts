@@ -12,20 +12,20 @@ import {
 } from "@cedric-demongivert/unidoc"
 
 import { GitRepository } from "./git"
-import { DocumentBuilder } from "./model"
+import { CorvusDocumentBuilder } from "./model"
 import { RepositoryResolver } from "./unidoc"
-import { reduceDocumentStream } from "./unidoc/reduceDocumentStream"
+import { reduceCorvusDocument } from "./unidoc/reduceCorvusDocument"
 
 /**
  * 
  */
-export function parse(repository: GitRepository, commit: string): Promise<DocumentBuilder> {
+export function parse(repository: GitRepository, commit: string): Promise<CorvusDocumentBuilder> {
   return new Promise(function executeParse(resolve, reject): void {
     const lexer: UnidocLexer = new UnidocLexer()
     const parser: UnidocParser = new UnidocParser()
     const autocloser: UnidocAutoCloser = new UnidocAutoCloser()
     const importExtractor: UnidocImportExtractor = new UnidocImportExtractor()
-    const reduction: UnidocReduce<DocumentBuilder> = new UnidocReduce(reduceDocumentStream)
+    const reduction: UnidocReduce<CorvusDocumentBuilder> = new UnidocReduce(reduceCorvusDocument.stream)
     const context: UnidocContext = new UnidocContext(new RepositoryResolver(repository, commit))
 
     parser.subscribe(lexer)

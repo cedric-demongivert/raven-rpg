@@ -1,0 +1,16 @@
+.corvus-block.corvus-paragraph {
+  & + .corvus-block.corvus-paragraph {
+    margin-top: 1.6rem;
+  }
+  
+  p {
+    display: block;
+    position: relative;
+
+    margin: 0px;
+    padding: 0px;
+    border: none;
+
+    line-height: 1.5rem;
+  }
+}

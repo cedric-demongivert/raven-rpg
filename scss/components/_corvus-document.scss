@@ -1,0 +1,28 @@
+.corvus-document {
+  display: block;
+  position: relative;
+
+  width: 100%;
+  height: auto;
+
+  padding: 0px;
+  margin: 0px;
+  border: none;
+
+  box-sizing: border-box;
+  text-align: justify;
+  hyphens: auto;
+
+  overflow: hidden;
+  
+  font-size: 1em;
+
+  section {
+    display: block;
+    position: relative;
+
+    margin: 0px;
+    padding: 0px;
+    border: none;
+  }
+}

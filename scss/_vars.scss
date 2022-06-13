@@ -1,8 +1,9 @@
 $font-size: (
-  "xs": 12px,
-  "sm": 14px,
+  "xs": 14px,
+  "sm": 15px,
   "md": 16px,
-  "lg": 16px
+  "lg": 17px,
+  "xl": 18px
 );
 
 $link-color: #3498db;
@@ -59,3 +60,25 @@ $content-spacing: (
   "lg": 0.5em,
   "xl": 0.5em
 );
+
+$reader-content-target-width: 800px;
+
+$reader-content-vertical-padding: (
+  "xs": 3rem,
+  "sm": 3rem,
+  "md": 3rem,
+  "lg": 3rem,
+  "xl": 3rem
+);
+
+$reader-content-horizontal-padding: (
+  "xs": 20px,
+  "sm": 30px,
+  "md": 40px,
+  "lg": 40px,
+  "xl": 40px
+);
+
+$reader-aside-width: 250px;
+
+$reader-aside-outer-width: 40px;

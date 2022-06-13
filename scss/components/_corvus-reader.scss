@@ -1,0 +1,166 @@
+.corvus-reader {
+  display: flex;
+  position: relative;
+
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: flex-start;
+  align-content: flex-start;
+
+  width: 100%;
+  height: 100%;
+
+  padding: 0px;
+  margin: 0px;
+  border: none;
+
+  box-sizing: border-box;
+  overflow: hidden;
+
+  .corvus-reader-aside {
+    display: flex;
+    position: absolute;
+
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+    align-items: flex-start;
+    align-content: flex-start;
+
+    left: 0px;
+    right: auto;
+    top: 0px;
+    bottom: 0px;
+
+    background-color: $page-color;
+
+    width: $reader-aside-width;
+    height: 100%;
+
+    padding: 0px;
+    margin: 0px;
+    border: none;
+
+    box-sizing: border-box;
+    overflow: hidden;
+
+    box-shadow: 3px 1px 10px 1px rgba(0, 0, 0, 0.1);
+
+    transition: 300ms ease-in left, 300ms ease-in flex, 300ms ease-in box-shadow;
+
+    &.is-open {
+      left: 0px;
+    }
+
+    &.is-close {
+      left: -$reader-aside-width;
+    }
+
+    .corvus-matter {
+      padding-left: 10px;
+    }
+  }
+
+  .corvus-reader-content {
+    display: flex;
+    position: relative;
+
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-basis: 100%;
+    order: 1;
+
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: flex-start;
+    align-content: flex-start;
+
+    width: auto;
+    height: 100%;
+
+    padding: 0px;
+    margin: 0px;
+    border: none;
+
+    box-sizing: border-box;
+    overflow: hidden;
+    overflow-y: auto;
+
+    transition: 300ms ease-in flex;
+
+    .corvus-document {
+      width: 100%;
+      padding-left: map-get($reader-content-horizontal-padding, 'xs');
+      padding-right: map-get($reader-content-horizontal-padding, 'xs');
+      padding-top: map-get($reader-content-vertical-padding, 'xs');
+      padding-bottom: map-get($reader-content-vertical-padding, 'xs');
+
+      transition: 300ms ease-in padding, 300ms ease-in width;
+    }
+  }
+
+  @each $breakpoint in ('sm', 'md') {
+    $breakpoint-width: map-get($container-max-widths, $breakpoint);
+    $available-space: $breakpoint-width - $reader-aside-outer-width;
+
+    @include media-breakpoint-up($breakpoint) {
+      .corvus-reader-aside .corvus-matter {
+        padding-top: map-get($reader-content-vertical-padding, $breakpoint);
+        padding-bottom: map-get($reader-content-vertical-padding, $breakpoint);
+      }
+
+      .corvus-reader-content .corvus-document {
+        width: min($available-space, $reader-content-target-width);
+        padding-left: map-get($reader-content-horizontal-padding, $breakpoint);
+        padding-right: map-get($reader-content-horizontal-padding, $breakpoint);
+        padding-top: map-get($reader-content-vertical-padding, $breakpoint);
+        padding-bottom: map-get($reader-content-vertical-padding, $breakpoint);
+      }
+    }
+  }
+
+  @include media-breakpoint-up(lg) {
+    .corvus-reader-aside {
+      position: relative;
+
+      flex-grow: 1;
+      flex-basis: $reader-aside-width;
+
+      order: 0;
+
+      box-shadow: 3px 1px 10px 1px rgba(0, 0, 0, 0);
+
+      .corvus-matter {
+        width: $reader-aside-width;
+      }
+    }
+
+    .corvus-reader-content {
+      padding: 0px;
+      justify-content: flex-start;
+    }
+  }
+
+  @each $breakpoint in ('lg', 'xl') {
+    $breakpoint-width: map-get($container-max-widths, $breakpoint);
+    $available-space: $breakpoint-width - $reader-aside-width;
+
+    @include media-breakpoint-up($breakpoint) {
+      .corvus-reader-aside .corvus-matter {
+        padding-top: map-get($reader-content-vertical-padding, $breakpoint);
+        padding-bottom: map-get($reader-content-vertical-padding, $breakpoint);
+      }
+
+      .corvus-reader-content {
+        flex-basis: min($available-space, $reader-content-target-width);
+
+        .corvus-document {
+          width: min($available-space, $reader-content-target-width);
+          padding-left: 0px;
+          padding-right: map-get($reader-content-horizontal-padding, $breakpoint);
+          padding-top: map-get($reader-content-vertical-padding, $breakpoint);
+          padding-bottom: map-get($reader-content-vertical-padding, $breakpoint);
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+.corvus-numbering {
+  display: inline-block;
+  position: relative;
+
+  padding: 0px;
+  padding-right: 20px;
+  margin: 0px;
+
+  border: none;
+  box-sizing: border-box;
+
+  color: lighten($text-color, 75%);
+
+  overflow: hidden;
+  line-height: 1.2em;
+
+  @include media-breakpoint-up('lg') {
+    display: block;
+    text-align: center;
+  }
+}

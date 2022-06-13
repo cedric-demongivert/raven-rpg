@@ -1,4 +1,3 @@
-import { equals } from '@cedric-demongivert/gl-tool-utils'
 import { UTF32CodeUnit, UTF32String } from '@cedric-demongivert/unidoc'
 
 import { Builder } from './Builder'

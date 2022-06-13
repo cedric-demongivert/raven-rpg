@@ -9,7 +9,7 @@ import { DocumentPage } from '../components/DocumentPage'
 */
 export default function index (properties : index.Properties) : React.ReactElement {
   return (
-    <div className='application' id='application'>
+    <div className='layout'>
       <Head>
         <title>Corvus</title>
         <meta name='viewport' content='initial-scale=1.0, width=device-width' />

@@ -1,11 +1,11 @@
 import { UnidocReduction, UTF32String } from "@cedric-demongivert/unidoc"
 
-import { ContentNodeBuilder } from "../model"
+import { CorvusNodeBuilder } from "../model"
 
 /**
  *
  */
-export function* reduceTagMetadata(builder: ContentNodeBuilder): UnidocReduction<void> {
+export function* reduceTagMetadata(builder: CorvusNodeBuilder): UnidocReduction<void> {
   const current: UnidocReduction.Input = yield UnidocReduction.CURRENT
 
   current.assertNext()
