@@ -23,7 +23,7 @@ export function* reduceCorvusSection(): UnidocReduction<CorvusSectionBuilder> {
   yield UnidocReduction.NEXT
   yield* UnidocReducer.skipWhitespaces()
 
-  builder.setTitle(yield* UnidocReducer.optionalTag(TITLE_TAG, UnidocReducer.reduceTextTag))
+  builder.setTitle(yield* UnidocReducer.optionalTag(TITLE_TAG, UnidocReducer.reduceTextTag()))
   builder.setContent(yield* reduceCorvusDocument())
 
   yield* UnidocReducer.assertEndOfAnyTag()

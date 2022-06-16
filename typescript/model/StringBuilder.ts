@@ -1,6 +1,6 @@
 import { UTF32CodeUnit, UTF32String } from '@cedric-demongivert/unidoc'
 
-import { Builder } from './Builder'
+import { Builder } from '../Builder'
 
 /**
  * 

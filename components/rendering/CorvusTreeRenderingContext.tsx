@@ -146,17 +146,29 @@ export namespace CorvusTreeRenderingContext {
     return result
   }
 
-  
+  /**
+   * 
+   */
+  export namespace toCorvusNodeProperties {
+    /**
+     * 
+     */
+    export function withKey(context: CorvusTreeRenderingContext<CorvusNode>): CorvusNodeProperties {
+      const result: CorvusNodeProperties = toCorvusNodeProperties(context)
+
+      if (context.key != null) {
+        result.key = context.key
+      }
+
+      return result
+    }
+  }
 
   /**
    * 
    */
    export function toShallowCorvusNodeProperties(context: CorvusTreeRenderingContext<CorvusNode>): CorvusNodeProperties {
     const result: CorvusNodeProperties = { }
-
-    if (context.key != null) {
-      result.key = context.key
-    }
 
     if (context.node.hasIdentifier()) {
       result.id = context.node.identifier
@@ -167,5 +179,23 @@ export namespace CorvusTreeRenderingContext {
     }
 
     return result
+  }
+
+  /**
+   * 
+   */
+  export namespace toShallowCorvusNodeProperties {
+    /**
+     * 
+     */
+    export function withKey(context: CorvusTreeRenderingContext<CorvusNode>): CorvusNodeProperties {
+      const result: CorvusNodeProperties = toShallowCorvusNodeProperties(context)
+
+      if (context.key != null) {
+        result.key = context.key
+      }
+
+      return result
+    }
   }
 }

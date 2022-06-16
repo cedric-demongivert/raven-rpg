@@ -1,6 +1,6 @@
 import { Empty } from '@cedric-demongivert/gl-tool-utils'
 
-import { Builder } from './Builder'
+import { Builder } from '../Builder'
 import { CorvusNode } from './CorvusNode'
 import { StringSetBuilder } from './StringSetBuilder'
 

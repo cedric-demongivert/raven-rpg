@@ -9,7 +9,7 @@ import { renderCorvusTitle } from './renderCorvusTitle'
 export function renderCorvusSection(context: CorvusTreeRenderingContext<CorvusSection>) : React.ReactElement {
   return React.createElement(
     'section', 
-    CorvusTreeRenderingContext.toShallowCorvusNodeProperties(context),
+    CorvusTreeRenderingContext.toShallowCorvusNodeProperties.withKey(context),
     renderCorvusTitle(context),
     context.children
   )

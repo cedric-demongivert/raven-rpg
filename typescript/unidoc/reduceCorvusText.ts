@@ -182,13 +182,13 @@ export function* reduceCorvusText(): UnidocReduction<CorvusTextBuilder | null> {
 
         switch (tag) {
           case ACRONYM:
-            builder.push(yield* UnidocReducer.reduceTag(reduceCorvusAcronym))
+            builder.push(yield* UnidocReducer.reduceTag(reduceCorvusAcronym()))
             break
           case LINK:
-            builder.push(yield* UnidocReducer.reduceTag(reduceCorvusLink))
+            builder.push(yield* UnidocReducer.reduceTag(reduceCorvusLink()))
             break
           case EMPHASIZE:
-            builder.push(yield* UnidocReducer.reduceTag(reduceCorvusEmphasize))
+            builder.push(yield* UnidocReducer.reduceTag(reduceCorvusEmphasize()))
             break
           default:
             throw new Error(`Unable to reduce tag code ${tag} because no procedure was defined for that.`)

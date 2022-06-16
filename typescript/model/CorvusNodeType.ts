@@ -7,7 +7,9 @@ export type CorvusNodeType = (
   CorvusNodeType.ACRONYM |
   CorvusNodeType.LINK |
   CorvusNodeType.PARAGRAPH |
-  CorvusNodeType.SECTION
+  CorvusNodeType.SECTION |
+  CorvusNodeType.ENTRY_SET |
+  CorvusNodeType.FEAT
 )
 
 /**
@@ -77,13 +79,35 @@ export namespace CorvusNodeType {
   /**
    *
    */
+  export type ENTRY_SET = 6
+
+  /**
+   *
+   */
+  export const ENTRY_SET: ENTRY_SET = 6
+
+  /**
+   *
+   */
+  export type FEAT = 7
+
+  /**
+   *
+   */
+  export const FEAT: FEAT = 7
+
+  /**
+   *
+   */
   export const ALL: CorvusNodeType[] = [
     EMPTY,
     EMPHASIZE,
     ACRONYM,
     LINK,
     PARAGRAPH,
-    SECTION
+    SECTION,
+    ENTRY_SET,
+    FEAT
   ]
 
   /**
@@ -97,6 +121,8 @@ export namespace CorvusNodeType {
       case LINK: return 'LINK'
       case PARAGRAPH: return 'PARAGRAPH'
       case SECTION: return 'SECTION'
+      case ENTRY_SET: return 'ENTRY_SET'
+      case FEAT: return 'FEAT'
       default: return undefined
     }
   }

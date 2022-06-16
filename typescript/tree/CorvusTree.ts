@@ -280,12 +280,7 @@ export namespace CorvusTree {
    * 
    */
   export function fromDocument(node: CorvusDocument): CorvusTree<CorvusDocument> {
-    const root: CorvusTree<CorvusDocument> = new CorvusTree(node)
-
-    for (const child of node) {
-      root.addChild(fromNode(child))
-    }
-
-    return root
+    BUILDER.visit(node)
+    return BUILDER.result() as CorvusTree<CorvusDocument>
   }
 }

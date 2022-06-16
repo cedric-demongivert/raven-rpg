@@ -4,7 +4,7 @@ import { Set } from 'immutable'
 
 import { notNull } from '../notNull'
 
-import { Builder } from './Builder'
+import { Builder } from '../Builder'
 import { CorvusNodeType } from './CorvusNodeType'
 import { CorvusNodeVisitor } from './CorvusNodeVisitor'
 

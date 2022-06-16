@@ -122,5 +122,6 @@ export class CorvusLocationTracker {
     this._block.length = 0
     this._section.length = 0
     this._next = 0
+    return this
   }
 }

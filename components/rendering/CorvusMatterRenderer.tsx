@@ -33,10 +33,6 @@ export class CorvusMatterRenderer extends CorvusTreeIndexer {
    * 
    */
   public enter(tree: CorvusTree<unknown>, index: CorvusTreeIndex): void {
-    if (tree.isString()) {
-      return
-    }
-    
     if (tree.isSectionLike()) {
       this._result.push(this.renderSection(tree))
     }

@@ -2,7 +2,7 @@ import { CorvusDocument } from './CorvusDocument'
 import { CorvusDocumentNode } from './CorvusDocumentNode'
 import { CorvusNodeType } from './CorvusNodeType'
 import { CorvusNodeVisitor } from './CorvusNodeVisitor'
-import { Builder } from './Builder'
+import { Builder } from '../Builder'
 import { Empty } from '@cedric-demongivert/gl-tool-utils'
 import { notNull } from '../notNull'
 

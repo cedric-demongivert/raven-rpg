@@ -1,10 +1,11 @@
 import { equals } from '@cedric-demongivert/gl-tool-utils'
 
-import { Builder } from './Builder'
+import { Builder } from '../Builder'
 import { CorvusDocument } from './CorvusDocument'
 import { CorvusDocumentNode } from './CorvusDocumentNode'
 import { CorvusParagraphBuilder } from './CorvusParagraphBuilder'
 import { CorvusSectionBuilder } from './CorvusSectionBuilder'
+import { CorvusSectionSetBuilder } from './CorvusSectionSetBuilder'
 
 /**
  * 
@@ -61,6 +62,16 @@ export class CorvusDocumentBuilder implements Builder<CorvusDocument> {
       this.elements.push(...values)
     }
 
+    return this
+  }
+
+  /**
+   * 
+   */
+  public concat(values: Iterable<Builder<CorvusDocumentNode> | CorvusDocumentNode> | null): this {
+    if (values == null) return this
+
+    this.elements.push(...values)
     return this
   }
 

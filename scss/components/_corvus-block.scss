@@ -22,6 +22,10 @@
 
   transition: 300ms ease-in width, 300ms ease-in padding, 300ms ease-in margin;
 
+  & + .corvus-block {
+    margin-top: 1.6rem;
+  }
+
   .corvus-block-margin {
     flex-basis: 0px;
     flex-grow: 0;

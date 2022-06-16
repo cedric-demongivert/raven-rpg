@@ -22,7 +22,7 @@ export function* reduceCorvusParagraph(): UnidocReduction<CorvusParagraphBuilder
 
   yield* UnidocReducer.skipWhitespaces()
 
-  builder.setTitle(yield* UnidocReducer.optionalTag(TITLE_TAG, UnidocReducer.reduceTextTag))
+  builder.setTitle(yield* UnidocReducer.optionalTag(TITLE_TAG, UnidocReducer.reduceTextTag()))
   builder.setText(yield* reduceCorvusText())
 
   yield* UnidocReducer.assertEndOfAnyTag()

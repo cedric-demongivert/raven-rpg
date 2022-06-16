@@ -1,5 +1,5 @@
 import { notNull } from '../notNull'
-import { Builder } from './Builder'
+import { Builder } from '../Builder'
 import { CorvusDocument } from './CorvusDocument'
 import { CorvusNodeType } from './CorvusNodeType'
 import { CorvusNodeVisitor } from './CorvusNodeVisitor'
@@ -43,7 +43,7 @@ export class CorvusSection extends CorvusSectionLike {
     if (!super.equals(other)) return false
 
     if (other instanceof CorvusSection) {
-      return true
+      return other.content.equals(this.content)
     }
 
     return false

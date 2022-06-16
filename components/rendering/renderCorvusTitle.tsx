@@ -1,13 +1,13 @@
 import React from 'react'
 import { CorvusLocationFormat } from '../../typescript/location'
-import { CorvusSection } from '../../typescript/model'
+import { CorvusSectionLike } from '../../typescript/model'
 import { CorvusTreeRenderingContext } from './CorvusTreeRenderingContext'
 import { renderCorvusNumbering } from './renderCorvusNumbering'
 
 /**
  * 
  */
-function renderCorvusTitleHeading(context: CorvusTreeRenderingContext<CorvusSection>) : React.ReactElement {
+function renderCorvusTitleHeading(context: CorvusTreeRenderingContext<CorvusSectionLike>) : React.ReactElement {
   switch (context.tree.sectionDepth) {
     case 0:
       return (<h1>{context.node.title}</h1>)
@@ -29,7 +29,7 @@ function renderCorvusTitleHeading(context: CorvusTreeRenderingContext<CorvusSect
 /**
  * 
  */
-function renderCorvusTitleContent(context: CorvusTreeRenderingContext<CorvusSection>): React.ReactElement {
+function renderCorvusTitleContent(context: CorvusTreeRenderingContext<CorvusSectionLike>): React.ReactElement {
   if (context.node.hasIdentifier()) {
     return (
       <a href={'#' + context.node.identifier}>
@@ -44,7 +44,7 @@ function renderCorvusTitleContent(context: CorvusTreeRenderingContext<CorvusSect
 /**
  * 
  */
-function renderCorvusTitleFooter(context: CorvusTreeRenderingContext<CorvusSection>): React.ReactElement {
+function renderCorvusTitleFooter(context: CorvusTreeRenderingContext<CorvusSectionLike>): React.ReactElement {
   const parentSection = context.tree.parentSection
 
   if (parentSection == null) {
@@ -79,7 +79,7 @@ function renderCorvusTitleFooter(context: CorvusTreeRenderingContext<CorvusSecti
 /**
  * 
  */
-export function renderCorvusTitle(context: CorvusTreeRenderingContext<CorvusSection>): React.ReactElement {
+export function renderCorvusTitle(context: CorvusTreeRenderingContext<CorvusSectionLike>): React.ReactElement {
   return (
     <div className={'corvus-title corvus-title-' + (context.tree.sectionDepth + 1)}>
       <div className='corvus-title-body'>

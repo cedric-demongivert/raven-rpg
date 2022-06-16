@@ -1,6 +1,6 @@
 import { List } from 'immutable'
 
-import { Builder } from './Builder'
+import { Builder } from '../Builder'
 import { CorvusNodeVisitor } from './CorvusNodeVisitor'
 
 import { CorvusTextElement } from './CorvusTextElement'

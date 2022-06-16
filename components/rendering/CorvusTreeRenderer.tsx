@@ -1,13 +1,13 @@
 import React from "react"
-import { CorvusLocationTracker } from "../../typescript/location"
 
-import { CorvusAcronym, CorvusEmphasize, CorvusLink, CorvusNode, CorvusNodeType, CorvusParagraph, CorvusSection } from "../../typescript/model"
+import { CorvusAcronym, CorvusEmphasize, CorvusEntrySet, CorvusFeat, CorvusLink, CorvusNode, CorvusNodeType, CorvusParagraph, CorvusSection } from "../../typescript/model"
 import { CorvusTree, CorvusTreeIndex, CorvusTreeIndexer } from "../../typescript/tree"
 
 import { CorvusTreeRenderingContext } from "./CorvusTreeRenderingContext"
+import { renderCorvusFeat } from "./reduceCorvusFeat"
+import { renderCorvusEntrySet } from "./renderCorvusEntrySet"
 import { renderCorvusParagraph } from "./renderCorvusParagraph"
 import { renderCorvusSection } from "./renderCorvusSection"
-import { renderCorvusTitle } from "./renderCorvusTitle"
 
 /**
  * 
@@ -98,7 +98,7 @@ export class CorvusTreeRenderer extends CorvusTreeIndexer {
     
     context.setTree(tree)
     context.setIndex(index)
-    context.setKey(indices.length > 0 ? offset - indices[indices.length - 1] : null)
+    context.setKey(indices.length > 0 ? offset - indices[indices.length - 1] : offset)
     context.setChildren(stack.slice(offset))
 
     stack.length = offset
@@ -116,6 +116,10 @@ export class CorvusTreeRenderer extends CorvusTreeIndexer {
         return renderCorvusParagraph(context as CorvusTreeRenderingContext<CorvusParagraph>)
       case CorvusNodeType.SECTION :
         return renderCorvusSection(context as CorvusTreeRenderingContext<CorvusSection>)
+      case CorvusNodeType.ENTRY_SET :
+        return renderCorvusEntrySet(context as CorvusTreeRenderingContext<CorvusEntrySet<unknown>>)
+      case CorvusNodeType.FEAT :
+        return renderCorvusFeat(context as CorvusTreeRenderingContext<CorvusFeat>)
       default:
         throw new Error(
           `Unable to render corvus node of type ${CorvusNodeType.toDebugString(tree.node.type)} as no ` +
@@ -128,14 +132,14 @@ export class CorvusTreeRenderer extends CorvusTreeIndexer {
    * 
    */
   public renderEmphasize(context: CorvusTreeRenderingContext<CorvusEmphasize>): React.ReactElement {
-    return React.createElement('em', CorvusTreeRenderingContext.toCorvusNodeProperties(context))
+    return React.createElement('em', CorvusTreeRenderingContext.toCorvusNodeProperties.withKey(context))
   }
 
   /**
    * 
    */
   public renderAcronym(context: CorvusTreeRenderingContext<CorvusAcronym>): React.ReactElement {
-    const properties: React.HTMLAttributes<HTMLSpanElement> = CorvusTreeRenderingContext.toCorvusNodeProperties(context)
+    const properties: React.HTMLAttributes<HTMLSpanElement> = CorvusTreeRenderingContext.toCorvusNodeProperties.withKey(context)
 
     if (properties.className == null) {
       properties.className = 'acronym'
@@ -150,7 +154,7 @@ export class CorvusTreeRenderer extends CorvusTreeIndexer {
    * 
    */
   public renderLink(context: CorvusTreeRenderingContext<CorvusLink>): React.ReactElement {
-    const properties: React.HTMLAttributes<HTMLAnchorElement> & { href?: string } = CorvusTreeRenderingContext.toCorvusNodeProperties(context)
+    const properties: React.HTMLAttributes<HTMLAnchorElement> & { href?: string } = CorvusTreeRenderingContext.toCorvusNodeProperties.withKey(context)
     properties.href = context.node.url
 
     return React.createElement('a', properties, context.node.hasContent() ? context.node.content : context.node.url)

@@ -1,6 +1,6 @@
 import { Set } from 'immutable'
 
-import { Builder } from './Builder'
+import { Builder } from '../Builder'
 import { CorvusText } from './CorvusText'
 
 import { CorvusDocumentNode } from './CorvusDocumentNode'

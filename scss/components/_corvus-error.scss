@@ -1,0 +1,145 @@
+.corvus-error {
+  display: block;
+  position: relative;
+
+  margin: 0px;
+  padding: 30px;
+  border: none;
+
+  width: 100%;
+  height: auto;
+  max-width: 700px;
+
+  box-sizing: border-box;
+
+  h1 {
+    display: block;
+    position: relative;
+
+    margin: 0px;
+    margin-bottom: 1rem;
+    padding: 0px;
+    border: none;
+    
+    font-size: 4rem;
+    text-align: center;
+
+    box-sizing: border-box;
+  }
+
+  .corvus-error-message {
+    display: block;
+    position: relative;
+    
+    margin: auto;
+    margin-bottom: 1rem;
+    padding: 0px;
+    border: none;
+    
+    font-size: 1rem;
+    text-align: left;
+
+    box-sizing: border-box;
+  }
+
+  .corvus-error-technical-message {
+    display: block;
+    position: relative;
+    
+    margin: auto;
+    margin-bottom: 1rem;
+    padding: 0px;
+    border: none;
+    
+    font-size: 1rem;
+    text-align: left;
+
+    opacity: 0.5;
+
+    box-sizing: border-box;
+  }
+
+  .corvus-error-stack {
+    display: block;
+    position: relative;
+
+    height: auto;
+    width: auto;
+    max-height: 300px;
+    
+    margin: 0px;
+    padding: 0px;
+    border: none;
+
+    font-size: 1rem;
+    text-align: center;
+    opacity: 0.5;
+
+    overflow: hidden;
+    overflow-y: scroll;
+
+    box-sizing: border-box;
+
+    .corvus-error-stack-element {
+      display: flex;
+      position: relative;
+      
+      flex-flow: row nowrap;
+      justify-content: flex-start;
+      align-items: flex-start;
+      align-content: flex-start;
+
+      height: auto;
+      width: auto;
+      
+      margin: 0px;
+      padding: 0px;
+      border: none;
+
+      font-size: 1rem;
+      text-align: left;
+
+      overflow: hidden;
+
+      box-sizing: border-box;
+
+      .corvus-error-stack-element-index {
+        display: block;
+        position: relative;
+
+        height: auto;
+        width: auto;
+
+        flex-basis: 50px;
+        flex-grow: 0;
+        flex-shrink: 0;
+
+        font-size: 1rem;
+      }
+
+      .corvus-error-stack-element-content {
+        display: block;
+        position: relative;
+
+        white-space: nowrap;
+
+        height: auto;
+        width: auto;
+
+        flex-basis: auto;
+        flex-grow: 1;
+        flex-shrink: 1;
+
+        font-size: 1rem;
+
+        .corvus-error-stack-element-origin {
+          font-size: 0.8rem;
+        }
+      }
+    }
+
+    .corvus-error-stack-element + .corvus-error-stack-element {
+      margin-top: 0.6rem;
+    }
+  }
+}

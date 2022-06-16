@@ -17,7 +17,7 @@ export default function index (properties : index.Properties) : React.ReactEleme
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossOrigin="anonymous" />
       </Head>
 
-      <CorvusDocumentLoader origin='http://gitea.cedric-demongivert.com/cdemongivert/corvus.git' name='core' renderer={CorvusOnePageView} />
+      <CorvusDocumentLoader origin='https://gitea.cedric-demongivert.com/cdemongivert/corvus.git' name='core' target='latest' renderer={CorvusOnePageView} />
     </div>
   )
 }

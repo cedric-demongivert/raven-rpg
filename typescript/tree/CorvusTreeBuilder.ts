@@ -44,6 +44,23 @@ export class CorvusTreeBuilder extends CorvusNodeVisitor {
   /**
    * 
    */
+  public visit(node: CorvusNode | Iterable<CorvusNode>): void {
+    if (node instanceof CorvusNode) {
+      return super.visit(node)
+    }
+
+    const tree: CorvusTree<unknown> = new CorvusTree(node)
+
+    for (const element of node) {
+      super.visit(element)
+      tree.addChild(this._result)
+      this._result = tree
+    }
+  }
+
+  /**
+   * 
+   */
   public enterString(node: string): void {
 
   }
@@ -69,13 +86,11 @@ export class CorvusTreeBuilder extends CorvusNodeVisitor {
 
     if (tree.isSectionLike()) {
       this._locationTracker.enterSection()
-      this._locationTracker.get(tree.location)
     } else if (tree.isBlock()) {
       this._locationTracker.enterBlock()
-      this._locationTracker.get(tree.location)
-    } else {
-      this._locationTracker.get(tree.location)
     }
+
+    this._locationTracker.get(tree.location)
 
     if (stack.length > 0) {
       tree.setParent(stack[stack.length - 1])

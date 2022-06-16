@@ -1,6 +1,6 @@
 import { Set as ImmutableSet } from 'immutable'
 
-import { Builder } from './Builder'
+import { Builder } from '../Builder'
 
 /**
  *

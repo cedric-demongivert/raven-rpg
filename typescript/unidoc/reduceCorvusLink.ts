@@ -24,7 +24,7 @@ export function* reduceCorvusLink(): UnidocReduction<CorvusLinkBuilder> {
   let url: string | null
 
   content = (yield* UnidocReducer.reduceText()) || Empty.STRING
-  url = yield* UnidocReducer.expectOptionalTag(URL_TAG, UnidocReducer.expectTokenTag)
+  url = yield* UnidocReducer.expectOptionalTag(URL_TAG, UnidocReducer.expectTokenTag())
   content += (yield* UnidocReducer.reduceText()) || Empty.STRING
 
   yield* UnidocReducer.assertEndOfAnyTag()

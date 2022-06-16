@@ -1,19 +1,12 @@
-import { Empty } from '@cedric-demongivert/gl-tool-utils'
-
-import { CorvusNodeBuilder } from './CorvusNodeBuilder'
 import { CorvusDocumentBuilder } from './CorvusDocumentBuilder'
 
 import { CorvusSection } from './CorvusSection'
+import { CorvusSectionLikeBuilder } from './CorvusSectionLikeBuilder'
 
 /**
  *
  */
-export class CorvusSectionBuilder extends CorvusNodeBuilder<CorvusSection> {
-  /**
-   *
-   */
-  public title: string | null
-
+export class CorvusSectionBuilder extends CorvusSectionLikeBuilder<CorvusSection> {
   /**
    *
    */
@@ -24,16 +17,7 @@ export class CorvusSectionBuilder extends CorvusNodeBuilder<CorvusSection> {
    */
   public constructor() {
     super()
-    this.title = null
     this.content = CorvusDocumentBuilder.create()
-  }
-
-  /**
-   * 
-   */
-  public setTitle(title: string | null): this {
-    this.title = title
-    return this
   }
 
   /**
@@ -57,7 +41,6 @@ export class CorvusSectionBuilder extends CorvusNodeBuilder<CorvusSection> {
   public copy(toCopy: Readonly<CorvusSectionBuilder>): this {
     super.copy(toCopy)
     this.content.copy(toCopy.content)
-    this.title = toCopy.title
 
     return this
   }
@@ -74,7 +57,6 @@ export class CorvusSectionBuilder extends CorvusNodeBuilder<CorvusSection> {
    */
   public clear(): this {
     this.content.clear()
-    this.title = Empty.STRING
     return super.clear()
   }
 
@@ -85,10 +67,7 @@ export class CorvusSectionBuilder extends CorvusNodeBuilder<CorvusSection> {
     if (!super.equals(other)) return false
 
     if (other instanceof CorvusSectionBuilder) {
-      return (
-        this.content.equals(other.content) &&
-        this.title === other.title
-      )
+      return this.content.equals(other.content)
     }
 
     return false

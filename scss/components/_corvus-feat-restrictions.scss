@@ -1,0 +1,58 @@
+.corvus-block.corvus-feat-restrictions {
+  .corvus-feat-restriction {
+    display: flex;
+    position: relative;
+
+    flex-wrap: nowrap;
+    flex-direction: row;
+  
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
+
+    margin: 0px;
+    padding: 0px;
+    border: none;
+
+    width: 50%;
+    min-width: 300px;
+  }
+
+  .corvus-constraint-feat-restrictions {
+    display: flex;
+
+    flex-wrap: nowrap;
+    flex-direction: row;
+  
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
+
+    .corvus-constraint-feat-restrictions-targets { 
+      flex-basis: auto;
+      flex-grow: 1;
+      flex-shrink: 1;
+
+      overflow: hidden;
+
+      .corvus-constraint-feat-restriction-target:after {
+        content: '··································································································································';
+        display: inline-block;
+
+        overflow: visible;
+
+        width: 0px;
+        margin-left: 5px;
+
+        color: lighten($text-color, 80%);
+      }
+    }
+    .corvus-constraint-feat-restrictions-constraints {
+      flex-basis: auto;
+      flex-grow: 0;
+      flex-shrink: 0;
+
+      padding-left: 5px;
+    }
+  }
+}
