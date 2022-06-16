@@ -30,7 +30,7 @@
     "react-dom": "18.2.0",
     "sass": "^1.52.3",
     "synchronous-promise": "^2.0.15",
-    "three": "^0.141.0"
+    "three": "^0.125.0"
   },
   "devDependencies": {
     "@types/jest": "^28.1.1",
