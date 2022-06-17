@@ -1,11 +1,12 @@
 import React from "react"
 
-import { CorvusAcronym, CorvusEmphasize, CorvusEntrySet, CorvusFeat, CorvusLink, CorvusNode, CorvusNodeType, CorvusParagraph, CorvusSection } from "../../typescript/model"
+import { CorvusAcronym, CorvusEmphasize, CorvusEntrySet, CorvusFeat, CorvusFeatIndex, CorvusLink, CorvusNode, CorvusNodeType, CorvusParagraph, CorvusSection } from "../../typescript/model"
 import { CorvusTree, CorvusTreeIndex, CorvusTreeIndexer } from "../../typescript/tree"
 
 import { CorvusTreeRenderingContext } from "./CorvusTreeRenderingContext"
-import { renderCorvusFeat } from "./reduceCorvusFeat"
+import { renderCorvusFeat } from "./renderCorvusFeat"
 import { renderCorvusEntrySet } from "./renderCorvusEntrySet"
+import { renderCorvusFeatIndex } from "./renderCorvusFeatIndex"
 import { renderCorvusParagraph } from "./renderCorvusParagraph"
 import { renderCorvusSection } from "./renderCorvusSection"
 
@@ -120,6 +121,8 @@ export class CorvusTreeRenderer extends CorvusTreeIndexer {
         return renderCorvusEntrySet(context as CorvusTreeRenderingContext<CorvusEntrySet<unknown>>)
       case CorvusNodeType.FEAT :
         return renderCorvusFeat(context as CorvusTreeRenderingContext<CorvusFeat>)
+      case CorvusNodeType.FEAT_INDEX :
+        return renderCorvusFeatIndex(context as CorvusTreeRenderingContext<CorvusFeatIndex>)
       default:
         throw new Error(
           `Unable to render corvus node of type ${CorvusNodeType.toDebugString(tree.node.type)} as no ` +

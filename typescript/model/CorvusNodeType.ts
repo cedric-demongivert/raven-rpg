@@ -9,7 +9,8 @@ export type CorvusNodeType = (
   CorvusNodeType.PARAGRAPH |
   CorvusNodeType.SECTION |
   CorvusNodeType.ENTRY_SET |
-  CorvusNodeType.FEAT
+  CorvusNodeType.FEAT |
+  CorvusNodeType.FEAT_INDEX
 )
 
 /**
@@ -99,6 +100,16 @@ export namespace CorvusNodeType {
   /**
    *
    */
+  export type FEAT_INDEX = 8
+
+  /**
+   *
+   */
+  export const FEAT_INDEX: FEAT_INDEX = 8
+
+  /**
+   *
+   */
   export const ALL: CorvusNodeType[] = [
     EMPTY,
     EMPHASIZE,
@@ -107,7 +118,8 @@ export namespace CorvusNodeType {
     PARAGRAPH,
     SECTION,
     ENTRY_SET,
-    FEAT
+    FEAT,
+    FEAT_INDEX
   ]
 
   /**
@@ -123,6 +135,7 @@ export namespace CorvusNodeType {
       case SECTION: return 'SECTION'
       case ENTRY_SET: return 'ENTRY_SET'
       case FEAT: return 'FEAT'
+      case FEAT_INDEX: return 'FEAT_INDEX'
       default: return undefined
     }
   }

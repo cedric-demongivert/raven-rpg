@@ -1,4 +1,4 @@
-import { equals, toString } from "@cedric-demongivert/gl-tool-utils"
+import { Empty, equals, toString } from "@cedric-demongivert/gl-tool-utils"
 import { UnidocReduction } from "@cedric-demongivert/unidoc"
 import type { CorvusDataType } from "./CorvusDataType"
 

@@ -21,12 +21,18 @@ export class CorvusFeatBuilder extends CorvusSectionLikeBuilder<CorvusFeat> {
   public readonly restrictions: Array<CorvusFeatRestriction | Builder<CorvusFeatRestriction>>
 
   /**
+   *
+   */
+  public summary: string | Builder<string> | null
+
+  /**
    * 
    */
   public constructor() {
     super()
     this.content = CorvusDocumentBuilder.create()
     this.restrictions = []
+    this.summary = null
   }
 
   /**
@@ -34,6 +40,14 @@ export class CorvusFeatBuilder extends CorvusSectionLikeBuilder<CorvusFeat> {
    */
   public setContent(content: CorvusDocumentBuilder | null): this {
     this.content.copy(content)
+    return this
+  }
+
+  /**
+   * 
+   */
+  public setSummary(summary: string | Builder<string> | null): this {
+    this.summary = summary
     return this
   }
 
@@ -80,6 +94,7 @@ export class CorvusFeatBuilder extends CorvusSectionLikeBuilder<CorvusFeat> {
     this.content.copy(toCopy.content)
     this.restrictions.length = 0
     this.restrictions.push(...toCopy.restrictions)
+    this.summary = toCopy.summary
 
     return this
   }
@@ -97,6 +112,7 @@ export class CorvusFeatBuilder extends CorvusSectionLikeBuilder<CorvusFeat> {
   public clear(): this {
     this.content.clear()
     this.restrictions.length = 0
+    this.summary = null
     return super.clear()
   }
 
@@ -109,7 +125,8 @@ export class CorvusFeatBuilder extends CorvusSectionLikeBuilder<CorvusFeat> {
     if (other instanceof CorvusFeatBuilder) {
       return (
         this.content.equals(other.content) &&
-        equals.arrays(this.restrictions, other.restrictions)
+        equals.arrays(this.restrictions, other.restrictions) &&
+        equals(this.summary, other.summary)
       )
     }
 

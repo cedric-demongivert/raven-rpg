@@ -6,6 +6,7 @@ import { CorvusNodeVisitor } from './CorvusNodeVisitor'
 import { CorvusSectionLike } from './CorvusSectionLike'
 import { List } from 'immutable'
 import { CorvusFeatRestriction } from '../data'
+import { Empty } from '@cedric-demongivert/gl-tool-utils'
 
 /**
  *
@@ -15,6 +16,11 @@ export class CorvusFeat extends CorvusSectionLike {
    *
    */
   public readonly type: CorvusNodeType.FEAT
+
+  /**
+   *
+   */
+  public readonly summary: string
 
   /**
    *
@@ -33,6 +39,7 @@ export class CorvusFeat extends CorvusSectionLike {
     super(CorvusNodeType.FEAT, properties)
     this.content = Builder.flatten(notNull(properties.content))
     this.restrictions = properties.restrictions == null ? List() : List([...properties.restrictions].map<CorvusFeatRestriction>(Builder.flatten))
+    this.summary = properties.summary == null ? Empty.STRING : Builder.flatten(properties.summary)
   }
 
   /**
@@ -84,7 +91,12 @@ export namespace CorvusFeat {
     /**
      * 
      */
-    readonly restrictions?: Iterable<CorvusFeatRestriction | Builder<CorvusFeatRestriction>> | null
+    readonly restrictions?: Iterable<CorvusFeatRestriction | Builder<CorvusFeatRestriction>> | null,
+
+    /**
+     * 
+     */
+    readonly summary?: string | Builder<string> | null,
   } & CorvusSectionLike.Properties
 
   /**

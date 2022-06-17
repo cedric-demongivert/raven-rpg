@@ -1,4 +1,4 @@
-.corvus-block.corvus-feat-restrictions {
+.corvus-feat-restrictions {
   .corvus-feat-restriction {
     display: flex;
     position: relative;
@@ -13,9 +13,6 @@
     margin: 0px;
     padding: 0px;
     border: none;
-
-    width: 50%;
-    min-width: 300px;
   }
 
   .corvus-constraint-feat-restrictions {
@@ -27,6 +24,9 @@
     justify-content: flex-start;
     align-items: flex-start;
     align-content: flex-start;
+
+    width: 50%;
+    min-width: 300px;
 
     .corvus-constraint-feat-restrictions-targets { 
       flex-basis: auto;

@@ -1,6 +1,6 @@
 import { equals } from '@cedric-demongivert/gl-tool-utils'
 
-import { Builder } from '../Builder'
+import { Builder } from './Builder'
 
 /**
  * 

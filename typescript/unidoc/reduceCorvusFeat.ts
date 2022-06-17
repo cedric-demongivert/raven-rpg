@@ -19,6 +19,11 @@ const RESTRICTION_TAG: UTF32String = UTF32String.fromString('restriction')
 /**
  *
  */
+const SUMMARY_TAG: UTF32String = UTF32String.fromString('summary')
+
+/**
+ *
+ */
 export function* reduceCorvusFeat(): UnidocReduction<CorvusFeatBuilder> {
   yield* UnidocReducer.assertStart()
   yield UnidocReduction.NEXT
@@ -40,6 +45,8 @@ export function* reduceCorvusFeat(): UnidocReduction<CorvusFeatBuilder> {
     yield* UnidocReducer.skipWhitespaces()
     restriction = yield* UnidocReducer.optionalTag(RESTRICTION_TAG, reduceCorvusFeatRestriction())
   }
+
+  builder.setSummary(yield* UnidocReducer.optionalTag(SUMMARY_TAG, UnidocReducer.reduceTextTag()))
 
   builder.setContent(yield* reduceCorvusDocument())
 

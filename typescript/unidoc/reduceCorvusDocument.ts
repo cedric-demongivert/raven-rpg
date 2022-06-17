@@ -1,6 +1,6 @@
 import { UnidocReducer, UnidocReduction } from "@cedric-demongivert/unidoc"
 
-import { CorvusDocumentBuilder } from "../model"
+import { CorvusDocumentBuilder, CorvusFeatIndexBuilder } from "../model"
 import { CommandMatcher } from "./CommandMatcher"
 import { reduceCorvusFeat } from "./reduceCorvusFeat"
 import { reduceCorvusParagraph } from "./reduceCorvusParagraph"
@@ -41,6 +41,11 @@ const FEAT: string = MATCHER.match('feat')
 /**
  *
  */
+const FEAT_INDEX: string = MATCHER.match('feat-index')
+
+/**
+ *
+ */
 export function* reduceCorvusDocument(): UnidocReduction<CorvusDocumentBuilder | null> {
   const builder: CorvusDocumentBuilder = CorvusDocumentBuilder.create()
 
@@ -57,6 +62,9 @@ export function* reduceCorvusDocument(): UnidocReduction<CorvusDocumentBuilder |
       builder.concat(yield* UnidocReducer.reduceTag.content(reduceCorvusSectionSet.stream()))
     } else if (match === FEAT) {
       builder.push(yield* UnidocReducer.reduceTag(reduceCorvusFeat()))
+    } else if (match === FEAT_INDEX) {
+      yield* UnidocReducer.skipTag()
+      builder.push(CorvusFeatIndexBuilder.INSTANCE)
     }
 
     match = yield* MATCHER.next()

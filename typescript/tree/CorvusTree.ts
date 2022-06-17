@@ -1,5 +1,5 @@
 import { CorvusLocation } from "../location"
-import { CorvusAcronym, CorvusNode, CorvusEmphasize, CorvusLink, CorvusParagraph, CorvusSection, CorvusDocument, CorvusEmptyNode } from "../model"
+import { CorvusAcronym, CorvusNode, CorvusEmphasize, CorvusLink, CorvusParagraph, CorvusSection, CorvusDocument, CorvusEmptyNode, CorvusFeat } from "../model"
 import { CorvusSectionLike } from "../model/CorvusSectionLike"
 import { CorvusTreeBuilder } from "./CorvusTreeBuilder"
 
@@ -170,6 +170,13 @@ export class CorvusTree<Node> {
    */
   public isBlock(): boolean {
     return false
+  }
+
+  /**
+   * 
+   */
+  public isFeat(): this is CorvusTree<CorvusFeat> {
+    return this.node instanceof CorvusFeat
   }
 
   /**
